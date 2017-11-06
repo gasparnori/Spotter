@@ -30,14 +30,17 @@ import numpy as np
 from collections import deque
 from lib.docopt import docopt
 import zmq
+from lib import utilities
 
 DEBUG = True
 fps_default=200
 size_default=(1280,720)
-Pylon=0
-default_background=cv2.imread(":/sleeping.png",0)
 scale=0.5
+Pylon=0
+default_background=cv2.resize(cv2.imread(utilities.get_mice()), (int(size_default[0]*scale), int(size_default[1]*scale)))
+
 capture_props=None
+
 #LifeCam=0
 
 
@@ -74,6 +77,7 @@ class Grabber:
     ts_first = None         # Timestamp of first frame, BUGGY!
     source_type = None      # File, stream, device; changes behavior of GUI
     capture_type = None
+
 #    framebuffer = deque(maxlen=256)
 
     def __init__(self, *args, **kwargs):
@@ -162,12 +166,7 @@ class Grabber:
     def grab(self):
 
         if self.capture is None:
-
-            sleep=cv2.imread('F:\Spotter_development\lib\ui\mouse-sleeping.jpg')
-            img=cv2.resize(sleep, (int(size_default[0]*scale), int(size_default[1]*scale)))
-           # img=np.zeros((360, 640,3), np.uint8)
-
-            return Frame(0, img, 'device')
+            return Frame(0, default_background, None)
         # Only really loops for first frame
         n_tries = 10 if self.frame_count < 1 else 1
         for trial in xrange(2, n_tries+2):
