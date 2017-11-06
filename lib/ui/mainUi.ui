@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>386</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::ActionsContextMenu</enum>
+  </property>
+  <property name="windowTitle">
+   <string>Spotter</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="icons.qrc">
+    <normaloff>:/icon64.svg</normaloff>:/icon64.svg</iconset>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="margin">
+     <number>0</number>
+    </property>
+    <item>
+     <layout class="QHBoxLayout" name="frame_video">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Maximum</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>320</width>
+          <height>0</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+       <widget class="QFrame" name="frame">
+        <property name="frameShape">
+         <enum>QFrame::StyledPanel</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="frame_parameters">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::ActionsContextMenu</enum>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionCamera"/>
+   <addaction name="actionFile"/>
+   <addaction name="actionRecord"/>
+   <addaction name="separator"/>
+   <addaction name="actionLoadConfig"/>
+   <addaction name="actionSaveConfig"/>
+   <addaction name="actionRemoveTemplate"/>
+   <addaction name="separator"/>
+   <addaction name="actionOnTop"/>
+   <addaction name="actionAbout"/>
+   <addaction name="separator"/>
+   <addaction name="actionE_xit"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionE_xit">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/exit.png</normaloff>:/exit.png</iconset>
+   </property>
+   <property name="text">
+    <string>E&amp;xit</string>
+   </property>
+  </action>
+  <action name="actionCamera">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/camera_on_red.ico</normaloff>
+     <normalon>:/camera_off.png</normalon>:/camera_on_red.ico</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Camera</string>
+   </property>
+  </action>
+  <action name="actionFile">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/play_file.png</normaloff>
+     <normalon>:/stop_file.png</normalon>:/play_file.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;File</string>
+   </property>
+  </action>
+  <action name="actionSave">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/save-icon.png</normaloff>:/save-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Transcode</string>
+   </property>
+  </action>
+  <action name="action_Parameters">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>&amp;Parameters</string>
+   </property>
+  </action>
+  <action name="action_Transcode_Video">
+   <property name="text">
+    <string>&amp;Transcode Video</string>
+   </property>
+  </action>
+  <action name="actionParameters">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Parameters</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/about_icon.png</normaloff>:/about_icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;About</string>
+   </property>
+  </action>
+  <action name="actionRecord">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/record_on.png</normaloff>
+     <normalon>:/stop_file.png</normalon>:/record_on.png</iconset>
+   </property>
+   <property name="text">
+    <string>Record</string>
+   </property>
+   <property name="toolTip">
+    <string>Record Video</string>
+   </property>
+  </action>
+  <action name="actionArduino">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/arduino_off.svg</normaloff>:/arduino_off.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Arduino</string>
+   </property>
+   <property name="toolTip">
+    <string>Arduino State</string>
+   </property>
+  </action>
+  <action name="actionLoadConfig">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/load_template.png</normaloff>:/load_template.png</iconset>
+   </property>
+   <property name="text">
+    <string>Load</string>
+   </property>
+  </action>
+  <action name="actionSaveConfig">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/save-icon.png</normaloff>:/save-icon.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save</string>
+   </property>
+   <property name="toolTip">
+    <string>Save current configuration</string>
+   </property>
+  </action>
+  <action name="actionRemoveTemplate">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/remove_config.png</normaloff>:/remove_config.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove all</string>
+   </property>
+   <property name="toolTip">
+    <string>Remove all configurations</string>
+   </property>
+  </action>
+  <action name="actionSourceProperties">
+   <property name="text">
+    <string>Source Props</string>
+   </property>
+  </action>
+  <action name="actionOnTop">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/pin_to_top.png</normaloff>:/pin_to_top.png</iconset>
+   </property>
+   <property name="text">
+    <string>Always on Top</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="icons.qrc"/>
+ </resources>
+ <connections/>
+</ui>

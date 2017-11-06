@@ -1,0 +1,21 @@
+<RCC>
+  <qresource prefix="/">
+    <file>camera_on_red.ico</file>
+    <file>about_icon.png</file>
+    <file>pin_to_top.png</file>
+    <file>exit.png</file>
+    <file>remove_config.png</file>
+    <file>load_template.png</file>
+    <file>save-icon.png</file>
+    <file>camera_off.png</file>
+    <file>camera_on.png</file>
+    <file>play_file.png</file>
+    <file>stop_file.png</file>
+    <file>arduino_off.svg</file>
+    <file>icon64.svg</file>
+    <file>record_on.png</file>
+    <file>arduino.svg</file>
+    <file>record_active.svg</file>
+    <file>load_template.png</file>
+  </qresource>
+</RCC>
