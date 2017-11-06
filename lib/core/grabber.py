@@ -162,12 +162,11 @@ class Grabber:
     def grab(self):
 
         if self.capture is None:
-            img=np.zeros((360, 640,3), np.uint8)
-            cv2.putText(img=img, text='Psssst! Spotter is asleep... ', org=(60, 200), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=1.0,
-                        color=(200, 50, 150), thickness=2, lineType=cv2.CV_AA)
-            cv2.putText(img=img, text= 'Please click on the Camera, or open a file.',
-                        org=(30, 250), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=1.0,
-                        color=(200, 50, 150), thickness=2, lineType=cv2.CV_AA)
+
+            sleep=cv2.imread('F:\Spotter_development\lib\ui\mouse-sleeping.jpg')
+            img=cv2.resize(sleep, (int(size_default[0]*scale), int(size_default[1]*scale)))
+           # img=np.zeros((360, 640,3), np.uint8)
+
             return Frame(0, img, 'device')
         # Only really loops for first frame
         n_tries = 10 if self.frame_count < 1 else 1

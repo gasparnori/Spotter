@@ -25,7 +25,7 @@ class StatusBar(QtGui.QWidget, Ui_statusBar):
         elif val=='file':
             self.state.setText('Playback')
         else:
-            self.state.setText('sleeping...')
+            self.state.setText('zzzZZZzzzz')
     def update_fps(self, fps):
        # if t != 0:
         self.gui_fps=fps
