@@ -64,6 +64,7 @@ class Spotter:
 
     paused = False
     recording = False
+    GUI_off=False
 
     #scale_resize = 0.5
     scale_tracking = 1.0

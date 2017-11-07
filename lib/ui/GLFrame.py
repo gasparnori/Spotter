@@ -130,16 +130,18 @@ class GLFrame(QtOpenGL.QGLWidget):
     def paintGL(self):
         GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
         GL.glLoadIdentity()
-
-        # Draw the numpy array onto the GL frame
+            # Draw the numpy array onto the GL frame
         if self.frame is not None and self.frame.img is not None:
             # Add timestamp to image if from a live source
-            if self.frame.source_type == 'device':
-                cv2.putText(img=self.frame.img, text=self.frame.time_text,
-                            org=(15, 20), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=1.6,
-                            color=(250, 250, 50), thickness=1, lineType=cv2.CV_AA)
+            if self.spotter.GUI_off:
+                self.frame.img = np.zeros(self.frame.img.shape, dtype=np.uint8)
+            else:
+                if self.frame.source_type == 'device':
+                    cv2.putText(img=self.frame.img, text=self.frame.time_text,
+                                org=(15, 20), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=1.6,
+                                color=(250, 250, 50), thickness=1, lineType=cv2.CV_AA)
             shape = self.frame.img.shape
-            # TODO: Flags for horizontal/vertical flipping
+                # TODO: Flags for horizontal/vertical flipping
             GL.glDrawPixels(shape[1], shape[0], GL.GL_RGB, GL.GL_UNSIGNED_BYTE,
                             np.fliplr(self.frame.img).tostring()[::-1])
 

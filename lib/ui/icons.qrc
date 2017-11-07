@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="/">
+    <file>GUI_off.png</file>
+    <file>GUI_on.png</file>
     <file>camera_on_red.ico</file>
     <file>about_icon.png</file>
     <file>pin_to_top.png</file>

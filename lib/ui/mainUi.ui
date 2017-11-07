@@ -101,6 +101,7 @@
    <addaction name="actionCamera"/>
    <addaction name="actionFile"/>
    <addaction name="actionRecord"/>
+   <addaction name="actionGUI_on_off"/>
    <addaction name="separator"/>
    <addaction name="actionLoadConfig"/>
    <addaction name="actionSaveConfig"/>
@@ -271,6 +272,22 @@
    </property>
    <property name="text">
     <string>Always on Top</string>
+   </property>
+  </action>
+  <action name="actionGUI_on_off">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/GUI_on.png</normaloff>
+     <normalon>:/GUI_off.png</normalon>:/GUI_on.png</iconset>
+   </property>
+   <property name="text">
+    <string>GUI on/off</string>
    </property>
   </action>
  </widget>

@@ -106,6 +106,8 @@ class Main(QtGui.QMainWindow):
         #remove all templates
         self.connect(self.ui.actionRemoveTemplate, QtCore.SIGNAL('triggered()'),
                      self.side_bar.remove_all_tabs)
+        #turns GUI on/off --> stabilizes framerate
+        self.connect(self.ui.actionGUI_on_off, QtCore.SIGNAL('toggled(bool)'), self.GUI_timers)
 
         # Toolbar items
         #record video
@@ -144,7 +146,7 @@ class Main(QtGui.QMainWindow):
 
         self.timerSide = QtCore.QTimer(self)
         self.timerSide.timeout.connect(self.side_bar.update_current_page)
-        self.timerSide.start(20)
+        self.timerSide.start(GUI_REFRESH_INTERVAL)
 
         self.timer2 = QtCore.QTimer(self)
         self.timer2.timeout.connect(self.spotterUpdate)
@@ -166,6 +168,7 @@ class Main(QtGui.QMainWindow):
     def spotterUpdate(self):
         self.spotterelapsed = self.stopwatch.restart()
         if self.spotter.update() is None:
+            print "lost frame"
             return
         self.avg_fps = self.avg_fps * 0.95 + 0.05 * 1000. / self.spotterelapsed
         # if self.frame_counter<10:
@@ -182,8 +185,6 @@ class Main(QtGui.QMainWindow):
         if not (self.gl_frame.width and self.gl_frame.height):
             return
         self.gl_frame.update_world(self.spotter)
-
-
 
     def adjust_refresh_rate(self, forced=None):
         """
@@ -330,6 +331,18 @@ class Main(QtGui.QMainWindow):
             event.accept()
         else:
             event.ignore()
+
+    def GUI_timers(self, state):
+        if state:
+            self.timerGL.start(GUI_REFRESH_INTERVAL)
+            self.timerSide.start(GUI_REFRESH_INTERVAL)
+            self.spotter.GUI_off=False
+        else:
+            self.spotter.GUI_off = True
+            self.timerGL.stop()
+            self.timerSide.stop()
+            self.gl_frame.update_world(self.spotter)
+
 
     ###############################################################################
     ##  TEMPLATES handling

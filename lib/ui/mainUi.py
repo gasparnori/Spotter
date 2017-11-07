@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\Spotter_development\lib\ui\mainUi.ui'
 #
-# Created: Mon Nov 06 20:31:27 2017
+# Created: Tue Nov 07 14:01:36 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -144,9 +144,18 @@ class Ui_MainWindow(object):
         icon10.addPixmap(QtGui.QPixmap(_fromUtf8(":/pin_to_top.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionOnTop.setIcon(icon10)
         self.actionOnTop.setObjectName(_fromUtf8("actionOnTop"))
+        self.actionGUI_on_off = QtGui.QAction(MainWindow)
+        self.actionGUI_on_off.setCheckable(True)
+        self.actionGUI_on_off.setChecked(True)
+        icon11 = QtGui.QIcon()
+        icon11.addPixmap(QtGui.QPixmap(_fromUtf8(":/GUI_on.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon11.addPixmap(QtGui.QPixmap(_fromUtf8(":/GUI_off.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.actionGUI_on_off.setIcon(icon11)
+        self.actionGUI_on_off.setObjectName(_fromUtf8("actionGUI_on_off"))
         self.toolBar.addAction(self.actionCamera)
         self.toolBar.addAction(self.actionFile)
         self.toolBar.addAction(self.actionRecord)
+        self.toolBar.addAction(self.actionGUI_on_off)
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.actionLoadConfig)
         self.toolBar.addAction(self.actionSaveConfig)
@@ -182,5 +191,6 @@ class Ui_MainWindow(object):
         self.actionRemoveTemplate.setToolTip(_translate("MainWindow", "Remove all configurations", None))
         self.actionSourceProperties.setText(_translate("MainWindow", "Source Props", None))
         self.actionOnTop.setText(_translate("MainWindow", "Always on Top", None))
+        self.actionGUI_on_off.setText(_translate("MainWindow", "GUI on/off", None))
 
 import icons_rc
