@@ -30,7 +30,7 @@ To do:
 
 """
 
-__version__ = 0.45
+__version__ = 1.0
 
 NO_EXIT_CONFIRMATION = True
 DIR_CONFIG = './config'
@@ -39,7 +39,7 @@ DIR_SPECIFICATION = './config/template_specification.ini'
 DEFAULT_TEMPLATE = 'defaults.ini'
 
 GUI_REFRESH_INTERVAL = 20
-SPOTTER_REFRESH_INTERVAL = 5
+#SPOTTER_REFRESH_INTERVAL = 5
 
 
 import sys
@@ -65,6 +65,7 @@ class Main(QtGui.QMainWindow):
     gui_refresh_offset = 0
     avg_fps=0
     frame_counter=0
+    frames_to_skip=0 #only updates GUI in every x frame
     __spotter_ref = None
 
     def __init__(self, *args, **kwargs):  # , source, destination, fps, size, gui, serial
@@ -134,28 +135,34 @@ class Main(QtGui.QMainWindow):
         # Main Window states
         self.center_window()
         self.connect(self.ui.actionOnTop, QtCore.SIGNAL('toggled(bool)'), self.toggle_window_on_top)
+        self.connect(self.ui.actionFPS_test, QtCore.SIGNAL('toggled(bool)'), self.trackFPS )
+        self.connect(self.ui.actionSpeed_up, QtCore.SIGNAL('toggled(bool)'), self.speedUp )
+
 
         # Starts main frame grabber loop
-        self.timerGL = QtCore.QTimer(self)
-        self.timerGL.timeout.connect(self.refresh)
-        self.timerGL.start(GUI_REFRESH_INTERVAL)
-
-        self.timerFPS = QtCore.QTimer(self)
-        self.timerFPS.timeout.connect(self.updateFPS)
-        self.timerFPS.start(100)
-
-        self.timerSide = QtCore.QTimer(self)
-        self.timerSide.timeout.connect(self.side_bar.update_current_page)
-        self.timerSide.start(GUI_REFRESH_INTERVAL)
-
-        self.timer2 = QtCore.QTimer(self)
-        self.timer2.timeout.connect(self.spotterUpdate)
-        SPOTTER_REFRESH_INTERVAL=int(1000.0/self.spotter.grabber.capture.get(5))
-        self.timer2.start(SPOTTER_REFRESH_INTERVAL)
-
+        # self.timerGL = QtCore.QTimer(self)
+        # self.timerGL.timeout.connect(self.refresh)
+        # self.timerGL.start(GUI_REFRESH_INTERVAL)
+        #
+        # self.timerFPS = QtCore.QTimer(self)
+        # self.timerFPS.timeout.connect(self.updateFPS)
+        # self.timerFPS.start(10)
+        #
+        # self.timerSide = QtCore.QTimer(self)
+        # self.timerSide.timeout.connect(self.side_bar.update_current_page)
+        # self.timerSide.start(10)
+        #
+        # self.timer2 = QtCore.QTimer(self)
+        # self.timer2.timeout.connect(self.spotterUpdate)
+        # SPOTTER_REFRESH_INTERVAL=int(1000.0/self.spotter.grabber.capture.get(5))
+        # self.timer2.start(SPOTTER_REFRESH_INTERVAL)
+        #
         self.stopwatch = QtCore.QElapsedTimer()
         self.stopwatch.start()
-
+        self.timer2 = QtCore.QTimer(self)
+        self.timer2.timeout.connect(self.spotterUpdate)
+        SPOTTER_REFRESH_INTERVAL= 5#int(1000.0/self.spotter.grabber.capture.get(5))
+        self.timer2.start(SPOTTER_REFRESH_INTERVAL)
     @property
     def spotter(self):
         return self.__spotter_ref
@@ -163,6 +170,15 @@ class Main(QtGui.QMainWindow):
     ###############################################################################
     ##  FRAME REFRESH
     ###############################################################################
+    def trackFPS(self, state):
+        if state:
+            self.spotter.FPStest=True
+            p = self.spotter.chatter.pins('digital')
+            self.spotter.fpstest.attach_pin(p[-1])
+        else:
+            self.spotter.FPStest=False
+            self.spotter.fpstest.deattach_pin()
+        return
     def updateFPS(self):
         self.status_bar.update_fps(self.avg_fps)
     def spotterUpdate(self):
@@ -171,14 +187,23 @@ class Main(QtGui.QMainWindow):
             print "lost frame"
             return
         self.avg_fps = self.avg_fps * 0.95 + 0.05 * 1000. / self.spotterelapsed
-        # if self.frame_counter<10:
-        #     self.frame_counter=self.frame_counter+1
-        # else:
-        #     self.frame_counter=0
-        #     self.status_bar.update_fps(self.avg_fps)
-        #print self.avg_fps
+
+        if self.spotter.GUI_off == False:
+
+            if self.frame_counter<self.frames_to_skip:
+                self.frame_counter=self.frame_counter+1
+            else:
+                self.frame_counter=0
+                self.refresh()
+                self.side_bar.update_current_page()
+        self.updateFPS()
 
 
+    def speedUp(self, state):
+        if state:
+            self.frames_to_skip=5
+        else:
+            self.frames_to_skip=0
     def refresh(self):
         # TODO: I ain't got no clue as to why reducing the interval drastically improves the frame rate
         # TODO: Maybe the interval immediately resets the counter and starts it up?
@@ -252,7 +277,8 @@ class Main(QtGui.QMainWindow):
         """ About message box. Credits. Links. Jokes. """
         QtGui.QMessageBox.about(self, "About",
                                 """<b>Spotter</b> v%s
-                   <p>Copyright &#169; 2012-2017 <a href=mailto:nori.nagyonsok@gmail.com>Ronny Eichler and Nora Gaspar</a>.
+                   <p>This new version was created by <a href=mailto:nori.nagyonsok@gmail.com>Nora Gaspar</a> &#169; Spotter v1.0 2017.
+                   <p>Original version was created by <a href=https://github.com/wonkoderverstaendige/Spotter>Ronny Eichler</a>&#169; Spotter v0.45 2013.
                    <p>This application is under heavy development. Use at your own risk.
                    <p>Python %s -  PyQt4 version %s - on %s""" % (__version__,
                                                                   platform.python_version(), QtCore.QT_VERSION_STR,
@@ -334,13 +360,13 @@ class Main(QtGui.QMainWindow):
 
     def GUI_timers(self, state):
         if state:
-            self.timerGL.start(GUI_REFRESH_INTERVAL)
-            self.timerSide.start(GUI_REFRESH_INTERVAL)
+        #    self.timerGL.start(GUI_REFRESH_INTERVAL)
+        #    self.timerSide.start(GUI_REFRESH_INTERVAL)
             self.spotter.GUI_off=False
         else:
             self.spotter.GUI_off = True
-            self.timerGL.stop()
-            self.timerSide.stop()
+        #    self.timerGL.stop()
+         #   self.timerSide.stop()
             self.gl_frame.update_world(self.spotter)
 
 

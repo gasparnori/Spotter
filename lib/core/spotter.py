@@ -65,6 +65,7 @@ class Spotter:
     paused = False
     recording = False
     GUI_off=False
+    FPStest=False
 
     #scale_resize = 0.5
     scale_tracking = 1.0
@@ -114,13 +115,16 @@ class Spotter:
         # self.timer2.start(SPOTTER_REFRESH_INTERVAL)
         # self.stopwatch = QtCore.QElapsedTimer()
         # self.stopwatch.start()
+        p=self.chatter.pins('digital')
+        self.fpstest = self.tracker.trackFPS(p[-1])
 
     def update(self):
-   #     self.spotterelapsed = self.stopwatch.restart()
-   #     print self.spotterelapsed
-
+        slots = []
+        if self.FPStest == True:
+            slots.append(self.fpstest.slot)
         # Get new frame
         self.newest_frame = self.grabber.grab()
+
         if self.newest_frame is not None:
             # resize frame if necessary
           #  if self.scale_resize < 1.0:
@@ -134,7 +138,7 @@ class Spotter:
             self.tracker.track_feature(self.newest_frame, method='hsv_thresh',
                                        scale=self.scale_tracking)
 
-            slots = []
+
             messages = []
             # Update positions of all objects
             for o in self.tracker.oois:

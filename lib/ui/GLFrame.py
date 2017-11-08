@@ -311,62 +311,62 @@ class GLFrame(QtOpenGL.QGLWidget):
         #glVertex2f(p1x, p1y)
         GL.glEnd()
 
-    def drawCircle(self, points, color, filled=True, num_segments=None):
-        """ Quickly draw approximate circle. Algorithm from:
-            http://slabode.exofire.net/circle_draw.shtml
-        """
-
-        (cx1, cy1), (cx2, cy2) = points
-        cx1 *= 1.0/self.width
-        cy1 *= 1.0/self.height
-        cx2 *= 1.0/self.width
-        cy2 *= 1.0/self.height
-        dx = abs(cx1 - cx2)
-        dy = abs(cy1 - cy2)
-        r = dx if dx > dy else dy
-        if dx > dy:
-            r_vbo = 2 * dx * self.width
-        else:
-            r_vbo = 2 * dy * self.height
-
-        if num_segments is None:
-            num_segments = int(math.pi*16.0*math.sqrt(r))
-
-        if filled:
-            # TODO: Is that magic number 180 depending on the frame size?
-            # If so, r < 0.25
-            if False:  #r_vbo < 180
-                vbo = glvbo.VBO(np.array([[cx1, cy1]], dtype=np.float32))
-                vbo.bind()
-                GL.glColor4f(*color)
-                GL.glPointSize(r_vbo)
-                GL.glEnableClientState(GL.GL_VERTEX_ARRAY)
-                GL.glVertexPointer(2, GL.GL_FLOAT, 0, vbo)
-                GL.glDrawArrays(GL.GL_POINTS, 0, 1)
-            else:
-                GL.glBegin(GL.GL_TRIANGLE_FAN)
-                GL.glColor4f(*color)
-                for i in xrange(0, num_segments):
-                    angle = i * math.pi * 2.0 / num_segments
-                    GL.glVertex2f(cx1 + r/self.aspect_ratio * math.cos(angle), cy1 + r * math.sin(angle))
-                GL.glEnd()
-        else:
-            theta = 2 * math.pi / float(num_segments)
-            c = math.cos(theta)  # pre-calculate cosine0
-            s = math.sin(theta)  # and sine
-            t = 0
-            x = r  # we start at angle = 0
-            y = 0
-
-            GL.glColor4f(*color)
-            GL.glBegin(GL.GL_LINE_LOOP)
-            for ii in xrange(num_segments):
-                # Circle requires correction for aspect ratio
-                GL.glVertex2f((x/self.aspect_ratio + cx1), (y + cy1))    # output vertex
-                t = x
-                x = c * x - s * y
-                y = s * t + c * y
-            GL.glEnd()
+    # def drawCircle(self, points, color, filled=True, num_segments=None):
+    #     """ Quickly draw approximate circle. Algorithm from:
+    #         http://slabode.exofire.net/circle_draw.shtml
+    #     """
+    #
+    #     (cx1, cy1), (cx2, cy2) = points
+    #     cx1 *= 1.0/self.width
+    #     cy1 *= 1.0/self.height
+    #     cx2 *= 1.0/self.width
+    #     cy2 *= 1.0/self.height
+    #     dx = abs(cx1 - cx2)
+    #     dy = abs(cy1 - cy2)
+    #     r = dx if dx > dy else dy
+    #     if dx > dy:
+    #         r_vbo = 2 * dx * self.width
+    #     else:
+    #         r_vbo = 2 * dy * self.height
+    #
+    #     if num_segments is None:
+    #         num_segments = int(math.pi*16.0*math.sqrt(r))
+    #
+    #     if filled:
+    #         # TODO: Is that magic number 180 depending on the frame size?
+    #         # If so, r < 0.25
+    #         if False:  #r_vbo < 180
+    #             vbo = glvbo.VBO(np.array([[cx1, cy1]], dtype=np.float32))
+    #             vbo.bind()
+    #             GL.glColor4f(*color)
+    #             GL.glPointSize(r_vbo)
+    #             GL.glEnableClientState(GL.GL_VERTEX_ARRAY)
+    #             GL.glVertexPointer(2, GL.GL_FLOAT, 0, vbo)
+    #             GL.glDrawArrays(GL.GL_POINTS, 0, 1)
+    #         else:
+    #             GL.glBegin(GL.GL_TRIANGLE_FAN)
+    #             GL.glColor4f(*color)
+    #             for i in xrange(0, num_segments):
+    #                 angle = i * math.pi * 2.0 / num_segments
+    #                 GL.glVertex2f(cx1 + r/self.aspect_ratio * math.cos(angle), cy1 + r * math.sin(angle))
+    #             GL.glEnd()
+    #     else:
+    #         theta = 2 * math.pi / float(num_segments)
+    #         c = math.cos(theta)  # pre-calculate cosine0
+    #         s = math.sin(theta)  # and sine
+    #         t = 0
+    #         x = r  # we start at angle = 0
+    #         y = 0
+    #
+    #         GL.glColor4f(*color)
+    #         GL.glBegin(GL.GL_LINE_LOOP)
+    #         for ii in xrange(num_segments):
+    #             # Circle requires correction for aspect ratio
+    #             GL.glVertex2f((x/self.aspect_ratio + cx1), (y + cy1))    # output vertex
+    #             t = x
+    #             x = c * x - s * y
+    #             y = s * t + c * y
+    #         GL.glEnd()
 
     def drawTrace(self, points, color=(1.0, 1.0, 1.0, 1.0)):  # array
         """ Draw trace of position given in array.

@@ -37,7 +37,7 @@ class Arduino(object):
     connected = False
     name = 'Arduino'
 
-    def __init__(self, port, baud_rate=57600):
+    def __init__(self, port, baud_rate=115200):
 
         self.log = logging.getLogger(__name__)
 

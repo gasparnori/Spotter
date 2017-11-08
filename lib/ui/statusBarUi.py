@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'F:\Spotter_development\lib\ui\StatusBarUi.ui'
+# Form implementation generated from reading ui file 'F:\Spotter_development\lib\ui\statusBarUi.ui'
 #
-# Created: Tue Oct 31 14:59:10 2017
+# Created: Wed Nov 08 16:45:45 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -35,16 +35,6 @@ class Ui_statusBar(object):
         self.lbl_fps.setFrameShape(QtGui.QFrame.NoFrame)
         self.lbl_fps.setObjectName(_fromUtf8("lbl_fps"))
         self.horizontalLayout_2.addWidget(self.lbl_fps)
-        self.sb_offset = QtGui.QSpinBox(statusBar)
-        self.sb_offset.setFocusPolicy(QtCore.Qt.NoFocus)
-        self.sb_offset.setFrame(False)
-        self.sb_offset.setButtonSymbols(QtGui.QAbstractSpinBox.PlusMinus)
-        self.sb_offset.setAccelerated(True)
-        self.sb_offset.setMinimum(-99)
-        self.sb_offset.setMaximum(999)
-        self.sb_offset.setProperty("value", -10)
-        self.sb_offset.setObjectName(_fromUtf8("sb_offset"))
-        self.horizontalLayout_2.addWidget(self.sb_offset)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
         self.state = QtGui.QLabel(statusBar)
@@ -67,7 +57,5 @@ class Ui_statusBar(object):
         statusBar.setWindowTitle(_translate("statusBar", "Form", None))
         self.lbl_fps.setToolTip(_translate("statusBar", "Interface refresh rate, NOT the acquisition rate if grabbing from a camera.", None))
         self.lbl_fps.setText(_translate("statusBar", "FPS: 100.0", None))
-        self.sb_offset.setToolTip(_translate("statusBar", "Bias GUI refresh interval", None))
-        self.sb_offset.setSuffix(_translate("statusBar", " ms", None))
         self.state.setText(_translate("statusBar", "Camera", None))
 

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\Spotter_development\lib\ui\tab_sourceUi.ui'
 #
-# Created: Mon Nov 06 20:29:50 2017
+# Created: Wed Nov 08 18:18:31 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -49,9 +49,14 @@ class Ui_tab_source(object):
         self.verticalLayout = QtGui.QVBoxLayout()
         self.verticalLayout.setContentsMargins(10, 50, -1, 50)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.pushButton = QtGui.QPushButton(self.page_source)
-        self.pushButton.setObjectName(_fromUtf8("pushButton"))
-        self.verticalLayout.addWidget(self.pushButton)
+        self.FPSsync = QtGui.QCheckBox(self.page_source)
+        self.FPSsync.setObjectName(_fromUtf8("FPSsync"))
+        self.verticalLayout.addWidget(self.FPSsync)
+        spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem)
+        self.CurrentProps = QtGui.QPushButton(self.page_source)
+        self.CurrentProps.setObjectName(_fromUtf8("CurrentProps"))
+        self.verticalLayout.addWidget(self.CurrentProps)
         self.horizontalLayout = QtGui.QHBoxLayout()
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -87,8 +92,8 @@ class Ui_tab_source(object):
         self.FPSInput.setProperty("value", 200)
         self.FPSInput.setObjectName(_fromUtf8("FPSInput"))
         self.gridLayout_3.addWidget(self.FPSInput, 2, 1, 1, 1)
-        spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.gridLayout_3.addItem(spacerItem, 4, 0, 1, 1)
+        spacerItem1 = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
+        self.gridLayout_3.addItem(spacerItem1, 4, 0, 1, 1)
         self.scaleInput = QtGui.QDoubleSpinBox(self.page_source)
         self.scaleInput.setMaximum(1.0)
         self.scaleInput.setSingleStep(0.1)
@@ -120,7 +125,8 @@ class Ui_tab_source(object):
 
     def retranslateUi(self, tab_source):
         tab_source.setWindowTitle(_translate("tab_source", "Form", None))
-        self.pushButton.setText(_translate("tab_source", "Get current settings", None))
+        self.FPSsync.setText(_translate("tab_source", "Output Frame rate signal", None))
+        self.CurrentProps.setText(_translate("tab_source", "Get current settings", None))
         self.FrameSettingsLabel.setText(_translate("tab_source", "Frame settings:", None))
         self.FrameHeightLabel.setText(_translate("tab_source", "Frame Height", None))
         self.FrameWidthLabel.setText(_translate("tab_source", "Frame Width", None))

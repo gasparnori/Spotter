@@ -96,6 +96,10 @@ class Tracker:
         except ValueError:
             self.log.error("Region to be removed not found")
 
+    def trackFPS(self, pin):
+        f=trkbl.fpsTestSignal(pin)
+        return f
+
     def track_feature(self, frame, method='hsv_thresh', scale=1.0):
         """
         Intermediate method selecting tracking method and separating those

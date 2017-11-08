@@ -155,6 +155,7 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
 ###############################################################################
 ## SHAPE LIST
 ###############################################################################
+
     def refresh_shape_list(self):
         # If nothing selected, select the first item in the list
         n_items = self.tree_region_shapes.topLevelItemCount()

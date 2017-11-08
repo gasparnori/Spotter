@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'F:\Spotter_development\lib\ui\mainUi.ui'
 #
-# Created: Tue Nov 07 14:01:36 2017
+# Created: Wed Nov 08 19:47:13 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -152,10 +152,24 @@ class Ui_MainWindow(object):
         icon11.addPixmap(QtGui.QPixmap(_fromUtf8(":/GUI_off.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.actionGUI_on_off.setIcon(icon11)
         self.actionGUI_on_off.setObjectName(_fromUtf8("actionGUI_on_off"))
+        self.actionFPS_test = QtGui.QAction(MainWindow)
+        self.actionFPS_test.setCheckable(True)
+        icon12 = QtGui.QIcon()
+        icon12.addPixmap(QtGui.QPixmap(_fromUtf8(":/fps_test.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionFPS_test.setIcon(icon12)
+        self.actionFPS_test.setObjectName(_fromUtf8("actionFPS_test"))
+        self.actionSpeed_up = QtGui.QAction(MainWindow)
+        self.actionSpeed_up.setCheckable(True)
+        icon13 = QtGui.QIcon()
+        icon13.addPixmap(QtGui.QPixmap(_fromUtf8(":/Space_rocket-16-512.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        self.actionSpeed_up.setIcon(icon13)
+        self.actionSpeed_up.setObjectName(_fromUtf8("actionSpeed_up"))
         self.toolBar.addAction(self.actionCamera)
         self.toolBar.addAction(self.actionFile)
         self.toolBar.addAction(self.actionRecord)
         self.toolBar.addAction(self.actionGUI_on_off)
+        self.toolBar.addAction(self.actionFPS_test)
+        self.toolBar.addAction(self.actionSpeed_up)
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.actionLoadConfig)
         self.toolBar.addAction(self.actionSaveConfig)
@@ -192,5 +206,9 @@ class Ui_MainWindow(object):
         self.actionSourceProperties.setText(_translate("MainWindow", "Source Props", None))
         self.actionOnTop.setText(_translate("MainWindow", "Always on Top", None))
         self.actionGUI_on_off.setText(_translate("MainWindow", "GUI on/off", None))
+        self.actionFPS_test.setText(_translate("MainWindow", "FPS test", None))
+        self.actionFPS_test.setToolTip(_translate("MainWindow", "Outputs a square wave of the framerate on D3", None))
+        self.actionSpeed_up.setText(_translate("MainWindow", "Speed up!", None))
+        self.actionSpeed_up.setToolTip(_translate("MainWindow", "Increase framerate (the framerate is less stable)", None))
 
 import icons_rc

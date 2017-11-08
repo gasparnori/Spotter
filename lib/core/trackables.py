@@ -12,7 +12,9 @@ import lib.utilities as utils
 import lib.geometry as geom
 import numpy
 
-SENSITIVITY=0
+SENSITIVITY = 0
+
+
 
 class Shape:
     """ Geometrical shape that comprise ROIs. ROIs can be made of several
@@ -21,6 +23,7 @@ class Shape:
     ROI have the same color, to keep them together as one ROI.
     points: list of points defining the shape. Two for rectangle and circle,
     """
+
     # TODO: n-polygon and collision detection
     def __init__(self, shape, points=None, label=None):
         self.active = True
@@ -35,7 +38,7 @@ class Shape:
         if shape == 'circle':
             # normalize the point positions based on radius,
             # second point is always to the right of the center
-            self.points = [points[0], (int(points[0][0]), points[0][1]+self.radius)]
+            self.points = [points[0], (int(points[0][0]), points[0][1] + self.radius)]
             self.collision_check = self.collision_check_circle
         elif shape == 'rectangle':
             self.collision_check = self.collision_check_rectangle
@@ -70,10 +73,10 @@ class Shape:
         collision by comparing distance between center and point of object with
         radius.
         """
-        x_in_interval = (point[0] > min(self.points[0][0], self.points[1][0])) and\
+        x_in_interval = (point[0] > min(self.points[0][0], self.points[1][0])) and \
                         (point[0] < max(self.points[0][0], self.points[1][0]))
 
-        y_in_interval = (point[1] > min(self.points[0][1], self.points[1][1])) and\
+        y_in_interval = (point[1] > min(self.points[0][1], self.points[1][1])) and \
                         (point[1] < max(self.points[0][1], self.points[1][1]))
         return self.active and x_in_interval and y_in_interval
 
@@ -128,7 +131,6 @@ class LED(Feature):
 
 class Slot:
     def __init__(self, label, slot_type, state=None, state_idx=None, ref=None):
-
         # While nice, should be used for style, not for identity testing
         # FIXME: Use instance comparisons vs. label comparisons
         self.label = label
@@ -140,13 +142,13 @@ class Slot:
         self.pin = None
         self.pin_pref = None
 
-        # reference to output value
+        # reference to output value         must be a function!!!!
         self.state = state
         # index of output value if iterable
         # for example, the position could be x or y position
         # TODO: Unnecessary with proper use of @property decorators
         self.state_idx = state_idx
-        self.ref = ref              # reference to object representing slot
+        self.ref = ref  # reference to object representing slot
 
     def attach_pin(self, pin):
         if self.pin and self.pin.slot:
@@ -163,6 +165,7 @@ class Slot:
 
 
 class ObjectOfInterest:
+    EVENFRAME = False
     """
     Object Of Interest. Collection of features to be tracked together and
     report state and behavior, or trigger events upon conditions.
@@ -187,7 +190,7 @@ class ObjectOfInterest:
         self.tracked = tracked
         self.pos_hist = []
         self.dir_hist = []
-        self.dir_coord_hist=[]
+        self.dir_coord_hist = []
 
         # the slots for these properties/signals are greedy for pins
         if magnetic_signals is None:
@@ -208,10 +211,10 @@ class ObjectOfInterest:
         # go back max. n frames to find last position
         min_step = 25
         for p in range(0, min(len(self.pos_hist), 10)):
-            if self.pos_hist[-p-1] is not None:
-                uidx = (p+1) * min_step
-                pos = map(int, self.pos_hist[-p-1])
-                roi = [(pos[0]-uidx, pos[1]-uidx), (pos[0]+uidx, pos[1]+uidx)]
+            if self.pos_hist[-p - 1] is not None:
+                uidx = (p + 1) * min_step
+                pos = map(int, self.pos_hist[-p - 1])
+                roi = [(pos[0] - uidx, pos[1] - uidx), (pos[0] + uidx, pos[1] + uidx)]
                 break
         else:  # search full frame
             roi = [(0, 0), (2000, 2000)]
@@ -238,21 +241,19 @@ class ObjectOfInterest:
                     if pin.id == slot.pin_pref:
                         slot.attach_pin(pin)
 
-    def append_position(self):          ###############################################################edited to minimize jtter
+    def append_position(self):  ###############################################################edited to minimize jtter
         """Calculate position from detected features linked to object."""
         if not self.tracked:
             return
         feature_positions = [f.pos_hist[-1] for f in self.linked_leds if len(f.pos_hist)]
-        temp=geom.middle_point(feature_positions)
-        #if len(self.pos_hist) and self.pos_hist[-1] is not None and temp is not None:
-        #      if abs(temp[0]-self.pos_hist[-1][0])<SENSITIVITY and abs (temp[1]-self.pos_hist[-1][1])<SENSITIVITY:
-        #          self.pos_hist.append(self.pos_hist[-1])
-       # else:
-       # print temp
-       # if temp is not None:
-        #    self.pos_hist.append(math.ceil(temp[0]), math.ceil(temp[1]))
-        #else:
-        self.pos_hist.append(temp)
+        # temp=geom.middle_point(feature_positions)
+        # if self.EVENFRAME:
+        #     temp = (0, 0)
+        # else:
+        #     temp = (300, 300)
+        #self.EVENFRAME = not self.EVENFRAME
+
+        self.pos_hist.append(geom.middle_point(feature_positions))
 
     @property
     def position(self):
@@ -277,7 +278,7 @@ class ObjectOfInterest:
         # TODO: Allow for a calibration of the field of view of cameras
         try:
             return 0.0
-            #return geom.distance(self.pos_hist[-2], self.pos_hist[-1])*30.0 if len(self.pos_hist) >= 2 else None
+            # return geom.distance(self.pos_hist[-2], self.pos_hist[-1])*30.0 if len(self.pos_hist) >= 2 else None
         except TypeError:
             return None
 
@@ -301,28 +302,13 @@ class ObjectOfInterest:
                 feature_coords.append(feature.pos_hist[-1])
 
         if len(feature_coords) == 2:
-            #x1 = feature_coords[0][0]*1.0
-            #y1 = feature_coords[0][1]*1.0
-            #x2 = feature_coords[1][0]*1.0
-            #y2 = feature_coords[1][1]*1.0
 
-            dx=(feature_coords[1][0]-feature_coords[0][0])*1.0 #x2-x1
-            dy=(feature_coords[1][1]-feature_coords[0][1])*1.0 #y2-y1
-            theta=int(math.fmod(math.degrees(math.atan2(dx,dy))+180,360)) #math.atan2(x2-x1, y2-y1)
-            #return int(math.degrees(math.atan2(x1 - x2, y2 - y1)))
-            #theta = math.fmod(int((math.atan2(x1 - x2, y2 - y1) + math.pi) * DIRECTION_SCALE),360)
-            #print theta
-            ######################################################Nora's editing:##########################################################
-            # if len(self.dir_coord_hist) and self.dir_coord_hist[-1] is not None:
-            #
-            #     if abs(x1-self.dir_coord_hist[-1][0])< SENSITIVITY and abs(x2-self.dir_coord_hist[-1][1])< SENSITIVITY and abs(y1-self.dir_coord_hist[-1][2])< SENSITIVITY and abs(y2-self.dir_coord_hist[-1][3])< SENSITIVITY:
-            #         if len(self.dir_hist) and self.dir_hist[-1] is not None:
-            #             theta=self.dir_hist[-1]
+            dx = (feature_coords[1][0] - feature_coords[0][0]) * 1.0  # x2-x1
+            dy = (feature_coords[1][1] - feature_coords[0][1]) * 1.0  # y2-y1
+            theta = int(math.fmod(math.degrees(math.atan2(dx, dy)) + 180, 360))  # math.atan2(x2-x1, y2-y1)
 
             self.dir_hist.append(theta)
-            #self.dir_coord_hist.append((x1,x2,y1,y2))
-           # print x1, x2, y1, y2
-            #print theta
+
             return theta
         ####################################################################################################################################
         else:
@@ -334,12 +320,28 @@ class ObjectOfInterest:
     @property
     def linked_slots(self):
         """ Return list of slots that are linked to a pin. """
-        #slots_to_update = []
-        #for s in self.slots:
+        # slots_to_update = []
+        # for s in self.slots:
         #    if s.pin:
         #        slots_to_update.append(s)
-        #return slots_to_update
+        # return slots_to_update
         return [slot for slot in self.slots if slot.pin]
+
+#generates a square wave that can be used to measure the output frame rate-->always uses D3
+class fpsTestSignal:
+    def __init__(self, pin):
+        self.even_frame=True
+        self.slot = Slot('fpstest', 'digital', self.flipstate, self)
+        self.slot.attach_pin(pin)
+
+    def attach_pin(self, pin):
+        self.slot.attach_pin(pin)
+    def deattach_pin(self):
+        self.slot.detach_pin()
+
+    def flipstate(self, state_idx):
+        self.even_frame = not self.even_frame
+        return self.even_frame
 
 
 class RegionOfInterest:
@@ -445,7 +447,7 @@ class RegionOfInterest:
         Gather all objects in list. Check done by name.
         """
         # TODO: By label is risky, could lead to collisions
-        #if self.oois and len(self.slots) < len(self.oois):
+        # if self.oois and len(self.slots) < len(self.oois):
         for o in self.oois:
             for slot in self.slots:
                 if slot.ref is o:
@@ -513,21 +515,21 @@ class RegionOfInterest:
 
     def get_normal_color(self):
         c1 = random.random()
-        c2 = random.uniform(0, 1.0-c1)
-        c3 = 1.0-c1-c2
+        c2 = random.uniform(0, 1.0 - c1)
+        c3 = 1.0 - c1 - c2
         values = random.sample([c1, c2, c3], 3)
         return values[0], values[1], values[2], self.alpha
 
     @staticmethod
     def scale_color(color, max_val):
         if len(color) == 3:
-            return int(color[0]*max_val), int(color[1]*max_val), int(color[2]*max_val)
+            return int(color[0] * max_val), int(color[1] * max_val), int(color[2] * max_val)
         elif len(color) == 4:
-            return int(color[0]*max_val), int(color[1]*max_val), int(color[2]*max_val), int(color[3]*max_val)
+            return int(color[0] * max_val), int(color[1] * max_val), int(color[2] * max_val), int(color[3] * max_val)
 
     @staticmethod
     def normalize_color(color):
         if len(color) == 3:
-            return color[0]/255., color[1]/255., color[2]/255.
+            return color[0] / 255., color[1] / 255., color[2] / 255.
         elif len(color) == 4:
-            return color[0]/255., color[1]/255., color[2]/255., color[3]/255.
+            return color[0] / 255., color[1] / 255., color[2] / 255., color[3] / 255.

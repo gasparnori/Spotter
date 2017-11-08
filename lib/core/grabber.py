@@ -33,7 +33,7 @@ import zmq
 from lib import utilities
 
 DEBUG = True
-fps_default=200
+fps_default=150
 size_default=(1280,720)
 scale=0.5
 Pylon=0

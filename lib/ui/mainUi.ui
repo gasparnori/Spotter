@@ -102,6 +102,8 @@
    <addaction name="actionFile"/>
    <addaction name="actionRecord"/>
    <addaction name="actionGUI_on_off"/>
+   <addaction name="actionFPS_test"/>
+   <addaction name="actionSpeed_up"/>
    <addaction name="separator"/>
    <addaction name="actionLoadConfig"/>
    <addaction name="actionSaveConfig"/>
@@ -288,6 +290,37 @@
    </property>
    <property name="text">
     <string>GUI on/off</string>
+   </property>
+  </action>
+  <action name="actionFPS_test">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/fps_test.png</normaloff>:/fps_test.png</iconset>
+   </property>
+   <property name="text">
+    <string>FPS test</string>
+   </property>
+   <property name="toolTip">
+    <string>Outputs a square wave of the framerate on D3</string>
+   </property>
+  </action>
+  <action name="actionSpeed_up">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normalon>:/Space_rocket-16-512.png</normalon>
+    </iconset>
+   </property>
+   <property name="text">
+    <string>Speed up!</string>
+   </property>
+   <property name="toolTip">
+    <string>Increase framerate (the framerate is less stable)</string>
    </property>
   </action>
  </widget>
