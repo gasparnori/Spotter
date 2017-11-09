@@ -332,7 +332,6 @@ class fpsTestSignal:
     def __init__(self, pin):
         self.even_frame=True
         self.slot = Slot('fpstest', 'digital', self.flipstate, self)
-        self.slot.attach_pin(pin)
 
     def attach_pin(self, pin):
         self.slot.attach_pin(pin)

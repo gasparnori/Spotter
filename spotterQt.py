@@ -38,8 +38,8 @@ DIR_TEMPLATES = './templates'
 DIR_SPECIFICATION = './config/template_specification.ini'
 DEFAULT_TEMPLATE = 'defaults.ini'
 
-GUI_REFRESH_INTERVAL = 20
-#SPOTTER_REFRESH_INTERVAL = 5
+GUI_REFRESH_INTERVAL = 30
+SPOTTER_REFRESH_INTERVAL = 5
 
 
 import sys
@@ -65,6 +65,7 @@ class Main(QtGui.QMainWindow):
     gui_refresh_offset = 0
     avg_fps=0
     frame_counter=0
+    async=False
     frames_to_skip=0 #only updates GUI in every x frame
     __spotter_ref = None
 
@@ -140,28 +141,19 @@ class Main(QtGui.QMainWindow):
 
 
         # Starts main frame grabber loop
-        # self.timerGL = QtCore.QTimer(self)
-        # self.timerGL.timeout.connect(self.refresh)
-        # self.timerGL.start(GUI_REFRESH_INTERVAL)
-        #
-        # self.timerFPS = QtCore.QTimer(self)
-        # self.timerFPS.timeout.connect(self.updateFPS)
-        # self.timerFPS.start(10)
-        #
-        # self.timerSide = QtCore.QTimer(self)
-        # self.timerSide.timeout.connect(self.side_bar.update_current_page)
-        # self.timerSide.start(10)
-        #
-        # self.timer2 = QtCore.QTimer(self)
-        # self.timer2.timeout.connect(self.spotterUpdate)
-        # SPOTTER_REFRESH_INTERVAL=int(1000.0/self.spotter.grabber.capture.get(5))
-        # self.timer2.start(SPOTTER_REFRESH_INTERVAL)
+        self.timerGL = QtCore.QTimer(self)
+        self.timerGL.timeout.connect(self.refresh)
+
+        self.timerSide = QtCore.QTimer(self)
+        self.timerSide.timeout.connect(self.side_bar.update_current_page)
+
         #
         self.stopwatch = QtCore.QElapsedTimer()
         self.stopwatch.start()
+        #Main timer for updating Spotter
         self.timer2 = QtCore.QTimer(self)
         self.timer2.timeout.connect(self.spotterUpdate)
-        SPOTTER_REFRESH_INTERVAL= 5#int(1000.0/self.spotter.grabber.capture.get(5))
+        #SPOTTER_REFRESH_INTERVAL=int(1000.0/self.spotter.grabber.capture.get(5))
         self.timer2.start(SPOTTER_REFRESH_INTERVAL)
     @property
     def spotter(self):
@@ -172,77 +164,86 @@ class Main(QtGui.QMainWindow):
     ###############################################################################
     def trackFPS(self, state):
         if state:
-            self.spotter.FPStest=True
             p = self.spotter.chatter.pins('digital')
+            if p[-1].slot is not None:
+                p[-1].slot.detach_pin()
+                self.log.debug("D3 pin detached from object.")
             self.spotter.fpstest.attach_pin(p[-1])
+            self.spotter.FPStest = True
+            self.log.debug("FPS tracking started on D3 pin.")
         else:
             self.spotter.FPStest=False
             self.spotter.fpstest.deattach_pin()
+            self.log.debug("FPS tracking stopped on D3 pin.")
         return
-    def updateFPS(self):
-        self.status_bar.update_fps(self.avg_fps)
+
     def spotterUpdate(self):
         self.spotterelapsed = self.stopwatch.restart()
         if self.spotter.update() is None:
-            print "lost frame"
             return
         self.avg_fps = self.avg_fps * 0.95 + 0.05 * 1000. / self.spotterelapsed
+        self.status_bar.update_fps(self.avg_fps)
 
         if self.spotter.GUI_off == False:
-
-            if self.frame_counter<self.frames_to_skip:
-                self.frame_counter=self.frame_counter+1
-            else:
-                self.frame_counter=0
-                self.refresh()
-                self.side_bar.update_current_page()
-        self.updateFPS()
+            if self.async==False:
+                if self.frame_counter<self.frames_to_skip:
+                    self.frame_counter=self.frame_counter+1
+                else:
+                    self.frame_counter=0
+                    self.refresh()
+                    self.side_bar.update_current_page()
 
 
     def speedUp(self, state):
         if state:
-            self.frames_to_skip=5
+            self.async=True
+            self.timerGL.start(GUI_REFRESH_INTERVAL)
+            self.timerSide.start(GUI_REFRESH_INTERVAL)
+           # self.frames_to_skip=5
+            self.log.debug("GUI turned to higher speed")
         else:
-            self.frames_to_skip=0
+            self.async=False
+           # self.frames_to_skip=0
+            self.log.debug("GUI turned to lower speed")
+            self.timerGL.stop()
+            self.timerSide.stop()
     def refresh(self):
-        # TODO: I ain't got no clue as to why reducing the interval drastically improves the frame rate
-        # TODO: Maybe the interval immediately resets the counter and starts it up?
         if not (self.gl_frame.width and self.gl_frame.height):
             return
         self.gl_frame.update_world(self.spotter)
 
-    def adjust_refresh_rate(self, forced=None):
-        """
-        Change GUI refresh rate according to frame rate of video source, or keep at
-        1000/GUI_REFRESH_INTERVAL Hz for cameras to not miss too many frames
-        """
-        self.gui_refresh_offset = self.status_bar.sb_offset.value()
-
-        if forced is not None:
-            self.timer.setInterval(forced)
-            return
-
-        if self.spotter.source_type == 'file':
-            if not self.status_bar.sb_offset.isEnabled():
-                self.status_bar.sb_offset.setEnabled(True)
-            try:
-                interval = int(1000.0/self.spotter.grabber.fps) + self.gui_refresh_offset
-            except (ValueError, TypeError):
-                interval = 0
-            if interval < 0:
-                interval = 1
-                self.status_bar.sb_offset.setValue(interval - int(1000.0/self.spotter.grabber.fps))
-
-            if self.spotter.grabber.fps != 0 and self.timer.interval() != interval:
-                self.timer.setInterval(interval)
-                self.log.debug("Changed main loop update rate to match file. New: %d", self.timer.interval())
-        else:
-            if self.status_bar.sb_offset.isEnabled():
-                self.status_bar.sb_offset.setEnabled(False)
-                #self.status_bar.sb_offset.setValue(0)
-            if self.timer.interval() != GUI_REFRESH_INTERVAL:
-                self.timer.setInterval(GUI_REFRESH_INTERVAL)
-                self.log.debug("Changed main loop update rate to be fast. New: %d", self.timer.interval())
+    # def adjust_refresh_rate(self, forced=None):
+    #     """
+    #     Change GUI refresh rate according to frame rate of video source, or keep at
+    #     1000/GUI_REFRESH_INTERVAL Hz for cameras to not miss too many frames
+    #     """
+    #     self.gui_refresh_offset = self.status_bar.sb_offset.value()
+    #
+    #     if forced is not None:
+    #         self.timer.setInterval(forced)
+    #         return
+    #
+    #     if self.spotter.source_type == 'file':
+    #         if not self.status_bar.sb_offset.isEnabled():
+    #             self.status_bar.sb_offset.setEnabled(True)
+    #         try:
+    #             interval = int(1000.0/self.spotter.grabber.fps) + self.gui_refresh_offset
+    #         except (ValueError, TypeError):
+    #             interval = 0
+    #         if interval < 0:
+    #             interval = 1
+    #             self.status_bar.sb_offset.setValue(interval - int(1000.0/self.spotter.grabber.fps))
+    #
+    #         if self.spotter.grabber.fps != 0 and self.timer.interval() != interval:
+    #             self.timer.setInterval(interval)
+    #             self.log.debug("Changed main loop update rate to match file. New: %d", self.timer.interval())
+    #     else:
+    #         if self.status_bar.sb_offset.isEnabled():
+    #             self.status_bar.sb_offset.setEnabled(False)
+    #             #self.status_bar.sb_offset.setValue(0)
+    #         if self.timer.interval() != GUI_REFRESH_INTERVAL:
+    #             self.timer.setInterval(GUI_REFRESH_INTERVAL)
+    #             self.log.debug("Changed main loop update rate to be fast. New: %d", self.timer.interval())
 
     def record_video(self, state, filename=None):
         """ Control recording of grabbed video. """
@@ -334,6 +335,7 @@ class Main(QtGui.QMainWindow):
         """ Open camera as frame source """
         self.ui.actionFile.setChecked(False)
         if state:
+            self.log.debug('Opening device...')
             self.status_bar.updateState('device')
             self.spotter.grabber.start(source=0, size=(1280, 720))
         else:
@@ -360,13 +362,12 @@ class Main(QtGui.QMainWindow):
 
     def GUI_timers(self, state):
         if state:
-        #    self.timerGL.start(GUI_REFRESH_INTERVAL)
-        #    self.timerSide.start(GUI_REFRESH_INTERVAL)
             self.spotter.GUI_off=False
+            self.log.debug("GUI turned on")
         else:
+            self.log.debug("GUI turned off")
             self.spotter.GUI_off = True
-        #    self.timerGL.stop()
-         #   self.timerSide.stop()
+            self.ui.actionSpeed_up.setChecked(False)
             self.gl_frame.update_world(self.spotter)
 
 
