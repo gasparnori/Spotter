@@ -116,11 +116,14 @@ class Spotter:
         # self.stopwatch = QtCore.QElapsedTimer()
         # self.stopwatch.start()
         p=self.chatter.pins('digital')
-        self.fpstest = self.tracker.trackFPS(p[-1])
+        if p is not None and len(p)>0:
+            self.fpstest = self.tracker.trackFPS(p[-1])
+        else:
+            self.fpstest=None
 
     def update(self):
         slots = []
-        if self.FPStest == True:
+        if self.FPStest == True and self.fpstest!=None:
             slots.append(self.fpstest.slot)
         # Get new frame
         self.newest_frame = self.grabber.grab()
