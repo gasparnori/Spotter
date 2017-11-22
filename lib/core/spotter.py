@@ -147,7 +147,7 @@ class Spotter:
             messages = []
             # Update positions of all objects
             for o in self.tracker.oois:
-                o.update_values()
+                o.update_values(self.spotterelapsed)
                 o.update_slots(self.chatter)
                 o.update_state()
                 slots.extend(o.linked_slots)

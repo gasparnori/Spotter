@@ -122,7 +122,8 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
         the case if the user checks/unchecks a checkbox to link/unlink a
         feature.
         """
-        feature_is_linked = (item.feature in self.object.linked_leds)
+        leds = self.object.getLinkedLEDs()
+        feature_is_linked = (item.feature in leds)
         if not item.checkState(column) == feature_is_linked:
             if item.checkState(column):
                 self.link_feature(item.feature)
@@ -133,9 +134,10 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
 
     def add_feature(self, f):
         """ Add feature to feature list. """
+        leds=self.object.getLinkedLEDs()
         feature_item = QtGui.QTreeWidgetItem([f.label])
         feature_item.feature = f
-        if feature_item.feature in self.object.linked_leds:
+        if feature_item.feature in leds:
             feature_item.setCheckState(0, QtCore.Qt.Checked)
         else:
             feature_item.setCheckState(0, QtCore.Qt.Unchecked)
@@ -148,12 +150,12 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
 
     def link_feature(self, feature):
         """ Link the object to the feature. """
-        self.object.linked_leds.append(feature)
+        self.object.addLinkedLED(feature)
 
     def unlink_feature(self, feature):
         """ Remove a specific feature from the list. """
         try:
-            self.object.linked_leds.remove(feature)
+            self.object.removeLinkedLED(feature)
         except ValueError:
             pass
 

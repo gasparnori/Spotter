@@ -38,7 +38,7 @@ DIR_TEMPLATES = './templates'
 DIR_SPECIFICATION = './config/template_specification.ini'
 DEFAULT_TEMPLATE = 'defaults.ini'
 
-GUI_REFRESH_INTERVAL = 30
+GUI_REFRESH_INTERVAL = 20
 SPOTTER_REFRESH_INTERVAL = 5
 
 
@@ -136,8 +136,12 @@ class Main(QtGui.QMainWindow):
         # Main Window states
         self.center_window()
         self.connect(self.ui.actionOnTop, QtCore.SIGNAL('toggled(bool)'), self.toggle_window_on_top)
+        #Outputs FPS signal
         self.connect(self.ui.actionFPS_test, QtCore.SIGNAL('toggled(bool)'), self.trackFPS )
+
+        #asynchronously updates GUI
         self.connect(self.ui.actionSpeed_up, QtCore.SIGNAL('toggled(bool)'), self.speedUp )
+
 
 
         # Starts main frame grabber loop
@@ -155,6 +159,11 @@ class Main(QtGui.QMainWindow):
         self.timer2.timeout.connect(self.spotterUpdate)
         #SPOTTER_REFRESH_INTERVAL=int(1000.0/self.spotter.grabber.capture.get(5))
         self.timer2.start(SPOTTER_REFRESH_INTERVAL)
+
+
+
+
+        self.ui.actionSpeed_up.setChecked(True)
     @property
     def spotter(self):
         return self.__spotter_ref

@@ -129,7 +129,6 @@ class LED(Feature):
     def position(self):
         return self.pos_hist[-1] if len(self.pos_hist) else None
 
-
 class Slot:
     def __init__(self, label, slot_type, state=None, state_idx=None, ref=None):
         # While nice, should be used for style, not for identity testing
@@ -183,8 +182,6 @@ class ObjectOfInterest:
     #analog_spd = False
     sp=0.0
     dir=0.0
-    stopwatch = QtCore.QElapsedTimer()  #frame to frame interval for speed calculations
-    stopwatch.start()
     slots = None
 
     def __init__(self, led_list, label, traced=False, tracked=True, magnetic_signals=None):
@@ -245,9 +242,9 @@ class ObjectOfInterest:
                 for pin in pins:
                     if pin.id == slot.pin_pref:
                         slot.attach_pin(pin)
-    def update_values(self):
+    def update_values(self,elapsedtime):
         self.direction()
-        self.speed()
+        self.speed(elapsedtime) #frame to frame interval for speed calculation
     def append_position(self):  ###############################################################edited to minimize jtter
         """Calculate position from detected features linked to object."""
         if not self.tracked:
@@ -271,7 +268,15 @@ class ObjectOfInterest:
     def position_guessed(self):
         """Get position based on history. Could allow for fancy filtering etc."""
         return geom.guessedPosition(self.pos_hist)
-
+    def getLinkedLEDs(self):
+        return self.linked_leds
+    def addLinkedLED(self, led):
+        self.linked_leds.append(led)
+    def removeLinkedLED(self, led):
+        try:
+            self.linked_leds.remove(led)
+        except ValueError:
+            pass
     def getPositionX(self):
         """ Helper method to provide chatter with function reference for slot updates"""
         return None if self.position is None else self.position[0]
@@ -283,21 +288,21 @@ class ObjectOfInterest:
         """ Helper method to provide chatter with function reference for slot updates"""
         return self.sp   #only returns the value without recalculating it
 
-    def speed(self, *args):
+    def speed(self, elapsedtime):
         try:
             if len(self.pos_hist)>1 and self.pos_hist[-1] is not None and self.pos_hist[-2] is not None:
                 ds=geom.distance(self.pos_hist[-1], self.pos_hist[-2])
-                dt= self.stopwatch.restart()
+                dt= elapsedtime
                 #print "dt: ",dt, "ds: ", ds
                 self.speed_hist.append(self.sp)
                 self.sp=ds/dt
-                print "v: ", self.sp
+                #print "v: ", self.sp
             elif len(self.speed_hist>0) and self.speed_hist[-1] is not None:
                 self.sp=self.speed_hist[0]
             else:
                 """Return movement speed in pixel/s."""
                 dt = self.stopwatch.restart()
-                self.sp=0.0
+                self.sp=None
             return self.sp
         except TypeError:
             return None
