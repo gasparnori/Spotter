@@ -41,6 +41,7 @@ default_background=cv2.resize(cv2.imread(utilities.get_mice()), (int(size_defaul
 
 capture_props=None
 
+
 #LifeCam=0
 
 
@@ -59,7 +60,6 @@ class Frame:
         time_text = time.strftime("%d-%b-%y %H:%M:%S", time.localtime(self.timestamp))
         ms = "{0:03d}".format(int((self.timestamp-int(self.timestamp))*1000))
         self.time_text = ".".join([time_text, ms])
-
 
 class Grabber:
     capture = None          # Capture object to frame source

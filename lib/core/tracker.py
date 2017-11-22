@@ -39,6 +39,7 @@ class Tracker:
     """ Performs tracking and returns positions of found LEDs """
     frame = None
     scale = 1.0
+    contour=None
 
     def __init__(self, adaptive_tracking=False):
 
@@ -194,12 +195,12 @@ class Tracker:
         # find largest contour that is >= than minimum area
         ranged_frame = cv2.dilate(ranged_frame, np.ones((3, 3), np.uint8))
         contour_area, contour = self.find_contour(ranged_frame, r_area)
-
+        self.contour=contour
         # find centroids of the contour returned
         if contour is not None:
             moments = cv2.moments(contour.astype(int))
-            cx = moments['m10']/moments['m00']
-            cy = moments['m01']/moments['m00']
+            cx = math.ceil(moments['m10']/moments['m00'])
+            cy = math.ceil(moments['m01']/moments['m00'])
             if frame_offset:
                 cx += ax
                 cy += ay

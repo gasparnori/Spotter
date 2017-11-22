@@ -143,6 +143,9 @@ class GLFrame(QtOpenGL.QGLWidget):
                     cv2.putText(img=self.frame.img, text=self.frame.time_text,
                                 org=(15, 20), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=1.6,
                                 color=(250, 250, 50), thickness=1, lineType=cv2.CV_AA)
+                    #self.frame.img = cv2.cvtColor(self.frame.img, cv2.COLOR_BGR2HSV)  #for display
+                    #contours, hierarchy = cv2.findContours(self.frame.img, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+                   # cv2.drawContours(self.frame.img, self.spotter.tracker.contour, -1, (0, 255, 0), 3)
             shape = self.frame.img.shape
                 # TODO: Flags for horizontal/vertical flipping
             GL.glDrawPixels(shape[1], shape[0], GL.GL_RGB, GL.GL_UNSIGNED_BYTE,

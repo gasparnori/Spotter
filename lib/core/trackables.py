@@ -10,6 +10,7 @@ import math
 import random
 import lib.utilities as utils
 import lib.geometry as geom
+from PyQt4 import QtCore
 import numpy
 
 SENSITIVITY = 0
@@ -177,10 +178,13 @@ class ObjectOfInterest:
     tracked = True
     traced = False
 
-    analog_pos = False
-    analog_dir = False
-    analog_spd = False
-
+    #analog_pos = False
+    #analog_dir = False
+    #analog_spd = False
+    sp=0.0
+    dir=0.0
+    stopwatch = QtCore.QElapsedTimer()  #frame to frame interval for speed calculations
+    stopwatch.start()
     slots = None
 
     def __init__(self, led_list, label, traced=False, tracked=True, magnetic_signals=None):
@@ -190,6 +194,7 @@ class ObjectOfInterest:
         self.tracked = tracked
         self.pos_hist = []
         self.dir_hist = []
+        self.speed_hist=[]
         self.dir_coord_hist = []
 
         # the slots for these properties/signals are greedy for pins
@@ -199,10 +204,10 @@ class ObjectOfInterest:
             self.magnetic_signals = magnetic_signals
 
         # listed order important. First come, first serve
-        self.slots = [Slot('x position', 'dac', self.position_x),
-                      Slot('y position', 'dac', self.position_y),
-                      Slot('direction', 'dac', self.direction),
-                      Slot('speed', 'dac', self.speed)]
+        self.slots = [Slot('x position', 'dac', self.getPositionX),
+                      Slot('y position', 'dac', self.getPositionY),
+                      Slot('direction', 'dac', self.getDirection),
+                      Slot('speed', 'dac', self.getSpeed)]
 
     def update_state(self):
         """Update feature search windows!"""
@@ -240,7 +245,9 @@ class ObjectOfInterest:
                 for pin in pins:
                     if pin.id == slot.pin_pref:
                         slot.attach_pin(pin)
-
+    def update_values(self):
+        self.direction()
+        self.speed()
     def append_position(self):  ###############################################################edited to minimize jtter
         """Calculate position from detected features linked to object."""
         if not self.tracked:
@@ -257,31 +264,45 @@ class ObjectOfInterest:
 
     @property
     def position(self):
-        """Return last position."""
-        return self.pos_hist[-1] if len(self.pos_hist) else None
+         """Return last position."""
+         return self.pos_hist[-1] if len(self.pos_hist) else None
 
     @property
     def position_guessed(self):
         """Get position based on history. Could allow for fancy filtering etc."""
         return geom.guessedPosition(self.pos_hist)
 
-    def position_x(self):
+    def getPositionX(self):
         """ Helper method to provide chatter with function reference for slot updates"""
         return None if self.position is None else self.position[0]
 
-    def position_y(self):
+    def getPositionY(self):
         """ Helper method to provide chatter with function reference for slot updates"""
         return None if self.position is None else self.position[1]
+    def getSpeed(self):
+        """ Helper method to provide chatter with function reference for slot updates"""
+        return self.sp   #only returns the value without recalculating it
 
     def speed(self, *args):
-        """Return movement speed in pixel/s."""
-        # TODO: Allow for a calibration of the field of view of cameras
         try:
-            return 0.0
-            # return geom.distance(self.pos_hist[-2], self.pos_hist[-1])*30.0 if len(self.pos_hist) >= 2 else None
+            if len(self.pos_hist)>1 and self.pos_hist[-1] is not None and self.pos_hist[-2] is not None:
+                ds=geom.distance(self.pos_hist[-1], self.pos_hist[-2])
+                dt= self.stopwatch.restart()
+                #print "dt: ",dt, "ds: ", ds
+                self.speed_hist.append(self.sp)
+                self.sp=ds/dt
+                print "v: ", self.sp
+            elif len(self.speed_hist>0) and self.speed_hist[-1] is not None:
+                self.sp=self.speed_hist[0]
+            else:
+                """Return movement speed in pixel/s."""
+                dt = self.stopwatch.restart()
+                self.sp=0.0
+            return self.sp
         except TypeError:
             return None
-
+    def getDirection(self):
+        return self.dir
     def direction(self):
         """
         Calculate direction of the object.
@@ -293,29 +314,33 @@ class ObjectOfInterest:
         """
         # TODO: Direction based on movement if only one feature
         # TODO: Calculate angle when having multiple features
-        if not self.tracked or self.linked_leds is None or len(self.linked_leds) < 2:
-            return None
-
-        feature_coords = []
-        for feature in self.linked_leds:
-            if len(feature.pos_hist) > 0 and feature.pos_hist[-1] is not None:
-                feature_coords.append(feature.pos_hist[-1])
-
-        if len(feature_coords) == 2:
-
-            dx = (feature_coords[1][0] - feature_coords[0][0]) * 1.0  # x2-x1
-            dy = (feature_coords[1][1] - feature_coords[0][1]) * 1.0  # y2-y1
-            theta = int(math.fmod(math.degrees(math.atan2(dx, dy)) + 180, 360))  # math.atan2(x2-x1, y2-y1)
-
-            self.dir_hist.append(theta)
-
-            return theta
-        ####################################################################################################################################
-        else:
-            if len(self.dir_hist) > 0 and self.dir_hist[-1] is not None:
-                return self.dir_hist[-1]
-            else:
+        try:
+            if not self.tracked or self.linked_leds is None or len(self.linked_leds) < 2:
                 return None
+
+            feature_coords = []
+            for feature in self.linked_leds:
+                if len(feature.pos_hist) > 0 and feature.pos_hist[-1] is not None:
+                    feature_coords.append(feature.pos_hist[-1])
+
+            if len(feature_coords) == 2:
+
+                dx = (feature_coords[1][0] - feature_coords[0][0]) * 1.0  # x2-x1
+                dy = (feature_coords[1][1] - feature_coords[0][1]) * 1.0  # y2-y1
+                theta = int(math.fmod(math.degrees(math.atan2(dx, dy)) + 180, 360))  # math.atan2(x2-x1, y2-y1)
+
+                self.dir_hist.append(theta)
+
+                self.dir=theta
+            ####################################################################################################################################
+            elif len(self.dir_hist) > 0 and self.dir_hist[-1] is not None:
+                    self.dir = self.dir_hist[-1]
+            else:
+                self.dir = None
+        except TypeError:
+            self.dir = None
+
+        return self.dir
 
     @property
     def linked_slots(self):

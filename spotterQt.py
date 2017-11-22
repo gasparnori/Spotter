@@ -178,10 +178,9 @@ class Main(QtGui.QMainWindow):
         return
 
     def spotterUpdate(self):
-        self.spotterelapsed = self.stopwatch.restart()
         if self.spotter.update() is None:
             return
-        self.avg_fps = self.avg_fps * 0.95 + 0.05 * 1000. / self.spotterelapsed
+        self.avg_fps = self.avg_fps * 0.95 + 0.05 * 1000. / self.spotter.spotterelapsed
         self.status_bar.update_fps(self.avg_fps)
 
         if self.spotter.GUI_off == False:
