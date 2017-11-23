@@ -29,7 +29,6 @@ import struct
 import numpy as np
 from collections import deque
 from lib.docopt import docopt
-import zmq
 from lib import utilities
 
 DEBUG = True

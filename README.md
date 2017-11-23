@@ -1,14 +1,20 @@
-Spotter : simple video tracking
+Spotter v1.1 : LED based real-time video tracking for behavioural experiments developed by Nora Gaspar
+
 ===============================
 
-[Spotter](http://wonkoderverstaendige.github.com/Spotter) can track LEDs in a video stream--either from a webcam, video file or ZMQ socket--and simultaneously write encoded video to disk. It is based on the [OpenCV](http://opencv.org/) library and interfaces with Arduino Uno, Mega or Due.
+[Spotter version 1.1](https://github.com/gasparnori/spotterupdated) can track LEDs in real-time video stream--either from a webcam, video file--and simultaneously write encoded video to disk, while outputs the tracked variables as analog and digital signals. It is based on the [OpenCV](http://opencv.org/) library and interfaces with Arduino Mega
 
-For more detailed documentation, please refer to: [Spotter_0.4.pdf](docs/Spotter.pdf).
+
+Spotter v1.0 developed by Ronny Eichler is available [here] (https://github.com/wonkoderverstaendige)
+
+
+
+For more detailed documentation, please refer to: [full documentation](docs/full_documentation_v1.1.pdf).
 
 Requirements
 ------------
 
-Tested on Windows 7, (X)Ubuntu 12.04, MacOSX Lion
+Tested on Windows 7
 
 - Python 2.7 (Python 3.x is not supported)
 - numpy 1.6+
@@ -16,6 +22,8 @@ Tested on Windows 7, (X)Ubuntu 12.04, MacOSX Lion
 - pyOpenGL
 - pyQt4
 - pySerial
+
+- Arduino Mega
 
 **Windows**
 
@@ -63,17 +71,8 @@ Installation
 
 **With git**
 
-    git clone https://github.com/wonkoderverstaendige/Spotter.git
+    git clone https://github.com/gasparnori/spotterupdated.git
 
 **Without git**
 
-Download and extract the zip file from [here](https://github.com/wonkoderverstaendige/Spotter/archive/master.zip).
-
-Example CLI Usage
------------------
-
-    python spotterQt.py --source media\vid\r52r2f117.avi
-
-or
-
-    python spotterQt.py --source 0 -o result.avi --dims 640x360
+Download and extract the zip file
