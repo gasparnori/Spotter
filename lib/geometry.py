@@ -102,6 +102,7 @@ def extrapolateLinear(p1, p2):
 
 def guessedPosition(pos_hist):
     if len(pos_hist) >= 3:
+       # print pos_hist[-1], pos_hist[-2], pos_hist[-3]
         if not (pos_hist[-1] is None):
             return pos_hist[-1]
         elif not ((pos_hist[-2] is None) or (pos_hist[-3] is None)):

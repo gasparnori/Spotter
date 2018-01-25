@@ -251,28 +251,25 @@ class ObjectOfInterest:
         if not self.tracked:
             return
         feature_positions = [f.pos_hist[-1] for f in self.linked_leds if len(f.pos_hist)]
-        # temp=geom.middle_point(feature_positions)
-        # if self.EVENFRAME:
-        #     temp = (0, 0)
-        # else:
-        #     temp = (300, 300)
-        #self.EVENFRAME = not self.EVENFRAME
-        if feature_positions==None:
-            print "object lost"
-            feature_positions=self.position_guessed()
-        else:
-            self.pos_hist.append(geom.middle_point(feature_positions))
+        self.pos_hist.append(geom.middle_point(feature_positions))
 
     @property
     def position(self):
          """Return last position."""
          #print (self.guessing_enabled)
+         if self.guessing_enabled == True and len(self.pos_hist):
+             if (self.pos_hist[-1] == None):
+                 self.pos_hist[-1] = geom.guessedPosition(self.pos_hist)
+                 print "object lost, position guessed:", self.pos_hist[-1]
+             #else:
+                 #print self.pos_hist[-1]
 
          return self.pos_hist[-1] if len(self.pos_hist) else None
-    @property
-    def position_guessed(self):
-        """Get position based on history. Could allow for fancy filtering etc."""
-        return geom.guessedPosition(self.pos_hist)
+    #@property   -why was it a property before?
+    #def position_guessed(self):
+      #  """Get position based on history. Could allow for fancy filtering etc."""
+     #   return geom.guessedPosition(self.pos_hist)
+
     def getLinkedLEDs(self):
         return self.linked_leds
     def addLinkedLED(self, led):
