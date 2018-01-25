@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'tab_objectsUi.ui'
+# Form implementation generated from reading ui file 'C:\Spotter\spotterupdated\lib\ui\tab_objectsUi.ui'
 #
-# Created: Thu Nov 28 04:17:26 2013
-#      by: PyQt4 UI code generator 4.9.6
+# Created: Thu Jan 25 11:54:18 2018
+#      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -72,7 +72,19 @@ class Ui_tab_objects(object):
         self.table_slots.horizontalHeader().setStretchLastSection(True)
         self.table_slots.verticalHeader().setVisible(False)
         self.table_slots.verticalHeader().setDefaultSectionSize(10)
-        self.gridLayout_10.addWidget(self.table_slots, 0, 0, 1, 1)
+        self.gridLayout_10.addWidget(self.table_slots, 1, 0, 1, 1)
+        self.tree_link_features = QtGui.QTreeWidget(self.page_objects_tracking)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.tree_link_features.sizePolicy().hasHeightForWidth())
+        self.tree_link_features.setSizePolicy(sizePolicy)
+        self.tree_link_features.setProperty("showDropIndicator", False)
+        self.tree_link_features.setAlternatingRowColors(True)
+        self.tree_link_features.setIndentation(0)
+        self.tree_link_features.setObjectName(_fromUtf8("tree_link_features"))
+        self.tree_link_features.header().setSortIndicatorShown(False)
+        self.gridLayout_10.addWidget(self.tree_link_features, 0, 0, 1, 1)
         self.gridLayout_5.addLayout(self.gridLayout_10, 4, 0, 1, 5)
         self.lbl_x = QtGui.QLabel(self.page_objects_tracking)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
@@ -130,22 +142,13 @@ class Ui_tab_objects(object):
         self.dial_direction.setNotchesVisible(True)
         self.dial_direction.setObjectName(_fromUtf8("dial_direction"))
         self.gridLayout_5.addWidget(self.dial_direction, 0, 1, 3, 2)
-        self.tree_link_features = QtGui.QTreeWidget(self.page_objects_tracking)
-        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.tree_link_features.sizePolicy().hasHeightForWidth())
-        self.tree_link_features.setSizePolicy(sizePolicy)
-        self.tree_link_features.setProperty("showDropIndicator", False)
-        self.tree_link_features.setAlternatingRowColors(True)
-        self.tree_link_features.setIndentation(0)
-        self.tree_link_features.setObjectName(_fromUtf8("tree_link_features"))
-        self.tree_link_features.header().setSortIndicatorShown(False)
-        self.gridLayout_5.addWidget(self.tree_link_features, 3, 0, 1, 5)
         self.lbl_speed = QtGui.QLabel(self.page_objects_tracking)
         self.lbl_speed.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.lbl_speed.setObjectName(_fromUtf8("lbl_speed"))
         self.gridLayout_5.addWidget(self.lbl_speed, 2, 4, 1, 1)
+        self.ckb_guessing = QtGui.QCheckBox(self.page_objects_tracking)
+        self.ckb_guessing.setObjectName(_fromUtf8("ckb_guessing"))
+        self.gridLayout_5.addWidget(self.ckb_guessing, 3, 0, 1, 5)
         self.gridLayout_6.addLayout(self.gridLayout_5, 0, 0, 1, 1)
         self.toolBox.addItem(self.page_objects_tracking, _fromUtf8(""))
         self.page_objects_IO = QtGui.QWidget()
@@ -198,6 +201,7 @@ class Ui_tab_objects(object):
         item.setText(_translate("tab_objects", "Pin", None))
         item = self.table_slots.horizontalHeaderItem(2)
         item.setText(_translate("tab_objects", "Logic", None))
+        self.tree_link_features.headerItem().setText(0, _translate("tab_objects", "Features", None))
         self.lbl_x.setText(_translate("tab_objects", "---", None))
         self.lbl_y_lbl.setText(_translate("tab_objects", "y:", None))
         self.lbl_y.setText(_translate("tab_objects", "---", None))
@@ -206,8 +210,8 @@ class Ui_tab_objects(object):
         self.ckb_track.setText(_translate("tab_objects", "Track", None))
         self.ckb_analog_pos.setText(_translate("tab_objects", "Analog out", None))
         self.ckb_trace.setText(_translate("tab_objects", "Show Trace", None))
-        self.tree_link_features.headerItem().setText(0, _translate("tab_objects", "Features", None))
         self.lbl_speed.setText(_translate("tab_objects", "---", None))
+        self.ckb_guessing.setText(_translate("tab_objects", "Enable position guessing", None))
         self.toolBox.setItemText(self.toolBox.indexOf(self.page_objects_tracking), _translate("tab_objects", "Tracking", None))
         self.pushButton_8.setText(_translate("tab_objects", "Save", None))
         self.pushButton_5.setText(_translate("tab_objects", "Delete", None))

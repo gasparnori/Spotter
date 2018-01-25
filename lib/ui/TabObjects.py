@@ -41,6 +41,7 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
         self.connect(self.ckb_track, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
         self.connect(self.ckb_trace, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
         self.connect(self.ckb_analog_pos, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
+        self.connect(self.ckb_guessing, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
 
         #self.connect(self.btn_lock_table, QtCore.SIGNAL('toggled(bool)'), self.lock_slot_table)
 
@@ -55,7 +56,9 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
 
         self.refresh_feature_list()
         self.refresh_slot_table()
-
+        if not self.ckb_guessing.isChecked()==self.object.guessing_enabled:        #---not sure how is it supposed to work, but it doesn't
+            self.ckb_guessing.setChecked(self.object.guessing_enabled)
+        #self.object.guessing_enabled = self.ckb_guessing.isChecked()
         if not self.ckb_trace.isChecked() == self.object.traced:
             self.ckb_trace.setChecked(self.object.traced)
 
@@ -77,6 +80,7 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
         if self.label is None:
             self.log.debug("Empty object tab! This should not have happened!")
             return
+        self.object.guessing_enabled = self.ckb_guessing.isChecked()
         self.object.tracked = self.ckb_track.isChecked()
         self.object.traced = self.ckb_trace.isChecked()
         self.object.analog_pos = self.ckb_analog_pos.isChecked()

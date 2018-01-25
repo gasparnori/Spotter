@@ -74,7 +74,7 @@
              <property name="spacing">
               <number>0</number>
              </property>
-             <item row="0" column="0">
+             <item row="1" column="0">
               <widget class="QTableWidget" name="table_slots">
                <property name="horizontalScrollBarPolicy">
                 <enum>Qt::ScrollBarAsNeeded</enum>
@@ -116,6 +116,33 @@
                <column>
                 <property name="text">
                  <string>Logic</string>
+                </property>
+               </column>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QTreeWidget" name="tree_link_features">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="showDropIndicator" stdset="0">
+                <bool>false</bool>
+               </property>
+               <property name="alternatingRowColors">
+                <bool>true</bool>
+               </property>
+               <property name="indentation">
+                <number>0</number>
+               </property>
+               <attribute name="headerShowSortIndicator" stdset="0">
+                <bool>false</bool>
+               </attribute>
+               <column>
+                <property name="text">
+                 <string>Features</string>
                 </property>
                </column>
               </widget>
@@ -263,33 +290,6 @@
              </property>
             </widget>
            </item>
-           <item row="3" column="0" colspan="5">
-            <widget class="QTreeWidget" name="tree_link_features">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="showDropIndicator" stdset="0">
-              <bool>false</bool>
-             </property>
-             <property name="alternatingRowColors">
-              <bool>true</bool>
-             </property>
-             <property name="indentation">
-              <number>0</number>
-             </property>
-             <attribute name="headerShowSortIndicator" stdset="0">
-              <bool>false</bool>
-             </attribute>
-             <column>
-              <property name="text">
-               <string>Features</string>
-              </property>
-             </column>
-            </widget>
-           </item>
            <item row="2" column="4">
             <widget class="QLabel" name="lbl_speed">
              <property name="text">
@@ -297,6 +297,13 @@
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="5">
+            <widget class="QCheckBox" name="ckb_guessing">
+             <property name="text">
+              <string>Enable position guessing</string>
              </property>
             </widget>
            </item>

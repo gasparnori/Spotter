@@ -193,6 +193,7 @@ class ObjectOfInterest:
         self.dir_hist = []
         self.speed_hist=[]
         self.dir_coord_hist = []
+        self.guessing_enabled=False
 
         # the slots for these properties/signals are greedy for pins
         if magnetic_signals is None:
@@ -256,14 +257,18 @@ class ObjectOfInterest:
         # else:
         #     temp = (300, 300)
         #self.EVENFRAME = not self.EVENFRAME
-
-        self.pos_hist.append(geom.middle_point(feature_positions))
+        if feature_positions==None:
+            print "object lost"
+            feature_positions=self.position_guessed()
+        else:
+            self.pos_hist.append(geom.middle_point(feature_positions))
 
     @property
     def position(self):
          """Return last position."""
-         return self.pos_hist[-1] if len(self.pos_hist) else None
+         #print (self.guessing_enabled)
 
+         return self.pos_hist[-1] if len(self.pos_hist) else None
     @property
     def position_guessed(self):
         """Get position based on history. Could allow for fancy filtering etc."""
