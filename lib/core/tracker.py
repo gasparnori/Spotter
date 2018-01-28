@@ -40,6 +40,8 @@ class Tracker:
     frame = None
     scale = 1.0
     contour=None
+    max_x=639
+    max_y=379
 
     def __init__(self, adaptive_tracking=False):
 
@@ -71,7 +73,7 @@ class Tracker:
             self.log.error("Feature to be removed not found")
 
     def add_ooi(self, led_list, label, traced=False, tracked=True, magnetic_signals=None):
-        ooi = trkbl.ObjectOfInterest(led_list, label, traced, tracked, magnetic_signals)
+        ooi = trkbl.ObjectOfInterest(led_list, label, traced, tracked, magnetic_signals, self.max_x, self.max_y)
         self.oois.append(ooi)
         self.log.debug("Added object %s", ooi)
         return ooi
@@ -110,6 +112,7 @@ class Tracker:
         :param:scale
             Resize frame before tracking, computation decreases scale^2.
         """
+
         self.scale = scale*1.0  # float
         if self.scale > 1.0:
             self.scale = 1.0
@@ -124,6 +127,10 @@ class Tracker:
                 # TODO: Performance impact of INTER_LINEAR vs. INTER_NEAREST?
                 self.frame = cv2.cvtColor(cv2.resize(frame.img, (0, 0), fx=self.scale, fy=self.scale,
                                                      interpolation=cv2.INTER_NEAREST), cv2.COLOR_BGR2HSV)
+
+            height, width, channels = self.frame.shape
+            self.max_x=width
+            self.max_y=height
 
             for led in self.leds:
                 if led.detection_active:

@@ -184,7 +184,7 @@ class ObjectOfInterest:
     dir=0.0
     slots = None
 
-    def __init__(self, led_list, label, traced=False, tracked=True, magnetic_signals=None):
+    def __init__(self, led_list, label, traced=False, tracked=True, magnetic_signals=None, max_x=639, max_y=379):
         self.linked_leds = led_list
         self.label = label
         self.traced = traced
@@ -194,6 +194,8 @@ class ObjectOfInterest:
         self.speed_hist=[]
         self.dir_coord_hist = []
         self.guessing_enabled=False
+        self.max_x=max_x
+        self.max_y=max_y
 
         # the slots for these properties/signals are greedy for pins
         if magnetic_signals is None:
@@ -257,18 +259,24 @@ class ObjectOfInterest:
         # else:
         #     temp = (300, 300)
         #self.EVENFRAME = not self.EVENFRAME
-        if feature_positions==None:
-            print "object lost"
-            feature_positions=self.position_guessed()
-        else:
-            self.pos_hist.append(geom.middle_point(feature_positions))
+        self.pos_hist.append(geom.middle_point(feature_positions))
 
     @property
     def position(self):
          """Return last position."""
          #print (self.guessing_enabled)
+         if len(self.pos_hist):
+             if self.pos_hist[-1] == None and self.guessing_enabled:
+                 p = geom.guessedPosition(self.pos_hist)
+                 if p is not None and (p[0]<0 or p[0]>self.max_x or p[1]<0 or p[1]>self.max_y):   #guessed position is outside of the frame
+                    p=None
+                 else:
+                    print "object lost, the guessed position is: ", p
+                 self.pos_hist[-1]=p
+             return self.pos_hist[-1]
+         else:
+             return None
 
-         return self.pos_hist[-1] if len(self.pos_hist) else None
     @property
     def position_guessed(self):
         """Get position based on history. Could allow for fancy filtering etc."""
