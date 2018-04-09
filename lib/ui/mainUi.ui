@@ -101,6 +101,7 @@
    <addaction name="actionCamera"/>
    <addaction name="actionFile"/>
    <addaction name="actionRecord"/>
+   <addaction name="actionLogger"/>
    <addaction name="actionGUI_on_off"/>
    <addaction name="actionFPS_test"/>
    <addaction name="actionSpeed_up"/>
@@ -321,6 +322,18 @@
    </property>
    <property name="toolTip">
     <string>Increase framerate (the framerate is less stable)</string>
+   </property>
+  </action>
+  <action name="actionLogger">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/logger.png</normaloff>:/logger.png</iconset>
+   </property>
+   <property name="text">
+    <string>Logger</string>
    </property>
   </action>
  </widget>

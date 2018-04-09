@@ -54,7 +54,7 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         # List of items in the table to compare when updated. Ugly solution.
         self.slots_items = []
 
-        self.connect(self.btn_add_shape, QtCore.SIGNAL('toggled(bool)'), self.accept_selection)
+        self.connect(self.btn_add_rect, QtCore.SIGNAL('toggled(bool)'), self.accept_selection)
         self.connect(self.btn_remove_shape, QtCore.SIGNAL('clicked()'), self.remove_shape)
         #self.connect(self.btn_lock_table, QtCore.SIGNAL('toggled(bool)'), self.lock_slot_table)
 
@@ -175,7 +175,7 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         self.tree_region_shapes.addTopLevelItem(shape_item)
         self.tree_region_shapes.setCurrentItem(shape_item)
         shape_item.setFlags(shape_item.flags() | QtCore.Qt.ItemIsEditable)
-        self.btn_add_shape.setChecked(False)
+        self.btn_add_rect.setChecked(False)
 
     def remove_shape(self):
         """ Remove a shape from the list defining a ROI """

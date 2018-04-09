@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'tab_serialUi.ui'
 #
-# Created: Fri Nov 29 02:56:48 2013
-#      by: PyQt4 UI code generator 4.9.6
+# Created: Mon Apr 09 19:19:21 2018
+#      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
 

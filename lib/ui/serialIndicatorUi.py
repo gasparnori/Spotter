@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'serialIndicatorUi.ui'
 #
-# Created: Mon Nov 25 22:32:42 2013
-#      by: PyQt4 UI code generator 4.10.3
+# Created: Mon Apr 09 19:19:21 2018
+#      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
 

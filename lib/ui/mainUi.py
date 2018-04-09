@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'F:\Spotter_development\lib\ui\mainUi.ui'
+# Form implementation generated from reading ui file 'mainUi.ui'
 #
-# Created: Wed Nov 08 19:47:13 2017
-#      by: PyQt4 UI code generator 4.11.3
+# Created: Mon Apr 09 19:19:21 2018
+#      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -51,7 +51,7 @@ class Ui_MainWindow(object):
         self.frame.setFrameShape(QtGui.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtGui.QFrame.Sunken)
         self.frame.setObjectName(_fromUtf8("frame"))
-        self.frame_video.addWidget(self.frame, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
+        self.frame_video.addWidget(self.frame)
         self.horizontalLayout_2.addLayout(self.frame_video)
         self.frame_parameters = QtGui.QHBoxLayout()
         self.frame_parameters.setSpacing(0)
@@ -164,9 +164,16 @@ class Ui_MainWindow(object):
         icon13.addPixmap(QtGui.QPixmap(_fromUtf8(":/Space_rocket-16-512.png")), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.actionSpeed_up.setIcon(icon13)
         self.actionSpeed_up.setObjectName(_fromUtf8("actionSpeed_up"))
+        self.actionLogger = QtGui.QAction(MainWindow)
+        self.actionLogger.setCheckable(True)
+        icon14 = QtGui.QIcon()
+        icon14.addPixmap(QtGui.QPixmap(_fromUtf8(":/logger.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionLogger.setIcon(icon14)
+        self.actionLogger.setObjectName(_fromUtf8("actionLogger"))
         self.toolBar.addAction(self.actionCamera)
         self.toolBar.addAction(self.actionFile)
         self.toolBar.addAction(self.actionRecord)
+        self.toolBar.addAction(self.actionLogger)
         self.toolBar.addAction(self.actionGUI_on_off)
         self.toolBar.addAction(self.actionFPS_test)
         self.toolBar.addAction(self.actionSpeed_up)
@@ -210,5 +217,6 @@ class Ui_MainWindow(object):
         self.actionFPS_test.setToolTip(_translate("MainWindow", "Outputs a square wave of the framerate on D3", None))
         self.actionSpeed_up.setText(_translate("MainWindow", "Speed up!", None))
         self.actionSpeed_up.setToolTip(_translate("MainWindow", "Increase framerate (the framerate is less stable)", None))
+        self.actionLogger.setText(_translate("MainWindow", "Logger", None))
 
 import icons_rc

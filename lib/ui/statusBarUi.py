@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'F:\Spotter_development\lib\ui\statusBarUi.ui'
+# Form implementation generated from reading ui file 'statusBarUi.ui'
 #
-# Created: Wed Nov 08 16:45:45 2017
-#      by: PyQt4 UI code generator 4.11.3
+# Created: Mon Apr 09 19:19:21 2018
+#      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
 

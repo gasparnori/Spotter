@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'F:\Spotter_development\lib\ui\tab_sourceUi.ui'
+# Form implementation generated from reading ui file 'tab_sourceUi.ui'
 #
-# Created: Wed Nov 08 18:18:31 2017
-#      by: PyQt4 UI code generator 4.11.3
+# Created: Mon Apr 09 19:19:21 2018
+#      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -62,7 +62,7 @@ class Ui_tab_source(object):
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.FrameSettingsLabel = QtGui.QLabel(self.page_source)
         self.FrameSettingsLabel.setObjectName(_fromUtf8("FrameSettingsLabel"))
-        self.verticalLayout.addWidget(self.FrameSettingsLabel, QtCore.Qt.AlignBottom)
+        self.verticalLayout.addWidget(self.FrameSettingsLabel)
         self.gridLayout_3 = QtGui.QGridLayout()
         self.gridLayout_3.setObjectName(_fromUtf8("gridLayout_3"))
         self.HeightInput = QtGui.QSpinBox(self.page_source)
