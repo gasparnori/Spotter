@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>251</width>
+    <width>447</width>
     <height>448</height>
    </rect>
   </property>
@@ -47,8 +47,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>249</width>
-          <height>404</height>
+          <width>445</width>
+          <height>388</height>
          </rect>
         </property>
         <attribute name="label">
@@ -98,17 +98,7 @@
              <property name="spacing">
               <number>0</number>
              </property>
-             <item row="2" column="0">
-              <widget class="QPushButton" name="btn_add_triangle">
-               <property name="text">
-                <string>Add circle</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="0">
+             <item row="3" column="0">
               <widget class="QTableWidget" name="table_slots">
                <property name="horizontalScrollBarPolicy">
                 <enum>Qt::ScrollBarAsNeeded</enum>
@@ -151,16 +141,6 @@
                </column>
               </widget>
              </item>
-             <item row="3" column="0">
-              <widget class="QPushButton" name="btn_add_circle">
-               <property name="text">
-                <string>Add triangle</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
              <item row="1" column="0">
               <widget class="QPushButton" name="btn_add_rect">
                <property name="minimumSize">
@@ -173,14 +153,14 @@
                 <string>Drag: Rectangle. Shift+drag: Circle. Ctrl+drag: Line.</string>
                </property>
                <property name="text">
-                <string>&amp;Add rectangle</string>
+                <string>&amp;Add shape (shift: circle, ctrl: line, default: rectangle)</string>
                </property>
                <property name="checkable">
                 <bool>true</bool>
                </property>
               </widget>
              </item>
-             <item row="4" column="0">
+             <item row="2" column="0">
               <widget class="QPushButton" name="btn_remove_shape">
                <property name="minimumSize">
                 <size>
@@ -316,8 +296,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>158</width>
-          <height>92</height>
+          <width>445</width>
+          <height>388</height>
          </rect>
         </property>
         <attribute name="label">

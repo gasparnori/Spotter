@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'tab_regionsUi.ui'
 #
-# Created: Mon Apr 09 19:19:21 2018
+# Created: Tue Apr 10 11:38:07 2018
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_tab_regions(object):
     def setupUi(self, tab_regions):
         tab_regions.setObjectName(_fromUtf8("tab_regions"))
-        tab_regions.resize(251, 448)
+        tab_regions.resize(447, 448)
         self.gridLayout = QtGui.QGridLayout(tab_regions)
         self.gridLayout.setMargin(0)
         self.gridLayout.setSpacing(0)
@@ -40,7 +40,7 @@ class Ui_tab_regions(object):
         self.toolBox.setLineWidth(0)
         self.toolBox.setObjectName(_fromUtf8("toolBox"))
         self.page_regions_overview = QtGui.QWidget()
-        self.page_regions_overview.setGeometry(QtCore.QRect(0, 0, 249, 404))
+        self.page_regions_overview.setGeometry(QtCore.QRect(0, 0, 445, 388))
         self.page_regions_overview.setObjectName(_fromUtf8("page_regions_overview"))
         self.gridLayout_6 = QtGui.QGridLayout(self.page_regions_overview)
         self.gridLayout_6.setMargin(0)
@@ -64,10 +64,6 @@ class Ui_tab_regions(object):
         self.gridLayout_10 = QtGui.QGridLayout()
         self.gridLayout_10.setSpacing(0)
         self.gridLayout_10.setObjectName(_fromUtf8("gridLayout_10"))
-        self.btn_add_triangle = QtGui.QPushButton(self.page_regions_overview)
-        self.btn_add_triangle.setCheckable(True)
-        self.btn_add_triangle.setObjectName(_fromUtf8("btn_add_triangle"))
-        self.gridLayout_10.addWidget(self.btn_add_triangle, 2, 0, 1, 1)
         self.table_slots = QtGui.QTableWidget(self.page_regions_overview)
         self.table_slots.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.table_slots.setAlternatingRowColors(True)
@@ -86,11 +82,7 @@ class Ui_tab_regions(object):
         self.table_slots.horizontalHeader().setMinimumSectionSize(5)
         self.table_slots.horizontalHeader().setStretchLastSection(True)
         self.table_slots.verticalHeader().setVisible(False)
-        self.gridLayout_10.addWidget(self.table_slots, 5, 0, 1, 1)
-        self.btn_add_circle = QtGui.QPushButton(self.page_regions_overview)
-        self.btn_add_circle.setCheckable(True)
-        self.btn_add_circle.setObjectName(_fromUtf8("btn_add_circle"))
-        self.gridLayout_10.addWidget(self.btn_add_circle, 3, 0, 1, 1)
+        self.gridLayout_10.addWidget(self.table_slots, 3, 0, 1, 1)
         self.btn_add_rect = QtGui.QPushButton(self.page_regions_overview)
         self.btn_add_rect.setMinimumSize(QtCore.QSize(30, 0))
         self.btn_add_rect.setCheckable(True)
@@ -99,7 +91,7 @@ class Ui_tab_regions(object):
         self.btn_remove_shape = QtGui.QPushButton(self.page_regions_overview)
         self.btn_remove_shape.setMinimumSize(QtCore.QSize(30, 0))
         self.btn_remove_shape.setObjectName(_fromUtf8("btn_remove_shape"))
-        self.gridLayout_10.addWidget(self.btn_remove_shape, 4, 0, 1, 1)
+        self.gridLayout_10.addWidget(self.btn_remove_shape, 2, 0, 1, 1)
         self.gridLayout_5.addLayout(self.gridLayout_10, 13, 0, 1, 2)
         self.gridLayout_3 = QtGui.QGridLayout()
         self.gridLayout_3.setContentsMargins(3, 0, -1, -1)
@@ -150,7 +142,7 @@ class Ui_tab_regions(object):
         self.gridLayout_6.addLayout(self.gridLayout_5, 0, 0, 1, 1)
         self.toolBox.addItem(self.page_regions_overview, _fromUtf8(""))
         self.page_regions_IO = QtGui.QWidget()
-        self.page_regions_IO.setGeometry(QtCore.QRect(0, 0, 158, 92))
+        self.page_regions_IO.setGeometry(QtCore.QRect(0, 0, 445, 388))
         self.page_regions_IO.setObjectName(_fromUtf8("page_regions_IO"))
         self.gridLayout_7 = QtGui.QGridLayout(self.page_regions_IO)
         self.gridLayout_7.setMargin(0)
@@ -194,16 +186,14 @@ class Ui_tab_regions(object):
     def retranslateUi(self, tab_regions):
         tab_regions.setWindowTitle(_translate("tab_regions", "Form", None))
         self.tree_region_shapes.headerItem().setText(0, _translate("tab_regions", "Shapes", None))
-        self.btn_add_triangle.setText(_translate("tab_regions", "Add circle", None))
         item = self.table_slots.horizontalHeaderItem(0)
         item.setText(_translate("tab_regions", "Collision", None))
         item = self.table_slots.horizontalHeaderItem(1)
         item.setText(_translate("tab_regions", "Pin", None))
         item = self.table_slots.horizontalHeaderItem(2)
         item.setText(_translate("tab_regions", "Logic", None))
-        self.btn_add_circle.setText(_translate("tab_regions", "Add triangle", None))
         self.btn_add_rect.setStatusTip(_translate("tab_regions", "Drag: Rectangle. Shift+drag: Circle. Ctrl+drag: Line.", None))
-        self.btn_add_rect.setText(_translate("tab_regions", "&Add rectangle", None))
+        self.btn_add_rect.setText(_translate("tab_regions", "&Add shape (shift: circle, ctrl: line, default: rectangle)", None))
         self.btn_remove_shape.setText(_translate("tab_regions", "&Remove", None))
         self.lbl_y.setText(_translate("tab_regions", "y:", None))
         self.lbl_x.setText(_translate("tab_regions", "x:", None))

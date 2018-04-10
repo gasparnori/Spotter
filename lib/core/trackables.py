@@ -29,13 +29,13 @@ class Shape:
     def __init__(self, shape, points=None, label=None):
         self.active = True
         self.selected = False
-
         self.collision_check = None
 
         self.shape = shape.lower()
         self.label = label
 
         self.points = points
+
         if shape == 'circle':
             # normalize the point positions based on radius,
             # second point is always to the right of the center
@@ -43,6 +43,14 @@ class Shape:
             self.collision_check = self.collision_check_circle
         elif shape == 'rectangle':
             self.collision_check = self.collision_check_rectangle
+        elif shape == 'line':
+            dx = math.fabs(self.points[0][0] - self.points[1][0])
+            dy = math.fabs(self.points[0][1] - self.points[1][1])
+            if dx==0:
+                self.slope=1
+            else:
+                self.slope = (dy / dx)
+            self.collision_check = self.collision_check_line
 
     def move(self, dx, dy):
         """ Move the shape relative to current position. """
@@ -80,6 +88,24 @@ class Shape:
         y_in_interval = (point[1] > min(self.points[0][1], self.points[1][1])) and \
                         (point[1] < max(self.points[0][1], self.points[1][1]))
         return self.active and x_in_interval and y_in_interval
+
+    def collision_check_line(self, point):
+        #stupid way to check collision with a line segment
+        #step 1: check if the point falls within the rectangle
+        x_in_interval = (point[0] > min(self.points[0][0], self.points[1][0])) and \
+                        (point[0] < max(self.points[0][0], self.points[1][0]))
+
+        y_in_interval = (point[1] > min(self.points[0][1], self.points[1][1])) and \
+                        (point[1] < max(self.points[0][1], self.points[1][1]))
+        #step2
+        #check if the slope between one of the points and the new point is the same
+        dx=math.fabs(point[0] - self.points[1][0])
+        if dx>0:
+            s = (math.fabs(point[1]- self.points[1][1]) /dx)
+        else:
+            s=1
+        return (s==self.slope and self.active and x_in_interval and y_in_interval)
+
 
 
 class Feature:

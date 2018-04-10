@@ -19,6 +19,7 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
     accept_events = True
     event_add_selection = False
     tab_type = "region"
+    active_shape_type="rect"        #whichever shape type was chosen
 
     # mouse event handling
     start_coords = None
@@ -33,6 +34,7 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         self.log = logging.getLogger(__name__)
         self.setupUi(self)
         self.region = region_ref
+        print self.region
 
         assert 'spotter' in kwargs
         self.spotter = kwargs['spotter']
@@ -93,6 +95,7 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
     def accept_selection(self, state):
         """ Called by the 'Add' button toggle to accept input for new shapes """
         self.event_add_selection = state
+
 
     def process_event(self, event_type, event):
         """ Handle mouse interactions, mainly to draw and move shapes """
