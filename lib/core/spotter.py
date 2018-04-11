@@ -129,6 +129,8 @@ class Spotter:
 
     def update(self):
         slots = []
+        logobjects = []
+
         if self.FPStest == True and self.fpstest!=None:
             slots.append(self.fpstest.slot)
         # Get new frame
@@ -155,18 +157,23 @@ class Spotter:
                 o.update_values(self.spotterelapsed)
                 o.update_slots(self.chatter)
                 o.update_state()
+
                 slots.extend(o.linked_slots)
                 messages.append('\t'.join([self.newest_frame.time_text,
                                            #str(self.newest_frame.tickstamp),
                                            str(o.label),
                                            str(o.position)]))
+                #print o.linked_slots
+            logobjects.append([self.newest_frame.time_text,[(str(o.label), str(o.getPositionX()),
+                               str(o.getPositionY()), str(o.getSpeed()), str(o.getDirection()),
+                               [(str(l.label), str(l.position)) for l in o.getLinkedLEDs()]) for o in self.tracker.oois]])
 
             for l in self.tracker.leds:
                 messages.append('\t'.join([self.newest_frame.time_text,
                                            #str(self.newest_frame.tickstamp),
                                            str(l.label),
                                            str(l.position)]))
-
+            #print logobjects
             # Check Object-Region collisions
             for r in self.tracker.rois:
                 r.update_slots(self.chatter)
@@ -176,7 +183,7 @@ class Spotter:
 
             #if logging enabled, it adds a line in the log
             if self.datalogging==True:
-                self.dlogger.update(slots)
+                self.dlogger.update(slots, logobjects)
 
             # Check on writer process to prevent data loss and preserve reference
             if self.check_writer():
