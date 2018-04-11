@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>251</width>
+    <width>447</width>
     <height>448</height>
    </rect>
   </property>
@@ -47,8 +47,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>249</width>
-          <height>404</height>
+          <width>445</width>
+          <height>388</height>
          </rect>
         </property>
         <attribute name="label">
@@ -69,19 +69,6 @@
            <property name="spacing">
             <number>0</number>
            </property>
-           <item row="7" column="1">
-            <widget class="QPushButton" name="btn_remove_shape">
-             <property name="minimumSize">
-              <size>
-               <width>30</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="text">
-              <string>&amp;Remove</string>
-             </property>
-            </widget>
-           </item>
            <item row="5" column="0" rowspan="2" colspan="2">
             <widget class="QTreeWidget" name="tree_region_shapes">
              <property name="sizePolicy">
@@ -106,31 +93,12 @@
              </column>
             </widget>
            </item>
-           <item row="7" column="0">
-            <widget class="QPushButton" name="btn_add_shape">
-             <property name="minimumSize">
-              <size>
-               <width>30</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="statusTip">
-              <string>Drag: Rectangle. Shift+drag: Circle. Ctrl+drag: Line.</string>
-             </property>
-             <property name="text">
-              <string>&amp;Add</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="0" colspan="2">
+           <item row="13" column="0" colspan="2">
             <layout class="QGridLayout" name="gridLayout_10">
              <property name="spacing">
               <number>0</number>
              </property>
-             <item row="1" column="0">
+             <item row="3" column="0">
               <widget class="QTableWidget" name="table_slots">
                <property name="horizontalScrollBarPolicy">
                 <enum>Qt::ScrollBarAsNeeded</enum>
@@ -171,6 +139,38 @@
                  <string>Logic</string>
                 </property>
                </column>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QPushButton" name="btn_add_rect">
+               <property name="minimumSize">
+                <size>
+                 <width>30</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="statusTip">
+                <string>Drag: Rectangle. Shift+drag: Circle. Ctrl+drag: Line.</string>
+               </property>
+               <property name="text">
+                <string>&amp;Add shape (shift: circle, ctrl: line, default: rectangle)</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QPushButton" name="btn_remove_shape">
+               <property name="minimumSize">
+                <size>
+                 <width>30</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>&amp;Remove</string>
+               </property>
               </widget>
              </item>
             </layout>
@@ -296,8 +296,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>249</width>
-          <height>404</height>
+          <width>445</width>
+          <height>388</height>
          </rect>
         </property>
         <attribute name="label">

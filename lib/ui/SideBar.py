@@ -55,15 +55,16 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         self.connect(self.regions_page.btn_new_page, QtCore.SIGNAL('clicked()'), self.add_region)
         #self.regions_page.tabs_sub.tabCloseRequested.connect(self.remove_page)
 
-        self.log.debug('Opening source main tab')
-        self.source_page = MainTabPage("Source", TabSource.Tab, spotter=self.spotter, *args, **kwargs)
-        self.tabs_main.insertTab(-1, self.source_page, self.source_page.label)
-        self.add_source(self.spotter.grabber)
-
-        self.log.debug('Opening recording main tab')
-        self.record_page = MainTabPage("Recording", TabRecord.Tab, spotter=self.spotter, *args, **kwargs)
-        self.tabs_main.insertTab(-1, self.record_page, self.record_page.label)
-        self.add_record(self.spotter.writer)
+        ##right now they are unnecessary
+        # self.log.debug('Opening source main tab')
+        # self.source_page = MainTabPage("Source", TabSource.Tab, spotter=self.spotter, *args, **kwargs)
+        # self.tabs_main.insertTab(-1, self.source_page, self.source_page.label)
+        # self.add_source(self.spotter.grabber)
+        #
+        # self.log.debug('Opening recording main tab')
+        # self.record_page = MainTabPage("Recording", TabRecord.Tab, spotter=self.spotter, *args, **kwargs)
+        # self.tabs_main.insertTab(-1, self.record_page, self.record_page.label)
+        # self.add_record(self.spotter.writer)
 
         self.log.debug('Opening serial main tab')
         self.serial_page = MainTabPage("Serial", TabSerial.Tab, spotter=self.spotter, *args, **kwargs)
@@ -327,19 +328,19 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         self.serial_page.add_item(serial_object, update_all_tabs=self.update_all_tabs())
 
     ###############################################################################
-    ##  SOURCE Tab Updates
-    ###############################################################################
-    def add_source(self, source_object, label=None):
-        """
-        Serial object tab. Probably an Arduino compatible board linked to it.
-        """
-        self.source_page.add_item(source_object, update_all_tabs=self.update_all_tabs())
-
-    ###############################################################################
-    ##  RECORD Tab Updates
-    ###############################################################################
-    def add_record(self, record_object, label=None):
-        """
-        Serial object tab. Probably an Arduino compatible board linked to it.
-        """
-        self.record_page.add_item(record_object, update_all_tabs=self.update_all_tabs())
+    # ##  SOURCE Tab Updates
+    # ###############################################################################
+    # def add_source(self, source_object, label=None):
+    #     """
+    #     Serial object tab. Probably an Arduino compatible board linked to it.
+    #     """
+    #     self.source_page.add_item(source_object, update_all_tabs=self.update_all_tabs())
+    #
+    # ###############################################################################
+    # ##  RECORD Tab Updates
+    # ###############################################################################
+    # def add_record(self, record_object, label=None):
+    #     """
+    #     Serial object tab. Probably an Arduino compatible board linked to it.
+    #     """
+    #     self.record_page.add_item(record_object, update_all_tabs=self.update_all_tabs())
