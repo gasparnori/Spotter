@@ -4,6 +4,8 @@
 
 test.avi
 /media/img/*.jpg
+/templates/*
+
 *.log
 *.p
 
