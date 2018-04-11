@@ -115,6 +115,8 @@ class Main(QtGui.QMainWindow):
         # Toolbar items
         #record video
         self.connect(self.ui.actionRecord, QtCore.SIGNAL('toggled(bool)'), self.record_video)
+        #record data log
+        self.connect(self.ui.actionLogger, QtCore.SIGNAL('toggled(bool)'), self.start_log)
         #show action properties
         #self.connect(self.ui.actionSourceProperties, QtCore.SIGNAL('triggered()'),self.props)
         # Serial/Arduino Connection status indicator
@@ -190,7 +192,10 @@ class Main(QtGui.QMainWindow):
     def spotterUpdate(self):
         if self.spotter.update() is None:
             return
-        self.avg_fps = self.avg_fps * 0.95 + 0.05 * 1000. / self.spotter.spotterelapsed
+        if self.spotter.spotterelapsed>0:
+            self.avg_fps = self.avg_fps * 0.95 + 0.05 * 1000. / self.spotter.spotterelapsed
+        else:
+            self.avg_fps=0
         self.status_bar.update_fps(self.avg_fps)
 
         if self.spotter.GUI_off == False:
@@ -253,6 +258,18 @@ class Main(QtGui.QMainWindow):
     #         if self.timer.interval() != GUI_REFRESH_INTERVAL:
     #             self.timer.setInterval(GUI_REFRESH_INTERVAL)
     #             self.log.debug("Changed main loop update rate to be fast. New: %d", self.timer.interval())
+
+    def start_log(self, state, filename=None):
+        if state:
+            if filename is None:
+                filename = QtGui.QFileDialog.getSaveFileName(self, 'Open Folder', './recordings/')
+            if len(filename):
+                self.spotter.start_datalog(str(filename) + '.txt')
+            else:
+                return
+        else:
+            self.spotter.stop_datalog()
+
 
     def record_video(self, state, filename=None):
         """ Control recording of grabbed video. """

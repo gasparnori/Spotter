@@ -40,6 +40,7 @@ from lib.docopt import docopt
 from lib.core import grabber, tracker, writer, chatter
 import pickle
 from PyQt4 import QtCore
+import datalog
 
 timings_filename = 'tracking_3LEDs.p'
 
@@ -51,6 +52,7 @@ class Spotter:
     writer = None
     tracker = None
     chatter = None
+    dlogger=None
 
     # state variables
     record_to_file = True
@@ -66,6 +68,7 @@ class Spotter:
     recording = False
     GUI_off=False
     FPStest=False
+    datalogging=False
 
     #scale_resize = 0.5
     scale_tracking = 1.0
@@ -100,7 +103,9 @@ class Spotter:
                                               args=(self.grabber.fps, self.grabber.size,
                                                     self.writer_queue, child_pipe,))
         self.log.debug('Starting writer...')
-        self.writer.start()
+        #self.writer.start()
+        self.log.debug('Instantiating data logger...')
+        self.dlogger=datalog.DataLogger()
 
         # tracker object finds LEDs in frames
         self.log.debug('Instantiating tracker...')
@@ -169,6 +174,10 @@ class Spotter:
                 slots.extend(r.linked_slots)
             self.chatter.update_pins(slots)
 
+            #if logging enabled, it adds a line in the log
+            if self.datalogging==True:
+                self.dlogger.update(slots)
+
             # Check on writer process to prevent data loss and preserve reference
             if self.check_writer():
                 if self.recording:
@@ -179,7 +188,7 @@ class Spotter:
 #               time.sleep(0.001)  # required, or may crash?
 
         # FIXME: Blocks if buffer runs full when writer crashes/closes
-        self.writer_pipe.send(['alive'])
+        #self.writer_pipe.send(['alive'])
         return self.newest_frame
 
     @property
@@ -198,6 +207,13 @@ class Spotter:
     def stop_writer(self):
         self.writer_pipe.send(['stop'])
         self.recording = False
+
+    def stop_datalog(self):
+        self.datalogging=False
+
+    def start_datalog(self, filename=None):
+        self.dlogger.start(filename)
+        self.datalogging=True
 
     def exit(self):
         """ Graceful exit. Ha. Ha. Ha. Bottle of root beer anyone? """
