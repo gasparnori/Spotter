@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Spotter\spotterupdated\lib\ui\tab_objectsUi.ui'
+# Form implementation generated from reading ui file 'tab_objectsUi.ui'
 #
-# Created: Thu Jan 25 11:54:18 2018
+# Created: Tue Apr 10 11:38:07 2018
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!

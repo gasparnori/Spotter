@@ -316,3 +316,4 @@ class HSVHist:
                 cv2.rectangle( self.overlay, (ofs*pos, h), ( ofs*pos + (ofs-1), h-hbin ), ( ofs*pos, 255, 128 ), -1 )
 
         self.overlay = cv2.cvtColor( self.overlay, cv2.COLOR_HSV2BGR )
+

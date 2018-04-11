@@ -3,7 +3,8 @@
 #############
 
 test.avi
-/media/img/*.jpg
+/media/
+/templates/
 *.log
 *.p
 

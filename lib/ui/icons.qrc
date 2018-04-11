@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/">
+    <file>logger.png</file>
     <file>fps_test.png</file>
     <file>Space_rocket-16-512.png</file>
     <file>GUI_off.png</file>

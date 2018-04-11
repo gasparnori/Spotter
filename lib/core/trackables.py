@@ -29,13 +29,13 @@ class Shape:
     def __init__(self, shape, points=None, label=None):
         self.active = True
         self.selected = False
-
         self.collision_check = None
 
         self.shape = shape.lower()
         self.label = label
 
         self.points = points
+
         if shape == 'circle':
             # normalize the point positions based on radius,
             # second point is always to the right of the center
@@ -43,6 +43,14 @@ class Shape:
             self.collision_check = self.collision_check_circle
         elif shape == 'rectangle':
             self.collision_check = self.collision_check_rectangle
+        elif shape == 'line':
+            dx = math.fabs(self.points[0][0] - self.points[1][0])
+            dy = math.fabs(self.points[0][1] - self.points[1][1])
+            if dx==0:
+                self.slope=1
+            else:
+                self.slope = (dy / dx)
+            self.collision_check = self.collision_check_line
 
     def move(self, dx, dy):
         """ Move the shape relative to current position. """
@@ -80,6 +88,24 @@ class Shape:
         y_in_interval = (point[1] > min(self.points[0][1], self.points[1][1])) and \
                         (point[1] < max(self.points[0][1], self.points[1][1]))
         return self.active and x_in_interval and y_in_interval
+
+    def collision_check_line(self, point):
+        #stupid way to check collision with a line segment
+        #step 1: check if the point falls within the rectangle
+        x_in_interval = (point[0] > min(self.points[0][0], self.points[1][0])) and \
+                        (point[0] < max(self.points[0][0], self.points[1][0]))
+
+        y_in_interval = (point[1] > min(self.points[0][1], self.points[1][1])) and \
+                        (point[1] < max(self.points[0][1], self.points[1][1]))
+        #step2
+        #check if the slope between one of the points and the new point is the same
+        dx=math.fabs(point[0] - self.points[1][0])
+        if dx>0:
+            s = (math.fabs(point[1]- self.points[1][1]) /dx)
+        else:
+            s=1
+        return (s==self.slope and self.active and x_in_interval and y_in_interval)
+
 
 
 class Feature:
@@ -184,7 +210,7 @@ class ObjectOfInterest:
     dir=0.0
     slots = None
 
-    def __init__(self, led_list, label, traced=False, tracked=True, magnetic_signals=None):
+    def __init__(self, led_list, label, traced=False, tracked=True, magnetic_signals=None, max_x=639, max_y=379):
         self.linked_leds = led_list
         self.label = label
         self.traced = traced
@@ -194,6 +220,8 @@ class ObjectOfInterest:
         self.speed_hist=[]
         self.dir_coord_hist = []
         self.guessing_enabled=False
+        self.max_x=max_x
+        self.max_y=max_y
 
         # the slots for these properties/signals are greedy for pins
         if magnetic_signals is None:
@@ -251,12 +279,22 @@ class ObjectOfInterest:
         if not self.tracked:
             return
         feature_positions = [f.pos_hist[-1] for f in self.linked_leds if len(f.pos_hist)]
+<<<<<<< HEAD
+=======
+        # temp=geom.middle_point(feature_positions)
+        # if self.EVENFRAME:
+        #     temp = (0, 0)
+        # else:
+        #     temp = (300, 300)
+        #self.EVENFRAME = not self.EVENFRAME
+>>>>>>> enable_guessing
         self.pos_hist.append(geom.middle_point(feature_positions))
 
     @property
     def position(self):
          """Return last position."""
          #print (self.guessing_enabled)
+<<<<<<< HEAD
          if self.guessing_enabled == True and len(self.pos_hist):
              if (self.pos_hist[-1] == None):
                  self.pos_hist[-1] = geom.guessedPosition(self.pos_hist)
@@ -270,6 +308,24 @@ class ObjectOfInterest:
       #  """Get position based on history. Could allow for fancy filtering etc."""
      #   return geom.guessedPosition(self.pos_hist)
 
+=======
+         if len(self.pos_hist):
+             if self.pos_hist[-1] == None and self.guessing_enabled:
+                 p = geom.guessedPosition(self.pos_hist)
+                 if p is not None and (p[0]<0 or p[0]>self.max_x or p[1]<0 or p[1]>self.max_y):   #guessed position is outside of the frame
+                    p=None
+                 else:
+                    print "object lost, the guessed position is: ", p
+                 self.pos_hist[-1]=p
+             return self.pos_hist[-1]
+         else:
+             return None
+
+    @property
+    def position_guessed(self):
+        """Get position based on history. Could allow for fancy filtering etc."""
+        return geom.guessedPosition(self.pos_hist)
+>>>>>>> enable_guessing
     def getLinkedLEDs(self):
         return self.linked_leds
     def addLinkedLED(self, led):

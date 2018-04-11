@@ -89,15 +89,37 @@ def scale(val, range1, range2):
     # normalize by range of range1, multiply by range of range2, offset
     return ((float(val) - range1[0]) / (range1[1] - range1[0])) * (range2[1] - range2[0]) + range2[0]
 
+#a better way for position guessing: autoregressive extrapolation with moving window
+def extrapolateAutoReg(pos_hist, windowsize):
+    t = np.linspace(0, windowsize + 1, windowsize + 1)
+    fx = np.poly1d(np.polyfit(t[0:-1], x, 1))
+    fy = np.poly1d(np.polyfit(t[0:-1], y, 1))
+    return (fx(t[-1]), fy(t[-1]))
+
 
 def extrapolateLinear(p1, p2):
     """
     Linear extrapolation of missing point
     """
     dx = p2[0] - p1[0]
-    dy = p2[1] - p2[1]
+    dy = p2[1] - p1[1]
 
     return tuple([p2[0]+dx, p2[1]+dy])
+
+# a much better way for position guessing, but does it
+def AutoregPosition(pos_hist):
+    windowsize=4
+    if len(pos_hist) >= windowsize:
+        filtered=filter(pos_hist[-windowsize:])
+        if (len(filtered)==windowsize):
+            return extrapolateAutoReg(filtered, windowsize)
+        elif len(filtered>0):
+            windowsize=len(filtered)
+            return extrapolateAutoReg(filtered, windowsize)
+        else:
+            return None
+    else:
+        return None
 
 
 def guessedPosition(pos_hist):

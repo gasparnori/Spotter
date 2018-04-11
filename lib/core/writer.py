@@ -38,6 +38,32 @@ OVERWRITE = False
 #seconds till writer process times out after having received last alive packet
 STILL_ALIVE_TIMEOUT = 10
 
+class Logger:
+    destination = None
+    ts_last = time.clock()
+    video_logger = None
+
+    def __init__(self, *args, **kwargs):
+        logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        self.log = logging.getLogger(__name__)
+        self.log.info('Starting loop with size %s', str(size))
+
+    def start(self, parameters):  # dst=None, size=None
+        if len(parameters) >= 1:
+            print "unnecessary"
+        if len(parameters) >= 2:
+            dst = parameters[2]
+        # check if output file exists
+        if dst is None:
+            dst = 'recordings/' + utils.time_string() + '.txt'
+
+        destination = utils.dst_file_name(dst)
+        if os.path.isfile(destination) and not OVERWRITE:
+            self.log.error('Destination file %s exists.', destination)
+            return
+        self.destination = destination
+        self.log.info('Start logging: %s', self.destination)
+
 
 class Writer:
     codecs = ('XVID', 'DIVX', 'IYUV')
