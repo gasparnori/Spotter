@@ -69,6 +69,7 @@ class Spotter:
     GUI_off=False
     FPStest=False
     datalogging=False
+    active_shape_type='rectangle' # whichever shape was chosen to draw  on the screen (connects between TabRegions and GLFrame
 
     #scale_resize = 0.5
     scale_tracking = 1.0
@@ -103,7 +104,7 @@ class Spotter:
                                               args=(self.grabber.fps, self.grabber.size,
                                                     self.writer_queue, child_pipe,))
         self.log.debug('Starting writer...')
-        #self.writer.start()
+        self.writer.start()
         self.log.debug('Instantiating data logger...')
         self.dlogger=datalog.DataLogger()
 
@@ -131,8 +132,10 @@ class Spotter:
         slots = []
         logobjects = []
 
+        #if it outputs the Frame signal on D3
         if self.FPStest == True and self.fpstest!=None:
             slots.append(self.fpstest.slot)
+
         # Get new frame
         self.newest_frame = self.grabber.grab()
         if self.newest_frame is not None:
@@ -146,6 +149,9 @@ class Spotter:
             #                                     fy=self.scale_resize, interpolation=cv2.INTER_LINEAR)
 
             #with timerclass.Timer(False, self.timings) as t:
+
+
+            #add an area to ignore
 
             # Find and update position of tracked object
             self.tracker.track_feature(self.newest_frame, method='hsv_thresh',

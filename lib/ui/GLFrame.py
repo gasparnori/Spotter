@@ -156,12 +156,14 @@ class GLFrame(QtOpenGL.QGLWidget):
             p1 = (self.m_x1, self.m_y1)
             p2 = (self.m_x2, self.m_y2)
 
-            modifiers = QtGui.QApplication.keyboardModifiers()
-            if modifiers == QtCore.Qt.ShiftModifier:
+            #modifiers = QtGui.QApplication.keyboardModifiers()
+            #if modifiers == QtCore.Qt.ShiftModifier:
+            if self.spotter.active_shape_type=='circle':
                 radius = geom.distance(p1, p2)
                 p2_c = (int(p1[0]), p1[1]+radius)
                 self.drawCircle((p1, p2_c), color=color, filled=True, num_segments=24)
-            elif modifiers == QtCore.Qt.ControlModifier:
+           # elif modifiers == QtCore.Qt.ControlModifier:
+            elif self.spotter.active_shape_type=='line':
                 self.drawLine((p1, p2), color=color)
             else:
                 self.drawRect((p1, p2), color=color)

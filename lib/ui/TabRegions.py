@@ -56,7 +56,10 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         # List of items in the table to compare when updated. Ugly solution.
         self.slots_items = []
 
-        self.connect(self.btn_add_rect, QtCore.SIGNAL('toggled(bool)'), self.accept_selection)
+        self.connect(self.btn_add_rect, QtCore.SIGNAL('toggled(bool)'), self.rect_clicked)
+        self.connect(self.btn_add_line, QtCore.SIGNAL('toggled(bool)'), self.line_clicked)
+        self.connect(self.btn_add_circle, QtCore.SIGNAL('toggled(bool)'), self.circle_clicked)
+
         self.connect(self.btn_remove_shape, QtCore.SIGNAL('clicked()'), self.remove_shape)
         #self.connect(self.btn_lock_table, QtCore.SIGNAL('toggled(bool)'), self.lock_slot_table)
 
@@ -96,6 +99,27 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         """ Called by the 'Add' button toggle to accept input for new shapes """
         self.event_add_selection = state
 
+    def rect_clicked(self, state):
+        self.accept_selection(state)
+        self.spotter.active_shape_type='rectangle'
+        self.btn_add_rect.setChecked(True)
+        self.btn_add_line.setChecked(False)
+        self.btn_add_circle.setChecked(False)
+
+    def line_clicked(self, state):
+        self.accept_selection(state)
+        self.spotter.active_shape_type = 'line'
+        self.btn_add_line.setChecked(True)
+        self.btn_add_rect.setChecked(False)
+        self.btn_add_circle.setChecked(False)
+
+    def circle_clicked(self, state):
+        self.accept_selection(state)
+        self.spotter.active_shape_type = 'circle'
+        self.btn_add_circle.setChecked(True)
+        self.btn_add_rect.setChecked(False)
+        self.btn_add_line.setChecked(False)
+
 
     def process_event(self, event_type, event):
         """ Handle mouse interactions, mainly to draw and move shapes """
@@ -133,13 +157,13 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
                 # Finalize region selection
                 self.coord_end = [event.x(), event.y()]
 
-                shape_type = None
-                if modifiers == QtCore.Qt.NoModifier:
-                    shape_type = 'rectangle'
-                elif modifiers == QtCore.Qt.ShiftModifier:
-                    shape_type = 'circle'
-                elif modifiers == QtCore.Qt.ControlModifier:
-                    shape_type = 'line'
+                shape_type = self.spotter.active_shape_type
+                # if modifiers == QtCore.Qt.NoModifier:
+                #     shape_type = 'rectangle'
+                # elif modifiers == QtCore.Qt.ShiftModifier:
+                #     shape_type = 'circle'
+                # elif modifiers == QtCore.Qt.ControlModifier:
+                #     shape_type = 'line'
 
                 shape_points = [self.coord_start, self.coord_end]
                 if shape_type and shape_points:
