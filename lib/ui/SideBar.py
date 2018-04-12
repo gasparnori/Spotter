@@ -17,8 +17,8 @@ from side_barUi import Ui_side_bar
 import TabFeatures
 import TabObjects
 import TabRegions
-import TabSource
-import TabRecord
+#import TabSource
+#import TabRecord
 import TabSerial
 
 
