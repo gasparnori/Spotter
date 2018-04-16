@@ -2,29 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a67d8fa4-89e5-4a14-a9d2-18625eee271e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/spotterupdated.iml" afterPath="$PROJECT_DIR$/.idea/spotterupdated.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/lib/core/grabber.py" afterPath="$PROJECT_DIR$/lib/core/grabber.py" />
-      <change beforePath="$PROJECT_DIR$/lib/core/spotter.py" afterPath="$PROJECT_DIR$/lib/core/spotter.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/GLFrame.py" afterPath="$PROJECT_DIR$/lib/ui/GLFrame.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/TabRecord.py" afterPath="$PROJECT_DIR$/lib/ui/TabRecord.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/TabRegions.py" afterPath="$PROJECT_DIR$/lib/ui/TabRegions.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/TabSource.py" afterPath="$PROJECT_DIR$/lib/ui/TabSource.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/icons_rc.py" afterPath="$PROJECT_DIR$/lib/ui/icons_rc.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/images_rc.py" afterPath="$PROJECT_DIR$/lib/ui/images_rc.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/mainUi.py" afterPath="$PROJECT_DIR$/lib/ui/mainUi.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/main_tab_pageUi.py" afterPath="$PROJECT_DIR$/lib/ui/main_tab_pageUi.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/serialIndicatorUi.py" afterPath="$PROJECT_DIR$/lib/ui/serialIndicatorUi.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/side_barUi.py" afterPath="$PROJECT_DIR$/lib/ui/side_barUi.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/statusBarUi.py" afterPath="$PROJECT_DIR$/lib/ui/statusBarUi.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/tab_featuresUi.py" afterPath="$PROJECT_DIR$/lib/ui/tab_featuresUi.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/tab_objectsUi.py" afterPath="$PROJECT_DIR$/lib/ui/tab_objectsUi.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/tab_recordUi.py" afterPath="$PROJECT_DIR$/lib/ui/tab_recordUi.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/tab_regionsUi.py" afterPath="$PROJECT_DIR$/lib/ui/tab_regionsUi.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/tab_regionsUi.ui" afterPath="$PROJECT_DIR$/lib/ui/tab_regionsUi.ui" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/tab_serialUi.py" afterPath="$PROJECT_DIR$/lib/ui/tab_serialUi.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/tab_sourceUi.py" afterPath="$PROJECT_DIR$/lib/ui/tab_sourceUi.py" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/spotterupdated.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/spotterupdated.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/template_specification.ini" beforeDir="false" afterPath="$PROJECT_DIR$/config/template_specification.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/tracker.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/tracker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/SideBar.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/SideBar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/icons_rc.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/icons_rc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/images_rc.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/images_rc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/mainUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/mainUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/main_tab_pageUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/main_tab_pageUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/serialIndicatorUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/serialIndicatorUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/side_barUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/side_barUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/statusBarUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/statusBarUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/tab_featuresUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/tab_featuresUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/tab_objectsUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/tab_objectsUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/tab_recordUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/tab_recordUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/tab_regionsUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/tab_regionsUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/tab_serialUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/tab_serialUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/tab_sourceUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/tab_sourceUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/nora" beforeDir="false" afterPath="$PROJECT_DIR$/templates/nora" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -38,9 +36,8 @@
       <file leaf-file-name="spotterQt.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/spotterQt.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="192" column="41" lean-forward="false" selection-start-line="192" selection-start-column="41" selection-end-line="192" selection-end-column="41" />
-              <folding />
+            <state relative-caret-position="186">
+              <caret line="135" column="29" selection-start-line="135" selection-start-column="13" selection-end-line="135" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -48,9 +45,8 @@
       <file leaf-file-name="TabRecord.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/ui/TabRecord.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="33" column="0" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="95" selection-end-column="22" />
-              <folding />
+            <state relative-caret-position="551">
+              <caret line="33" selection-start-column="2" selection-end-line="95" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -58,19 +54,63 @@
       <file leaf-file-name="SideBar.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/ui/SideBar.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
-              <caret line="20" column="1" lean-forward="false" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
-              <folding />
+            <state relative-caret-position="186">
+              <caret line="355" selection-start-line="355" selection-end-line="355" />
+              <folding>
+                <element signature="e#119#133#0" expanded="true" />
+                <element signature="e#5192#5609#0" />
+                <element signature="e#5650#5777#0" />
+                <element signature="e#6030#6157#0" />
+                <element signature="e#6237#7327#0" />
+                <element signature="e#7578#7704#0" />
+                <element signature="e#7783#10831#0" />
+                <element signature="e#11314#14021#0" />
+                <element signature="e#14254#14332#0" />
+                <element signature="e#14395#14577#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TabSource.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/ui/TabSource.py">
+      <file leaf-file-name="tracker.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/core/tracker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="69" column="0" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="114" selection-end-column="22" />
-              <folding />
+            <state relative-caret-position="336">
+              <caret line="57" selection-start-line="57" selection-end-line="57" />
+              <folding>
+                <element signature="e#1298#1648#0" />
+                <element signature="e#1689#1990#0" />
+                <element signature="e#2091#2291#0" />
+                <element signature="e#2332#2532#0" />
+                <element signature="e#2619#2798#0" />
+                <element signature="e#2839#2995#0" />
+                <element signature="e#3034#3077#0" />
+                <element signature="e#3156#4415#0" />
+                <element signature="e#4471#7640#0" />
+                <element signature="e#7709#8358#0" />
+                <element signature="e#8584#10798#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainTabPage.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/ui/MainTabPage.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="373">
+              <caret line="31" column="16" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="16" />
+              <folding>
+                <element signature="e#119#133#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TabBlindSpot.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/ui/TabBlindSpot.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="526">
+              <caret line="223" column="45" selection-start-line="223" selection-start-column="45" selection-end-line="223" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -78,29 +118,8 @@
       <file leaf-file-name="TabRegions.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/ui/TabRegions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="539">
-              <caret line="118" column="43" lean-forward="false" selection-start-line="118" selection-start-column="43" selection-end-line="118" selection-end-column="43" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="grabber.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/core/grabber.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="164" column="24" lean-forward="false" selection-start-line="164" selection-start-column="24" selection-end-line="164" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GLFrame.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/ui/GLFrame.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="366">
-              <caret line="169" column="14" lean-forward="true" selection-start-line="169" selection-start-column="14" selection-end-line="169" selection-end-column="14" />
-              <folding />
+            <state relative-caret-position="551">
+              <caret line="118" column="43" selection-start-line="118" selection-start-column="43" selection-end-line="118" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -108,24 +127,21 @@
       <file leaf-file-name="utilities.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/utilities.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="14" column="15" lean-forward="false" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+            <state relative-caret-position="-3682">
+              <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
               <folding>
                 <element signature="e#137#163#0" expanded="true" />
-                <element signature="e#7085#9173#0" expanded="false" />
+                <element signature="e#7085#9173#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="datalog.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/core/datalog.py">
+      <file leaf-file-name="template_specification.ini" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/config/template_specification.ini">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="640">
-              <caret line="40" column="34" lean-forward="false" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="241">
+              <caret line="87" column="8" lean-forward="true" selection-start-line="87" selection-start-column="8" selection-end-line="87" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -133,9 +149,8 @@
       <file leaf-file-name="spotter.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2153">
-              <caret line="185" column="32" lean-forward="false" selection-start-line="185" selection-start-column="32" selection-end-line="185" selection-end-column="32" />
-              <folding />
+            <state relative-caret-position="245">
+              <caret line="131" column="18" selection-start-line="131" selection-start-column="18" selection-end-line="131" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -151,8 +166,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>self.pos_hist</find>
-      <find>geom</find>
       <find>QtGui.QCheckBox(</find>
       <find>self.ck</find>
       <find>self.object</find>
@@ -180,6 +193,9 @@
       <find>slots</find>
       <find>shape</find>
       <find>modifi</find>
+      <find>region</find>
+      <find>template_default</find>
+      <find>remove_pa</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -198,12 +214,15 @@
         <option value="$PROJECT_DIR$/lib/core/spotter.py" />
         <option value="$PROJECT_DIR$/lib/utilities.py" />
         <option value="$PROJECT_DIR$/lib/core/datalog.py" />
-        <option value="$PROJECT_DIR$/lib/ui/SideBar.py" />
         <option value="$PROJECT_DIR$/lib/ui/TabRecord.py" />
         <option value="$PROJECT_DIR$/lib/ui/TabSource.py" />
         <option value="$PROJECT_DIR$/lib/ui/GLFrame.py" />
         <option value="$PROJECT_DIR$/lib/ui/TabRegions.py" />
         <option value="$PROJECT_DIR$/lib/core/grabber.py" />
+        <option value="$PROJECT_DIR$/lib/ui/TabBlindSpot.py" />
+        <option value="$PROJECT_DIR$/lib/core/tracker.py" />
+        <option value="$PROJECT_DIR$/lib/ui/SideBar.py" />
+        <option value="$PROJECT_DIR$/config/template_specification.ini" />
       </list>
     </option>
   </component>
@@ -214,21 +233,10 @@
     <option name="height" value="1000" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -239,29 +247,22 @@
             <path>
               <item name="spotterupdated" type="b2602c69:ProjectViewProjectNode" />
               <item name="spotterupdated" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="spotterupdated" type="b2602c69:ProjectViewProjectNode" />
               <item name="spotterupdated" type="462c0819:PsiDirectoryNode" />
               <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="spotterupdated" type="b2602c69:ProjectViewProjectNode" />
-              <item name="spotterupdated" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/spotterQt.py" />
+    <property name="last_opened_file_path" value="C:/Python27" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -276,8 +277,9 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.spotter">
+  <component name="RunManager" selected="Python.Unnamed">
     <configuration name="Unnamed" type="PythonConfigurationType" factoryName="Python">
+      <module name="spotterupdated" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -288,7 +290,6 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="spotterupdated" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/spotterQt.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -296,6 +297,7 @@
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="spotter" type="PythonConfigurationType" factoryName="Python">
+      <module name="spotterupdated" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -306,7 +308,6 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="spotterupdated" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/spotterQt.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -314,6 +315,7 @@
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="utilities" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="spotterupdated" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -324,26 +326,22 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="spotterupdated" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lib/utilities.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <list size="3">
-      <item index="0" class="java.lang.String" itemvalue="Python.Unnamed" />
-      <item index="1" class="java.lang.String" itemvalue="Python.spotter" />
-      <item index="2" class="java.lang.String" itemvalue="Python.utilities" />
+    <list>
+      <item itemvalue="Python.Unnamed" />
+      <item itemvalue="Python.spotter" />
+      <item itemvalue="Python.utilities" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Python.utilities" />
+      <list>
+        <item itemvalue="Python.utilities" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -359,27 +357,27 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="-4" width="1928" height="1060" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3284974" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18125" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3280255" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" id="Data View" order="3" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -421,295 +419,218 @@
       </breakpoints>
       <option name="time" value="12" />
     </breakpoint-manager>
-    <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/core/writer.py">
+    <entry file="file://$PROJECT_DIR$/lib/ui/SideBar.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="340">
+          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/TabSource.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1173">
+          <caret line="69" selection-start-column="2" selection-end-line="114" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/TabRegions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1938">
+          <caret line="118" column="43" selection-start-line="118" selection-start-column="43" selection-end-line="118" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/core/grabber.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2635">
+          <caret line="164" column="24" selection-start-line="164" selection-start-column="24" selection-end-line="164" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/GLFrame.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2737">
+          <caret line="169" column="14" selection-start-line="169" selection-start-column="14" selection-end-line="169" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/utilities.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+          <folding>
+            <element signature="e#137#163#0" expanded="true" />
+            <element signature="e#7085#9173#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/core/datalog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="40" column="34" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2992">
+          <caret line="185" column="32" selection-start-line="185" selection-start-column="32" selection-end-line="185" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2768">
-          <caret line="181" column="9" lean-forward="false" selection-start-line="181" selection-start-column="9" selection-end-line="181" selection-end-column="9" />
-          <folding />
+          <caret line="181" column="9" selection-start-line="181" selection-start-column="9" selection-end-line="181" selection-end-column="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/trackables.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="368">
-          <caret line="28" column="55" lean-forward="false" selection-start-line="28" selection-start-column="55" selection-end-line="28" selection-end-column="55" />
-          <folding>
-            <element signature="e#148#159#0" expanded="false" />
-            <element signature="e#307#4021#0" expanded="false" />
-            <element signature="e#4044#4192#0" expanded="false" />
-            <element signature="e#4219#5386#0" expanded="false" />
-            <element signature="e#5404#6456#0" expanded="false" />
-            <element signature="e#7025#7873#0" expanded="false" />
-            <element signature="e#7911#8672#0" expanded="false" />
-            <element signature="e#9337#9432#0" expanded="false" />
-          </folding>
+          <caret line="28" column="55" selection-start-line="28" selection-start-column="55" selection-end-line="28" selection-end-column="55" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/TabRegions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1584">
-          <caret line="103" column="38" lean-forward="false" selection-start-line="103" selection-start-column="38" selection-end-line="103" selection-end-column="38" />
+          <caret line="103" column="38" selection-start-line="103" selection-start-column="38" selection-end-line="103" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/GLFrame.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2384">
-          <caret line="157" column="0" lean-forward="false" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
-          <folding />
+          <caret line="157" selection-start-line="157" selection-end-line="157" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/spotterQt.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="688">
-          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/GUIQt.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/GUI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/MainTabPage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/mainUi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/core/writer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1056">
-          <caret line="74" column="11" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="74" selection-end-column="11" />
-          <folding />
+          <caret line="74" column="11" selection-start-line="72" selection-end-line="74" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/trackables.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="368">
-          <caret line="28" column="55" lean-forward="false" selection-start-line="28" selection-start-column="55" selection-end-line="28" selection-end-column="55" />
-          <folding>
-            <element signature="e#148#159#0" expanded="false" />
-            <element signature="e#307#4021#0" expanded="false" />
-            <element signature="e#4044#4192#0" expanded="false" />
-            <element signature="e#4219#5386#0" expanded="false" />
-            <element signature="e#5404#6456#0" expanded="false" />
-            <element signature="e#7025#7873#0" expanded="false" />
-            <element signature="e#7911#8672#0" expanded="false" />
-            <element signature="e#9337#9432#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/tab_regionsUi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="28" column="55" selection-start-line="28" selection-start-column="55" selection-end-line="28" selection-end-column="55" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/TabRegions.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1536">
-          <caret line="100" column="38" lean-forward="false" selection-start-line="100" selection-start-column="38" selection-end-line="100" selection-end-column="38" />
+          <caret line="100" column="38" selection-start-line="100" selection-start-column="38" selection-end-line="100" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/spotterQt.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="688">
-          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-          <folding />
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/trackables.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="e#148#159#0" expanded="false" />
-            <element signature="e#307#4021#0" expanded="false" />
-            <element signature="e#4044#4192#0" expanded="false" />
-            <element signature="e#4219#5386#0" expanded="false" />
-            <element signature="e#5404#6456#0" expanded="false" />
-            <element signature="e#7025#7873#0" expanded="false" />
-            <element signature="e#7911#8672#0" expanded="false" />
-            <element signature="e#9337#9432#0" expanded="false" />
-          </folding>
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/grabber.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2416">
-          <caret line="160" column="103" lean-forward="false" selection-start-line="160" selection-start-column="94" selection-end-line="160" selection-end-column="103" />
+          <caret line="160" column="103" selection-start-line="160" selection-start-column="94" selection-end-line="160" selection-end-column="103" />
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/PyQt4/uic/pyuic.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/Python27/Lib/site-packages/PyQt4/uic/pyuic.py" />
     <entry file="file://$PROJECT_DIR$/lib/ui/TabObjects.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1024">
-          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding />
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/geometry.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1536">
-          <caret line="97" column="0" lean-forward="true" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+          <caret line="97" lean-forward="true" selection-start-line="97" selection-end-line="97" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1056">
-          <caret line="74" column="11" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="74" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spotterQt.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <caret line="74" column="11" selection-start-line="72" selection-end-line="74" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1056">
-          <caret line="74" column="11" lean-forward="true" selection-start-line="72" selection-start-column="0" selection-end-line="74" selection-end-column="11" />
-          <folding />
+          <caret line="74" column="11" lean-forward="true" selection-start-line="72" selection-end-line="74" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/grabber.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2416">
-          <caret line="160" column="103" lean-forward="false" selection-start-line="160" selection-start-column="94" selection-end-line="160" selection-end-column="103" />
+          <caret line="160" column="103" selection-start-line="160" selection-start-column="94" selection-end-line="160" selection-end-column="103" />
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/PyQt4/uic/pyuic.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/Python27/Lib/site-packages/PyQt4/uic/pyuic.py" />
     <entry file="file://$PROJECT_DIR$/lib/ui/TabObjects.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1024">
-          <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding />
+          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/geometry.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1536">
-          <caret line="97" column="22" lean-forward="false" selection-start-line="97" selection-start-column="22" selection-end-line="97" selection-end-column="22" />
+          <caret line="97" column="22" selection-start-line="97" selection-start-column="22" selection-end-line="97" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/PyQt4/uic/pyuic.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://C:/Python27/Lib/site-packages/PyQt4/uic/pyuic.py" />
     <entry file="file://$PROJECT_DIR$/lib/ui/tab_objectsUi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="445">
-          <caret line="213" column="25" lean-forward="false" selection-start-line="213" selection-start-column="8" selection-end-line="213" selection-end-column="25" />
+          <caret line="213" column="25" selection-start-line="213" selection-start-column="8" selection-end-line="213" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/TabObjects.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1024">
-          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-          <folding />
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/geometry.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1536">
-          <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/MainTabPage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/tab_regionsUi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/GUI.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="97" selection-start-line="97" selection-end-line="97" />
         </state>
       </provider>
     </entry>
@@ -717,139 +638,165 @@
     <entry file="file://$PROJECT_DIR$/lib/core/chatter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="624">
-          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding>
-            <element signature="e#3115#3346#0" expanded="false" />
-            <element signature="e#3405#4106#0" expanded="false" />
-            <element signature="e#4150#5021#0" expanded="false" />
-            <element signature="e#5066#5093#0" expanded="false" />
-            <element signature="e#5137#5561#0" expanded="false" />
-          </folding>
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/mainUi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2752">
-          <caret line="172" column="25" lean-forward="false" selection-start-line="172" selection-start-column="25" selection-end-line="172" selection-end-column="25" />
-          <folding />
+          <caret line="172" column="25" selection-start-line="172" selection-start-column="25" selection-end-line="172" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/writer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="528">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/GUIQt.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="33" selection-start-line="33" selection-end-line="33" selection-end-column="34" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/trackables.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4560">
-          <caret line="491" column="0" lean-forward="false" selection-start-line="491" selection-start-column="0" selection-end-line="491" selection-end-column="0" />
-          <folding>
-            <element signature="e#148#159#0" expanded="false" />
-            <element signature="e#307#4021#0" expanded="false" />
-            <element signature="e#4044#4192#0" expanded="false" />
-            <element signature="e#4219#5386#0" expanded="false" />
-            <element signature="e#5404#6456#0" expanded="false" />
-            <element signature="e#7025#7873#0" expanded="false" />
-            <element signature="e#7911#8672#0" expanded="false" />
-            <element signature="e#9337#9432#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/utilities.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="14" column="15" lean-forward="false" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
-          <folding>
-            <element signature="e#137#163#0" expanded="true" />
-            <element signature="e#7085#9173#0" expanded="false" />
-          </folding>
+          <caret line="491" selection-start-line="491" selection-end-line="491" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/datalog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
-          <caret line="40" column="34" lean-forward="false" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
+        <state relative-caret-position="561">
+          <caret line="40" column="34" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/SideBar.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="20" column="1" lean-forward="false" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spotterQt.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="192" column="41" lean-forward="false" selection-start-line="192" selection-start-column="41" selection-end-line="192" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/TabRecord.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="95" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/TabSource.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="69" column="0" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="114" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2153">
-          <caret line="185" column="32" lean-forward="false" selection-start-line="185" selection-start-column="32" selection-end-line="185" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/GLFrame.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="169" column="14" lean-forward="true" selection-start-line="169" selection-start-column="14" selection-end-line="169" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/TabRegions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="539">
-          <caret line="118" column="43" lean-forward="false" selection-start-line="118" selection-start-column="43" selection-end-line="118" selection-end-column="43" />
-          <folding />
+        <state relative-caret-position="2737">
+          <caret line="169" column="14" selection-start-line="169" selection-start-column="14" selection-end-line="169" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/grabber.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="164" column="24" lean-forward="false" selection-start-line="164" selection-start-column="24" selection-end-line="164" selection-end-column="24" />
-          <folding />
+        <state relative-caret-position="145">
+          <caret line="95" column="45" selection-start-line="95" selection-start-column="45" selection-end-line="95" selection-end-column="45" />
+          <folding>
+            <element signature="e#2860#6044#0" />
+            <element signature="e#6075#7353#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="131" column="18" selection-start-line="131" selection-start-column="18" selection-end-line="131" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/TabRecord.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="33" selection-start-column="2" selection-end-line="95" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/TabSource.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="69" selection-start-column="2" selection-end-line="114" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/TabRegions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="118" column="43" selection-start-line="118" selection-start-column="43" selection-end-line="118" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/core/tracker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="57" selection-start-line="57" selection-end-line="57" />
+          <folding>
+            <element signature="e#1298#1648#0" />
+            <element signature="e#1689#1990#0" />
+            <element signature="e#2091#2291#0" />
+            <element signature="e#2332#2532#0" />
+            <element signature="e#2619#2798#0" />
+            <element signature="e#2839#2995#0" />
+            <element signature="e#3034#3077#0" />
+            <element signature="e#3156#4415#0" />
+            <element signature="e#4471#7640#0" />
+            <element signature="e#7709#8358#0" />
+            <element signature="e#8584#10798#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/TabBlindSpot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="526">
+          <caret line="223" column="45" selection-start-line="223" selection-start-column="45" selection-end-line="223" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/MainTabPage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="31" column="16" selection-start-line="31" selection-start-column="8" selection-end-line="31" selection-end-column="16" />
+          <folding>
+            <element signature="e#119#133#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spotterQt.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="135" column="29" selection-start-line="135" selection-start-column="13" selection-end-line="135" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/utilities.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3682">
+          <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+          <folding>
+            <element signature="e#137#163#0" expanded="true" />
+            <element signature="e#7085#9173#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/SideBar.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="355" selection-start-line="355" selection-end-line="355" />
+          <folding>
+            <element signature="e#119#133#0" expanded="true" />
+            <element signature="e#5192#5609#0" />
+            <element signature="e#5650#5777#0" />
+            <element signature="e#6030#6157#0" />
+            <element signature="e#6237#7327#0" />
+            <element signature="e#7578#7704#0" />
+            <element signature="e#7783#10831#0" />
+            <element signature="e#11314#14021#0" />
+            <element signature="e#14254#14332#0" />
+            <element signature="e#14395#14577#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/template_specification.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="87" column="8" lean-forward="true" selection-start-line="87" selection-start-column="8" selection-end-line="87" selection-end-column="8" />
         </state>
       </provider>
     </entry>

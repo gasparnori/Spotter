@@ -17,6 +17,7 @@ from side_barUi import Ui_side_bar
 import TabFeatures
 import TabObjects
 import TabRegions
+import TabBlindSpot
 #import TabSource
 #import TabRecord
 import TabSerial
@@ -53,7 +54,13 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         self.tabs_main.insertTab(-1, self.regions_page, self.regions_page.label)
         self.connect(self.regions_page, QtCore.SIGNAL('currentChanged(int)'), self.tab_regions_switch)
         self.connect(self.regions_page.btn_new_page, QtCore.SIGNAL('clicked()'), self.add_region)
-        #self.regions_page.tabs_sub.tabCloseRequested.connect(self.remove_page)
+
+        self.log.debug('Opening blind spots main tab')
+        self.blindspot_page = MainTabPage("Blind Spots", TabBlindSpot.Tab, spotter=self.spotter, *args, **kwargs)
+        self.tabs_main.insertTab(-1, self.blindspot_page,  self.blindspot_page.label)
+        self.connect(self.blindspot_page, QtCore.SIGNAL('currentChanged(int)'), self.tab_blindspot_switch)
+        self.connect(self.blindspot_page.btn_new_page, QtCore.SIGNAL('clicked()'), self.add_blindspot)
+
 
         ##right now they are unnecessary
         # self.log.debug('Opening source main tab')
@@ -100,6 +107,8 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         elif active_top_tab_label == "Regions" and (self.tabs_main.count() > 1):
             return self.regions_page.current_page_widget()
         elif active_top_tab_label == "Serial":
+            return self.serial_page.current_page_widget()
+        elif active_top_tab_label == "BlindSpot"  and (self.tabs_main.count() > 1):
             return self.serial_page.current_page_widget()
         else:
             return None
@@ -326,6 +335,79 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         Serial object tab. Probably an Arduino compatible board linked to it.
         """
         self.serial_page.add_item(serial_object, update_all_tabs=self.update_all_tabs())
+
+    ###############################################################################
+    ##  Blind Spot Tab Updates
+    ###############################################################################
+    def tab_blindspot_switch(self, idx_tab=0):
+        """
+        Switch to the tab page with index idx_tab.
+        """
+        self.blindspot_page.tabs_sub.setCurrentIndex(idx_tab)
+
+    def add_blindspot(self, template=None, label=None, shapes=None, abs_pos=True, focus_new=True):
+        # """
+        # Create a new region of interest that will be that will be linked
+        # to Objects with conditions to trigger events.
+        # TODO: New regions created empty!
+        # """
+        # # Defaults if nothing else given
+        if not template:
+             key = self.parent.template_default['BLINDSPOTS'].iterkeys().next()
+             template = self.parent.template_default['BLINDSPOTS'][key]
+             label = 'IGNORE_' + str(len(self.spotter.tracker.rois))
+        # if not shapes:
+        #     shapes = self.parent.template_default['SHAPES']
+        #
+        # # extract shapes from shape templates
+        # shape_list = []
+        # for s_key in template['shapes']:
+        #     if s_key in shapes:
+        #         shape_type = shapes[s_key]['type']
+        #         if abs_pos:
+        #             points = [shapes[s_key]['p1'], shapes[s_key]['p2']]
+        #         else:
+        #             points = geom.scale_points([shapes[s_key]['p1'],
+        #                                         shapes[s_key]['p2']],
+        #                                        (self.parent.gl_frame.width,
+        #                                         self.parent.gl_frame.height))
+        #         shape_list.append([shape_type, points, s_key])
+        #
+        # # Magnetic objects from collision list
+        # obj_names = template['digital_collision']
+        # pin_prefs = template['pin_pref']
+        # if pin_prefs is None:
+        #     pin_prefs = []
+        # magnetic_objects = []
+        # if template['pin_pref_strict']:
+        #     # If pin preference is strict but no/not enough pins given,
+        #     # reject all/those without given pin preference
+        #     if len(pin_prefs) == 0:
+        #         obj_names = []
+        # else:
+        #     # if not strict but also not enough given, fill 'em up with -1
+        #     # which sets those objects to being indifferent in their pin pref
+        #     if len(pin_prefs) < len(obj_names):
+        #         pin_prefs[-(len(obj_names) - len(pin_prefs))] = -1
+        #
+        # # Reject all objects that still don't have a corresponding pin pref
+        # obj_names = obj_names[0:min(len(pin_prefs), len(obj_names))]
+        #
+        # # Those still in the race, assemble into
+        # # List of [object label, object, pin preference]
+        # for io, on in enumerate(obj_names):
+        #     # Does an object with this name exist? If so, link its reference!
+        #     obj = None
+        #     for o in self.spotter.tracker.oois:
+        #         if o.label == on:
+        #             obj = o
+        #     magnetic_objects.append([obj, pin_prefs[io]])
+        #
+        # color = template['color']
+        #
+        # region = self.spotter.tracker.add_roi(shape_list, label, color, magnetic_objects)
+        # self.regions_page.add_item(region, focus_new)
+        print "blindspot under development"
 
     ###############################################################################
     # ##  SOURCE Tab Updates

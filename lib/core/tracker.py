@@ -47,10 +47,17 @@ class Tracker:
 
         self.log = logging.getLogger(__name__)
 
-        self.oois = []
-        self.rois = []
-        self.leds = []
+        self.oois = [] #objects of interest
+        self.rois = [] #regions of interest
+        self.leds = [] #features
+        self.bspots= [] #blind spots
         self.adaptive_tracking = adaptive_tracking
+
+    def add_blindspot(self, shape_list, label):
+        print "blindspot added... need to finish the code in tracker"
+
+    def remove_blindspot(self, bspot):
+        print "blindspot removed... need to finish the code in tracker"
 
     def add_led(self, label, range_hue, range_sat, range_val, range_area, fixed_pos=False, linked_to=None):
         if self.adaptive_tracking:

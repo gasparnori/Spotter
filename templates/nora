@@ -1,9 +1,9 @@
 [TEMPLATE]
-    name = F:/Spotter_development/templates/nora
-    date = 2018_2_13
+    name = D:/Spotter/spotterupdated/templates/nora
+    date = 2018_4_16
     description = new template
     absolute_positions = True
-    resolution = 1280, 720
+    resolution = 640, 480
 
 [FEATURES]
     [[LED_0]]
@@ -29,9 +29,27 @@
         analog_out = False
 
 [SHAPES]
+    [[rectangle]]
+        p2 = 588, 215
+        p1 = 356, 145
+        type = rectangle
+
+    [[circle]]
+        p2 = 235, 285.558924387
+        p1 = 235, 84
+        type = circle
 
 [REGIONS]
+    [[ROI_0]]
+        shapes = rectangle, circle
+        color = 101, 17, 135
+        digital_collision = ,
+        digital_out = True
+        pin_pref = ,
+
+[BLINDSPOT]
+     shapes     = ,
 
 [SERIAL]
     auto = True
-    last_port = COM6
+    last_port = COM1
