@@ -50,15 +50,16 @@ Install required packages by downlaoding and innstalling following binaries
 
     http://www.lfd.uci.edu/~gohlke/pythonlibs/#pip
     http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy
-    http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyqt
     http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyopengl
     http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyserial
 
-Install OpenCV 2.4+ with prebuilt libraries, and follow the relevant [installation steps](https://docs.opencv.org/2.4/doc/tutorials/introduction/windows_install/windows_install.html)
-Go to opencv/build/python/2.7/x86 folder.
-Copy cv2.pyd to C:/Python27/lib/site-packages.
+*OpenCV*
+	Install OpenCV 2.4+ with prebuilt libraries, and follow the relevant [installation steps](https://docs.opencv.org/2.4/doc/tutorials/introduction/windows_install/windows_install.html)
+	Go to opencv/build/python/2.7/x86 folder.
+	Copy cv2.pyd to C:/Python27/lib/site-packages.
 
-Download prebuilt PyQt4 (PyQt4-4.10-gpl-Py2.7-Qt4.8.4-x32.exe) from [here](https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.10/)
+*PyQt4*
+	Download prebuilt PyQt4 (PyQt4-4.10-gpl-Py2.7-Qt4.8.4-x32.exe) from [here](https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.10/)
 
 
 **MaxOSX**
