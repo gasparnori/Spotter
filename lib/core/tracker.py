@@ -54,7 +54,10 @@ class Tracker:
         self.adaptive_tracking = adaptive_tracking
 
     def add_blindspot(self, shape_list, label):
-        print "blindspot added... need to finish the code in tracker"
+        mask = trkbl.Mask('rectangle', None, None)
+        print "blindspot added... need to finish the code in tracker and trackables"
+        self.bspots.append(mask)
+        return mask
 
     def remove_blindspot(self, bspot):
         print "blindspot removed... need to finish the code in tracker"

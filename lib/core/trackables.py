@@ -107,6 +107,26 @@ class Shape:
         return (s==self.slope and self.active and x_in_interval and y_in_interval)
 
 
+class Mask:
+    """ Geometrical shape that comprise Blind spots. Blind spots can be made of several
+    independent shapes like two rectangles on either end of the track etc. Almost the same as the Shapes"""
+
+    def __init__(self, shape, points=None, label=None):
+        self.active = True
+        self.selected = False
+        self.collision_check = None
+
+        self.shape = shape.lower()
+        self.label = label
+
+        self.points = points
+
+        if shape == 'circle':
+            # normalize the point positions based on radius,
+            # second point is always to the right of the center
+            self.points = [points[0], (int(points[0][0]), points[0][1] + self.radius)]
+
+
 
 class Feature:
     """ General class holding a feature to be tracked with whatever tracking

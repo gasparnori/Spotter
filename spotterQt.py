@@ -133,6 +133,7 @@ class Main(QtGui.QMainWindow):
 
         # Loading template list in folder
         default_path = os.path.join(os.path.abspath(DIR_CONFIG), DEFAULT_TEMPLATE)
+
         self.template_default = self.parse_config(default_path, True)
         #list_of_files = [f for f in os.listdir(DIR_TEMPLATES) if f.lower().endswith('ini')]
 
