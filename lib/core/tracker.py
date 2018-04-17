@@ -56,7 +56,6 @@ class Tracker:
     def add_blindspot(self, mask_list, label):
         #mask = trkbl.Mask('rectangle', None, 'label')
         bs=trkbl.BlindSpot(mask_list, label)
-        print "blindspot added... need to finish the code in tracker and trackables"
         self.log.debug("Added blindspot %s", bs.label)
         self.bspots.append(bs)
         return bs
@@ -67,11 +66,12 @@ class Tracker:
             #print
 
             #del self.bspots.shapes[:]
+            label=bs.label
             del bs.masks[:]
             self.bspots.remove(bs)
+            self.log.debug("Blindspot removed %s ", label)
         except ValueError:
             self.log.error("Blind spot to be removed not found")
-        print "blindspot removed... need to finish the code in tracker"
 
     def add_led(self, label, range_hue, range_sat, range_val, range_area, fixed_pos=False, linked_to=None):
         if self.adaptive_tracking:
@@ -129,7 +129,6 @@ class Tracker:
     def mask_blindspots(self, frame):
         for b in self.bspots:
             for m in b.masks:
-                print m.shape
                 if m.shape=='line':
                     cv2.line(frame.img, m.p1, m.p2, (0, 0, 0), 3)
                 if m.shape== 'rectangle':

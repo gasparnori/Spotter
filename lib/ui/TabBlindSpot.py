@@ -34,7 +34,6 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         self.log = logging.getLogger(__name__)
         self.setupUi(self)
         self.blindspot = region_ref
-        #print self.region
 
         assert 'spotter' in kwargs
         self.spotter = kwargs['spotter']
@@ -119,7 +118,6 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
 
                 #shape_type = self.spotter.active_shape_type
                 shape_points = [self.coord_start, self.coord_end]
-                print self.active_shape_type
                 if self.active_shape_type and shape_points:
                     self.add_mask(self.active_shape_type, shape_points)
         else:
@@ -152,7 +150,6 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         """
         shape_item = QtGui.QTreeWidgetItem([shape_type])
         shape_item.shape = self.blindspot.add_mask(shape_type, shape_points, shape_type)
-        print shape_item.shape
         shape_item.setCheckState(0, QtCore.Qt.Checked)
         self.tree_blindspot_shapes.addTopLevelItem(shape_item)
         self.tree_blindspot_shapes.setCurrentItem(shape_item)
