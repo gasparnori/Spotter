@@ -61,11 +61,11 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         # #self.connect(self.btn_lock_table, QtCore.SIGNAL('toggled(bool)'), self.lock_slot_table)
         #
         # # coordinate spin box update signals
-        # self.connect(self.spin_shape_x, QtCore.SIGNAL('valueChanged(int)'), self.update_shape_position)
-        # self.connect(self.spin_shape_y, QtCore.SIGNAL('valueChanged(int)'), self.update_shape_position)
+        self.connect(self.spin_X, QtCore.SIGNAL('valueChanged(int)'), self.update_shape_position)
+        self.connect(self.spin_Y, QtCore.SIGNAL('valueChanged(int)'), self.update_shape_position)
         #
         # # if a checkbox or spinbox on a shape in the list is changed
-        # self.spin_shape = None
+        self.spin_shape = None
         self.connect(self.tree_blindspot_shapes, QtCore.SIGNAL('itemChanged(QTreeWidgetItem *, int)'),
                      self.shape_item_changed)
         self.update()
@@ -73,9 +73,6 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
     def update(self):
          self.refresh_shape_list()
 
-    # def accept_selection(self, state):
-    #     """ Called by the 'Add' button toggle to accept input for new shapes """
-    #     self.event_add_selection = state
     def circle_shape(self, state):
         if state:
             self.active_shape_type='circle'
@@ -89,11 +86,12 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         """ Called by the 'Add' button toggle to accept input for new shapes """
         self.spotter.active_shape_type = self.active_shape_type
         self.event_add_selection = state
+        print self.accept_events
 
     def process_event(self, event_type, event):
         """ Handle mouse interactions, mainly to draw and move shapes """
        # modifiers = QtGui.QApplication.keyboardModifiers()
-
+        print "entered function"
         if event_type == "mousePress":
             self.button_start = int(event.buttons())
             self.coord_start = [event.x(), event.y()]
@@ -119,15 +117,15 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
                 # Finalize region selection
                 self.coord_end = [event.x(), event.y()]
 
-                shape_type = self.spotter.active_shape_type
+                #shape_type = self.spotter.active_shape_type
                 shape_points = [self.coord_start, self.coord_end]
-                if shape_type and shape_points:
-                    self.add_mask(shape_type, shape_points)
+                if self.shape_type and shape_points:
+                    self.add_mask(self.shape_type, shape_points)
         else:
             print 'Event not understood. Hulk sad and confused.'
 
     def move_region(self, dx, dy):
-        self.region.move(dx, dy)
+        self.blindspot.move(dx, dy)
 
     def update_region(self):
         if self.label is None:
@@ -152,7 +150,7 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         to the tree widget. Last uncheck the "Add" button.
         """
         shape_item = QtGui.QTreeWidgetItem([shape_type])
-        shape_item.shape = self.region.add_mask(shape_type, shape_points, shape_type)
+        shape_item.shape = self.blindspot.add_mask(shape_type, shape_points, shape_type)
         print shape_item.shape
         shape_item.setCheckState(0, QtCore.Qt.Checked)
         self.tree_blindspot_shapes.addTopLevelItem(shape_item)
@@ -169,7 +167,7 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         selected_item = self.tree_blindspot_shapes.currentItem()
         index = self.tree_blindspot_shapes.indexOfTopLevelItem(selected_item)
         if selected_item:
-            self.region.remove_shape(selected_item.shape)
+            self.blindspot.remove_shape(selected_item.shape)
             self.tree_blindspot_shapes.takeTopLevelItem(index)
 #
     def update_shape_position(self):
@@ -184,9 +182,9 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
 
         if self.tree_blindspot_shapes.currentItem().shape == self.spin_shape:
             # find the shape in the shape list of the RegionOfInterest
-            idx = self.region.shapes.index(self.tree_blindspot_shapes.currentItem().shape)
-            dx = self.spin_shape_x.value() - self.region.shapes[idx].points[0][0]
-            dy = self.spin_shape_y.value() - self.region.shapes[idx].points[0][1]
+            idx = self.blindspot.masks.index(self.tree_blindspot_shapes.currentItem().shape)
+            dx = self.spin_X.value() - self.blindspot.masks[idx].points[0][0]
+            dy = self.spin_Y.value() - self.blindspot.masks[idx].points[0][1]
             self.move_shape(dx, dy)
         else:
             self.spin_shape = self.tree_blindspot_shapes.currentItem().shape
@@ -203,8 +201,8 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
 
         if self.tree_blindspot_shapes.currentItem().shape == self.spin_shape:
             # find the shape in the shape list of the RegionOfInterest
-            idx = self.region.shapes.index(self.tree_blindspot_shapes.currentItem().shape)
-            self.region.shapes[idx].move(dx, dy)
+            idx = self.blindspot.masks.index(self.tree_blindspot_shapes.currentItem().shape)
+            self.blindspot.masks[idx].move(dx, dy)
         else:
             self.spin_shape = self.tree_blindspot_shapes.currentItem().shape
             return
@@ -221,4 +219,7 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         else:
             item.shape.active = False
         item.shape.label = item.text(0)
-#
+
+#removes the Blindspot from tracker: works
+    def closeEvent(self, QCloseEvent):
+        self.spotter.tracker.remove_blindspot(self.blindspot)

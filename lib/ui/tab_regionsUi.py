@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'tab_regionsUi.ui'
 #
-# Created: Tue Apr 17 11:04:52 2018
+# Created: Tue Apr 17 11:49:12 2018
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -40,7 +40,7 @@ class Ui_tab_regions(object):
         self.toolBox.setLineWidth(0)
         self.toolBox.setObjectName(_fromUtf8("toolBox"))
         self.page_regions_overview = QtGui.QWidget()
-        self.page_regions_overview.setGeometry(QtCore.QRect(0, 0, 445, 404))
+        self.page_regions_overview.setGeometry(QtCore.QRect(0, 0, 445, 388))
         self.page_regions_overview.setObjectName(_fromUtf8("page_regions_overview"))
         self.gridLayout_6 = QtGui.QGridLayout(self.page_regions_overview)
         self.gridLayout_6.setMargin(0)
@@ -153,7 +153,7 @@ class Ui_tab_regions(object):
         self.gridLayout_6.addLayout(self.gridLayout_5, 0, 0, 1, 1)
         self.toolBox.addItem(self.page_regions_overview, _fromUtf8(""))
         self.page_regions_IO = QtGui.QWidget()
-        self.page_regions_IO.setGeometry(QtCore.QRect(0, 0, 158, 92))
+        self.page_regions_IO.setGeometry(QtCore.QRect(0, 0, 445, 388))
         self.page_regions_IO.setObjectName(_fromUtf8("page_regions_IO"))
         self.gridLayout_7 = QtGui.QGridLayout(self.page_regions_IO)
         self.gridLayout_7.setMargin(0)

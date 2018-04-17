@@ -378,8 +378,8 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         # color = template['color']
         #
         ignore = self.spotter.tracker.add_blindspot(mask_list, label)
-        print label
-        print ignore
+        #print label
+        #print ignore
         self.blindspot_page.add_item(ignore, focus_new)
 
     ###############################################################################

@@ -69,27 +69,24 @@
            <property name="spacing">
             <number>0</number>
            </property>
-           <item row="0" column="0" colspan="2">
-            <layout class="QGridLayout" name="gridLayout_3">
-             <property name="leftMargin">
-              <number>3</number>
+           <item row="9" column="1">
+            <widget class="QPushButton" name="btn_add">
+             <property name="text">
+              <string>Add</string>
              </property>
-             <property name="topMargin">
-              <number>0</number>
+             <property name="checkable">
+              <bool>true</bool>
              </property>
-             <property name="horizontalSpacing">
-              <number>1</number>
-             </property>
-             <item row="0" column="0">
-              <widget class="QLabel" name="label">
-               <property name="text">
-                <string>Ignore areas</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            </widget>
            </item>
-           <item row="20" column="0" colspan="2">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label">
+             <property name="text">
+              <string>Areas to be ignored</string>
+             </property>
+            </widget>
+           </item>
+           <item row="21" column="0" colspan="2">
             <layout class="QGridLayout" name="gridLayout_10">
              <property name="spacing">
               <number>0</number>
@@ -113,7 +110,61 @@
              </item>
             </layout>
            </item>
-           <item row="5" column="0" rowspan="2" colspan="2">
+           <item row="9" column="0">
+            <widget class="QRadioButton" name="radioLine">
+             <property name="text">
+              <string>Line</string>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="0">
+            <widget class="QRadioButton" name="radioCircle">
+             <property name="text">
+              <string>Circle</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QRadioButton" name="radioRect">
+             <property name="text">
+              <string>Rectangle</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <layout class="QGridLayout" name="gridLayout_3">
+             <property name="leftMargin">
+              <number>3</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="horizontalSpacing">
+              <number>1</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_X">
+               <property name="text">
+                <string>X</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QDoubleSpinBox" name="spin_X"/>
+             </item>
+             <item row="1" column="1">
+              <widget class="QDoubleSpinBox" name="spin_Y"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_Y">
+               <property name="text">
+                <string>Y</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="6" column="0" colspan="2">
             <widget class="QTreeWidget" name="tree_blindspot_shapes">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -137,37 +188,6 @@
              </column>
             </widget>
            </item>
-           <item row="8" column="0">
-            <widget class="QRadioButton" name="radioLine">
-             <property name="text">
-              <string>Line</string>
-             </property>
-            </widget>
-           </item>
-           <item row="9" column="0">
-            <widget class="QRadioButton" name="radioCircle">
-             <property name="text">
-              <string>Circle</string>
-             </property>
-            </widget>
-           </item>
-           <item row="7" column="0">
-            <widget class="QRadioButton" name="radioRect">
-             <property name="text">
-              <string>Rectangle</string>
-             </property>
-            </widget>
-           </item>
-           <item row="8" column="1">
-            <widget class="QPushButton" name="btn_add">
-             <property name="text">
-              <string>Add</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
           </layout>
          </item>
         </layout>
@@ -177,8 +197,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>445</width>
-          <height>388</height>
+          <width>235</width>
+          <height>133</height>
          </rect>
         </property>
         <attribute name="label">

@@ -63,8 +63,11 @@ class Tracker:
 
     def remove_blindspot(self, bs):
         try:
-            del self.bspots.shapes[:]
-            self.bsposts.remove(bs)
+            print bs
+            print bs.masks[:]
+
+            #del self.bspots.shapes[:]
+            self.bspots.remove(bs)
         except ValueError:
             self.log.error("Region to be removed not found")
         print "blindspot removed... need to finish the code in tracker"

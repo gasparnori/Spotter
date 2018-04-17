@@ -48,7 +48,7 @@
           <x>0</x>
           <y>0</y>
           <width>445</width>
-          <height>404</height>
+          <height>388</height>
          </rect>
         </property>
         <attribute name="label">
@@ -320,8 +320,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>158</width>
-          <height>92</height>
+          <width>445</width>
+          <height>388</height>
          </rect>
         </property>
         <attribute name="label">
