@@ -108,9 +108,10 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
             return self.regions_page.current_page_widget()
         elif active_top_tab_label == "Serial":
             return self.serial_page.current_page_widget()
-        elif active_top_tab_label == "BlindSpot" and (self.tabs_main.count() > 1):
-            return self.serial_page.current_page_widget()
+        elif active_top_tab_label == "Blind Spots" and (self.tabs_main.count() > 1):
+            return self.blindspot_page.current_page_widget()
         else:
+            self.log.debug("no Side bar tab found...")
             return None
 
     def update_current_page(self):

@@ -76,22 +76,22 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
     def circle_shape(self, state):
         if state:
             self.active_shape_type='circle'
+            self.spotter.active_shape_type = 'circle'
     def line_shape(self, state):
         if state:
             self.active_shape_type='line'
+            self.spotter.active_shape_type='line'
     def rect_shape(self, state):
         if state:
-            self.active_shape_type='rect'
+            self.active_shape_type='rectangle'
+            self.spotter.active_shape_type = 'rectangle'
     def blindspot_add(self, state):
         """ Called by the 'Add' button toggle to accept input for new shapes """
         self.spotter.active_shape_type = self.active_shape_type
         self.event_add_selection = state
-        print self.accept_events
 
     def process_event(self, event_type, event):
         """ Handle mouse interactions, mainly to draw and move shapes """
-       # modifiers = QtGui.QApplication.keyboardModifiers()
-        print "entered function"
         if event_type == "mousePress":
             self.button_start = int(event.buttons())
             self.coord_start = [event.x(), event.y()]
@@ -119,8 +119,9 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
 
                 #shape_type = self.spotter.active_shape_type
                 shape_points = [self.coord_start, self.coord_end]
-                if self.shape_type and shape_points:
-                    self.add_mask(self.shape_type, shape_points)
+                print self.active_shape_type
+                if self.active_shape_type and shape_points:
+                    self.add_mask(self.active_shape_type, shape_points)
         else:
             print 'Event not understood. Hulk sad and confused.'
 
@@ -156,9 +157,7 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         self.tree_blindspot_shapes.addTopLevelItem(shape_item)
         self.tree_blindspot_shapes.setCurrentItem(shape_item)
         shape_item.setFlags(shape_item.flags() | QtCore.Qt.ItemIsEditable)
-        self.btn_add_rect.setChecked(False)
-        self.btn_add_line.setChecked(False)
-        self.btn_add_circle.setChecked(False)
+        self.btn_add.setChecked(False)
 
     def remove_mask(self):
         """ Remove a shape from the list defining a ROI """

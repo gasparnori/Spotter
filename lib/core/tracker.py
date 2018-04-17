@@ -63,13 +63,14 @@ class Tracker:
 
     def remove_blindspot(self, bs):
         try:
-            print bs
-            print bs.masks[:]
+            #print bs
+            #print
 
             #del self.bspots.shapes[:]
+            del bs.masks[:]
             self.bspots.remove(bs)
         except ValueError:
-            self.log.error("Region to be removed not found")
+            self.log.error("Blind spot to be removed not found")
         print "blindspot removed... need to finish the code in tracker"
 
     def add_led(self, label, range_hue, range_sat, range_val, range_area, fixed_pos=False, linked_to=None):
@@ -123,7 +124,19 @@ class Tracker:
         f=trkbl.fpsTestSignal(pin)
         return f
 
-
+    #this function draws black mask directly on the frame, overwriting the original values (for example hiding an object)
+    #further development: look them up from a lookup table instead of this solution
+    def mask_blindspots(self, frame):
+        for b in self.bspots:
+            for m in b.masks:
+                print m.shape
+                if m.shape=='line':
+                    cv2.line(frame.img, m.p1, m.p2, (0, 0, 0), 3)
+                if m.shape== 'rectangle':
+                    cv2.rectangle(frame.img, m.p1, m.p2, (0, 0, 0), -1)
+                if m.shape== 'circle':
+                    cv2.circle(frame.img, m.p1, m.radius, (0, 0, 0), -1)
+        return frame
     def track_feature(self, frame, method='hsv_thresh', scale=1.0):
         """
         Intermediate method selecting tracking method and separating those

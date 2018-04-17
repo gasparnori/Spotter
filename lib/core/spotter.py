@@ -152,7 +152,7 @@ class Spotter:
 
 
             #add an area to ignore
-
+            self.newest_frame=self.tracker.mask_blindspots(self.newest_frame)
             # Find and update position of tracked object
             self.tracker.track_feature(self.newest_frame, method='hsv_thresh',
                                        scale=self.scale_tracking)

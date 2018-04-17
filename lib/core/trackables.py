@@ -39,6 +39,7 @@ class Shape:
         if shape == 'circle':
             # normalize the point positions based on radius,
             # second point is always to the right of the center
+
             self.points = [points[0], (int(points[0][0]), points[0][1] + self.radius)]
             self.collision_check = self.collision_check_circle
         elif shape == 'rectangle':
@@ -114,18 +115,18 @@ class Mask:
     def __init__(self, shape, points=None, label=None):
         self.active = True
         self.selected = False
-        self.collision_check = None
 
         self.shape = shape.lower()
         self.label = label
 
         self.points = points
+        self.p1=(int(points[0][0]), int(points[0][1]))
+        self.p2 =(int(points[1][0]), int(points[1][1]))
 
-        if shape == 'circle':
-            # normalize the point positions based on radius,
-            # second point is always to the right of the center
-            self.points = [points[0], (int(points[0][0]), points[0][1] + self.radius)]
-
+    @property
+    def radius(self):
+        """ Calculate the radius of the circle. """
+        return int(geom.distance(self.points[0], self.points[1]))
 
 
 class Feature:
