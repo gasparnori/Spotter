@@ -53,10 +53,10 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
              shape_item.setFlags(shape_item.flags() | QtCore.Qt.ItemIsEditable)
              self.tree_blindspot_shapes.addTopLevelItem(shape_item)
 
-        self.connect(self.btn_add_rect, QtCore.SIGNAL('toggled(bool)'), self.blindspot_rect_clicked)
-        self.connect(self.btn_add_line, QtCore.SIGNAL('toggled(bool)'), self.blindspot_line_clicked)
-        self.connect(self.btn_add_circle, QtCore.SIGNAL('toggled(bool)'), self.blindspot_circle_clicked)
-        #
+        self.connect(self.btn_add, QtCore.SIGNAL('toggled(bool)'), self.blindspot_add)
+        self.connect(self.radioCircle, QtCore.SIGNAL('toggled(bool)'), self.circle_shape)
+        self.connect(self.radioLine, QtCore.SIGNAL('toggled(bool)'), self.line_shape)
+        self.connect(self.radioRect, QtCore.SIGNAL('toggled(bool)'), self.rect_shape)
         self.connect(self.btn_remove_shape, QtCore.SIGNAL('clicked()'), self.remove_mask)
         # #self.connect(self.btn_lock_table, QtCore.SIGNAL('toggled(bool)'), self.lock_slot_table)
         #
@@ -73,34 +73,22 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
     def update(self):
          self.refresh_shape_list()
 
-    def accept_selection(self, state):
+    # def accept_selection(self, state):
+    #     """ Called by the 'Add' button toggle to accept input for new shapes """
+    #     self.event_add_selection = state
+    def circle_shape(self, state):
+        if state:
+            self.active_shape_type='circle'
+    def line_shape(self, state):
+        if state:
+            self.active_shape_type='line'
+    def rect_shape(self, state):
+        if state:
+            self.active_shape_type='rect'
+    def blindspot_add(self, state):
         """ Called by the 'Add' button toggle to accept input for new shapes """
+        self.spotter.active_shape_type = self.active_shape_type
         self.event_add_selection = state
-
-    def blindspot_rect_clicked(self, state):
-        self.accept_selection(state)
-        #self.spotter.active_shape_type='rectangle'
-        print "wtf"
-        #self.btn_add_rect.setChecked(True)
-        self.btn_add_line.setChecked(False)
-        self.btn_add_circle.setChecked(False)
-
-    def blindspot_line_clicked(self, state):
-        self.accept_selection(state)
-        #self.spotter.active_shape_type = 'line'
-        print "wtf2"
-        #self.btn_add_line.setChecked(True)
-        self.btn_add_rect.setChecked(False)
-        self.btn_add_circle.setChecked(False)
-
-    def blindspot_circle_clicked(self, state):
-        self.accept_selection(state)
-        print "wtf3"
-        #self.spotter.active_shape_type = 'circle'
-        #self.btn_add_circle.setChecked(True)
-        self.btn_add_rect.setChecked(False)
-        self.btn_add_line.setChecked(False)
-
 
     def process_event(self, event_type, event):
         """ Handle mouse interactions, mainly to draw and move shapes """

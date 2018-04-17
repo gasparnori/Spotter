@@ -69,69 +69,6 @@
            <property name="spacing">
             <number>0</number>
            </property>
-           <item row="15" column="0" colspan="2">
-            <layout class="QGridLayout" name="gridLayout_10">
-             <property name="spacing">
-              <number>0</number>
-             </property>
-             <item row="1" column="0">
-              <layout class="QHBoxLayout" name="horizontalLayout">
-               <item>
-                <widget class="QPushButton" name="btn_add_rect">
-                 <property name="minimumSize">
-                  <size>
-                   <width>30</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="statusTip">
-                  <string>Drag: Rectangle. Shift+drag: Circle. Ctrl+drag: Line.</string>
-                 </property>
-                 <property name="text">
-                  <string>Add rectangle</string>
-                 </property>
-                 <property name="checkable">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="btn_add_circle">
-                 <property name="text">
-                  <string>Add circle</string>
-                 </property>
-                 <property name="checkable">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="btn_add_line">
-                 <property name="text">
-                  <string>Add line</string>
-                 </property>
-                 <property name="checkable">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item row="2" column="0">
-              <widget class="QPushButton" name="btn_remove_shape">
-               <property name="minimumSize">
-                <size>
-                 <width>30</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>&amp;Remove</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
            <item row="0" column="0" colspan="2">
             <layout class="QGridLayout" name="gridLayout_3">
              <property name="leftMargin">
@@ -149,6 +86,30 @@
                 <string>Ignore areas</string>
                </property>
               </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="20" column="0" colspan="2">
+            <layout class="QGridLayout" name="gridLayout_10">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <item row="1" column="0">
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QPushButton" name="btn_remove_shape">
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string>&amp;Remove</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
             </layout>
            </item>
@@ -174,6 +135,37 @@
                <string>Shapes</string>
               </property>
              </column>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <widget class="QRadioButton" name="radioLine">
+             <property name="text">
+              <string>Line</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="0">
+            <widget class="QRadioButton" name="radioCircle">
+             <property name="text">
+              <string>Circle</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QRadioButton" name="radioRect">
+             <property name="text">
+              <string>Rectangle</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="1">
+            <widget class="QPushButton" name="btn_add">
+             <property name="text">
+              <string>Add</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
+             </property>
             </widget>
            </item>
           </layout>
