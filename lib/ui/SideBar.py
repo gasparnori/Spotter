@@ -381,7 +381,6 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         print label
         print ignore
         self.blindspot_page.add_item(ignore, focus_new)
-        print "blindspot under development"
 
     ###############################################################################
     # ##  SOURCE Tab Updates

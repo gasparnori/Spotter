@@ -618,3 +618,32 @@ class RegionOfInterest:
             return color[0] / 255., color[1] / 255., color[2] / 255.
         elif len(color) == 4:
             return color[0] / 255., color[1] / 255., color[2] / 255., color[3] / 255.
+
+
+class BlindSpot:
+    def __init__(self, mask_list=None, label=None):
+        self.label=label
+        # if initialized with starting set of shapes
+        self.masks = []
+        if mask_list:
+            for m in mask_list:
+                self.add_mask(*m)
+
+    def move(self, dx, dy):
+        """ Moves all masks, aka the whole blindspot, by delta pixels. """
+        for mask in self.masks:
+            mask.move(dx, dy)
+
+    def add_mask(self, shape_type, points, label):
+        """ Adds a new shape. """
+        mask = Mask(shape_type, points, label)
+        self.masks.append(mask)
+        return mask
+
+    def remove_mask(self, mask):
+        """ Removes a mask. """
+        try:
+            self.masks.remove(mask)
+        except ValueError:
+            print "Couldn't find mask for removal"
+

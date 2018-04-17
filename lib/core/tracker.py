@@ -53,13 +53,20 @@ class Tracker:
         self.bspots= [] #blind spots
         self.adaptive_tracking = adaptive_tracking
 
-    def add_blindspot(self, shape_list, label):
-        mask = trkbl.Mask('rectangle', None, None)
+    def add_blindspot(self, mask_list, label):
+        #mask = trkbl.Mask('rectangle', None, 'label')
+        bs=trkbl.BlindSpot(mask_list, label)
         print "blindspot added... need to finish the code in tracker and trackables"
-        self.bspots.append(mask)
-        return mask
+        self.log.debug("Added blindspot %s", bs.label)
+        self.bspots.append(bs)
+        return bs
 
-    def remove_blindspot(self, bspot):
+    def remove_blindspot(self, bs):
+        try:
+            del self.bspots.shapes[:]
+            self.bsposts.remove(bs)
+        except ValueError:
+            self.log.error("Region to be removed not found")
         print "blindspot removed... need to finish the code in tracker"
 
     def add_led(self, label, range_hue, range_sat, range_val, range_area, fixed_pos=False, linked_to=None):
