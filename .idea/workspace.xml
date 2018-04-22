@@ -4,7 +4,9 @@
     <list default="true" id="a67d8fa4-89e5-4a14-a9d2-18625eee271e" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/core/grabber.py" afterPath="$PROJECT_DIR$/lib/core/grabber.py" />
-      <change beforePath="$PROJECT_DIR$/lib/ui/GLFrame.py" afterPath="$PROJECT_DIR$/lib/ui/GLFrame.py" />
+      <change beforePath="$PROJECT_DIR$/lib/core/trackables.py" afterPath="$PROJECT_DIR$/lib/core/trackables.py" />
+      <change beforePath="$PROJECT_DIR$/lib/core/tracker.py" afterPath="$PROJECT_DIR$/lib/core/tracker.py" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/TabBlindSpot.py" afterPath="$PROJECT_DIR$/lib/ui/TabBlindSpot.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,7 +44,7 @@
       <file leaf-file-name="SideBar.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/ui/SideBar.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1050">
+            <state relative-caret-position="1425">
               <caret line="57" column="39" lean-forward="false" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
               <folding>
                 <element signature="e#119#133#0" expanded="true" />
@@ -52,23 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainTabPage.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/ui/MainTabPage.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="20" column="26" lean-forward="false" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
-              <folding>
-                <element signature="e#119#133#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="tracker.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="tracker.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/core/tracker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="256" column="0" lean-forward="false" selection-start-line="256" selection-start-column="0" selection-end-line="256" selection-end-column="0" />
+            <state relative-caret-position="444">
+              <caret line="135" column="50" lean-forward="false" selection-start-line="135" selection-start-column="50" selection-end-line="135" selection-end-column="50" />
               <folding>
                 <element signature="e#1021#1269#0" expanded="false" />
                 <element signature="e#2011#2361#0" expanded="false" />
@@ -77,11 +67,29 @@
                 <element signature="e#3332#3511#0" expanded="false" />
                 <element signature="e#3552#3708#0" expanded="false" />
                 <element signature="e#3747#3790#0" expanded="false" />
-                <element signature="e#4521#5780#0" expanded="false" />
-                <element signature="e#5836#9005#0" expanded="false" />
-                <element signature="e#9754#9823#0" expanded="false" />
-                <element signature="e#9949#12163#0" expanded="false" />
-                <marker date="1523964323877" expanded="true" signature="1011:1894" ph="..." />
+                <element signature="e#4560#5819#0" expanded="false" />
+                <element signature="e#5875#9044#0" expanded="false" />
+                <element signature="e#9793#9862#0" expanded="false" />
+                <element signature="e#9988#12202#0" expanded="false" />
+                <marker date="1524382200031" expanded="true" signature="1011:1894" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="spotter.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="219">
+              <caret line="154" column="47" lean-forward="false" selection-start-line="154" selection-start-column="43" selection-end-line="154" selection-end-column="47" />
+              <folding>
+                <element signature="e#7461#7528#0" expanded="false" />
+                <element signature="e#7566#7625#0" expanded="false" />
+                <element signature="e#7678#7836#0" expanded="false" />
+                <element signature="e#7873#7935#0" expanded="false" />
+                <element signature="e#7973#7995#0" expanded="false" />
+                <element signature="e#8049#8107#0" expanded="false" />
+                <element signature="e#8137#9401#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -90,8 +98,8 @@
       <file leaf-file-name="grabber.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/core/grabber.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="159" column="0" lean-forward="false" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
+            <state relative-caret-position="285">
+              <caret line="165" column="51" lean-forward="false" selection-start-line="165" selection-start-column="51" selection-end-line="165" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -100,8 +108,8 @@
       <file leaf-file-name="GLFrame.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/ui/GLFrame.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="144" column="65" lean-forward="false" selection-start-line="144" selection-start-column="65" selection-end-line="144" selection-end-column="65" />
+            <state relative-caret-position="219">
+              <caret line="319" column="38" lean-forward="false" selection-start-line="319" selection-start-column="37" selection-end-line="319" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -120,12 +128,15 @@
       <file leaf-file-name="trackables.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/core/trackables.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="127">
-              <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+            <state relative-caret-position="608">
+              <caret line="211" column="0" lean-forward="true" selection-start-line="211" selection-start-column="0" selection-end-line="211" selection-end-column="0" />
               <folding>
                 <element signature="e#1742#1890#0" expanded="false" />
                 <element signature="e#1931#2010#0" expanded="false" />
+                <element signature="e#2056#2160#0" expanded="false" />
                 <element signature="e#2215#2562#0" expanded="false" />
+                <element signature="e#2620#3186#0" expanded="false" />
+                <element signature="e#3239#4022#0" expanded="false" />
                 <element signature="e#4727#4875#0" expanded="false" />
                 <element signature="e#4902#6069#0" expanded="false" />
                 <element signature="e#6087#7139#0" expanded="false" />
@@ -152,22 +163,23 @@
                 <element signature="e#21039#21234#0" expanded="false" />
                 <element signature="e#21299#21559#0" expanded="false" />
                 <element signature="e#21619#21823#0" expanded="false" />
+                <element signature="e#22147#22275#0" expanded="false" />
+                <element signature="e#22336#22460#0" expanded="false" />
+                <element signature="e#22503#22653#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TabBlindSpot.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TabBlindSpot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/ui/TabBlindSpot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3075">
-              <caret line="123" column="17" lean-forward="false" selection-start-line="123" selection-start-column="12" selection-end-line="123" selection-end-column="17" />
+            <state relative-caret-position="608">
+              <caret line="220" column="32" lean-forward="true" selection-start-line="220" selection-start-column="32" selection-end-line="220" selection-end-column="32" />
               <folding>
                 <element signature="e#119#133#0" expanded="true" />
                 <element signature="e#5424#5712#0" expanded="false" />
-                <element signature="e#6562#6982#0" expanded="false" />
-                <element signature="e#7978#8656#0" expanded="false" />
-                <element signature="e#8726#9104#0" expanded="false" />
+                <element signature="e#7977#8655#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -184,12 +196,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>add_shape</find>
-      <find>self.add</find>
-      <find>process_event</find>
-      <find>blindspot</find>
-      <find>setChecked</find>
-      <find>change_color</find>
       <find>connect</find>
       <find>self.region</find>
       <find>self.blindspot.shapes</find>
@@ -214,6 +220,12 @@
       <find>print</find>
       <find>label</find>
       <find>cv2.cv</find>
+      <find>self.blindspot</find>
+      <find>blindsp</find>
+      <find>remove</find>
+      <find>shape</find>
+      <find>draw</find>
+      <find>mask</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -238,11 +250,11 @@
         <option value="$PROJECT_DIR$/config/template_specification.ini" />
         <option value="$PROJECT_DIR$/spotterQt.py" />
         <option value="$PROJECT_DIR$/lib/core/spotter.py" />
-        <option value="$PROJECT_DIR$/lib/core/trackables.py" />
-        <option value="$PROJECT_DIR$/lib/ui/TabBlindSpot.py" />
-        <option value="$PROJECT_DIR$/lib/core/tracker.py" />
-        <option value="$PROJECT_DIR$/lib/core/grabber.py" />
         <option value="$PROJECT_DIR$/lib/ui/GLFrame.py" />
+        <option value="$PROJECT_DIR$/lib/core/grabber.py" />
+        <option value="$PROJECT_DIR$/lib/core/trackables.py" />
+        <option value="$PROJECT_DIR$/lib/core/tracker.py" />
+        <option value="$PROJECT_DIR$/lib/ui/TabBlindSpot.py" />
       </list>
     </option>
   </component>
@@ -368,16 +380,17 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32764506" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32764506" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4880546" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12059158" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -437,12 +450,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/lib/ui/TabBlindSpot.py</url>
-          <line>130</line>
+          <line>131</line>
           <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/lib/ui/TabBlindSpot.py</url>
-          <line>129</line>
+          <line>130</line>
           <option name="timeStamp" value="53" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -485,6 +498,11 @@
           <line>256</line>
           <option name="timeStamp" value="104" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/lib/core/trackables.py</url>
+          <line>624</line>
+          <option name="timeStamp" value="107" />
+        </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
@@ -493,7 +511,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="105" />
+      <option name="time" value="108" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -505,7 +523,10 @@
           <folding>
             <element signature="e#1742#1890#0" expanded="false" />
             <element signature="e#1931#2010#0" expanded="false" />
+            <element signature="e#2056#2160#0" expanded="false" />
             <element signature="e#2215#2562#0" expanded="false" />
+            <element signature="e#2620#3186#0" expanded="false" />
+            <element signature="e#3239#4022#0" expanded="false" />
             <element signature="e#4727#4875#0" expanded="false" />
             <element signature="e#4902#6069#0" expanded="false" />
             <element signature="e#6087#7139#0" expanded="false" />
@@ -532,6 +553,9 @@
             <element signature="e#21039#21234#0" expanded="false" />
             <element signature="e#21299#21559#0" expanded="false" />
             <element signature="e#21619#21823#0" expanded="false" />
+            <element signature="e#22147#22275#0" expanded="false" />
+            <element signature="e#22336#22460#0" expanded="false" />
+            <element signature="e#22503#22653#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -543,9 +567,7 @@
           <folding>
             <element signature="e#119#133#0" expanded="true" />
             <element signature="e#5424#5712#0" expanded="false" />
-            <element signature="e#6562#6982#0" expanded="false" />
-            <element signature="e#7978#8656#0" expanded="false" />
-            <element signature="e#8726#9104#0" expanded="false" />
+            <element signature="e#7977#8655#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -562,11 +584,11 @@
             <element signature="e#3332#3511#0" expanded="false" />
             <element signature="e#3552#3708#0" expanded="false" />
             <element signature="e#3747#3790#0" expanded="false" />
-            <element signature="e#4521#5780#0" expanded="false" />
-            <element signature="e#5836#9005#0" expanded="false" />
-            <element signature="e#9754#9823#0" expanded="false" />
-            <element signature="e#9949#12163#0" expanded="false" />
-            <marker date="1523964323877" expanded="true" signature="1011:1894" ph="..." />
+            <element signature="e#4560#5819#0" expanded="false" />
+            <element signature="e#5875#9044#0" expanded="false" />
+            <element signature="e#9793#9862#0" expanded="false" />
+            <element signature="e#9988#12202#0" expanded="false" />
+            <marker date="1524382200031" expanded="true" signature="1011:1894" ph="..." />
           </folding>
         </state>
       </provider>
@@ -832,7 +854,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/MainTabPage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
+        <state relative-caret-position="500">
           <caret line="20" column="26" lean-forward="false" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
           <folding>
             <element signature="e#119#133#0" expanded="true" />
@@ -842,41 +864,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/SideBar.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1050">
+        <state relative-caret-position="1425">
           <caret line="57" column="39" lean-forward="false" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
           <folding>
             <element signature="e#119#133#0" expanded="true" />
             <element signature="e#15677#17126#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="143" column="18" lean-forward="false" selection-start-line="143" selection-start-column="13" selection-end-line="143" selection-end-column="18" />
-          <folding>
-            <element signature="e#7461#7528#0" expanded="false" />
-            <element signature="e#7566#7625#0" expanded="false" />
-            <element signature="e#7678#7836#0" expanded="false" />
-            <element signature="e#7873#7935#0" expanded="false" />
-            <element signature="e#7973#7995#0" expanded="false" />
-            <element signature="e#8049#8107#0" expanded="false" />
-            <element signature="e#8137#9401#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/TabBlindSpot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3075">
-          <caret line="123" column="17" lean-forward="false" selection-start-line="123" selection-start-column="12" selection-end-line="123" selection-end-column="17" />
-          <folding>
-            <element signature="e#119#133#0" expanded="true" />
-            <element signature="e#5424#5712#0" expanded="false" />
-            <element signature="e#6562#6982#0" expanded="false" />
-            <element signature="e#7978#8656#0" expanded="false" />
-            <element signature="e#8726#9104#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -889,30 +881,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/core/grabber.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="159" column="0" lean-forward="false" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/GLFrame.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="144" column="65" lean-forward="false" selection-start-line="144" selection-start-column="65" selection-end-line="144" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/trackables.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="127">
-          <caret line="115" column="0" lean-forward="false" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+        <state relative-caret-position="608">
+          <caret line="211" column="0" lean-forward="true" selection-start-line="211" selection-start-column="0" selection-end-line="211" selection-end-column="0" />
           <folding>
             <element signature="e#1742#1890#0" expanded="false" />
             <element signature="e#1931#2010#0" expanded="false" />
+            <element signature="e#2056#2160#0" expanded="false" />
             <element signature="e#2215#2562#0" expanded="false" />
+            <element signature="e#2620#3186#0" expanded="false" />
+            <element signature="e#3239#4022#0" expanded="false" />
             <element signature="e#4727#4875#0" expanded="false" />
             <element signature="e#4902#6069#0" expanded="false" />
             <element signature="e#6087#7139#0" expanded="false" />
@@ -939,14 +918,49 @@
             <element signature="e#21039#21234#0" expanded="false" />
             <element signature="e#21299#21559#0" expanded="false" />
             <element signature="e#21619#21823#0" expanded="false" />
+            <element signature="e#22147#22275#0" expanded="false" />
+            <element signature="e#22336#22460#0" expanded="false" />
+            <element signature="e#22503#22653#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/GLFrame.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="319" column="38" lean-forward="false" selection-start-line="319" selection-start-column="37" selection-end-line="319" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/core/grabber.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="165" column="51" lean-forward="false" selection-start-line="165" selection-start-column="51" selection-end-line="165" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="154" column="47" lean-forward="false" selection-start-line="154" selection-start-column="43" selection-end-line="154" selection-end-column="47" />
+          <folding>
+            <element signature="e#7461#7528#0" expanded="false" />
+            <element signature="e#7566#7625#0" expanded="false" />
+            <element signature="e#7678#7836#0" expanded="false" />
+            <element signature="e#7873#7935#0" expanded="false" />
+            <element signature="e#7973#7995#0" expanded="false" />
+            <element signature="e#8049#8107#0" expanded="false" />
+            <element signature="e#8137#9401#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/tracker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="256" column="0" lean-forward="false" selection-start-line="256" selection-start-column="0" selection-end-line="256" selection-end-column="0" />
+        <state relative-caret-position="444">
+          <caret line="135" column="50" lean-forward="false" selection-start-line="135" selection-start-column="50" selection-end-line="135" selection-end-column="50" />
           <folding>
             <element signature="e#1021#1269#0" expanded="false" />
             <element signature="e#2011#2361#0" expanded="false" />
@@ -955,11 +969,23 @@
             <element signature="e#3332#3511#0" expanded="false" />
             <element signature="e#3552#3708#0" expanded="false" />
             <element signature="e#3747#3790#0" expanded="false" />
-            <element signature="e#4521#5780#0" expanded="false" />
-            <element signature="e#5836#9005#0" expanded="false" />
-            <element signature="e#9754#9823#0" expanded="false" />
-            <element signature="e#9949#12163#0" expanded="false" />
-            <marker date="1523964323877" expanded="true" signature="1011:1894" ph="..." />
+            <element signature="e#4560#5819#0" expanded="false" />
+            <element signature="e#5875#9044#0" expanded="false" />
+            <element signature="e#9793#9862#0" expanded="false" />
+            <element signature="e#9988#12202#0" expanded="false" />
+            <marker date="1524382200031" expanded="true" signature="1011:1894" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/TabBlindSpot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="220" column="32" lean-forward="true" selection-start-line="220" selection-start-column="32" selection-end-line="220" selection-end-column="32" />
+          <folding>
+            <element signature="e#119#133#0" expanded="true" />
+            <element signature="e#5424#5712#0" expanded="false" />
+            <element signature="e#7977#8655#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -66,7 +66,8 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         # # if a checkbox or spinbox on a shape in the list is changed
         self.spin_shape = None
         self.connect(self.tree_blindspot_shapes, QtCore.SIGNAL('itemChanged(QTreeWidgetItem *, int)'),
-                     self.shape_item_changed)
+                     self.mask_item_changed)
+
         self.update()
     #
     def update(self):
@@ -163,7 +164,7 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         selected_item = self.tree_blindspot_shapes.currentItem()
         index = self.tree_blindspot_shapes.indexOfTopLevelItem(selected_item)
         if selected_item:
-            self.blindspot.remove_shape(selected_item.shape)
+            self.blindspot.remove_mask(selected_item.shape)
             self.tree_blindspot_shapes.takeTopLevelItem(index)
 #
     def update_shape_position(self):
@@ -204,7 +205,7 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
             return
 
     @staticmethod
-    def shape_item_changed(item, column):
+    def mask_item_changed(item, column):
         """
         Activate/inactive shapes. If not active, will not be included in
         collision detection and will not be drawn/will be drawn in a distinct

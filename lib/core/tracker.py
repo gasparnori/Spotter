@@ -129,11 +129,11 @@ class Tracker:
     def mask_blindspots(self, frame):
         for b in self.bspots:
             for m in b.masks:
-                if m.shape=='line':
+                if m.shape=='line' and m.active:
                     cv2.line(frame.img, m.p1, m.p2, (0, 0, 0), 3)
-                if m.shape== 'rectangle':
+                if m.shape== 'rectangle' and m.active:
                     cv2.rectangle(frame.img, m.p1, m.p2, (0, 0, 0), -1)
-                if m.shape== 'circle':
+                if m.shape== 'circle' and m.active:
                     cv2.circle(frame.img, m.p1, m.radius, (0, 0, 0), -1)
         return frame
     def track_feature(self, frame, method='hsv_thresh', scale=1.0):

@@ -624,6 +624,7 @@ class RegionOfInterest:
 class BlindSpot:
     def __init__(self, mask_list=None, label=None):
         self.label=label
+        self.active=True
         # if initialized with starting set of shapes
         self.masks = []
         if mask_list:
