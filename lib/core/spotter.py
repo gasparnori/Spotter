@@ -160,9 +160,15 @@ class Spotter:
             messages = []
             # Update positions of all objects
             for o in self.tracker.oois:
+                #calculates feature position from LED's to object
+                #with the kalman filter: updates the coordinates of the object after smoothing, predicts missing coordinates
+                o.update_state(self.spotterelapsed)
+
+                #updates the velocity and head direction based on the coordinates
                 o.update_values(self.spotterelapsed)
+
+                #updates the output values to the Arduino
                 o.update_slots(self.chatter)
-                o.update_state()
 
                 slots.extend(o.linked_slots)
                 messages.append('\t'.join([self.newest_frame.time_text,

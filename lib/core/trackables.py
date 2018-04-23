@@ -12,6 +12,7 @@ import lib.utilities as utils
 import lib.geometry as geom
 from PyQt4 import QtCore
 import numpy
+import lib.kalmanfilter as kfilter
 
 SENSITIVITY = 0
 
@@ -243,6 +244,10 @@ class ObjectOfInterest:
         self.guessing_enabled=False
         self.max_x=max_x
         self.max_y=max_y
+        #x, y, vx, vy for the kalman filter
+        self.filterstate=[0,0,0,0]
+        self.kalmanfilter=kfilter.KFilter()
+        self.kalmanfilter.start_filter()
 
         # the slots for these properties/signals are greedy for pins
         if magnetic_signals is None:
@@ -256,9 +261,9 @@ class ObjectOfInterest:
                       Slot('direction', 'dac', self.getDirection),
                       Slot('speed', 'dac', self.getSpeed)]
 
-    def update_state(self):
+    def update_state(self, elapsedtime):
         """Update feature search windows!"""
-        self.append_position()
+        self.append_position(elapsedtime)
 
         # go back max. n frames to find last position
         min_step = 25
@@ -292,16 +297,29 @@ class ObjectOfInterest:
                 for pin in pins:
                     if pin.id == slot.pin_pref:
                         slot.attach_pin(pin)
+
     def update_values(self,elapsedtime):
         self.direction()
         self.speed(elapsedtime) #frame to frame interval for speed calculation
-    def append_position(self):  ###############################################################edited to minimize jtter
+
+    def append_position(self, elapsedtime):  ###############################################################edited to minimize jtter
         """Calculate position from detected features linked to object."""
         if not self.tracked:
             return
         feature_positions = [f.pos_hist[-1] for f in self.linked_leds if len(f.pos_hist)]
+        temp_position=geom.middle_point(feature_positions)
+        if temp_position is not None:
+            if (temp_position[0] is not None) and (temp_position[1] is not None):
+                self.filterstate = self.kalmanfilter.update_measurement(geom.middle_point(feature_positions)[0], geom.middle_point(feature_positions)[1], elapsedtime)
+                fpos=self.kalmanfilter.update_filter()
 
-        self.pos_hist.append(geom.middle_point(feature_positions))
+            elif self.guessing_enabled:
+                self.filterstate = self.kalmanfilter.update_missing()
+                fpos = self.kalmanfilter.update_filter()
+
+            if fpos is not None and not (fpos[0] < 0 or fpos[0] > self.max_x or fpos[1] < 0 or fpos[1] > self.max_y):
+                self.pos_hist.append(fpos)
+
 
     @property
     def position(self):
@@ -309,13 +327,17 @@ class ObjectOfInterest:
          #print (self.guessing_enabled)
 
          if len(self.pos_hist):
-             if self.pos_hist[-1] == None and self.guessing_enabled:
-                 p = geom.guessedPosition(self.pos_hist)
-                 if p is not None and (p[0]<0 or p[0]>self.max_x or p[1]<0 or p[1]>self.max_y):   #guessed position is outside of the frame
-                    p=None
-                 else:
-                    print "object lost, the guessed position is: ", p
-                 self.pos_hist[-1]=p
+             #if self.pos_hist[-1] == None and self.guessing_enabled:
+             #    p = geom.guessedPosition(self.pos_hist)
+             #    if p is not None and (p[0]<0 or p[0]>self.max_x or p[1]<0 or p[1]>self.max_y):   #guessed position is outside of the frame
+             #       p=None
+             #    else:
+             #       print "object lost, the guessed position is: ", p
+             #    self.pos_hist[-1]=p
+
+
+            #only smoothing/dejittering with kalman filter:
+             #self.kf.update_measurement()
              return self.pos_hist[-1]
          else:
              return None
