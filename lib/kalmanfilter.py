@@ -2,7 +2,7 @@ import numpy as np
 from pykalman import KalmanFilter
 import math
 
-Observation_CoeffVal=20
+Observation_CoeffVal=15
 
 class KFilter:
     """
@@ -14,14 +14,14 @@ class KFilter:
         self.updated_state = []
 
     def start_filter(self, initpoint=None):
-        deltaT = 0.5
+        deltaT = 0.1
         # Fk: transition matrix
         self.Fk = np.array([[1, 0, deltaT, 0], [0, 1, 0, deltaT], [0, 0, 1, 0], [0, 0, 0, 1]])
         # Hk:observation matrix
         self.Hk = np.eye(4, 4)  # not going to change
         # Pk: transition covariance
-        self.Pk = np.eye(4, 4)
-        self.Pk2 = np.eye(4, 4)
+        self.Pk = np.eye(4, 4)*3
+        #self.Pk2 = np.eye(4, 4)
         # Rk: observation covariance
         self.Rk = np.eye(4, 4) * Observation_CoeffVal
         # self.measurement_covariance = np.eye(4, 4)
@@ -31,21 +31,21 @@ class KFilter:
         if initpoint is not None:
             self.initial_state = [initpoint[0], initpoint[1], 1, 1]
         else:
-            self.initial_state = [1, 1, 1, 1]
+            self.initial_state = [1, 1, 0, 0]
         self.filter = KalmanFilter(transition_matrices=self.Fk,
                                    observation_matrices=self.Hk,
                                    transition_covariance=self.Pk,
                                    observation_covariance=self.Rk,
                                    random_state=0)
         self.measured_state = self.initial_state
-       # self.updated_state.append(self.initial_state)
+        self.updated_state.append(self.initial_state)
 
     def update_filter(self):
         #self.Rk = np.eye(4, 4) * Observation_CoeffVal
         #self.Fk = np.array( [[1, 0, dt, 0],[0, 1, 0, dt], [0, 0, 1, 0], [0, 0, 0, 1]])
         online_means, self.Pk = self.filter.filter_update(self.updated_state[-1], self.Pk, self.measured_state)
         self.updated_state.append(online_means)
-        return (math.ceil(online_means[0]), math.ceil(online_means[1]))
+        return (online_means[0], online_means[1])
 
     def update_missing(self):
         self.measured_state=self.updated_state[-1]
@@ -53,9 +53,9 @@ class KFilter:
     #    self.update_filter()
 
     def update_measurement(self, x, y, dt):
-        if len(self.updated_state)==0:
-            self.updated_state.append([x,y,1,1])
-            self.measured_state = [x, y, 1, 1]
+        if len(self.updated_state)==1:
+            self.updated_state.append([x,y,0,0])    #replace default initial state with the real one
+            self.measured_state = [x, y, 0, 0]
 
         else:
             if dt > 0:

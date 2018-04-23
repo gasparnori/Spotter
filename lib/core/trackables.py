@@ -187,16 +187,20 @@ class LED(Feature):
 
     def filterPosition(self, elapsedtime, last_measured):
         if last_measured is not None:
-            print last_measured
+            #print last_measured
+            #self.kalmanfilter.filter.transition_matrices= numpy.array([[1, 0, elapsedtime, 0], [0, 1, 0, elapsedtime], [0, 0, 1, 0], [0, 0, 0, 1]])
             self.filterstate = self.kalmanfilter.update_measurement(last_measured[0],
                                                                     last_measured[1],
                                                                     elapsedtime)
             fpos = self.kalmanfilter.update_filter()
-            self.pos_hist.append(fpos)
-        elif last_measured is None and self.pos_hist[-1] is not None:
+            #print "measured: ", last_measured, "predicted: ", (int(round(fpos[0])), int(round(fpos[1])))
+            self.pos_hist.append((int(round(fpos[0])), int(round(fpos[1]))))
+
+        elif last_measured is None and len(self.pos_hist)>0:
             self.filterstate=self.kalmanfilter.update_missing()
             fpos = self.kalmanfilter.update_filter()
-            self.pos_hist.append(fpos)
+
+            self.pos_hist.append((int(round(fpos[0])), int(round(fpos[1]))))
         else:
             self.pos_hist.append(None)
 
