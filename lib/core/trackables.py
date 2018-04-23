@@ -157,7 +157,7 @@ class LED(Feature):
         #array of position history after the filter
         self.pos_hist = []
         #x,y coordinates before the kalman filter
-        self.last_measured=[]
+        #self.last_measured=[]
 
         self.kalmanfilter=kfilter.KFilter()
         self.kalmanfilter.start_filter()
@@ -185,14 +185,22 @@ class LED(Feature):
     def position(self):
         return self.pos_hist[-1] if len(self.pos_hist) else None
 
-    def filterPosition(self, elapsedtime):
-        if self.last_measured is not None:
-            self.filterstate = self.kalmanfilter.update_measurement(self.last_measured[0],
-                                                                    self.last_measured[1],
+    def filterPosition(self, elapsedtime, last_measured):
+        if last_measured is not None:
+            print last_measured
+            self.filterstate = self.kalmanfilter.update_measurement(last_measured[0],
+                                                                    last_measured[1],
                                                                     elapsedtime)
-
             fpos = self.kalmanfilter.update_filter()
             self.pos_hist.append(fpos)
+        elif last_measured is None and self.pos_hist[-1] is not None:
+            self.filterstate=self.kalmanfilter.update_missing()
+            fpos = self.kalmanfilter.update_filter()
+            self.pos_hist.append(fpos)
+        else:
+            self.pos_hist.append(None)
+
+
 
 
 
@@ -328,6 +336,7 @@ class ObjectOfInterest:
         if not self.tracked:
             return
         feature_positions = [f.pos_hist[-1] for f in self.linked_leds if len(f.pos_hist)]
+
         temp_position=geom.middle_point(feature_positions)
         # if temp_position is not None:
         #     if (temp_position[0] is not None) and (temp_position[1] is not None):

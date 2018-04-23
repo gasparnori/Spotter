@@ -244,13 +244,14 @@ class Tracker:
                 cx += ax
                 cy += ay
             #l.pos_hist.append((math.ceil(cx/self.scale), math.ceil(cy/self.scale)))
-            l.last_measured=(math.ceil(cx/self.scale), math.ceil(cy/self.scale))
-            l.filterPosition(elapsedtime)
+            last_measured=(cx/self.scale, cy/self.scale)
+            l.filterPosition(elapsedtime, last_measured)
 
 
         else:
             # Couldn't find a good enough spot
-            l.pos_hist.append(None)
+            l.filterPosition(elapsedtime, None)
+            #l.pos_hist.append(None)
 
     @staticmethod
     def find_contour(frame, range_area):
