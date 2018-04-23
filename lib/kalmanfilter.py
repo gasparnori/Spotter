@@ -1,7 +1,7 @@
 import numpy as np
 from pykalman import KalmanFilter
 
-Observation_CoeffVal=20
+Observation_CoeffVal=5
 
 class KFilter:
     """
@@ -44,7 +44,7 @@ class KFilter:
         #self.Fk = np.array( [[1, 0, dt, 0],[0, 1, 0, dt], [0, 0, 1, 0], [0, 0, 0, 1]])
         online_means, self.Pk = self.filter.filter_update(self.updated_state[-1], self.Pk, self.measured_state)
         self.updated_state.append(online_means)
-        return online_means
+        return (online_means[0], online_means[1])
 
     def update_missing(self):
         self.measured_state=self.updated_state[-1]

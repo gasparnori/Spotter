@@ -154,7 +154,15 @@ class LED(Feature):
         self.range_val = range_val
         self.range_area = range_area
 
+        #array of position history after the filter
         self.pos_hist = []
+        #x,y coordinates before the kalman filter
+        self.last_measured=[]
+
+        self.kalmanfilter=kfilter.KFilter()
+        self.kalmanfilter.start_filter()
+        #initializing the last state of the filter
+        self.filterstate=[1,1,1,1]
 
         # Restrict tracking to a search window?
         self.adaptive_tracking = (roi is not None)
@@ -176,6 +184,18 @@ class LED(Feature):
     @property
     def position(self):
         return self.pos_hist[-1] if len(self.pos_hist) else None
+
+    def filterPosition(self, elapsedtime):
+        if self.last_measured is not None:
+            self.filterstate = self.kalmanfilter.update_measurement(self.last_measured[0],
+                                                                    self.last_measured[1],
+                                                                    elapsedtime)
+
+            fpos = self.kalmanfilter.update_filter()
+            self.pos_hist.append(fpos)
+
+
+
 
 class Slot:
     def __init__(self, label, slot_type, state=None, state_idx=None, ref=None):
@@ -249,6 +269,7 @@ class ObjectOfInterest:
         self.kalmanfilter=kfilter.KFilter()
         self.kalmanfilter.start_filter()
 
+
         # the slots for these properties/signals are greedy for pins
         if magnetic_signals is None:
             self.magnetic_signals = []
@@ -308,18 +329,18 @@ class ObjectOfInterest:
             return
         feature_positions = [f.pos_hist[-1] for f in self.linked_leds if len(f.pos_hist)]
         temp_position=geom.middle_point(feature_positions)
-        if temp_position is not None:
-            if (temp_position[0] is not None) and (temp_position[1] is not None):
-                self.filterstate = self.kalmanfilter.update_measurement(geom.middle_point(feature_positions)[0], geom.middle_point(feature_positions)[1], elapsedtime)
-                fpos=self.kalmanfilter.update_filter()
-
-            elif self.guessing_enabled:
-                self.filterstate = self.kalmanfilter.update_missing()
-                fpos = self.kalmanfilter.update_filter()
-
-            if fpos is not None and not (fpos[0] < 0 or fpos[0] > self.max_x or fpos[1] < 0 or fpos[1] > self.max_y):
-                self.pos_hist.append(fpos)
-
+        # if temp_position is not None:
+        #     if (temp_position[0] is not None) and (temp_position[1] is not None):
+        #         self.filterstate = self.kalmanfilter.update_measurement(geom.middle_point(feature_positions)[0], geom.middle_point(feature_positions)[1], elapsedtime)
+        #         fpos=self.kalmanfilter.update_filter()
+        #
+        #     elif self.guessing_enabled:
+        #         self.filterstate = self.kalmanfilter.update_missing()
+        #         fpos = self.kalmanfilter.update_filter()
+        #
+        #     if fpos is not None and not (fpos[0] < 0 or fpos[0] > self.max_x or fpos[1] < 0 or fpos[1] > self.max_y):
+        #         self.pos_hist.append(fpos)
+        self.pos_hist.append(temp_position)
 
     @property
     def position(self):

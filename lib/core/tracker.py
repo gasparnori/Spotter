@@ -136,7 +136,7 @@ class Tracker:
                 if m.shape== 'circle' and m.active:
                     cv2.circle(frame.img, m.p1, m.radius, (0, 0, 0), -1)
         return frame
-    def track_feature(self, frame, method='hsv_thresh', scale=1.0):
+    def track_feature(self, frame, method='hsv_thresh', scale=1.0, elapsedtime=5):
         """
         Intermediate method selecting tracking method and separating those
         tracking methods from the frames stored in the instantiated Tracker
@@ -166,11 +166,11 @@ class Tracker:
 
             for led in self.leds:
                 if led.detection_active:
-                    self.track_thresholds(self.frame, led)
+                    self.track_thresholds(self.frame, led, elapsedtime)
                 else:
                     led.pos_hist.append(None)
 
-    def track_thresholds(self, hsv_frame, l):
+    def track_thresholds(self, hsv_frame, l, elapsedtime=5):
         """
         Tracks LEDs from a list in a HSV frame by thresholding
         hue, saturation, followed by thresholding for each LEDs hue.
@@ -243,7 +243,11 @@ class Tracker:
             if frame_offset:
                 cx += ax
                 cy += ay
-            l.pos_hist.append((math.ceil(cx/self.scale), math.ceil(cy/self.scale)))
+            #l.pos_hist.append((math.ceil(cx/self.scale), math.ceil(cy/self.scale)))
+            l.last_measured=(math.ceil(cx/self.scale), math.ceil(cy/self.scale))
+            l.filterPosition(elapsedtime)
+
+
         else:
             # Couldn't find a good enough spot
             l.pos_hist.append(None)
