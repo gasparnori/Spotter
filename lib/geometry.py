@@ -25,8 +25,8 @@ def middle_point(coord_list):
     n = 1.0*len(coord_list)
     if n < 1:
         return None
-    x =math.ceil(sum([c[0]/n for c in coord_list]))
-    y =math.ceil(sum([c[1]/n for c in coord_list]))
+    x =int(round(sum([c[0]/n for c in coord_list])))
+    y =int(round(sum([c[1]/n for c in coord_list])))
     return [x, y]
 
 

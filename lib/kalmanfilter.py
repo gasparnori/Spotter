@@ -15,7 +15,7 @@ class KFilter:
         self.measurement_hist=[] #should it save the entire trajectory?
 
     def start_filter(self, initpoint=None):
-        deltaT = 0.1
+        deltaT = 5
         # Fk: transition matrix
         self.Fk = np.array([[1, 0, deltaT, 0], [0, 1, 0, deltaT], [0, 0, 1, 0], [0, 0, 0, 1]])
         # Hk:observation matrix
@@ -41,9 +41,9 @@ class KFilter:
         self.measured_state = self.initial_state
         self.updated_state.append(self.initial_state)
 
-    def update_filter(self):
+    def update_filter(self, dt=5):
         #self.Rk = np.eye(4, 4) * Observation_CoeffVal
-        #self.Fk = np.array( [[1, 0, dt, 0],[0, 1, 0, dt], [0, 0, 1, 0], [0, 0, 0, 1]])
+        self.Fk = np.array( [[1, 0, dt, 0],[0, 1, 0, dt], [0, 0, 1, 0], [0, 0, 0, 1]])
         online_means, self.Pk = self.filter.filter_update(self.updated_state[-1], self.Pk, self.measured_state)
         self.updated_state.append(online_means)
         return (online_means[0], online_means[1])
@@ -83,11 +83,11 @@ class KFilter:
 
     def recalibrate(self):
         if len(self.measurement_hist)>50:
-            print "recalibrate"
+            #print "recalibrate"
             self.filter = self.filter.em(np.asanyarray(self.measurement_hist), n_iter=5)
         else:
             return
     def updateObservationCoeffVal(self, value):
-        print "updated to: ", value
+        #print "updated to: ", value
         self.Rk=np.eye(4, 4) * value
         self.filter.observation_covariance=self.Rk

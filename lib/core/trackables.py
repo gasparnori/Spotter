@@ -147,7 +147,7 @@ class LED(Feature):
         self.label = label
         self.detection_active = True
         self.marker_visible = True
-        self.guessing_enabled = False
+        self.guessing_enabled = True
         # feature description ranges
         self.range_hue = range_hue
         self.range_sat = range_sat
@@ -186,19 +186,20 @@ class LED(Feature):
         return self.pos_hist[-1] if len(self.pos_hist) else None
 
     def filterPosition(self, elapsedtime, last_measured):
+       # print elapsedtime
         if last_measured is not None:
             #print last_measured
             #self.kalmanfilter.filter.transition_matrices= numpy.array([[1, 0, elapsedtime, 0], [0, 1, 0, elapsedtime], [0, 0, 1, 0], [0, 0, 0, 1]])
             self.filterstate = self.kalmanfilter.update_measurement(last_measured[0],
                                                                     last_measured[1],
                                                                     elapsedtime)
-            fpos = self.kalmanfilter.update_filter()
+            fpos = self.kalmanfilter.update_filter(elapsedtime)
             #print "measured: ", last_measured, "predicted: ", (int(round(fpos[0])), int(round(fpos[1])))
             self.pos_hist.append((int(round(fpos[0])), int(round(fpos[1]))))
 
         elif last_measured is None and len(self.pos_hist)>0 and self.guessing_enabled:
             self.filterstate=self.kalmanfilter.update_missing()
-            fpos = self.kalmanfilter.update_filter()
+            fpos = self.kalmanfilter.update_filter(elapsedtime)
 
             self.pos_hist.append((int(round(fpos[0])), int(round(fpos[1]))))
         else:

@@ -109,7 +109,7 @@ class Tab(QtGui.QWidget, Ui_tab_features):
         self.log.debug("Mowing unicorn meadows.")
 
         # base CSS string
-        style_sheet = "background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0)"
+        style_sheet = "background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0"
 
         self.current_range_hue = self.feature.range_hue
         min_h = int(self.current_range_hue[0]*2)
