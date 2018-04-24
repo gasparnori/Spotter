@@ -64,8 +64,9 @@ class Tab(QtGui.QWidget, Ui_tab_features):
         self.connect(self.ckb_fixed_pos, QtCore.SIGNAL('stateChanged(int)'), self.update_led)
         self.ckb_marker.setChecked(self.feature.marker_visible)
         self.connect(self.ckb_marker, QtCore.SIGNAL('stateChanged(int)'), self.update_led)
-
+        self.connect(self.ckb_kalmanfilter, QtCore.SIGNAL('stateChanged(int)'), self.estimate_filter)
         self.connect(self.btn_pick_color, QtCore.SIGNAL('toggled(bool)'), self.pick_color)
+        self.btn_filter.clicked.connect(self.feature.kalmanfilter.recalibrate)
 
         self.update()
 
@@ -87,6 +88,9 @@ class Tab(QtGui.QWidget, Ui_tab_features):
         self.update_color_space()
         self.update_zoom()
 
+    def estimate_filter(self):
+        self.feature.guessing_enabled=self.ckb_kalmanfilter.isChecked()
+
     def update_led(self):
         self.feature.range_hue = (self.spin_hue_min.value(), self.spin_hue_max.value())
         self.feature.range_sat = (self.spin_sat_min.value(), self.spin_sat_max.value())
@@ -103,7 +107,7 @@ class Tab(QtGui.QWidget, Ui_tab_features):
         self.log.debug("Mowing unicorn meadows.")
 
         # base CSS string
-        style_sheet = "background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0"
+        style_sheet = "background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0)"
 
         self.current_range_hue = self.feature.range_hue
         min_h = int(self.current_range_hue[0]*2)

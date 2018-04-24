@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'side_barUi.ui'
 #
-# Created: Tue Apr 17 11:49:12 2018
+# Created: Tue Apr 24 13:33:20 2018
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!

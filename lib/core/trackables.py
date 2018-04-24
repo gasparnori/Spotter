@@ -147,7 +147,7 @@ class LED(Feature):
         self.label = label
         self.detection_active = True
         self.marker_visible = True
-
+        self.guessing_enabled = False
         # feature description ranges
         self.range_hue = range_hue
         self.range_sat = range_sat
@@ -196,15 +196,13 @@ class LED(Feature):
             #print "measured: ", last_measured, "predicted: ", (int(round(fpos[0])), int(round(fpos[1])))
             self.pos_hist.append((int(round(fpos[0])), int(round(fpos[1]))))
 
-        elif last_measured is None and len(self.pos_hist)>0:
+        elif last_measured is None and len(self.pos_hist)>0 and self.guessing_enabled:
             self.filterstate=self.kalmanfilter.update_missing()
             fpos = self.kalmanfilter.update_filter()
 
             self.pos_hist.append((int(round(fpos[0])), int(round(fpos[1]))))
         else:
             self.pos_hist.append(None)
-
-
 
 
 
@@ -273,7 +271,7 @@ class ObjectOfInterest:
         self.dir_hist = []
         self.speed_hist=[]
         self.dir_coord_hist = []
-        self.guessing_enabled=False
+        #self.guessing_enabled=False
         self.max_x=max_x
         self.max_y=max_y
         #x, y, vx, vy for the kalman filter

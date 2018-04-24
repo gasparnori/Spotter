@@ -11,7 +11,8 @@ class KFilter:
     """
     def __init__(self, initpoint=None):
         self.measured_state = []
-        self.updated_state = []
+        self.updated_state = [] #saves the entire trajectory...
+        self.measurement_hist=[] #should it save the entire trajectory?
 
     def start_filter(self, initpoint=None):
         deltaT = 0.1
@@ -56,7 +57,6 @@ class KFilter:
         if len(self.updated_state)==1:
             self.updated_state.append([x,y,0,0])    #replace default initial state with the real one
             self.measured_state = [x, y, 0, 0]
-
         else:
             if dt > 0:
                 vx = (x - self.updated_state[-1][0]) / dt
@@ -65,10 +65,25 @@ class KFilter:
                 vx = 1
                 vy = 1
             self.measured_state=[x, y, vx, vy]
+
+        #only stores the last 100 measurements
+        if len(self.measurement_hist) > 99:
+            self.measurement_hist[0:98] = self.measurement_hist[1:99]
+            self.measurement_hist[99] = self.measured_state
+        else:
+            self.measurement_hist.append(self.measured_state)
         return self.measured_state
     #    self.update_filter()
 
     def stop_filter(self):
         self.measured_state=None
         self.updated_state=[]
+        self.measurement_hist=[]
         self.filter=None
+
+    def recalibrate(self):
+        if len(self.measurement_hist)>50:
+            print "recalibrate"
+            self.filter = self.filter.em(np.asanyarray(self.measurement_hist), n_iter=5)
+        else:
+            return
