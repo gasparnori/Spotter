@@ -2,13 +2,13 @@ import numpy as np
 from pykalman import KalmanFilter
 import math
 
-Observation_CoeffVal=15
 
 class KFilter:
     """
         Kalman filter for smoothing and predicting the missing coordinates. if there was a coordinate recorded, it uses that for the update
          if there wasn't, it uses the last predicted value
     """
+    Observation_CoeffVal = 15
     def __init__(self, initpoint=None):
         self.measured_state = []
         self.updated_state = [] #saves the entire trajectory...
@@ -24,7 +24,7 @@ class KFilter:
         self.Pk = np.eye(4, 4)*3
         #self.Pk2 = np.eye(4, 4)
         # Rk: observation covariance
-        self.Rk = np.eye(4, 4) * Observation_CoeffVal
+        self.Rk = np.eye(4, 4) * self.Observation_CoeffVal
         # self.measurement_covariance = np.eye(4, 4)
         # self.R = 5  # estimate of measurement variance, change to see effect
         # Q
@@ -87,3 +87,7 @@ class KFilter:
             self.filter = self.filter.em(np.asanyarray(self.measurement_hist), n_iter=5)
         else:
             return
+    def updateObservationCoeffVal(self, value):
+        print "updated to: ", value
+        self.Rk=np.eye(4, 4) * value
+        self.filter.observation_covariance=self.Rk

@@ -67,6 +67,7 @@ class Tab(QtGui.QWidget, Ui_tab_features):
         self.connect(self.ckb_kalmanfilter, QtCore.SIGNAL('stateChanged(int)'), self.estimate_filter)
         self.connect(self.btn_pick_color, QtCore.SIGNAL('toggled(bool)'), self.pick_color)
         self.btn_filter.clicked.connect(self.feature.kalmanfilter.recalibrate)
+        self.connect(self.filterSlider, QtCore.SIGNAL('valueChanged(int)'), self.feature.kalmanfilter.updateObservationCoeffVal)
 
         self.update()
 
@@ -87,6 +88,7 @@ class Tab(QtGui.QWidget, Ui_tab_features):
 
         self.update_color_space()
         self.update_zoom()
+
 
     def estimate_filter(self):
         self.feature.guessing_enabled=self.ckb_kalmanfilter.isChecked()
