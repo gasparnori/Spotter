@@ -64,10 +64,12 @@ class Tab(QtGui.QWidget, Ui_tab_features):
         self.connect(self.ckb_fixed_pos, QtCore.SIGNAL('stateChanged(int)'), self.update_led)
         self.ckb_marker.setChecked(self.feature.marker_visible)
         self.connect(self.ckb_marker, QtCore.SIGNAL('stateChanged(int)'), self.update_led)
-        self.connect(self.ckb_kalmanfilter, QtCore.SIGNAL('stateChanged(int)'), self.estimate_filter)
         self.connect(self.btn_pick_color, QtCore.SIGNAL('toggled(bool)'), self.pick_color)
-        self.btn_filter.clicked.connect(self.feature.kalmanfilter.recalibrate)
-        self.connect(self.filterSlider, QtCore.SIGNAL('valueChanged(int)'), self.feature.kalmanfilter.updateObservationCoeffVal)
+        #self.connect(self.filterSlider, QtCore.SIGNAL('valueChanged(int)'), self.feature.kalmanfilter.updateObservationCoeffVal)
+        self.recalibrateBtn.clicked.connect(self.feature.recalibrateFilter)
+        self.connect(self.ckb_prediction, QtCore.SIGNAL('stateChanged(int)'), self.enablePred)
+        self.connect(self.enable_filter, QtCore.SIGNAL('stateChanged(int)'), self.enableKF)
+        self.connect(self.enable_adaptive, QtCore.SIGNAL('stateChanged(int)'), self.adaptiveKF)
 
         self.update()
 
@@ -90,8 +92,24 @@ class Tab(QtGui.QWidget, Ui_tab_features):
         self.update_zoom()
 
 
-    def estimate_filter(self):
+    def enablePred(self):
         self.feature.guessing_enabled=self.ckb_kalmanfilter.isChecked()
+    def enableKF(self, state):
+        if state:
+            self.feature.filtering_enabled=True
+            self.ckb_prediction.setEnabled(True)
+            self.recalibrateBtn.setEnabled(True)
+            self.enable_adaptive.setEnabled(True)
+            initpoint = self.feature.pos_hist[-1] if len(self.feature.pos_hist)>0 else None
+            self.feature.kalmanfilter.start_filter()
+        else:
+            self.feature.filtering_enabled = False
+            self.ckb_prediction.setEnabled(False)
+            self.recalibrateBtn.setEnabled(False)
+            self.enable_adaptive.setEnabled(False)
+            self.feature.kalmanfilter.stop_filter()
+    def adaptiveKF(self, state):
+        self.feature.adaptiveKF=state
 
     def update_led(self):
         self.feature.range_hue = (self.spin_hue_min.value(), self.spin_hue_max.value())

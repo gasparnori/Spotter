@@ -225,6 +225,7 @@ class Main(QtGui.QMainWindow):
     def refresh(self):
         if not (self.gl_frame.width and self.gl_frame.height):
             return
+
         self.gl_frame.update_world(self.spotter)
 
     # def adjust_refresh_rate(self, forced=None):

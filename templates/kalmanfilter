@@ -1,0 +1,49 @@
+[TEMPLATE]
+    name = C:/Users/Owner/Documents/Spotter/spotterupdated/templates/kalmanfilter
+    date = 2018_4_30
+    description = new template
+    absolute_positions = True
+    resolution = 640, 480
+
+[FEATURES]
+    [[LED_0]]
+        range_area = 20, 0
+        fixed_pos = False
+        range_hue = 10, 30
+        type = LED
+        range_val = 175, 255
+        range_sat = 150, 255
+
+[OBJECTS]
+    [[Object_0]]
+        features = ,
+        trace = False
+        analog_out = False
+
+[SHAPES]
+    [[rectangle]]
+        p2 = 661.0, 367.0
+        p1 = 620.0, 296.0
+        type = rectangle
+
+[MASKS]
+    [[rectangle]]
+        p2 = 164, -117
+        p1 = 27, 328
+        type = rectangle
+
+[REGIONS]
+    [[ROI_0]]
+        shapes = rectangle,
+        color = 255, 255, 255
+        digital_collision = ,
+        digital_out = True
+        pin_pref = ,
+
+[BLINDSPOTS]
+    [[IGNORE_0]]
+        masks = rectangle,
+
+[SERIAL]
+    auto = True
+    last_port = None

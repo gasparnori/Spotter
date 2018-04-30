@@ -1,93 +1,147 @@
 import numpy as np
-from pykalman import KalmanFilter
 import math
 
 
 class KFilter:
-    """
-        Kalman filter for smoothing and predicting the missing coordinates. if there was a coordinate recorded, it uses that for the update
-         if there wasn't, it uses the last predicted value
-    """
     Observation_CoeffVal = 15
+    num_variables = 6
+    forget=0.3
+    maxPredicitons=10    #if 10 consecutive signal is missing, it sends out None
+    predictionCounter=0
+
     def __init__(self, initpoint=None):
-        self.measured_state = []
-        self.updated_state = [] #saves the entire trajectory...
-        self.measurement_hist=[] #should it save the entire trajectory?
+        # for the filter
+        self.measured_state = np.zeros(shape=(self.num_variables, 1))
+        # self.predicted_state = []
+        # a FIFO
+        self.updated_state = np.zeros(shape=(self.num_variables, 100))
+
+        self.measurement_hist = []  # should it save the entire trajectory?
 
     def start_filter(self, initpoint=None):
-        deltaT = 5
-        # Fk: transition matrix
-        self.Fk = np.array([[1, 0, deltaT, 0], [0, 1, 0, deltaT], [0, 0, 1, 0], [0, 0, 0, 1]])
+
+        print "start"
+        deltaT = 0.5
+        # Fk: transition matrix for only position and velocity
+        # self.Fk =np.array( [[1, 0, deltaT, 0],[0, 1, 0, deltaT], [0, 0, 1, 0], [0, 0, 0, 1]])
+
+        # Fk: transition matrix for acceleration, velocity and position
+        self.Fk = np.matrix(((1, 0, deltaT, 0, 0.5 * deltaT * deltaT, 0),
+                             (0, 1, 0, deltaT, 0, 0.5 * deltaT * deltaT),
+                             (0, 0, 1, 0, deltaT, 0),
+                             (0, 0, 0, 1, 0, deltaT),
+                             (0, 0, 0, 0, 1, 0),
+                             (0, 0, 0, 0, 0, 1)))
+
         # Hk:observation matrix
-        self.Hk = np.eye(4, 4)  # not going to change
+        self.Hk = np.eye(self.num_variables, self.num_variables)  # not going to change
         # Pk: transition covariance
-        self.Pk = np.eye(4, 4)*3
-        #self.Pk2 = np.eye(4, 4)
+        self.Pk = np.zeros(shape=(self.num_variables, self.num_variables))  # np.eye(num_variables, num_variables)
         # Rk: observation covariance
-        self.Rk = np.eye(4, 4) * self.Observation_CoeffVal
         # self.measurement_covariance = np.eye(4, 4)
-        # self.R = 5  # estimate of measurement variance, change to see effect
+        self.Rk = np.eye(self.num_variables, self.num_variables) * 15  # estimate of measurement variance, change to see effect
         # Q
-        # self.Q = 0.1  # process variance
+        self.Qk = np.matrix([[0.5, 0, 0, 0, 0, 0],
+                             [0, 0.5, 0, 0, 0, 0],
+                             [0, 0, 0, 0, 0, 0],
+                             [0, 0, 0, 0, 0, 0],
+                             [0, 0, 0, 0, 0, 0],
+                             [0, 0, 0, 0, 0, 0]])
+        self.Kgain = np.eye(self.num_variables, self.num_variables)
+        # for the filter
+        self.measured_state = np.zeros(shape=(self.num_variables, 1))
+        # self.predicted_state = []
+        # a FIFO
+        self.updated_state = np.zeros(shape=(self.num_variables, 100))
+
+        #initializing the coordinates as a column matrix
         if initpoint is not None:
-            self.initial_state = [initpoint[0], initpoint[1], 1, 1]
+            initial_state = np.array([[initpoint[0]], [initpoint[1]], [0], [0], [0], [0]])
+            self.measured_state[:, 0] = initial_state[:, 0]
+            self.updated_state[:, -1] = initial_state[:, 0]
+
+    def add_measurement(self, dt, coordinates):
+
+        datax=coordinates[0]
+        datay=coordinates[1]
+
+        if dt > 0:
+            vx = (datax - self.measured_state[0, 0]) / dt
+            vy = (datay - self.measured_state[1, 0]) / dt
+            ax = (vx - self.measured_state[2, 0]) / dt
+            ay = (vy - self.measured_state[3, 0]) / dt
         else:
-            self.initial_state = [1, 1, 0, 0]
-        self.filter = KalmanFilter(transition_matrices=self.Fk,
-                                   observation_matrices=self.Hk,
-                                   transition_covariance=self.Pk,
-                                   observation_covariance=self.Rk,
-                                   random_state=0)
-        self.measured_state = self.initial_state
-        self.updated_state.append(self.initial_state)
+            vx = (self.measured_state[2, 0])
+            vy = (self.measured_state[3, 0])
+            ax = (self.measured_state[4, 0])
+            ay = (self.measured_state[5, 0])
+        self.measured_state = np.array([[datax], [datay], [vx], [vy], [ax], [ay]])
+        return np.asmatrix(self.measured_state)
 
-    def update_filter(self, dt=5):
-        #self.Rk = np.eye(4, 4) * Observation_CoeffVal
-        self.Fk = np.array( [[1, 0, dt, 0],[0, 1, 0, dt], [0, 0, 1, 0], [0, 0, 0, 1]])
-        online_means, self.Pk = self.filter.filter_update(self.updated_state[-1], self.Pk, self.measured_state)
-        self.updated_state.append(online_means)
-        return (online_means[0], online_means[1])
+    def iterate_filter(self, dt, coordinates,guessing_enabled=True, adaptive=False):
+        u = np.asmatrix(self.updated_state[:, -1]).transpose()
 
-    def update_missing(self):
-        self.measured_state=self.updated_state[-1]
-        return self.measured_state
-    #    self.update_filter()
+        HkT = self.Hk.transpose()
+        I = np.eye(self.num_variables, self.num_variables)
 
-    def update_measurement(self, x, y, dt):
-        if len(self.updated_state)==1:
-            self.updated_state.append([x,y,0,0])    #replace default initial state with the real one
-            self.measured_state = [x, y, 0, 0]
+        self.Fk = np.array([[1, 0, dt, 0, 0.5 * dt * dt, 0],
+                            [0, 1, 0, dt, 0, 0.5 * dt * dt],
+                            [0, 0, 1, 0, dt, 0],
+                            [0, 0, 0, 1, 0, dt],
+                            [0, 0, 0, 0, 1, 0],
+                            [0, 0, 0, 0, 0, 1]])
+        # #prediction step
+        pred = self.Fk * u
+        cov = self.Fk * self.Pk * self.Fk.transpose() + self.Qk
+
+        if coordinates is not None:
+            missingPoint = False
+            m=self.add_measurement(dt, coordinates)
+            self.predictionCounter =0   #resets the predictionCounter
         else:
-            if dt > 0:
-                vx = (x - self.updated_state[-1][0]) / dt
-                vy = (y - self.updated_state[-1][1]) / dt
+            missingPoint=True
+            #if position guessing is enabled and there were no 10 consecutive predictions
+            if guessing_enabled and self.predictionCounter<self.maxPredicitons:
+                #update the list with the prediction
+                self.updated_state[:, :-1] = self.updated_state[:, 1:]
+                self.updated_state[:, -1] = pred.A1
+                self.predictionCounter=self.predictionCounter+1
+                return (pred[0,0], pred[1,0])
             else:
-                vx = 1
-                vy = 1
-            self.measured_state=[x, y, vx, vy]
+                return None
 
-        #only stores the last 100 measurements
-        if len(self.measurement_hist) > 99:
-            self.measurement_hist[0:98] = self.measurement_hist[1:99]
-            self.measurement_hist[99] = self.measured_state
-        else:
-            self.measurement_hist.append(self.measured_state)
-        return self.measured_state
-    #    self.update_filter()
+
+        # before update
+        diff = m - self.Hk * pred
+        self.Kgain = cov * HkT * np.linalg.inv(self.Hk * cov * HkT + self.Rk)
+        # #adapting Rk and Qk
+        if adaptive:
+            self.Qk = self.forget * self.Qk +\
+                      (1 - self.forget) * self.Kgain * diff * diff.transpose() * self.Kgain.transpose()
+
+        # update
+        updateval = pred + self.Kgain * diff
+        self.Pk = (I - (self.Kgain * self.Hk)) * cov
+        #print updateval
+
+        if adaptive:
+            residual = m - (self.Hk * updateval)
+            self.Rk = self.forget * self.Rk + (1 - self.forget) * (residual * residual.T + (self.Hk * self.Pk * HkT))
+        #print updateval
+
+        self.updated_state[:, :-1] = self.updated_state[:, 1:]
+        self.updated_state[:, -1] = updateval.A1
+
+        return (int(round(updateval[0,0])), int(round(updateval[1,0])))
+
+
 
     def stop_filter(self):
-        self.measured_state=None
-        self.updated_state=[]
-        self.measurement_hist=[]
+        print "stop"
         self.filter=None
+        self.updated_state=None
 
-    def recalibrate(self):
-        if len(self.measurement_hist)>50:
-            #print "recalibrate"
-            self.filter = self.filter.em(np.asanyarray(self.measurement_hist), n_iter=5)
-        else:
-            return
     def updateObservationCoeffVal(self, value):
-        #print "updated to: ", value
-        self.Rk=np.eye(4, 4) * value
-        self.filter.observation_covariance=self.Rk
+        # print "updated to: ", value
+        self.Rk = np.eye(4, 4) * value
+        self.filter.observation_covariance = self.Rk

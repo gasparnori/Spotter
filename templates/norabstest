@@ -1,0 +1,38 @@
+[TEMPLATE]
+    name = C:/Users/Owner/Documents/Spotter/spotterupdated/templates/norabstest
+    date = 2018_4_17
+    description = new template
+    absolute_positions = True
+    resolution = 640, 480
+
+[FEATURES]
+
+[OBJECTS]
+
+[SHAPES]
+
+[MASKS]
+    [[rectangle]]
+        p2 = 437, 184
+        p1 = 365, 231
+        type = rectangle
+
+    [[line]]
+        p2 = 556, 78
+        p1 = 389, 211
+        type = line
+
+    [[circle]]
+        p2 = 569, 161
+        p1 = 513, 207
+        type = circle
+
+[REGIONS]
+
+[BLINDSPOTS]
+    [[IGNORE_0]]
+        masks = rectangle, line, circle
+
+[SERIAL]
+    auto = True
+    last_port = None

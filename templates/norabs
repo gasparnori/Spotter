@@ -1,0 +1,18 @@
+[TEMPLATE]
+    name = C:/Users/Owner/Documents/Spotter/spotterupdated/templates/norabs
+    date = 2018_4_17
+    description = new template
+    absolute_positions = True
+    resolution = 640, 480
+
+[FEATURES]
+
+[OBJECTS]
+
+[SHAPES]
+
+[REGIONS]
+
+[SERIAL]
+    auto = True
+    last_port = None
