@@ -3,13 +3,13 @@ import math
 
 
 class KFilter:
-    Observation_CoeffVal = 15
+    Observation_CoeffVal = 5
     num_variables = 6
     forget=0.3
     maxPredicitons=10    #if 10 consecutive signal is missing, it sends out None
     predictionCounter=0
 
-    def __init__(self, initpoint=None):
+    def __init__(self, max_x, max_y, initpoint=None):
         # for the filter
         self.measured_state = np.zeros(shape=(self.num_variables, 1))
         # self.predicted_state = []
@@ -17,6 +17,8 @@ class KFilter:
         self.updated_state = np.zeros(shape=(self.num_variables, 100))
 
         self.measurement_hist = []  # should it save the entire trajectory?
+        self.max_x=max_x
+        self.max_y=max_y
 
     def start_filter(self, initpoint=None):
 
@@ -106,13 +108,20 @@ class KFilter:
                 self.updated_state[:, :-1] = self.updated_state[:, 1:]
                 self.updated_state[:, -1] = pred.A1
                 self.predictionCounter=self.predictionCounter+1
-                return (pred[0,0], pred[1,0])
+
+                xpred=int(round(pred[0,0])) if round(pred[0,0])>0 and round(pred[0,0])<self.max_x else None
+                ypred=int(round(pred[1,0])) if round(pred[1,0])>0 and round(pred[1,0])<self.max_y else None
+                if xpred is not None and ypred is not None:
+                    return (xpred, ypred)
+                else:
+                    return None
             else:
                 return None
 
 
         # before update
         diff = m - self.Hk * pred
+        #print cov
         self.Kgain = cov * HkT * np.linalg.inv(self.Hk * cov * HkT + self.Rk)
         # #adapting Rk and Qk
         if adaptive:
@@ -131,9 +140,12 @@ class KFilter:
 
         self.updated_state[:, :-1] = self.updated_state[:, 1:]
         self.updated_state[:, -1] = updateval.A1
-
-        return (int(round(updateval[0,0])), int(round(updateval[1,0])))
-
+        xval = int(round(updateval[0,0])) if round(updateval[0,0]) > 0 and round(updateval[0,0]) < self.max_x else None
+        yval = int(round(updateval[1,0])) if round(updateval[1,0]) > 0 and round(updateval[1,0]) < self.max_y else None
+        if xval is not None and yval is not None:
+            return (xval, yval)
+        else:
+            return None
 
 
     def stop_filter(self):

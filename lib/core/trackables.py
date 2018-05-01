@@ -142,7 +142,7 @@ class Feature:
 class LED(Feature):
     """ Each instance is a spot defined by ranges in a color space. """
 
-    def __init__(self, label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi=None):
+    def __init__(self, label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi=None, max_x=639, max_y=379):
         Feature.__init__(self)
         self.label = label
         self.detection_active = True
@@ -156,14 +156,15 @@ class LED(Feature):
         self.range_sat = range_sat
         self.range_val = range_val
         self.range_area = range_area
+        self.max_x=max_x
+        self.max_y=max_y
 
         #array of position history after the filter
         self.pos_hist = []
         #x,y coordinates before the kalman filter
         #self.last_measured=[]
 
-        self.kalmanfilter=kfilter.KFilter()
-        self.kalmanfilter.start_filter()
+        self.kalmanfilter=kfilter.KFilter(max_x, max_y)
         #initializing the last state of the filter
         #self.filterstate=[1,1,1,1]
 
@@ -186,6 +187,9 @@ class LED(Feature):
 
     @property
     def position(self):
+        #first coordinate
+        if len(self.pos_hist)==1:
+            self.kalmanfilter.start_filter()
         return self.pos_hist[-1] if len(self.pos_hist) else None
 
     #this function is the one that essentially calculates the coordinates. called from tracker
@@ -201,6 +205,7 @@ class LED(Feature):
     def recalibrateFilter(self):
         if len(self.pos_hist)>0:
             self.kalmanfilter.start_filter(self.pos_hist[-1])
+
 class Slot:
     def __init__(self, label, slot_type, state=None, state_idx=None, ref=None):
         # While nice, should be used for style, not for identity testing

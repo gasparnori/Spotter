@@ -93,15 +93,17 @@ class Tab(QtGui.QWidget, Ui_tab_features):
 
 
     def enablePred(self):
-        self.feature.guessing_enabled=self.ckb_kalmanfilter.isChecked()
+        self.feature.guessing_enabled=self.ckb_prediction.isChecked()
+
     def enableKF(self, state):
         if state:
+            initpoint = self.feature.pos_hist[-1] if len(self.feature.pos_hist)>0 else None
+            self.feature.kalmanfilter.start_filter(initpoint)
             self.feature.filtering_enabled=True
             self.ckb_prediction.setEnabled(True)
             self.recalibrateBtn.setEnabled(True)
             self.enable_adaptive.setEnabled(True)
-            initpoint = self.feature.pos_hist[-1] if len(self.feature.pos_hist)>0 else None
-            self.feature.kalmanfilter.start_filter()
+
         else:
             self.feature.filtering_enabled = False
             self.ckb_prediction.setEnabled(False)
@@ -201,8 +203,7 @@ class Tab(QtGui.QWidget, Ui_tab_features):
             # grab slice/view from numpy image array
             cutout = self.spotter.newest_frame.img[ay:by, ax:bx, :]
             cutout = cv2.cvtColor(cutout, cv2.cv.CV_BGR2RGB)
-            cutout = cv2.resize(cutout, (self.lbl_zoom.width(), self.lbl_zoom.height()),
-                                interpolation=cv2.INTER_NEAREST)
+            cutout = cv2.resize(cutout, (self.lbl_zoom.width(), self.lbl_zoom.height()), interpolation=cv2.INTER_NEAREST)
 
             #convert numpy matrix to QPixmap via QImage, which can be efficiently shown via a label
             if cutout is not None:

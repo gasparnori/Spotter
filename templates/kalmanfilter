@@ -1,6 +1,6 @@
 [TEMPLATE]
-    name = C:/Users/Owner/Documents/Spotter/spotterupdated/templates/kalmanfilter
-    date = 2018_4_30
+    name = D:/Spotter/spotterupdated/templates/kalmanfilter
+    date = 2018_5_1
     description = new template
     absolute_positions = True
     resolution = 640, 480
@@ -9,7 +9,7 @@
     [[LED_0]]
         range_area = 20, 0
         fixed_pos = False
-        range_hue = 10, 30
+        range_hue = 110, 130
         type = LED
         range_val = 175, 255
         range_sat = 150, 255
@@ -28,8 +28,8 @@
 
 [MASKS]
     [[rectangle]]
-        p2 = 164, -117
-        p1 = 27, 328
+        p2 = 164.0, -117.0
+        p1 = 27.0, 328.0
         type = rectangle
 
 [REGIONS]
@@ -46,4 +46,4 @@
 
 [SERIAL]
     auto = True
-    last_port = None
+    last_port = COM1
