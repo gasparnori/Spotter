@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'mainUi.ui'
 #
-# Created: Tue May 01 11:30:18 2018
-#      by: PyQt4 UI code generator 4.10
+# Created: Tue May 01 14:31:10 2018
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -51,7 +51,7 @@ class Ui_MainWindow(object):
         self.frame.setFrameShape(QtGui.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtGui.QFrame.Sunken)
         self.frame.setObjectName(_fromUtf8("frame"))
-        self.frame_video.addWidget(self.frame)
+        self.frame_video.addWidget(self.frame, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
         self.horizontalLayout_2.addLayout(self.frame_video)
         self.frame_parameters = QtGui.QHBoxLayout()
         self.frame_parameters.setSpacing(0)

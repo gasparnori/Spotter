@@ -1,15 +1,15 @@
 [TEMPLATE]
-    name = C:/Spotter/templates/LT_redanddark_261017
-    date = 2017_10_27
+    name = F:/Spotter_development/templates/LT_redanddark_261017
+    date = 2018_5_1
     description = new template
     absolute_positions = True
-    resolution = 1280, 720
+    resolution = 640, 480
 
 [FEATURES]
     [[LED_1]]
         range_area = 0, 40
         fixed_pos = False
-        range_hue = 30, 75
+        range_hue = 45, 75
         type = LED
         range_val = 70, 255
         range_sat = 0, 255
@@ -17,7 +17,7 @@
     [[LED_2]]
         range_area = 0, 40
         fixed_pos = False
-        range_hue = 150, 25
+        range_hue = 150, 15
         type = LED
         range_val = 70, 255
         range_sat = 0, 255
@@ -47,6 +47,8 @@
         p1 = 595.0, 297.0
         type = rectangle
 
+[MASKS]
+
 [REGIONS]
     [[ROI_0]]
         shapes = rectangle,
@@ -54,6 +56,8 @@
         digital_collision = ,
         digital_out = True
         pin_pref = ,
+
+[BLINDSPOTS]
 
 [SERIAL]
     auto = True

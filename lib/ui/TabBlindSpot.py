@@ -52,7 +52,7 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
              shape_item.setFlags(shape_item.flags() | QtCore.Qt.ItemIsEditable)
              self.tree_blindspot_shapes.addTopLevelItem(shape_item)
 
-        self.connect(self.btn_add, QtCore.SIGNAL('toggled(bool)'), self.blindspot_add)
+        #self.connect(self.btn_add, QtCore.SIGNAL('toggled(bool)'), self.blindspot_add)
         self.connect(self.radioCircle, QtCore.SIGNAL('toggled(bool)'), self.circle_shape)
         self.connect(self.radioLine, QtCore.SIGNAL('toggled(bool)'), self.line_shape)
         self.connect(self.radioRect, QtCore.SIGNAL('toggled(bool)'), self.rect_shape)
@@ -77,18 +77,21 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         if state:
             self.active_shape_type='circle'
             self.spotter.active_shape_type = 'circle'
+            self.event_add_selection = state
     def line_shape(self, state):
         if state:
             self.active_shape_type='line'
             self.spotter.active_shape_type='line'
+            self.event_add_selection = state
     def rect_shape(self, state):
         if state:
             self.active_shape_type='rectangle'
             self.spotter.active_shape_type = 'rectangle'
+            self.event_add_selection = state
     def blindspot_add(self, state):
         """ Called by the 'Add' button toggle to accept input for new shapes """
         self.spotter.active_shape_type = self.active_shape_type
-        self.event_add_selection = state
+
 
     def process_event(self, event_type, event):
         """ Handle mouse interactions, mainly to draw and move shapes """

@@ -141,6 +141,7 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         self.features_page.remove_all_pages()
         self.objects_page.remove_all_pages()
         self.regions_page.remove_all_pages()
+        self.blindspot_page.remove_all_pages()
 
     ###############################################################################
     ##  FEATURES Tab Updates

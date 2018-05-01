@@ -152,6 +152,11 @@ class Tracker:
 #        # conversion to HSV before dilation causes artifacts!
         # dilate bright spots
 #        kernel = np.ones((3,3), 'uint8')
+
+        # smooth the image?
+        kernel = np.ones((5, 5), np.float32)/10
+        frame.img = cv2.filter2D(frame.img, -1, kernel)
+
         if method == 'hsv_thresh':
             if self.scale >= 1.0:
                 self.frame = cv2.cvtColor(frame.img, cv2.COLOR_BGR2HSV)
@@ -159,6 +164,8 @@ class Tracker:
                 # TODO: Performance impact of INTER_LINEAR vs. INTER_NEAREST?
                 self.frame = cv2.cvtColor(cv2.resize(frame.img, (0, 0), fx=self.scale, fy=self.scale,
                                                      interpolation=cv2.INTER_NEAREST), cv2.COLOR_BGR2HSV)
+
+
 
             height, width, channels = self.frame.shape
             self.max_x=width

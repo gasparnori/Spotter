@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'tab_blindspotUi.ui'
 #
-# Created: Tue May 01 11:30:18 2018
-#      by: PyQt4 UI code generator 4.10
+# Created: Tue May 01 14:31:10 2018
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -40,7 +40,7 @@ class Ui_tab_regions(object):
         self.toolBox.setLineWidth(0)
         self.toolBox.setObjectName(_fromUtf8("toolBox"))
         self.page_regions_overview = QtGui.QWidget()
-        self.page_regions_overview.setGeometry(QtCore.QRect(0, 0, 445, 388))
+        self.page_regions_overview.setGeometry(QtCore.QRect(0, 0, 445, 404))
         self.page_regions_overview.setObjectName(_fromUtf8("page_regions_overview"))
         self.gridLayout_6 = QtGui.QGridLayout(self.page_regions_overview)
         self.gridLayout_6.setMargin(0)
@@ -50,10 +50,6 @@ class Ui_tab_regions(object):
         self.gridLayout_5.setSpacing(0)
         self.gridLayout_5.setContentsMargins(-1, 0, -1, -1)
         self.gridLayout_5.setObjectName(_fromUtf8("gridLayout_5"))
-        self.btn_add = QtGui.QPushButton(self.page_regions_overview)
-        self.btn_add.setCheckable(True)
-        self.btn_add.setObjectName(_fromUtf8("btn_add"))
-        self.gridLayout_5.addWidget(self.btn_add, 9, 1, 1, 1)
         self.label = QtGui.QLabel(self.page_regions_overview)
         self.label.setObjectName(_fromUtf8("label"))
         self.gridLayout_5.addWidget(self.label, 0, 0, 1, 1)
@@ -67,13 +63,7 @@ class Ui_tab_regions(object):
         self.btn_remove_shape.setObjectName(_fromUtf8("btn_remove_shape"))
         self.horizontalLayout.addWidget(self.btn_remove_shape)
         self.gridLayout_10.addLayout(self.horizontalLayout, 1, 0, 1, 1)
-        self.gridLayout_5.addLayout(self.gridLayout_10, 21, 0, 1, 2)
-        self.radioLine = QtGui.QRadioButton(self.page_regions_overview)
-        self.radioLine.setObjectName(_fromUtf8("radioLine"))
-        self.gridLayout_5.addWidget(self.radioLine, 9, 0, 1, 1)
-        self.radioCircle = QtGui.QRadioButton(self.page_regions_overview)
-        self.radioCircle.setObjectName(_fromUtf8("radioCircle"))
-        self.gridLayout_5.addWidget(self.radioCircle, 10, 0, 1, 1)
+        self.gridLayout_5.addLayout(self.gridLayout_10, 24, 0, 1, 2)
         self.radioRect = QtGui.QRadioButton(self.page_regions_overview)
         self.radioRect.setObjectName(_fromUtf8("radioRect"))
         self.gridLayout_5.addWidget(self.radioRect, 8, 0, 1, 1)
@@ -105,10 +95,16 @@ class Ui_tab_regions(object):
         self.tree_blindspot_shapes.setIndentation(0)
         self.tree_blindspot_shapes.setObjectName(_fromUtf8("tree_blindspot_shapes"))
         self.gridLayout_5.addWidget(self.tree_blindspot_shapes, 6, 0, 1, 2)
+        self.radioCircle = QtGui.QRadioButton(self.page_regions_overview)
+        self.radioCircle.setObjectName(_fromUtf8("radioCircle"))
+        self.gridLayout_5.addWidget(self.radioCircle, 8, 1, 1, 1)
+        self.radioLine = QtGui.QRadioButton(self.page_regions_overview)
+        self.radioLine.setObjectName(_fromUtf8("radioLine"))
+        self.gridLayout_5.addWidget(self.radioLine, 23, 0, 1, 1)
         self.gridLayout_6.addLayout(self.gridLayout_5, 0, 0, 1, 1)
         self.toolBox.addItem(self.page_regions_overview, _fromUtf8(""))
         self.page_regions_IO = QtGui.QWidget()
-        self.page_regions_IO.setGeometry(QtCore.QRect(0, 0, 235, 133))
+        self.page_regions_IO.setGeometry(QtCore.QRect(0, 0, 158, 92))
         self.page_regions_IO.setObjectName(_fromUtf8("page_regions_IO"))
         self.gridLayout_7 = QtGui.QGridLayout(self.page_regions_IO)
         self.gridLayout_7.setMargin(0)
@@ -151,15 +147,14 @@ class Ui_tab_regions(object):
 
     def retranslateUi(self, tab_regions):
         tab_regions.setWindowTitle(_translate("tab_regions", "Form", None))
-        self.btn_add.setText(_translate("tab_regions", "Add", None))
         self.label.setText(_translate("tab_regions", "Areas to be ignored", None))
         self.btn_remove_shape.setText(_translate("tab_regions", "&Remove", None))
-        self.radioLine.setText(_translate("tab_regions", "Line", None))
-        self.radioCircle.setText(_translate("tab_regions", "Circle", None))
         self.radioRect.setText(_translate("tab_regions", "Rectangle", None))
         self.label_X.setText(_translate("tab_regions", "X", None))
         self.label_Y.setText(_translate("tab_regions", "Y", None))
         self.tree_blindspot_shapes.headerItem().setText(0, _translate("tab_regions", "Shapes", None))
+        self.radioCircle.setText(_translate("tab_regions", "Circle", None))
+        self.radioLine.setText(_translate("tab_regions", "Line", None))
         self.toolBox.setItemText(self.toolBox.indexOf(self.page_regions_overview), _translate("tab_regions", "Shapes", None))
         self.pushButton_15.setText(_translate("tab_regions", "Open", None))
         self.pushButton_14.setText(_translate("tab_regions", "Clone", None))

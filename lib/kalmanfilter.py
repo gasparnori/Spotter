@@ -45,10 +45,10 @@ class KFilter:
         # Q
         self.Qk = np.matrix([[0.5, 0, 0, 0, 0, 0],
                              [0, 0.5, 0, 0, 0, 0],
-                             [0, 0, 0, 0, 0, 0],
-                             [0, 0, 0, 0, 0, 0],
-                             [0, 0, 0, 0, 0, 0],
-                             [0, 0, 0, 0, 0, 0]])
+                             [0, 0, 0.0001, 0, 0, 0],
+                             [0, 0, 0, 0.0001, 0, 0],
+                             [0, 0, 0, 0, 0.0001, 0],
+                             [0, 0, 0, 0, 0, 0.0001]])
         self.Kgain = np.eye(self.num_variables, self.num_variables)
         # for the filter
         self.measured_state = np.zeros(shape=(self.num_variables, 1))
@@ -94,6 +94,7 @@ class KFilter:
                             [0, 0, 0, 0, 0, 1]])
         # #prediction step
         pred = self.Fk * u
+
         cov = self.Fk * self.Pk * self.Fk.transpose() + self.Qk
 
         if coordinates is not None:
@@ -121,6 +122,7 @@ class KFilter:
 
         # before update
         diff = m - self.Hk * pred
+        print pred, cov
         #print cov
         self.Kgain = cov * HkT * np.linalg.inv(self.Hk * cov * HkT + self.Rk)
         # #adapting Rk and Qk
