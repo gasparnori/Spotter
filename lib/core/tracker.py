@@ -154,8 +154,8 @@ class Tracker:
 #        kernel = np.ones((3,3), 'uint8')
 
         # smooth the image?
-        kernel = np.ones((5, 5), np.float32)/10
-        frame.img = cv2.filter2D(frame.img, -1, kernel)
+        #kernel = np.ones((5, 5), np.float32)/10
+        #frame.img = cv2.filter2D(frame.img, -1, kernel)
 
         if method == 'hsv_thresh':
             if self.scale >= 1.0:

@@ -2,27 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a67d8fa4-89e5-4a14-a9d2-18625eee271e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/spotterupdated.iml" afterPath="$PROJECT_DIR$/.idea/spotterupdated.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/core/tracker.py" afterPath="$PROJECT_DIR$/lib/core/tracker.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/kalmanfilter.py" afterPath="$PROJECT_DIR$/lib/kalmanfilter.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ui/SideBar.py" afterPath="$PROJECT_DIR$/lib/ui/SideBar.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ui/TabBlindSpot.py" afterPath="$PROJECT_DIR$/lib/ui/TabBlindSpot.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ui/icons_rc.py" afterPath="$PROJECT_DIR$/lib/ui/icons_rc.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ui/images_rc.py" afterPath="$PROJECT_DIR$/lib/ui/images_rc.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ui/mainUi.py" afterPath="$PROJECT_DIR$/lib/ui/mainUi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ui/main_tab_pageUi.py" afterPath="$PROJECT_DIR$/lib/ui/main_tab_pageUi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ui/serialIndicatorUi.py" afterPath="$PROJECT_DIR$/lib/ui/serialIndicatorUi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ui/side_barUi.py" afterPath="$PROJECT_DIR$/lib/ui/side_barUi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ui/statusBarUi.py" afterPath="$PROJECT_DIR$/lib/ui/statusBarUi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ui/tab_blindspotUi.py" afterPath="$PROJECT_DIR$/lib/ui/tab_blindspotUi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ui/tab_blindspotUi.ui" afterPath="$PROJECT_DIR$/lib/ui/tab_blindspotUi.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ui/tab_featuresUi.py" afterPath="$PROJECT_DIR$/lib/ui/tab_featuresUi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ui/tab_objectsUi.py" afterPath="$PROJECT_DIR$/lib/ui/tab_objectsUi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ui/tab_regionsUi.py" afterPath="$PROJECT_DIR$/lib/ui/tab_regionsUi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/ui/tab_serialUi.py" afterPath="$PROJECT_DIR$/lib/ui/tab_serialUi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/LT_redanddark_261017" afterPath="$PROJECT_DIR$/templates/LT_redanddark_261017" />
+      <change afterPath="$PROJECT_DIR$/lib/ui/CalibrationPopUp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/spotterupdated.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/spotterupdated.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/spotter.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/spotter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/tracker.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/tracker.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/kalmanfilter.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/kalmanfilter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/SideBar.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/SideBar.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/TabRecord.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/build_linux.sh" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/build_linux.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/build_osx.sh" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/build_osx.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/build_windows.bat" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/build_windows.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/icons_rc.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/icons_rc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/images_rc.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/images_rc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/mainUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/mainUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/main_tab_pageUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/main_tab_pageUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/serialIndicatorUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/serialIndicatorUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/side_barUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/side_barUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/statusBarUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/statusBarUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/tab_blindspotUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/tab_blindspotUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/tab_featuresUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/tab_featuresUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/tab_objectsUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/tab_objectsUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/tab_recordUi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/tab_recordUi_notused.ui" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/tab_regionsUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/tab_regionsUi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/ui/tab_serialUi.py" beforeDir="false" afterPath="$PROJECT_DIR$/lib/ui/tab_serialUi.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -33,26 +38,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="spotterQt.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/spotterQt.py">
+      <file leaf-file-name="SideBar.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/ui/SideBar.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="110" column="34" lean-forward="false" selection-start-line="110" selection-start-column="26" selection-end-line="110" selection-end-column="34" />
+            <state relative-caret-position="248">
+              <caret line="68" column="13" selection-start-line="68" selection-start-column="13" selection-end-line="68" selection-end-column="13" />
               <folding>
-                <element signature="e#22861#23842#0" expanded="false" />
-                <marker date="1525167564865" expanded="false" signature="19109:19449" ph="..." />
-                <marker date="1525167564865" expanded="false" signature="22645:22796" ph="..." />
+                <element signature="e#119#133#0" expanded="true" />
+                <element signature="e#6685#6812#0" />
+                <element signature="e#6892#7982#0" />
+                <element signature="e#8233#8359#0" />
+                <element signature="e#8438#11486#0" />
+                <element signature="e#11737#11863#0" />
+                <element signature="e#11969#14676#0" />
+                <element signature="e#14909#14987#0" />
+                <element signature="e#15050#15232#0" />
+                <element signature="e#15951#16079#0" />
+                <element signature="e#15724#17173#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SideBar.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/ui/SideBar.py">
+      <file leaf-file-name="writer.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/core/writer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="143" column="46" lean-forward="false" selection-start-line="143" selection-start-column="46" selection-end-line="143" selection-end-column="46" />
-              <folding />
+            <state relative-caret-position="-3450">
+              <caret line="33" selection-start-line="33" selection-end-line="33" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -60,23 +72,11 @@
       <file leaf-file-name="tracker.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/core/tracker.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="156" column="27" lean-forward="false" selection-start-line="156" selection-start-column="26" selection-end-line="156" selection-end-column="27" />
+            <state relative-caret-position="-1434">
+              <caret line="62" selection-start-line="62" selection-end-line="62" />
               <folding>
-                <element signature="e#1326#1521#0" expanded="false" />
-                <element signature="e#1567#1893#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TabBlindSpot.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/lib/ui/TabBlindSpot.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="79" column="44" lean-forward="false" selection-start-line="79" selection-start-column="44" selection-end-line="79" selection-end-column="44" />
-              <folding>
-                <element signature="e#119#133#0" expanded="true" />
+                <element signature="e#1326#1521#0" />
+                <element signature="e#1567#1893#0" />
               </folding>
             </state>
           </provider>
@@ -85,21 +85,52 @@
       <file leaf-file-name="spotter.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-135">
-              <caret line="157" column="78" lean-forward="false" selection-start-line="157" selection-start-column="78" selection-end-line="157" selection-end-column="78" />
-              <folding />
+            <state relative-caret-position="179">
+              <caret line="118" column="39" selection-start-line="118" selection-start-column="10" selection-end-line="118" selection-end-column="39" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="trackables.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/core/trackables.py">
+      <file leaf-file-name="TabCalib.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/ui/TabCalib.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-7746">
-              <caret line="208" column="0" lean-forward="false" selection-start-line="208" selection-start-column="0" selection-end-line="208" selection-end-column="0" />
+            <state relative-caret-position="511">
+              <caret line="76" column="11" selection-start-line="76" selection-start-column="11" selection-end-line="76" selection-end-column="11" />
               <folding>
-                <element signature="e#148#159#0" expanded="true" />
-                <element signature="e#342#4057#0" expanded="false" />
+                <element signature="e#119#133#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tab_calibrationUi.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/ui/tab_calibrationUi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="68" column="51" selection-start-line="68" selection-start-column="51" selection-end-line="68" selection-end-column="51" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TabBlindSpot.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/ui/TabBlindSpot.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="61" column="38" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="38" />
+              <folding>
+                <element signature="e#119#133#0" expanded="true" />
+                <element signature="e#2706#2858#0" />
+                <element signature="e#2900#3046#0" />
+                <element signature="e#3088#3246#0" />
+                <element signature="e#3291#3427#0" />
+                <element signature="e#3486#5074#0" />
+                <element signature="e#5185#5295#0" />
+                <element signature="e#5520#5808#0" />
+                <element signature="e#5885#6621#0" />
+                <element signature="e#6658#7077#0" />
+                <element signature="e#7125#8029#0" />
+                <element signature="e#8073#8751#0" />
+                <element signature="e#8820#9198#0" />
               </folding>
             </state>
           </provider>
@@ -108,20 +139,10 @@
       <file leaf-file-name="MainTabPage.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/ui/MainTabPage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-359">
-              <caret line="20" column="26" lean-forward="false" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="geometry.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/geometry.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="28" column="52" lean-forward="false" selection-start-line="28" selection-start-column="52" selection-end-line="28" selection-end-column="52" />
+            <state relative-caret-position="119">
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
               <folding>
-                <element signature="e#139#157#0" expanded="true" />
+                <element signature="e#119#133#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -130,19 +151,25 @@
       <file leaf-file-name="kalmanfilter.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/kalmanfilter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-391">
-              <caret line="50" column="49" lean-forward="false" selection-start-line="50" selection-start-column="49" selection-end-line="50" selection-end-column="49" />
-              <folding />
+            <state relative-caret-position="-612">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#2663#3277#0" />
+                <element signature="e#3336#3956#0" />
+                <element signature="e#4051#6967#0" />
+                <element signature="e#7004#7073#0" />
+                <element signature="e#7131#7252#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="grabber.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/core/grabber.py">
+      <file leaf-file-name="kalmanFilter.py" pinned="false" current-in-tab="false">
+        <entry file="file://D:/kalman filter/kalmanFilter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="2210">
+              <caret line="137" selection-start-line="137" selection-end-line="138" />
             </state>
           </provider>
         </entry>
@@ -158,13 +185,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>print</find>
-      <find>label</find>
-      <find>cv2.cv</find>
-      <find>self.blindspot</find>
-      <find>blindsp</find>
-      <find>shape</find>
-      <find>draw</find>
       <find>mask</find>
       <find>update_values</find>
       <find>start</find>
@@ -188,7 +208,17 @@
       <find>remove</find>
       <find>elapsed</find>
       <find>blindspot_add</find>
+      <find>print</find>
+      <find>tab_blin</find>
+      <find>writer</find>
+      <find>update</find>
+      <find>timer</find>
+      <find>no Si</find>
+      <find>CalibMBtn</find>
     </findStrings>
+    <replaceStrings>
+      <replace>CalibQBtn</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -210,36 +240,28 @@
         <option value="$PROJECT_DIR$/lib/ui/GLFrame.py" />
         <option value="$PROJECT_DIR$/lib/core/grabber.py" />
         <option value="$PROJECT_DIR$/lib/ui/TabObjects.py" />
-        <option value="$PROJECT_DIR$/lib/core/spotter.py" />
         <option value="$PROJECT_DIR$/lib/geometry.py" />
         <option value="$PROJECT_DIR$/spotterQt.py" />
         <option value="$PROJECT_DIR$/lib/core/trackables.py" />
         <option value="$PROJECT_DIR$/lib/ui/TabFeatures.py" />
-        <option value="$PROJECT_DIR$/lib/ui/SideBar.py" />
-        <option value="$PROJECT_DIR$/lib/kalmanfilter.py" />
-        <option value="$PROJECT_DIR$/lib/core/tracker.py" />
         <option value="$PROJECT_DIR$/lib/ui/TabBlindSpot.py" />
+        <option value="$PROJECT_DIR$/lib/core/tracker.py" />
+        <option value="$PROJECT_DIR$/lib/kalmanfilter.py" />
+        <option value="$PROJECT_DIR$/lib/ui/SideBar.py" />
+        <option value="$PROJECT_DIR$/lib/core/spotter.py" />
+        <option value="$PROJECT_DIR$/lib/ui/CalibPopUp.py" />
+        <option value="$PROJECT_DIR$/lib/ui/CalibrationPopUp.py" />
+        <option value="$PROJECT_DIR$/lib/ui/TabCalib.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="260" />
-    <option name="y" value="30" />
     <option name="width" value="1400" />
-    <option name="height" value="1000" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes />
@@ -261,7 +283,26 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.spotter">
+    <configuration name="CalibrationPopUp" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="spotterupdated" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/lib/ui" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lib/ui/CalibrationPopUp.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="Unnamed" type="PythonConfigurationType" factoryName="Python">
+      <module name="spotterupdated" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -272,13 +313,14 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="spotterupdated" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/spotterQt.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="spotter" type="PythonConfigurationType" factoryName="Python">
+      <module name="spotterupdated" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -289,13 +331,14 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="spotterupdated" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/spotterQt.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="utilities" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="spotterupdated" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -306,25 +349,24 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="spotterupdated" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/lib/utilities.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
     </configuration>
-    <list size="3">
-      <item index="0" class="java.lang.String" itemvalue="Python.utilities" />
-      <item index="1" class="java.lang.String" itemvalue="Python.spotter" />
-      <item index="2" class="java.lang.String" itemvalue="Python.Unnamed" />
+    <list>
+      <item itemvalue="Python.spotter" />
+      <item itemvalue="Python.Unnamed" />
+      <item itemvalue="Python.utilities" />
+      <item itemvalue="Python.CalibrationPopUp" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Python.utilities" />
+      <list>
+        <item itemvalue="Python.CalibrationPopUp" />
+        <item itemvalue="Python.utilities" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -340,27 +382,26 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="260" y="30" width="1400" height="1000" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.34922394" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3991131" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Python Console" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.34810126" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39873418" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" id="Data View" order="3" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -446,18 +487,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/lib/kalmanfilter.py</url>
-          <line>95</line>
+          <line>110</line>
           <option name="timeStamp" value="147" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/lib/kalmanfilter.py</url>
-          <line>97</line>
+          <line>111</line>
           <option name="timeStamp" value="148" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/lib/kalmanfilter.py</url>
-          <line>99</line>
+          <line>117</line>
           <option name="timeStamp" value="149" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/lib/ui/TabBlindSpot.py</url>
+          <line>192</line>
+          <option name="timeStamp" value="151" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/lib/ui/TabCalib.py</url>
+          <line>76</line>
+          <option name="timeStamp" value="169" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -467,71 +518,35 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="150" />
+      <option name="time" value="170" />
     </breakpoint-manager>
-    <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/lib/ui/TabRegions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1584">
-          <caret line="103" column="38" lean-forward="false" selection-start-line="103" selection-start-column="38" selection-end-line="103" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/GLFrame.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2384">
-          <caret line="157" column="0" lean-forward="false" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spotterQt.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="688">
-          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1056">
-          <caret line="74" column="11" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="74" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/core/trackables.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="28" column="55" lean-forward="false" selection-start-line="28" selection-start-column="55" selection-end-line="28" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/TabRegions.py">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1536">
-          <caret line="100" column="38" lean-forward="false" selection-start-line="100" selection-start-column="38" selection-end-line="100" selection-end-column="38" />
+          <caret line="100" column="38" selection-start-line="100" selection-start-column="38" selection-end-line="100" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/spotterQt.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="688">
-          <caret line="43" column="0" lean-forward="false" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/trackables.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/grabber.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2416">
-          <caret line="160" column="103" lean-forward="false" selection-start-line="160" selection-start-column="94" selection-end-line="160" selection-end-column="103" />
+          <caret line="160" column="103" selection-start-line="160" selection-start-column="94" selection-end-line="160" selection-end-column="103" />
         </state>
       </provider>
     </entry>
@@ -539,35 +554,35 @@
     <entry file="file://$PROJECT_DIR$/lib/ui/TabObjects.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1024">
-          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <caret line="66" selection-start-line="66" selection-end-line="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/geometry.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1536">
-          <caret line="97" column="0" lean-forward="true" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
+          <caret line="97" lean-forward="true" selection-start-line="97" selection-end-line="97" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1056">
-          <caret line="74" column="11" lean-forward="false" selection-start-line="72" selection-start-column="0" selection-end-line="74" selection-end-column="11" />
+          <caret line="74" column="11" selection-start-line="72" selection-end-line="74" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1056">
-          <caret line="74" column="11" lean-forward="true" selection-start-line="72" selection-start-column="0" selection-end-line="74" selection-end-column="11" />
+          <caret line="74" column="11" lean-forward="true" selection-start-line="72" selection-end-line="74" selection-end-column="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/grabber.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2416">
-          <caret line="160" column="103" lean-forward="false" selection-start-line="160" selection-start-column="94" selection-end-line="160" selection-end-column="103" />
+          <caret line="160" column="103" selection-start-line="160" selection-start-column="94" selection-end-line="160" selection-end-column="103" />
         </state>
       </provider>
     </entry>
@@ -575,14 +590,14 @@
     <entry file="file://$PROJECT_DIR$/lib/ui/TabObjects.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1024">
-          <caret line="66" column="0" lean-forward="true" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <caret line="66" lean-forward="true" selection-start-line="66" selection-end-line="66" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/geometry.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1536">
-          <caret line="97" column="22" lean-forward="false" selection-start-line="97" selection-start-column="22" selection-end-line="97" selection-end-column="22" />
+          <caret line="97" column="22" selection-start-line="97" selection-start-column="22" selection-end-line="97" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -590,7 +605,7 @@
     <entry file="file://$PROJECT_DIR$/lib/ui/tab_objectsUi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="445">
-          <caret line="213" column="25" lean-forward="false" selection-start-line="213" selection-start-column="8" selection-end-line="213" selection-end-column="25" />
+          <caret line="213" column="25" selection-start-line="213" selection-start-column="8" selection-end-line="213" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -598,21 +613,14 @@
     <entry file="file://$PROJECT_DIR$/lib/core/chatter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="624">
-          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/core/writer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="34" />
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/datalog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
-          <caret line="40" column="34" lean-forward="false" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
+          <caret line="40" column="34" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
@@ -622,56 +630,52 @@
     <entry file="file://$PROJECT_DIR$/lib/ui/TabRecord.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="551">
-          <caret line="33" column="0" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="95" selection-end-column="22" />
+          <caret line="33" selection-start-column="2" selection-end-line="95" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/TabSource.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="551">
-          <caret line="69" column="0" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="114" selection-end-column="22" />
+          <caret line="69" selection-start-column="2" selection-end-line="114" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/utilities.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3682">
-          <caret line="14" column="15" lean-forward="false" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+          <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2284">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
+        <state relative-caret-position="-2284" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/misc/trash.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1275">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
+        <state relative-caret-position="-1275" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/mainUi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3075">
-          <caret line="123" column="41" lean-forward="false" selection-start-line="123" selection-start-column="41" selection-end-line="123" selection-end-column="41" />
+          <caret line="123" column="41" selection-start-line="123" selection-start-column="41" selection-end-line="123" selection-end-column="41" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/configobj/configobj.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="14000">
-          <caret line="566" column="0" lean-forward="false" selection-start-line="566" selection-start-column="0" selection-end-line="566" selection-end-column="0" />
+          <caret line="566" selection-start-line="566" selection-end-line="566" />
         </state>
       </provider>
     </entry>
@@ -692,7 +696,7 @@
     <entry file="file://$PROJECT_DIR$/config/template_specification.ini">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1343">
-          <caret line="79" column="16" lean-forward="false" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="16" />
+          <caret line="79" column="16" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -706,110 +710,42 @@
     <entry file="file://C:/Python27/Lib/logging/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7888">
-          <caret line="464" column="0" lean-forward="false" selection-start-line="464" selection-start-column="0" selection-end-line="464" selection-end-column="0" />
+          <caret line="464" selection-start-line="464" selection-end-line="464" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/TabObjects.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="731">
-          <caret line="45" column="61" lean-forward="false" selection-start-line="45" selection-start-column="61" selection-end-line="45" selection-end-column="61" />
-          <folding>
-            <marker date="1524568649080" expanded="true" signature="250:13147" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="384:1377" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="3247:3485" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="3522:3535" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="3537:3712" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="3749:4178" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="3871:4178" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="4215:5058" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="4224:4463" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
-            <marker date="1524568649080" expanded="true" signature="4575:4928" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="4700:4861" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="5109:5763" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="5118:5355" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
-            <marker date="1524568649080" expanded="true" signature="5510:5666" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="5794:6289" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="6325:6429" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="6467:6557" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="6597:6935" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="6762:6935" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="6970:7093" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="7128:9599" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="7137:7352" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
-            <marker date="1524568649080" expanded="true" signature="7353:7848" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="7902:9057" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="8136:8640" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="8269:8640" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="8310:8555" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="8658:9057" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="8755:8980" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="9067:9243" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="9299:9599" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="9465:9599" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="9634:10117" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="9688:10117" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="9921:10032" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="10050:10117" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="10166:10350" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="10396:10767" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="10614:10767" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="10807:10849" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="10886:11057" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="11096:11826" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="11271:11826" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="11859:12526" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="11978:12304" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="12024:12179" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="12563:13054" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="12572:12689" ph="&quot;&quot;&quot;...&quot;&quot;&quot;" />
-            <marker date="1524568649080" expanded="true" signature="12843:13026" ph="..." />
-            <marker date="1524568649080" expanded="true" signature="13094:13147" ph="..." />
-          </folding>
+          <caret line="45" column="61" selection-start-line="45" selection-start-column="61" selection-end-line="45" selection-end-column="61" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/GLFrame.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="918">
-          <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding />
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/TabFeatures.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="528">
-          <caret line="131" column="90" lean-forward="false" selection-start-line="131" selection-start-column="90" selection-end-line="131" selection-end-column="90" />
-          <folding>
-            <element signature="e#119#133#0" expanded="false" />
-            <marker date="1525167564787" expanded="true" signature="463:2779" ph="..." />
-          </folding>
+          <caret line="131" column="90" selection-start-line="131" selection-start-column="90" selection-end-line="131" selection-end-column="90" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/tab_featuresUi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-750">
-          <caret line="48" column="26" lean-forward="false" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
-          <folding>
-            <marker date="1525174270960" expanded="true" signature="22476:23048" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-135">
-          <caret line="157" column="78" lean-forward="false" selection-start-line="157" selection-start-column="78" selection-end-line="157" selection-end-column="78" />
-          <folding />
+          <caret line="48" column="26" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/geometry.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="28" column="52" lean-forward="false" selection-start-line="28" selection-start-column="52" selection-end-line="28" selection-end-column="52" />
+        <state relative-caret-position="459">
+          <caret line="28" column="52" selection-start-line="28" selection-start-column="52" selection-end-line="28" selection-end-column="52" />
           <folding>
             <element signature="e#139#157#0" expanded="true" />
           </folding>
@@ -818,74 +754,159 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/trackables.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7746">
-          <caret line="208" column="0" lean-forward="false" selection-start-line="208" selection-start-column="0" selection-end-line="208" selection-end-column="0" />
+        <state relative-caret-position="2040">
+          <caret line="208" selection-start-line="208" selection-end-line="208" />
           <folding>
             <element signature="e#148#159#0" expanded="true" />
-            <element signature="e#342#4057#0" expanded="false" />
+            <element signature="e#342#4057#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/MainTabPage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-359">
-          <caret line="20" column="26" lean-forward="false" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/spotterQt.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="110" column="34" lean-forward="false" selection-start-line="110" selection-start-column="26" selection-end-line="110" selection-end-column="34" />
+        <state relative-caret-position="1632">
+          <caret line="110" column="34" selection-start-line="110" selection-start-column="26" selection-end-line="110" selection-end-column="34" />
           <folding>
-            <element signature="e#22861#23842#0" expanded="false" />
-            <marker date="1525167564865" expanded="false" signature="19109:19449" ph="..." />
-            <marker date="1525167564865" expanded="false" signature="22645:22796" ph="..." />
+            <element signature="e#22861#23842#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/SideBar.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="143" column="46" lean-forward="false" selection-start-line="143" selection-start-column="46" selection-end-line="143" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/kalmanfilter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-391">
-          <caret line="50" column="49" lean-forward="false" selection-start-line="50" selection-start-column="49" selection-end-line="50" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/grabber.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="2669">
+          <caret line="166" selection-start-line="166" selection-end-line="166" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/core/tracker.py">
+    <entry file="file://D:/kalman filter/kalmanFilter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="156" column="27" lean-forward="false" selection-start-line="156" selection-start-column="26" selection-end-line="156" selection-end-column="27" />
+        <state relative-caret-position="2210">
+          <caret line="137" selection-start-line="137" selection-end-line="138" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/SideBar.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="68" column="13" selection-start-line="68" selection-start-column="13" selection-end-line="68" selection-end-column="13" />
           <folding>
-            <element signature="e#1326#1521#0" expanded="false" />
-            <element signature="e#1567#1893#0" expanded="false" />
+            <element signature="e#119#133#0" expanded="true" />
+            <element signature="e#6685#6812#0" />
+            <element signature="e#6892#7982#0" />
+            <element signature="e#8233#8359#0" />
+            <element signature="e#8438#11486#0" />
+            <element signature="e#11737#11863#0" />
+            <element signature="e#11969#14676#0" />
+            <element signature="e#14909#14987#0" />
+            <element signature="e#15050#15232#0" />
+            <element signature="e#15951#16079#0" />
+            <element signature="e#15724#17173#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/core/writer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3450">
+          <caret line="33" selection-start-line="33" selection-end-line="33" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/MainTabPage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#119#133#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/CalibPopUp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="318">
+          <caret line="52" selection-start-line="52" selection-end-line="52" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/TabBlindSpot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="79" column="44" lean-forward="false" selection-start-line="79" selection-start-column="44" selection-end-line="79" selection-end-column="44" />
+        <state relative-caret-position="180">
+          <caret line="61" column="38" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="38" />
+          <folding>
+            <element signature="e#119#133#0" expanded="true" />
+            <element signature="e#2706#2858#0" />
+            <element signature="e#2900#3046#0" />
+            <element signature="e#3088#3246#0" />
+            <element signature="e#3291#3427#0" />
+            <element signature="e#3486#5074#0" />
+            <element signature="e#5185#5295#0" />
+            <element signature="e#5520#5808#0" />
+            <element signature="e#5885#6621#0" />
+            <element signature="e#6658#7077#0" />
+            <element signature="e#7125#8029#0" />
+            <element signature="e#8073#8751#0" />
+            <element signature="e#8820#9198#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/kalmanfilter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-612">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#2663#3277#0" />
+            <element signature="e#3336#3956#0" />
+            <element signature="e#4051#6967#0" />
+            <element signature="e#7004#7073#0" />
+            <element signature="e#7131#7252#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="118" column="39" selection-start-line="118" selection-start-column="10" selection-end-line="118" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/CalibrationPopUp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="31" column="34" lean-forward="true" selection-start-line="26" selection-start-column="6" selection-end-line="31" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/core/tracker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1434">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
+          <folding>
+            <element signature="e#1326#1521#0" />
+            <element signature="e#1567#1893#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/tab_calibrationUi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="68" column="51" selection-start-line="68" selection-start-column="51" selection-end-line="68" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/TabCalib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="511">
+          <caret line="76" column="11" selection-start-line="76" selection-start-column="11" selection-end-line="76" selection-end-column="11" />
           <folding>
             <element signature="e#119#133#0" expanded="true" />
           </folding>

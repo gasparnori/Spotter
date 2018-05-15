@@ -207,7 +207,7 @@ class Spotter:
 #               time.sleep(0.001)  # required, or may crash?
 
         # FIXME: Blocks if buffer runs full when writer crashes/closes
-        #self.writer_pipe.send(['alive'])
+        self.writer_pipe.send(['alive'])
         return self.newest_frame
 
     @property

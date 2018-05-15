@@ -18,6 +18,7 @@ import TabFeatures
 import TabObjects
 import TabRegions
 import TabBlindSpot
+import TabCalib
 #import TabSource
 #import TabRecord
 import TabSerial
@@ -60,6 +61,12 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         self.tabs_main.insertTab(-1, self.blindspot_page,  self.blindspot_page.label)
         self.connect(self.blindspot_page, QtCore.SIGNAL('currentChanged(int)'), self.tab_blindspot_switch)
         self.connect(self.blindspot_page.btn_new_page, QtCore.SIGNAL('clicked()'), self.add_blindspot)
+
+        self.log.debug('Opening Calibration main tab')
+        self.calib_page = MainTabPage("Calibration", TabCalib.Tab, spotter=self.spotter, *args, **kwargs)
+        self.tabs_main.insertTab(-1, self.calib_page,  self.calib_page.label)
+        self.connect(self.calib_page, QtCore.SIGNAL('currentChanged(int)'), self.tab_calib_switch)
+        self.add_calib(self.spotter.writer)
 
 
         ##right now they are unnecessary
@@ -110,6 +117,8 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
             return self.serial_page.current_page_widget()
         elif active_top_tab_label == "Blind Spots" and (self.tabs_main.count() > 1):
             return self.blindspot_page.current_page_widget()
+        elif active_top_tab_label == "Calibration":
+            return self.calib_page.current_page_widget()
         else:
             self.log.debug("no Side bar tab found...")
             return None
@@ -337,6 +346,18 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         Serial object tab. Probably an Arduino compatible board linked to it.
         """
         self.serial_page.add_item(serial_object, update_all_tabs=self.update_all_tabs())
+
+    ###############################################################################
+    ##  Calibration Tab Updates
+    ###############################################################################
+    def tab_calib_switch(self, idx_tab=0):
+        """
+        Switch to the tab page with index idx_tab.
+        """
+        self.calib_page.tabs_sub.setCurrentIndex(idx_tab)
+
+    def add_calib(self, calib_object, label=None):
+        self.calib_page.add_item(calib_object, update_all_tabs=self.update_all_tabs())
 
     ###############################################################################
     ##  Blind Spot Tab Updates
