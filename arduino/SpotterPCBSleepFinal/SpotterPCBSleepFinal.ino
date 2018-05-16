@@ -214,7 +214,7 @@ void initPins() {
   // sleep flag turn to false
   sleepstate = false;
   // initialize serial connection
-  Serial.begin(57600);
+  Serial.begin(115200);
   // power pin turns on
   digitalWrite(powerPin, digitalRead(sleepPin));
   
@@ -337,15 +337,41 @@ void sleepNow() {
   }
 
 }
+void setAllDAC(int num){
+  scaledData = num * SCALE_FACTOR;
+  setDAC(0, scaledData);
+  setDAC(1, scaledData);
+  setDAC(2, scaledData);
+  setDAC(3, scaledData);
+ }
+
+ void testDAC(){
+    setDigital(0, HIGH);
+    delay(100);
+    setDigital(0, LOW);
+     for (int i=0; i<63; i++){
+      setAllDAC(i);
+      delay(5000);
+    }
+    setAllDAC(639);
+    delay(5000);
+    setDigital(0, HIGH);
+    
+  }
+ 
 void loop() {
   if (digitalRead(sleepPin) == LOW) { //if S2 or S1 switches are turned down
     sleepNow();
   }
-  else { 
+  else {
+    
+    //testDAC();
+  
+ 
     digitalWrite(powerPin, digitalRead(sleepPin));  //turns the power pin up
     setLEDs();    //indicator LED control
     delay(1);
-  }
+ }
 
 
 }

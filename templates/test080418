@@ -1,42 +1,38 @@
 [TEMPLATE]
-    name = C:/Spotter/spotterupdated/templates/1605
-    date = 2018_5_16
+    name = C:/Spotter/spotterupdated/templates/test080418
+    date = 2018_4_8
     description = new template
     absolute_positions = True
-    resolution = 640, 480
+    resolution = 1280, 720
 
 [FEATURES]
-    [[LED_0]]
-        range_area = 20, 0
+    [[LED_2]]
+        range_area = 0, 40
         fixed_pos = False
-        range_hue = 90, 120
+        range_hue = 150, 25
         type = LED
-        range_val = 75, 255
-        range_sat = 150, 255
+        range_val = 70, 255
+        range_sat = 0, 255
 
 [OBJECTS]
-    [[Object_0]]
-        features = LED_0,
+    [[Object_1]]
+        features = LED_2,
         trace = False
         analog_out = False
 
 [SHAPES]
     [[rectangle]]
-        p2 = 735, 179
-        p1 = 557, 41
+        p2 = 632.0, 334.0
+        p1 = 595.0, 297.0
         type = rectangle
-
-[MASKS]
 
 [REGIONS]
     [[ROI_0]]
         shapes = rectangle,
-        color = 61, 154, 39
+        color = 255, 255, 255
         digital_collision = ,
         digital_out = True
         pin_pref = ,
-
-[BLINDSPOTS]
 
 [SERIAL]
     auto = True

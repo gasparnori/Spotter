@@ -54,7 +54,7 @@ class Chatter:
     label = 'Arduino Mega'
     connected = False
 
-    def __init__(self, port=6, frame_size=(639, 359), max_dac=4095, auto=False):
+    def __init__(self, port=4, frame_size=(639, 359), max_dac=4095, auto=False):
 
         self.log = logging.getLogger(__name__)
 
