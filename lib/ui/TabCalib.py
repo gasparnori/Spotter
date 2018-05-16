@@ -11,6 +11,7 @@ from PyQt4 import QtGui
 from PyQt4.QtGui import QMessageBox
 from tab_calibrationUi import Ui_tab_calibrate
 from PyQt4 import QtCore
+import numpy as np
 import CalibrationPopUp
 import sip
 
@@ -37,7 +38,7 @@ class Tab(QtGui.QWidget, Ui_tab_calibrate):
 
         self.counterR=0
         self.counterM=0
-        self.max=30
+        self.max=100
         self.speed=100
         self.connect(self.CalibRBtn, QtCore.SIGNAL('clicked()'), self.sensorCalib)
         self.connect(self.CalibQBtn, QtCore.SIGNAL('clicked()'), self.measurementCalib)
@@ -50,7 +51,9 @@ class Tab(QtGui.QWidget, Ui_tab_calibrate):
         #self.update()
     def sensorCalib(self):
         if len(self.spotter.tracker.leds)>0:
-            popup=QMessageBox.information(self, "Sensor calibration", "Please keep the LED's in a fixed position. The calibration takes half a minute.", QMessageBox.Ok)
+            popup=QMessageBox.information(self, "Sensor calibration",
+                                          "Please keep the LED's in a fixed position. The calibration takes half a minute.",
+                                          QMessageBox.Ok)
             self.timerR = QtCore.QTimer()
             self.connect(self.timerR, QtCore.SIGNAL('timeout()'), self.sensorProg)
             self.timerR.start(self.speed)
@@ -64,18 +67,31 @@ class Tab(QtGui.QWidget, Ui_tab_calibrate):
         #calib=CalibrationPopUp.CalibPopUp(self, 30)
         #calib.show()
     def measurementCalib(self):
-        popup = QMessageBox.information(self, "Measurement calibration",
-                                        "Please move the LED's around . The calibration takes half a minute.",
-                                        QMessageBox.Ok)
-        self.timerM = QtCore.QTimer()
-        self.connect(self.timerM, QtCore.SIGNAL('timeout()'), self.measureProg)
-        self.timerM.start(self.speed)
-        self.measurementProgress.setVisible(True)
-        self.measurementProgress.setValue(0)
+        if len(self.spotter.tracker.leds) > 0:
+            popup = QMessageBox.information(self, "Measurement calibration",
+                                            "Please move the LED's around . The calibration takes half a minute.",
+                                            QMessageBox.Ok)
+            self.timerM = QtCore.QTimer()
+            self.connect(self.timerM, QtCore.SIGNAL('timeout()'), self.measureProg)
+            self.timerM.start(self.speed)
+            self.measurementProgress.setVisible(True)
+            self.measurementProgress.setValue(0)
+        else:
+            popup = QMessageBox.information(self, "Measurement calibration",
+                                            "In order to calibrate the sensor, you first need to define at least one Feature",
+                                            QMessageBox.Ok)
 
     def sensorProg(self):
-        if self.counterR < self.max:
-            print self.counterR
+        if self.counterR <= self.max:
+            for led in self.spotter.tracker.leds:
+                if led.position is not None:
+                   # print led.position[0], led.position[1], self.speed
+                    led.kalmanfilter.calibrateSensor(led.position[0],
+                                                     led.position[1],
+                                                     self.speed,
+                                                     self.counterR,
+                                                     self.max)
+            #print self.counterR
             self.counterR = self.counterR + 1;
             self.sensorProgress.setValue(self.counterR)
             self.CalibRBtn.setEnabled(False)
@@ -88,6 +104,14 @@ class Tab(QtGui.QWidget, Ui_tab_calibrate):
         #self.update()
     def measureProg(self):
         if self.counterM < self.max:
+            for led in self.spotter.tracker.leds:
+                if led.position is not None:
+                    print led.position[0], led.position[1], self.speed
+                    led.kalmanfilter.calibrateMeasurement(led.position[0],
+                                                     led.position[1],
+                                                     self.speed,
+                                                     self.counterR,
+                                                     self.max)
             print self.counterM
             self.counterM = self.counterM + 1;
             self.measurementProgress.setValue(self.counterM)

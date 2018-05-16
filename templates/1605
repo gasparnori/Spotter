@@ -1,0 +1,29 @@
+[TEMPLATE]
+    name = C:/Users/Owner/Documents/Spotter/spotterupdated/templates/1605
+    date = 2018_5_16
+    description = new template
+    absolute_positions = True
+    resolution = 640, 480
+
+[FEATURES]
+    [[LED_0]]
+        range_area = 20, 0
+        fixed_pos = False
+        range_hue = 40, 80
+        type = LED
+        range_val = 75, 255
+        range_sat = 40, 255
+
+[OBJECTS]
+
+[SHAPES]
+
+[MASKS]
+
+[REGIONS]
+
+[BLINDSPOTS]
+
+[SERIAL]
+    auto = True
+    last_port = None

@@ -1,7 +1,6 @@
 import numpy as np
 import math
 
-
 class KFilter:
     Observation_CoeffVal = 15
     num_variables = 6
@@ -15,6 +14,8 @@ class KFilter:
         # self.predicted_state = []
         # a FIFO
         self.updated_state = np.zeros(shape=(self.num_variables, 100))
+        self.RCalib=[]
+        self.QCalib=[]
 
         self.measurement_hist = []  # should it save the entire trajectory?
         self.max_x=max_x
@@ -91,6 +92,36 @@ class KFilter:
             ay = (self.measured_state[5, 0])
         self.measured_state = np.array([[datax], [datay], [vx], [vy], [ax], [ay]])
         return np.asmatrix(self.measured_state)
+    def calibrateQ(self, x,y,t,index, max_index):
+        print "calibrating Measurement"
+    def calibrateSensor(self, x, y, t, index, max_index):
+        # measurements in a fixed position: should determine the sensor error
+        if index<max_index:
+            if index > 0:
+                vx = (x - self.RCalib[0, index - 1]) / t  # px/usec
+                vy = (y - self.RCalib[1, index - 1]) / t  # px/usec
+            else:
+                #if it's the first element, the vector is initialized
+                self.RCalib=np.zeros(shape=(self.num_variables, max_index))  # saves 100 points in the same location
+                vx = 0
+                vy = 0
+
+            if self.num_variables == 4:
+                self.RCalib[:, index] = [x, y, vx, vy]
+
+            if self.num_variables == 6:
+                if index > 1:
+                    ax = (vx - self.RCalib[2, index - 1]) / t  # px/usec^2
+                    ay = (vy - self.RCalib[3, index - 1]) / t  # px/usec^2
+                else:
+                    ax = 0
+                    ay = 0
+                self.RCalib[:, index] = [x, y, vx, vy, ax, ay]
+        else:
+            self.Rk = np.cov(self.RCalib[:, 2:])
+            print "calibration finished", self.Rk
+
+
 
     def iterate_filter(self, dt, coordinates,guessing_enabled=True, adaptive=False):
         u = np.asmatrix(self.updated_state[:, -1]).transpose()
