@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a67d8fa4-89e5-4a14-a9d2-18625eee271e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/spotterupdated.iml" afterPath="$PROJECT_DIR$/.idea/spotterupdated.iml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/lib/kalmanfilter.py" afterPath="$PROJECT_DIR$/lib/kalmanfilter.py" />
       <change beforePath="$PROJECT_DIR$/lib/ui/TabCalib.py" afterPath="$PROJECT_DIR$/lib/ui/TabCalib.py" />
@@ -17,25 +15,37 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="tracker.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/core/tracker.py">
+      <file leaf-file-name="assymetric.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/PycharmProjects/kalman filter/filter/assymetric.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1175">
-              <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+            <state relative-caret-position="750">
+              <caret line="40" column="24" lean-forward="false" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
               <folding>
-                <element signature="e#1326#1521#0" expanded="false" />
-                <element signature="e#1567#1893#0" expanded="false" />
+                <element signature="e#1047#1237#0" expanded="false" />
+                <element signature="e#1281#1613#0" expanded="false" />
+                <element signature="e#1859#1906#0" expanded="false" />
+                <element signature="e#1958#2082#0" expanded="false" />
+                <element signature="e#3036#3270#0" expanded="false" />
+                <element signature="e#3297#3625#0" expanded="false" />
+                <element signature="e#3832#3949#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="spotter.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
+      <file leaf-file-name="kf.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/PycharmProjects/kalman filter/filter/kf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="209" column="0" lean-forward="false" selection-start-line="209" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="1150">
+              <caret line="46" column="48" lean-forward="false" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="48" />
+              <folding>
+                <element signature="e#3019#4034#0" expanded="false" />
+                <element signature="e#4105#4837#0" expanded="false" />
+                <element signature="e#4890#6132#0" expanded="false" />
+                <element signature="e#6268#6388#0" expanded="false" />
+                <element signature="e#6690#7750#0" expanded="false" />
+                <element signature="e#7827#10625#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -43,70 +53,20 @@
       <file leaf-file-name="TabCalib.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/ui/TabCalib.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="109" column="57" lean-forward="false" selection-start-line="109" selection-start-column="57" selection-end-line="109" selection-end-column="57" />
-              <folding>
-                <element signature="e#119#133#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="25">
+              <caret line="122" column="29" lean-forward="false" selection-start-line="122" selection-start-column="29" selection-end-line="122" selection-end-column="29" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="trackables.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/core/trackables.py">
+      <file leaf-file-name="kalmanFilter.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/PycharmProjects/kalman filter/kalmanFilter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="167" column="21" lean-forward="true" selection-start-line="167" selection-start-column="21" selection-end-line="167" selection-end-column="21" />
+            <state relative-caret-position="138">
+              <caret line="238" column="150" lean-forward="false" selection-start-line="238" selection-start-column="137" selection-end-line="238" selection-end-column="150" />
               <folding>
-                <element signature="e#148#159#0" expanded="true" />
-                <element signature="e#342#4057#0" expanded="false" />
-                <element signature="e#6301#6338#0" expanded="false" />
-                <element signature="e#6386#6490#0" expanded="false" />
-                <element signature="e#7233#7319#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="geometry.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/geometry.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="50">
-              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-              <folding>
-                <element signature="e#139#157#0" expanded="true" />
-                <element signature="e#813#1354#0" expanded="false" />
-                <element signature="e#1388#1779#0" expanded="false" />
-                <element signature="e#1827#1995#0" expanded="false" />
-                <element signature="e#2034#2275#0" expanded="false" />
-                <element signature="e#2412#2588#0" expanded="false" />
-                <element signature="e#2626#2765#0" expanded="false" />
-                <element signature="e#2857#3248#0" expanded="false" />
-                <element signature="e#3286#3641#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TabBlindSpot.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/lib/ui/TabBlindSpot.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1525">
-              <caret line="61" column="38" lean-forward="false" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="38" />
-              <folding>
-                <element signature="e#119#133#0" expanded="true" />
-                <element signature="e#2706#2858#0" expanded="false" />
-                <element signature="e#2900#3046#0" expanded="false" />
-                <element signature="e#3088#3246#0" expanded="false" />
-                <element signature="e#3291#3427#0" expanded="false" />
-                <element signature="e#3486#5074#0" expanded="false" />
-                <element signature="e#5185#5295#0" expanded="false" />
-                <element signature="e#5520#5808#0" expanded="false" />
-                <element signature="e#5885#6621#0" expanded="false" />
-                <element signature="e#6658#7077#0" expanded="false" />
-                <element signature="e#7125#8029#0" expanded="false" />
-                <element signature="e#8073#8751#0" expanded="false" />
-                <element signature="e#8820#9198#0" expanded="false" />
+                <element signature="e#1847#2879#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -115,44 +75,35 @@
       <file leaf-file-name="kalmanfilter.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/kalmanfilter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="269">
-              <caret line="95" column="38" lean-forward="false" selection-start-line="95" selection-start-column="38" selection-end-line="95" selection-end-column="38" />
+            <state relative-caret-position="254">
+              <caret line="148" column="53" lean-forward="false" selection-start-line="148" selection-start-column="46" selection-end-line="148" selection-end-column="53" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-                <element signature="e#745#2655#0" expanded="false" />
-                <element signature="e#2708#3322#0" expanded="false" />
+                <element signature="e#1311#1499#0" expanded="false" />
+                <element signature="e#1548#1874#0" expanded="false" />
+                <element signature="e#2637#3280#0" expanded="false" />
+                <element signature="e#3641#4810#0" expanded="false" />
+                <element signature="e#8070#8139#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="spotterQt.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/spotterQt.py">
+      <file leaf-file-name="TabFeatures.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/ui/TabFeatures.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="552" column="0" lean-forward="false" selection-start-line="552" selection-start-column="0" selection-end-line="552" selection-end-column="0" />
-              <folding>
-                <element signature="e#22861#23842#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="kalmanFilter.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/PycharmProjects/kalman filter/kalmanFilter.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-265">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="-939">
+              <caret line="123" column="0" lean-forward="false" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="kf.py" pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/PycharmProjects/kalman filter/filter/kf.py">
+      <file leaf-file-name="grabber.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/core/grabber.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="76" column="49" lean-forward="false" selection-start-line="76" selection-start-column="49" selection-end-line="76" selection-end-column="49" />
+            <state relative-caret-position="4150">
+              <caret line="175" column="0" lean-forward="false" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -169,28 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mask</find>
-      <find>update_values</find>
-      <find>start</find>
-      <find>mid</find>
-      <find>pos_hist</find>
-      <find>last_measured</find>
-      <find>enable</find>
-      <find>estimate</find>
-      <find>guessing</find>
-      <find>slider</find>
-      <find>tog</find>
-      <find>guessing_enabled</find>
-      <find>guess</find>
-      <find>color</find>
-      <find>prin</find>
-      <find>elapsedtime</find>
-      <find>elaps</find>
-      <find>math.ceil</find>
-      <find>remo</find>
-      <find>remove</find>
-      <find>elapsed</find>
-      <find>blindspot_add</find>
       <find>print</find>
       <find>tab_blin</find>
       <find>writer</find>
@@ -199,6 +128,28 @@
       <find>no Si</find>
       <find>CalibMBtn</find>
       <find>filter</find>
+      <find>object</find>
+      <find>obj</find>
+      <find>self.acti</find>
+      <find>plotMe</find>
+      <find>self.measured</find>
+      <find>self.meas</find>
+      <find>kf</find>
+      <find>self.kf</find>
+      <find>self.Hk</find>
+      <find>0:2</find>
+      <find>measured_state</find>
+      <find>adap</find>
+      <find>initia</find>
+      <find>adaptive</find>
+      <find>forget</find>
+      <find>calibrateCov</find>
+      <find>self.calibBtn</find>
+      <find>calibrating</find>
+      <find>measured</find>
+      <find>calibrate</find>
+      <find>RCalib</find>
+      <find>predict</find>
     </findStrings>
     <replaceStrings>
       <replace>CalibQBtn</replace>
@@ -234,6 +185,10 @@
         <option value="$PROJECT_DIR$/lib/core/spotter.py" />
         <option value="$PROJECT_DIR$/lib/ui/CalibPopUp.py" />
         <option value="$PROJECT_DIR$/lib/ui/CalibrationPopUp.py" />
+        <option value="$USER_HOME$/PycharmProjects/kalman filter/assymetric.py" />
+        <option value="$USER_HOME$/PycharmProjects/kalman filter/filter/kf.py" />
+        <option value="$USER_HOME$/PycharmProjects/kalman filter/kalmanFilter.py" />
+        <option value="$USER_HOME$/PycharmProjects/kalman filter/filter/assymetric.py" />
         <option value="$PROJECT_DIR$/lib/ui/TabCalib.py" />
         <option value="$PROJECT_DIR$/lib/kalmanfilter.py" />
       </list>
@@ -246,12 +201,22 @@
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="C:/Python27" />
+    <property name="last_opened_file_path" value="$USER_HOME$/PycharmProjects/kalman filter/kalmanFilter.py" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -303,6 +268,24 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="kalmanfilter" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Python27\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$USER_HOME$/PycharmProjects/kalman filter" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="spotterupdated" />
+      <option name="SCRIPT_NAME" value="$USER_HOME$/PycharmProjects/kalman filter/kalmanFilter.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="spotter" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -339,11 +322,12 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Python.spotter" />
-      <item index="1" class="java.lang.String" itemvalue="Python.Unnamed" />
-      <item index="2" class="java.lang.String" itemvalue="Python.utilities" />
-      <item index="3" class="java.lang.String" itemvalue="Python.CalibrationPopUp" />
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="Python.kalmanfilter" />
+      <item index="1" class="java.lang.String" itemvalue="Python.spotter" />
+      <item index="2" class="java.lang.String" itemvalue="Python.Unnamed" />
+      <item index="3" class="java.lang.String" itemvalue="Python.utilities" />
+      <item index="4" class="java.lang.String" itemvalue="Python.CalibrationPopUp" />
     </list>
     <recent_temporary>
       <list size="2">
@@ -377,11 +361,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24573378" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24573378" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39817974" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37883958" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -449,29 +433,24 @@
           <option name="timeStamp" value="145" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/lib/kalmanfilter.py</url>
-          <line>141</line>
-          <option name="timeStamp" value="147" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/lib/kalmanfilter.py</url>
-          <line>142</line>
-          <option name="timeStamp" value="148" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/lib/kalmanfilter.py</url>
-          <line>148</line>
-          <option name="timeStamp" value="149" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/lib/ui/TabBlindSpot.py</url>
           <line>192</line>
           <option name="timeStamp" value="151" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/lib/kalmanfilter.py</url>
+          <url>file://$USER_HOME$/PycharmProjects/kalman filter/filter/assymetric.py</url>
           <line>121</line>
-          <option name="timeStamp" value="176" />
+          <option name="timeStamp" value="197" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/lib/kalmanfilter.py</url>
+          <line>123</line>
+          <option name="timeStamp" value="198" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/lib/kalmanfilter.py</url>
+          <line>88</line>
+          <option name="timeStamp" value="201" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -481,25 +460,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="178" />
+      <option name="time" value="203" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lib/core/trackables.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/core/grabber.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2416">
-          <caret line="160" column="103" lean-forward="false" selection-start-line="160" selection-start-column="94" selection-end-line="160" selection-end-column="103" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/Python27/Lib/site-packages/PyQt4/uic/pyuic.py" />
     <entry file="file://$PROJECT_DIR$/lib/ui/TabObjects.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -676,24 +641,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/TabFeatures.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="131" column="90" lean-forward="false" selection-start-line="131" selection-start-column="90" selection-end-line="131" selection-end-column="90" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/tab_featuresUi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-750">
           <caret line="48" column="26" lean-forward="false" selection-start-line="48" selection-start-column="26" selection-end-line="48" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/core/grabber.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2669">
-          <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -702,10 +653,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1500">
           <caret line="75" column="13" lean-forward="false" selection-start-line="75" selection-start-column="13" selection-end-line="75" selection-end-column="13" />
-          <folding>
-            <element signature="e#119#133#0" expanded="false" />
-            <marker date="1526453909417" expanded="true" signature="19064:19112" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -713,7 +660,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="825">
           <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -721,9 +667,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
           <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding>
-            <element signature="e#119#133#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -739,7 +682,7 @@
         <state relative-caret-position="1525">
           <caret line="61" column="38" lean-forward="false" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="38" />
           <folding>
-            <element signature="e#119#133#0" expanded="true" />
+            <element signature="e#119#133#0" expanded="false" />
             <element signature="e#2706#2858#0" expanded="false" />
             <element signature="e#2900#3046#0" expanded="false" />
             <element signature="e#3088#3246#0" expanded="false" />
@@ -763,17 +706,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/core/tracker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1175">
-          <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
-          <folding>
-            <element signature="e#1326#1521#0" expanded="false" />
-            <element signature="e#1567#1893#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lib/ui/tab_calibrationUi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -781,28 +713,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/PycharmProjects/kalman filter/assymetric.py" />
     <entry file="file://$PROJECT_DIR$/lib/geometry.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="50">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding>
-            <element signature="e#139#157#0" expanded="true" />
-            <element signature="e#813#1354#0" expanded="false" />
-            <element signature="e#1388#1779#0" expanded="false" />
-            <element signature="e#1827#1995#0" expanded="false" />
-            <element signature="e#2034#2275#0" expanded="false" />
-            <element signature="e#2412#2588#0" expanded="false" />
-            <element signature="e#2626#2765#0" expanded="false" />
-            <element signature="e#2857#3248#0" expanded="false" />
-            <element signature="e#3286#3641#0" expanded="false" />
-          </folding>
+          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/core/trackables.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
-          <caret line="167" column="21" lean-forward="true" selection-start-line="167" selection-start-column="21" selection-end-line="167" selection-end-column="21" />
+          <caret line="167" column="21" lean-forward="false" selection-start-line="167" selection-start-column="21" selection-end-line="167" selection-end-column="21" />
           <folding>
             <element signature="e#148#159#0" expanded="true" />
             <element signature="e#342#4057#0" expanded="false" />
@@ -813,17 +735,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/PycharmProjects/kalman filter/kalmanFilter.py">
+    <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-265">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="179">
+          <caret line="209" column="0" lean-forward="false" selection-start-line="209" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/core/tracker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="62" column="0" lean-forward="false" selection-start-line="62" selection-start-column="0" selection-end-line="62" selection-end-column="0" />
+          <folding>
+            <element signature="e#1326#1521#0" expanded="false" />
+            <element signature="e#1567#1893#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/PycharmProjects/kalman filter/filter/kf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1150">
+          <caret line="46" column="48" lean-forward="false" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="48" />
+          <folding>
+            <element signature="e#3019#4034#0" expanded="false" />
+            <element signature="e#4105#4837#0" expanded="false" />
+            <element signature="e#4890#6132#0" expanded="false" />
+            <element signature="e#6268#6388#0" expanded="false" />
+            <element signature="e#6690#7750#0" expanded="false" />
+            <element signature="e#7827#10625#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/PycharmProjects/kalman filter/filter/assymetric.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="40" column="24" lean-forward="false" selection-start-line="40" selection-start-column="24" selection-end-line="40" selection-end-column="24" />
+          <folding>
+            <element signature="e#1047#1237#0" expanded="false" />
+            <element signature="e#1281#1613#0" expanded="false" />
+            <element signature="e#1859#1906#0" expanded="false" />
+            <element signature="e#1958#2082#0" expanded="false" />
+            <element signature="e#3036#3270#0" expanded="false" />
+            <element signature="e#3297#3625#0" expanded="false" />
+            <element signature="e#3832#3949#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/core/grabber.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4150">
+          <caret line="175" column="0" lean-forward="false" selection-start-line="175" selection-start-column="0" selection-end-line="175" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/TabCalib.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="25">
+          <caret line="122" column="29" lean-forward="false" selection-start-line="122" selection-start-column="29" selection-end-line="122" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/spotterQt.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
+        <state relative-caret-position="442">
           <caret line="552" column="0" lean-forward="false" selection-start-line="552" selection-start-column="0" selection-end-line="552" selection-end-column="0" />
           <folding>
             <element signature="e#22861#23842#0" expanded="false" />
@@ -831,40 +810,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/core/spotter.py">
+    <entry file="file://$USER_HOME$/PycharmProjects/kalman filter/kalmanFilter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="209" column="0" lean-forward="false" selection-start-line="209" selection-start-column="0" selection-end-line="209" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/PycharmProjects/kalman filter/filter/kf.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="76" column="49" lean-forward="false" selection-start-line="76" selection-start-column="49" selection-end-line="76" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/ui/TabCalib.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="109" column="57" lean-forward="false" selection-start-line="109" selection-start-column="57" selection-end-line="109" selection-end-column="57" />
+        <state relative-caret-position="138">
+          <caret line="238" column="150" lean-forward="false" selection-start-line="238" selection-start-column="137" selection-end-line="238" selection-end-column="150" />
           <folding>
-            <element signature="e#119#133#0" expanded="true" />
+            <element signature="e#1847#2879#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/ui/TabFeatures.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-939">
+          <caret line="123" column="0" lean-forward="false" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/kalmanfilter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="95" column="38" lean-forward="false" selection-start-line="95" selection-start-column="38" selection-end-line="95" selection-end-column="38" />
+        <state relative-caret-position="254">
+          <caret line="148" column="53" lean-forward="false" selection-start-line="148" selection-start-column="46" selection-end-line="148" selection-end-column="53" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#745#2655#0" expanded="false" />
-            <element signature="e#2708#3322#0" expanded="false" />
+            <element signature="e#1311#1499#0" expanded="false" />
+            <element signature="e#1548#1874#0" expanded="false" />
+            <element signature="e#2637#3280#0" expanded="false" />
+            <element signature="e#3641#4810#0" expanded="false" />
+            <element signature="e#8070#8139#0" expanded="false" />
           </folding>
         </state>
       </provider>
