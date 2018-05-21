@@ -1,0 +1,5 @@
+*.log
+**/templates
+**/media
+.idea/workspace.xml
+*.pyc

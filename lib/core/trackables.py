@@ -142,7 +142,7 @@ class Feature:
 class LED(Feature):
     """ Each instance is a spot defined by ranges in a color space. """
 
-    def __init__(self, label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi=None, max_x=639, max_y=379):
+    def __init__(self, label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi=None, max_x=639, max_y=379,  filter_dim=4, R=None, Q=None):
         Feature.__init__(self)
         self.label = label
         self.detection_active = True
@@ -164,7 +164,7 @@ class LED(Feature):
         #x,y coordinates before the kalman filter
         #self.last_measured=[]
 
-        self.kalmanfilter=kfilter.KFilter(max_x, max_y)
+        self.kalmanfilter=kfilter.KFilter(max_x, max_y, filter_dim, R, Q)
         #initializing the last state of the filter
         #self.filterstate=[1,1,1,1]
 
@@ -196,15 +196,15 @@ class LED(Feature):
     def filterPosition(self, elapsedtime, last_measured):
         #print last_measured
         if self.filtering_enabled:
-            fpos= self.kalmanfilter.iterate_filter(elapsedtime, last_measured, guessing_enabled=self.guessing_enabled, adaptive=self.adaptive_tracking)
+            fpos= self.kalmanfilter.iterate_filter(elapsedtime, last_measured, guessing_enabled=self.guessing_enabled, adaptive=self.adaptiveKF)
         #print fpos
             self.pos_hist.append(fpos)
         else:
             self.pos_hist.append(last_measured)
 
-    def recalibrateFilter(self):
-        if len(self.pos_hist)>0:
-            self.kalmanfilter.start_filter(self.pos_hist[-1])
+    # def recalibrateFilter(self):
+    #     if len(self.pos_hist)>0:
+    #         self.kalmanfilter.start_filter(self.pos_hist[-1])
 
 class Slot:
     def __init__(self, label, slot_type, state=None, state_idx=None, ref=None):

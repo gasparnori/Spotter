@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Jan 18 21:13:54 2013
-@author: <Ronny Eichler> ronny.eichler@gmail.com
+Created on May 13 2018
+@author: <Nora Gaspar> nori.nagyonsok@gmail.com
 
 
 """
@@ -103,16 +103,16 @@ class Tab(QtGui.QWidget, Ui_tab_calibrate):
             sip.delete(self.timerR)
         #self.update()
     def measureProg(self):
-        if self.counterM < self.max:
+        if self.counterM <= self.max:
             for led in self.spotter.tracker.leds:
                 if led.position is not None:
-                    print led.position[0], led.position[1], self.speed
-                    led.kalmanfilter.calibrateMeasurement(led.position[0],
+                   # print led.position[0], led.position[1], self.speed
+                    led.kalmanfilter.calibrateQ(led.position[0],
                                                      led.position[1],
                                                      self.speed,
-                                                     self.counterR,
+                                                     self.counterM,
                                                      self.max)
-            print self.counterM
+            #print self.counterM
             self.counterM = self.counterM + 1;
             self.measurementProgress.setValue(self.counterM)
             self.CalibQBtn.setEnabled(False)

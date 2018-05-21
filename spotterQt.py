@@ -473,12 +473,27 @@ class Main(QtGui.QMainWindow):
         # Features
         config['FEATURES'] = {}
         for f in self.spotter.tracker.leds:
+            num_var = f.kalmanfilter.num_variables
+            R = f.kalmanfilter.Rk
+            Q = f.kalmanfilter.Qk
+            R_list = []
+            Q_list = []
+            for row in range(0, R.shape[0]):
+                for column in range(0, R.shape[1]):
+                    R_list.append(R[row, column])
+            for row in range(0, Q.shape[0]):
+                for column in range(0, Q.shape[1]):
+                    Q_list.append(Q[row, column])
+
             section = {'type': 'LED',
                        'range_hue': f.range_hue,
                        'range_sat': f.range_sat,
                        'range_val': f.range_val,
                        'range_area': f.range_area,
-                       'fixed_pos': f.fixed_pos}
+                       'fixed_pos': f.fixed_pos,
+                       'R': R_list,
+                       'Q': Q_list,
+                       'filter_dimensions':num_var}
             config['FEATURES'][str(f.label)] = section
 
         # Objects

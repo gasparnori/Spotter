@@ -22,6 +22,7 @@ import TabCalib
 #import TabSource
 #import TabRecord
 import TabSerial
+import numpy as np
 
 
 class SideBar(QtGui.QWidget, Ui_side_bar):
@@ -62,11 +63,11 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         self.connect(self.blindspot_page, QtCore.SIGNAL('currentChanged(int)'), self.tab_blindspot_switch)
         self.connect(self.blindspot_page.btn_new_page, QtCore.SIGNAL('clicked()'), self.add_blindspot)
 
-        self.log.debug('Opening Calibration main tab')
-        self.calib_page = MainTabPage("Calibration", TabCalib.Tab, spotter=self.spotter, *args, **kwargs)
-        self.tabs_main.insertTab(-1, self.calib_page,  self.calib_page.label)
-        self.connect(self.calib_page, QtCore.SIGNAL('currentChanged(int)'), self.tab_calib_switch)
-        self.add_calib(self.spotter.writer)
+        # self.log.debug('Opening Calibration main tab')
+        # self.calib_page = MainTabPage("Calibration", TabCalib.Tab, spotter=self.spotter, *args, **kwargs)
+        # self.tabs_main.insertTab(-1, self.calib_page,  self.calib_page.label)
+        # self.connect(self.calib_page, QtCore.SIGNAL('currentChanged(int)'), self.tab_calib_switch)
+        # self.add_calib(self.spotter.writer)
 
 
         ##right now they are unnecessary
@@ -181,8 +182,19 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
             range_val = map(int, template['range_val'])
             range_area = map(int, template['range_area'])
             fixed_pos = template.as_bool('fixed_pos')
-            feature = self.spotter.tracker.add_led(label, range_hue, range_sat, range_val,
-                                                  range_area, fixed_pos)
+            filter_dim = template.as_int('filter_dimensions')
+            R=np.asmatrix(map(float, template['R'])).reshape(2,2)
+            Q=np.asmatrix(map(float, template['Q'])).reshape(filter_dim, filter_dim)
+
+            feature = self.spotter.tracker.add_led(label,
+                                                   range_hue,
+                                                   range_sat,
+                                                   range_val,
+                                                   range_area,
+                                                   fixed_pos,
+                                                   filter_dim=filter_dim,
+                                                   R=R,
+                                                   Q=Q)
         self.features_page.add_item(feature, focus_new)
 
     ###############################################################################
