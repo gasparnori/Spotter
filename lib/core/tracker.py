@@ -47,17 +47,38 @@ class Tracker:
 
         self.log = logging.getLogger(__name__)
 
-        self.oois = []
-        self.rois = []
-        self.leds = []
+        self.oois = [] #objects of interest
+        self.rois = [] #regions of interest
+        self.leds = [] #features
+        self.bspots= [] #blind spots
         self.adaptive_tracking = adaptive_tracking
 
-    def add_led(self, label, range_hue, range_sat, range_val, range_area, fixed_pos=False, linked_to=None):
+    def add_blindspot(self, mask_list, label):
+        #mask = trkbl.Mask('rectangle', None, 'label')
+        bs=trkbl.BlindSpot(mask_list, label)
+        self.log.debug("Added blindspot %s", bs.label)
+        self.bspots.append(bs)
+        return bs
+
+    def remove_blindspot(self, bs):
+        try:
+            #print bs
+            #print
+
+            #del self.bspots.shapes[:]
+            label=bs.label
+            del bs.masks[:]
+            self.bspots.remove(bs)
+            self.log.debug("Blindspot removed %s ", label)
+        except ValueError:
+            self.log.error("Blind spot to be removed not found")
+
+    def add_led(self, label, range_hue, range_sat, range_val, range_area, fixed_pos=False, linked_to=None, filter_dim=4, R=None, Q=None):
         if self.adaptive_tracking:
             roi = trkbl.Shape('rectangle', None, None)
         else:
             roi = trkbl.Shape('rectangle', None, None)
-        led = trkbl.LED(label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi)
+        led = trkbl.LED(label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi, self.max_x, self.max_y, filter_dim, R, Q)
         self.leds.append(led)
         self.log.debug("Added feature %s", led)
         return led
@@ -103,8 +124,19 @@ class Tracker:
         f=trkbl.fpsTestSignal(pin)
         return f
 
-
-    def track_feature(self, frame, method='hsv_thresh', scale=1.0):
+    #this function draws black mask directly on the frame, overwriting the original values (for example hiding an object)
+    #further development: look them up from a lookup table instead of this solution
+    def mask_blindspots(self, frame):
+        for b in self.bspots:
+            for m in b.masks:
+                if m.shape=='line' and m.active:
+                    cv2.line(frame.img, m.p1, m.p2, (0, 0, 0), 3)
+                if m.shape== 'rectangle' and m.active:
+                    cv2.rectangle(frame.img, m.p1, m.p2, (0, 0, 0), -1)
+                if m.shape== 'circle' and m.active:
+                    cv2.circle(frame.img, m.p1, m.radius, (0, 0, 0), -1)
+        return frame
+    def track_feature(self, frame, method='hsv_thresh', scale=1.0, elapsedtime=5):
         """
         Intermediate method selecting tracking method and separating those
         tracking methods from the frames stored in the instantiated Tracker
@@ -120,6 +152,11 @@ class Tracker:
 #        # conversion to HSV before dilation causes artifacts!
         # dilate bright spots
 #        kernel = np.ones((3,3), 'uint8')
+
+        # smooth the image?
+        #kernel = np.ones((5, 5), np.float32)/10
+        #frame.img = cv2.filter2D(frame.img, -1, kernel)
+
         if method == 'hsv_thresh':
             if self.scale >= 1.0:
                 self.frame = cv2.cvtColor(frame.img, cv2.COLOR_BGR2HSV)
@@ -128,17 +165,19 @@ class Tracker:
                 self.frame = cv2.cvtColor(cv2.resize(frame.img, (0, 0), fx=self.scale, fy=self.scale,
                                                      interpolation=cv2.INTER_NEAREST), cv2.COLOR_BGR2HSV)
 
+
+
             height, width, channels = self.frame.shape
             self.max_x=width
             self.max_y=height
 
             for led in self.leds:
                 if led.detection_active:
-                    self.track_thresholds(self.frame, led)
+                    self.track_thresholds(self.frame, led, elapsedtime)
                 else:
                     led.pos_hist.append(None)
 
-    def track_thresholds(self, hsv_frame, l):
+    def track_thresholds(self, hsv_frame, l, elapsedtime=5):
         """
         Tracks LEDs from a list in a HSV frame by thresholding
         hue, saturation, followed by thresholding for each LEDs hue.
@@ -211,10 +250,15 @@ class Tracker:
             if frame_offset:
                 cx += ax
                 cy += ay
-            l.pos_hist.append((math.ceil(cx/self.scale), math.ceil(cy/self.scale)))
+            #l.pos_hist.append((math.ceil(cx/self.scale), math.ceil(cy/self.scale)))
+            last_measured=(cx/self.scale, cy/self.scale)
+            l.filterPosition(elapsedtime, last_measured)
+
+
         else:
             # Couldn't find a good enough spot
-            l.pos_hist.append(None)
+            l.filterPosition(elapsedtime, None)
+            #l.pos_hist.append(None)
 
     @staticmethod
     def find_contour(frame, range_area):

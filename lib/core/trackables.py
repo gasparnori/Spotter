@@ -12,6 +12,7 @@ import lib.utilities as utils
 import lib.geometry as geom
 from PyQt4 import QtCore
 import numpy
+import lib.kalmanfilter as kfilter
 
 SENSITIVITY = 0
 
@@ -39,6 +40,7 @@ class Shape:
         if shape == 'circle':
             # normalize the point positions based on radius,
             # second point is always to the right of the center
+
             self.points = [points[0], (int(points[0][0]), points[0][1] + self.radius)]
             self.collision_check = self.collision_check_circle
         elif shape == 'rectangle':
@@ -107,6 +109,26 @@ class Shape:
         return (s==self.slope and self.active and x_in_interval and y_in_interval)
 
 
+class Mask:
+    """ Geometrical shape that comprise Blind spots. Blind spots can be made of several
+    independent shapes like two rectangles on either end of the track etc. Almost the same as the Shapes"""
+
+    def __init__(self, shape, points=None, label=None):
+        self.active = True
+        self.selected = False
+
+        self.shape = shape.lower()
+        self.label = label
+
+        self.points = points
+        self.p1=(int(points[0][0]), int(points[0][1]))
+        self.p2 =(int(points[1][0]), int(points[1][1]))
+
+    @property
+    def radius(self):
+        """ Calculate the radius of the circle. """
+        return int(geom.distance(self.points[0], self.points[1]))
+
 
 class Feature:
     """ General class holding a feature to be tracked with whatever tracking
@@ -120,19 +142,31 @@ class Feature:
 class LED(Feature):
     """ Each instance is a spot defined by ranges in a color space. """
 
-    def __init__(self, label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi=None):
+    def __init__(self, label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi=None, max_x=639, max_y=379,  filter_dim=4, R=None, Q=None):
         Feature.__init__(self)
         self.label = label
         self.detection_active = True
         self.marker_visible = True
-
+        #kalman filter related flags
+        self.guessing_enabled = False
+        self.adaptiveKF=False
+        self.filtering_enabled=False
         # feature description ranges
         self.range_hue = range_hue
         self.range_sat = range_sat
         self.range_val = range_val
         self.range_area = range_area
+        self.max_x=max_x
+        self.max_y=max_y
 
+        #array of position history after the filter
         self.pos_hist = []
+        #x,y coordinates before the kalman filter
+        #self.last_measured=[]
+
+        self.kalmanfilter=kfilter.KFilter(max_x, max_y, filter_dim, R, Q)
+        #initializing the last state of the filter
+        #self.filterstate=[1,1,1,1]
 
         # Restrict tracking to a search window?
         self.adaptive_tracking = (roi is not None)
@@ -153,7 +187,24 @@ class LED(Feature):
 
     @property
     def position(self):
+        #first coordinate
+        if len(self.pos_hist)==1:
+            self.kalmanfilter.start_filter()
         return self.pos_hist[-1] if len(self.pos_hist) else None
+
+    #this function is the one that essentially calculates the coordinates. called from tracker
+    def filterPosition(self, elapsedtime, last_measured):
+        #print last_measured
+        if self.filtering_enabled:
+            fpos= self.kalmanfilter.iterate_filter(elapsedtime, last_measured, guessing_enabled=self.guessing_enabled, adaptive=self.adaptive_tracking)
+        #print fpos
+            self.pos_hist.append(fpos)
+        else:
+            self.pos_hist.append(last_measured)
+
+    def recalibrateFilter(self):
+        if len(self.pos_hist)>0:
+            self.kalmanfilter.start_filter(self.pos_hist[-1])
 
 class Slot:
     def __init__(self, label, slot_type, state=None, state_idx=None, ref=None):
@@ -219,9 +270,14 @@ class ObjectOfInterest:
         self.dir_hist = []
         self.speed_hist=[]
         self.dir_coord_hist = []
-        self.guessing_enabled=False
+        #self.guessing_enabled=False
         self.max_x=max_x
         self.max_y=max_y
+        #x, y, vx, vy for the kalman filter
+        #self.filterstate=[0,0,0,0]
+       # self.kalmanfilter=kfilter.KFilter()
+       # self.kalmanfilter.start_filter()
+
 
         # the slots for these properties/signals are greedy for pins
         if magnetic_signals is None:
@@ -235,9 +291,9 @@ class ObjectOfInterest:
                       Slot('direction', 'dac', self.getDirection),
                       Slot('speed', 'dac', self.getSpeed)]
 
-    def update_state(self):
+    def update_state(self, elapsedtime):
         """Update feature search windows!"""
-        self.append_position()
+        self.append_position(elapsedtime)
 
         # go back max. n frames to find last position
         min_step = 25
@@ -271,16 +327,22 @@ class ObjectOfInterest:
                 for pin in pins:
                     if pin.id == slot.pin_pref:
                         slot.attach_pin(pin)
+
     def update_values(self,elapsedtime):
         self.direction()
         self.speed(elapsedtime) #frame to frame interval for speed calculation
-    def append_position(self):  ###############################################################edited to minimize jtter
+
+    def append_position(self, elapsedtime):  ###############################################################edited to minimize jtter
         """Calculate position from detected features linked to object."""
         if not self.tracked:
             return
         feature_positions = [f.pos_hist[-1] for f in self.linked_leds if len(f.pos_hist)]
+        temp_position=geom.middle_point(feature_positions)
+        #if temp_position is not None:
+         #   if (temp_position[0] is not None) and (temp_position[1] is not None):
+         #        temp_poisition= self.kalmanfilter.iterate_filter(elapsedtime, temp_position, guessing_enabled=self.guessing_enabled, adaptive=False)
 
-        self.pos_hist.append(geom.middle_point(feature_positions))
+        self.pos_hist.append(temp_position)
 
     @property
     def position(self):
@@ -288,13 +350,6 @@ class ObjectOfInterest:
          #print (self.guessing_enabled)
 
          if len(self.pos_hist):
-             if self.pos_hist[-1] == None and self.guessing_enabled:
-                 p = geom.guessedPosition(self.pos_hist)
-                 if p is not None and (p[0]<0 or p[0]>self.max_x or p[1]<0 or p[1]>self.max_y):   #guessed position is outside of the frame
-                    p=None
-                 else:
-                    print "object lost, the guessed position is: ", p
-                 self.pos_hist[-1]=p
              return self.pos_hist[-1]
          else:
              return None
@@ -598,3 +653,33 @@ class RegionOfInterest:
             return color[0] / 255., color[1] / 255., color[2] / 255.
         elif len(color) == 4:
             return color[0] / 255., color[1] / 255., color[2] / 255., color[3] / 255.
+
+
+class BlindSpot:
+    def __init__(self, mask_list=None, label=None):
+        self.label=label
+        self.active=True
+        # if initialized with starting set of shapes
+        self.masks = []
+        if mask_list:
+            for m in mask_list:
+                self.add_mask(*m)
+
+    def move(self, dx, dy):
+        """ Moves all masks, aka the whole blindspot, by delta pixels. """
+        for mask in self.masks:
+            mask.move(dx, dy)
+
+    def add_mask(self, shape_type, points, label):
+        """ Adds a new shape. """
+        mask = Mask(shape_type, points, label)
+        self.masks.append(mask)
+        return mask
+
+    def remove_mask(self, mask):
+        """ Removes a mask. """
+        try:
+            self.masks.remove(mask)
+        except ValueError:
+            print "Couldn't find mask for removal"
+

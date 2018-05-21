@@ -64,8 +64,12 @@ class Tab(QtGui.QWidget, Ui_tab_features):
         self.connect(self.ckb_fixed_pos, QtCore.SIGNAL('stateChanged(int)'), self.update_led)
         self.ckb_marker.setChecked(self.feature.marker_visible)
         self.connect(self.ckb_marker, QtCore.SIGNAL('stateChanged(int)'), self.update_led)
-
         self.connect(self.btn_pick_color, QtCore.SIGNAL('toggled(bool)'), self.pick_color)
+        #self.connect(self.filterSlider, QtCore.SIGNAL('valueChanged(int)'), self.feature.kalmanfilter.updateObservationCoeffVal)
+        self.recalibrateBtn.clicked.connect(self.feature.recalibrateFilter)
+        self.connect(self.ckb_prediction, QtCore.SIGNAL('stateChanged(int)'), self.enablePred)
+        self.connect(self.enable_filter, QtCore.SIGNAL('stateChanged(int)'), self.enableKF)
+        self.connect(self.enable_adaptive, QtCore.SIGNAL('stateChanged(int)'), self.adaptiveKF)
 
         self.update()
 
@@ -86,6 +90,28 @@ class Tab(QtGui.QWidget, Ui_tab_features):
 
         self.update_color_space()
         self.update_zoom()
+
+
+    def enablePred(self):
+        self.feature.guessing_enabled=self.ckb_prediction.isChecked()
+
+    def enableKF(self, state):
+        if state:
+            initpoint = self.feature.pos_hist[-1] if len(self.feature.pos_hist)>0 else None
+            self.feature.kalmanfilter.start_filter(initpoint)
+            self.feature.filtering_enabled=True
+            self.ckb_prediction.setEnabled(True)
+            self.recalibrateBtn.setEnabled(True)
+            self.enable_adaptive.setEnabled(True)
+
+        else:
+            self.feature.filtering_enabled = False
+            self.ckb_prediction.setEnabled(False)
+            self.recalibrateBtn.setEnabled(False)
+            self.enable_adaptive.setEnabled(False)
+            self.feature.kalmanfilter.stop_filter()
+    def adaptiveKF(self, state):
+        self.feature.adaptiveKF=state
 
     def update_led(self):
         self.feature.range_hue = (self.spin_hue_min.value(), self.spin_hue_max.value())
@@ -177,8 +203,7 @@ class Tab(QtGui.QWidget, Ui_tab_features):
             # grab slice/view from numpy image array
             cutout = self.spotter.newest_frame.img[ay:by, ax:bx, :]
             cutout = cv2.cvtColor(cutout, cv2.cv.CV_BGR2RGB)
-            cutout = cv2.resize(cutout, (self.lbl_zoom.width(), self.lbl_zoom.height()),
-                                interpolation=cv2.INTER_NEAREST)
+            cutout = cv2.resize(cutout, (self.lbl_zoom.width(), self.lbl_zoom.height()), interpolation=cv2.INTER_NEAREST)
 
             #convert numpy matrix to QPixmap via QImage, which can be efficiently shown via a label
             if cutout is not None:

@@ -142,7 +142,7 @@ class GLFrame(QtOpenGL.QGLWidget):
                 if self.frame.source_type == 'device':
                     cv2.putText(img=self.frame.img, text=self.frame.time_text,
                                 org=(15, 20), fontFace=cv2.FONT_HERSHEY_PLAIN, fontScale=1.6,
-                                color=(250, 250, 50), thickness=1, lineType=cv2.CV_AA)
+                                color=(250, 250, 50), thickness=1)
                     #self.frame.img = cv2.cvtColor(self.frame.img, cv2.COLOR_BGR2HSV)  #for display
                     #contours, hierarchy = cv2.findContours(self.frame.img, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
                    # cv2.drawContours(self.frame.img, self.spotter.tracker.contour, -1, (0, 255, 0), 3)
@@ -156,12 +156,14 @@ class GLFrame(QtOpenGL.QGLWidget):
             p1 = (self.m_x1, self.m_y1)
             p2 = (self.m_x2, self.m_y2)
 
-            modifiers = QtGui.QApplication.keyboardModifiers()
-            if modifiers == QtCore.Qt.ShiftModifier:
+            #modifiers = QtGui.QApplication.keyboardModifiers()
+            #if modifiers == QtCore.Qt.ShiftModifier:
+            if self.spotter.active_shape_type=='circle':
                 radius = geom.distance(p1, p2)
                 p2_c = (int(p1[0]), p1[1]+radius)
                 self.drawCircle((p1, p2_c), color=color, filled=True, num_segments=24)
-            elif modifiers == QtCore.Qt.ControlModifier:
+           # elif modifiers == QtCore.Qt.ControlModifier:
+            elif self.spotter.active_shape_type=='line':
                 self.drawLine((p1, p2), color=color)
             else:
                 self.drawRect((p1, p2), color=color)

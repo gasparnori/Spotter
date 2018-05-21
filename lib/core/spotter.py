@@ -69,6 +69,7 @@ class Spotter:
     GUI_off=False
     FPStest=False
     datalogging=False
+    active_shape_type='rectangle' # whichever shape was chosen to draw  on the screen (connects between TabRegions and GLFrame
 
     #scale_resize = 0.5
     scale_tracking = 1.0
@@ -103,7 +104,7 @@ class Spotter:
                                               args=(self.grabber.fps, self.grabber.size,
                                                     self.writer_queue, child_pipe,))
         self.log.debug('Starting writer...')
-        #self.writer.start()
+        self.writer.start()
         self.log.debug('Instantiating data logger...')
         self.dlogger=datalog.DataLogger()
 
@@ -131,8 +132,10 @@ class Spotter:
         slots = []
         logobjects = []
 
+        #if it outputs the Frame signal on D3
         if self.FPStest == True and self.fpstest!=None:
             slots.append(self.fpstest.slot)
+
         # Get new frame
         self.newest_frame = self.grabber.grab()
         if self.newest_frame is not None:
@@ -147,16 +150,25 @@ class Spotter:
 
             #with timerclass.Timer(False, self.timings) as t:
 
+
+            #add an area to ignore
+            self.newest_frame=self.tracker.mask_blindspots(self.newest_frame)
             # Find and update position of tracked object
             self.tracker.track_feature(self.newest_frame, method='hsv_thresh',
-                                       scale=self.scale_tracking)
+                                       scale=self.scale_tracking, elapsedtime=self.spotterelapsed)
 
             messages = []
             # Update positions of all objects
             for o in self.tracker.oois:
+                #calculates feature position from LED's to object
+                #with the kalman filter: updates the coordinates of the object after smoothing, predicts missing coordinates
+                o.update_state(self.spotterelapsed)
+
+                #updates the velocity and head direction based on the coordinates
                 o.update_values(self.spotterelapsed)
+
+                #updates the output values to the Arduino
                 o.update_slots(self.chatter)
-                o.update_state()
 
                 slots.extend(o.linked_slots)
                 messages.append('\t'.join([self.newest_frame.time_text,
@@ -195,7 +207,7 @@ class Spotter:
 #               time.sleep(0.001)  # required, or may crash?
 
         # FIXME: Blocks if buffer runs full when writer crashes/closes
-        #self.writer_pipe.send(['alive'])
+        self.writer_pipe.send(['alive'])
         return self.newest_frame
 
     @property

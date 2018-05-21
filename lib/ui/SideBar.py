@@ -17,9 +17,12 @@ from side_barUi import Ui_side_bar
 import TabFeatures
 import TabObjects
 import TabRegions
+import TabBlindSpot
+import TabCalib
 #import TabSource
 #import TabRecord
 import TabSerial
+import numpy as np
 
 
 class SideBar(QtGui.QWidget, Ui_side_bar):
@@ -53,7 +56,19 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         self.tabs_main.insertTab(-1, self.regions_page, self.regions_page.label)
         self.connect(self.regions_page, QtCore.SIGNAL('currentChanged(int)'), self.tab_regions_switch)
         self.connect(self.regions_page.btn_new_page, QtCore.SIGNAL('clicked()'), self.add_region)
-        #self.regions_page.tabs_sub.tabCloseRequested.connect(self.remove_page)
+
+        self.log.debug('Opening blind spots main tab')
+        self.blindspot_page = MainTabPage("Blind Spots", TabBlindSpot.Tab, spotter=self.spotter, *args, **kwargs)
+        self.tabs_main.insertTab(-1, self.blindspot_page,  self.blindspot_page.label)
+        self.connect(self.blindspot_page, QtCore.SIGNAL('currentChanged(int)'), self.tab_blindspot_switch)
+        self.connect(self.blindspot_page.btn_new_page, QtCore.SIGNAL('clicked()'), self.add_blindspot)
+
+        self.log.debug('Opening Calibration main tab')
+        self.calib_page = MainTabPage("Calibration", TabCalib.Tab, spotter=self.spotter, *args, **kwargs)
+        self.tabs_main.insertTab(-1, self.calib_page,  self.calib_page.label)
+        self.connect(self.calib_page, QtCore.SIGNAL('currentChanged(int)'), self.tab_calib_switch)
+        self.add_calib(self.spotter.writer)
+
 
         ##right now they are unnecessary
         # self.log.debug('Opening source main tab')
@@ -101,7 +116,12 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
             return self.regions_page.current_page_widget()
         elif active_top_tab_label == "Serial":
             return self.serial_page.current_page_widget()
+        elif active_top_tab_label == "Blind Spots" and (self.tabs_main.count() > 1):
+            return self.blindspot_page.current_page_widget()
+        elif active_top_tab_label == "Calibration":
+            return self.calib_page.current_page_widget()
         else:
+            self.log.debug("no Side bar tab found...")
             return None
 
     def update_current_page(self):
@@ -131,6 +151,7 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         self.features_page.remove_all_pages()
         self.objects_page.remove_all_pages()
         self.regions_page.remove_all_pages()
+        self.blindspot_page.remove_all_pages()
 
     ###############################################################################
     ##  FEATURES Tab Updates
@@ -161,8 +182,19 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
             range_val = map(int, template['range_val'])
             range_area = map(int, template['range_area'])
             fixed_pos = template.as_bool('fixed_pos')
-            feature = self.spotter.tracker.add_led(label, range_hue, range_sat, range_val,
-                                                  range_area, fixed_pos)
+            filter_dim = template.as_int('filter_dimensions')
+            R=np.asmatrix(map(float, template['R'])).reshape(2,2)
+            Q=np.asmatrix(map(float, template['Q'])).reshape(filter_dim, filter_dim)
+
+            feature = self.spotter.tracker.add_led(label,
+                                                   range_hue,
+                                                   range_sat,
+                                                   range_val,
+                                                   range_area,
+                                                   fixed_pos,
+                                                   filter_dim=filter_dim,
+                                                   R=R,
+                                                   Q=Q)
         self.features_page.add_item(feature, focus_new)
 
     ###############################################################################
@@ -326,6 +358,64 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         Serial object tab. Probably an Arduino compatible board linked to it.
         """
         self.serial_page.add_item(serial_object, update_all_tabs=self.update_all_tabs())
+
+    ###############################################################################
+    ##  Calibration Tab Updates
+    ###############################################################################
+    def tab_calib_switch(self, idx_tab=0):
+        """
+        Switch to the tab page with index idx_tab.
+        """
+        self.calib_page.tabs_sub.setCurrentIndex(idx_tab)
+
+    def add_calib(self, calib_object, label=None):
+        self.calib_page.add_item(calib_object, update_all_tabs=self.update_all_tabs())
+
+    ###############################################################################
+    ##  Blind Spot Tab Updates
+    ###############################################################################
+    def tab_blindspot_switch(self, idx_tab=0):
+        """
+        Switch to the tab page with index idx_tab.
+        """
+        self.blindspot_page.tabs_sub.setCurrentIndex(idx_tab)
+
+    def add_blindspot(self, template=None, label=None, masks=None, abs_pos=True, focus_new=True):
+        # """
+        # Create a new region of interest that will be that will be linked
+        # to Objects with conditions to trigger events.
+        # TODO: New regions created empty!
+        # """
+        # # Defaults if nothing else given
+
+        if not template:
+            key = self.parent.template_default['BLINDSPOTS'].iterkeys().next()
+            template = self.parent.template_default['BLINDSPOTS'][key]
+            label = 'IGNORE_' + str(len(self.spotter.tracker.bspots))
+        if not masks:
+             masks = self.parent.template_default['MASKS']
+
+        # # extract masks from masks templates
+        mask_list = []
+
+        for s_key in template['masks']:
+             if s_key in masks:
+                mask_type = masks[s_key]['type']
+                if abs_pos:
+                     points = [masks[s_key]['p1'], masks[s_key]['p2']]
+                else:
+                     points = geom.scale_points([masks[s_key]['p1'],
+                                                 masks[s_key]['p2']],
+                                                (self.parent.gl_frame.width,
+                                                 self.parent.gl_frame.height))
+                mask_list.append([mask_type, points, s_key])
+
+        # color = template['color']
+        #
+        ignore = self.spotter.tracker.add_blindspot(mask_list, label)
+        #print label
+        #print ignore
+        self.blindspot_page.add_item(ignore, focus_new)
 
     ###############################################################################
     # ##  SOURCE Tab Updates

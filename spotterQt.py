@@ -133,6 +133,7 @@ class Main(QtGui.QMainWindow):
 
         # Loading template list in folder
         default_path = os.path.join(os.path.abspath(DIR_CONFIG), DEFAULT_TEMPLATE)
+
         self.template_default = self.parse_config(default_path, True)
         #list_of_files = [f for f in os.listdir(DIR_TEMPLATES) if f.lower().endswith('ini')]
 
@@ -224,6 +225,7 @@ class Main(QtGui.QMainWindow):
     def refresh(self):
         if not (self.gl_frame.width and self.gl_frame.height):
             return
+
         self.gl_frame.update_world(self.spotter)
 
     # def adjust_refresh_rate(self, forced=None):
@@ -294,6 +296,7 @@ class Main(QtGui.QMainWindow):
                 if current_tab.accept_events:
                     current_tab.process_event(event_type, event)
             except AttributeError:
+                #self.log.debug("Error in event processing...")
                 pass
 
    # def props(self):
@@ -442,6 +445,12 @@ class Main(QtGui.QMainWindow):
                                          shapes=template['SHAPES'],
                                          abs_pos=abs_pos,
                                          focus_new=False)
+            if template['BLINDSPOTS']:
+                for r_key, r_val in template['BLINDSPOTS'].items():
+                    self.side_bar.add_blindspot(r_val, r_key,
+                                             masks=template['MASKS'],
+                                             abs_pos=abs_pos,
+                                             focus_new=False)
 
     def save_config(self, filename=None, directory=DIR_TEMPLATES):
         """ Store a full set of configuration to file. """
@@ -464,12 +473,27 @@ class Main(QtGui.QMainWindow):
         # Features
         config['FEATURES'] = {}
         for f in self.spotter.tracker.leds:
+            num_var = f.kalmanfilter.num_variables
+            R = f.kalmanfilter.Rk
+            Q = f.kalmanfilter.Qk
+            R_list = []
+            Q_list = []
+            for row in range(0, R.shape[0]):
+                for column in range(0, R.shape[1]):
+                    R_list.append(R[row, column])
+            for row in range(0, Q.shape[0]):
+                for column in range(0, Q.shape[1]):
+                    Q_list.append(Q[row, column])
+
             section = {'type': 'LED',
                        'range_hue': f.range_hue,
                        'range_sat': f.range_sat,
                        'range_val': f.range_val,
                        'range_area': f.range_area,
-                       'fixed_pos': f.fixed_pos}
+                       'fixed_pos': f.fixed_pos,
+                       'R': R_list,
+                       'Q': Q_list,
+                       'filter_dimensions':num_var}
             config['FEATURES'][str(f.label)] = section
 
         # Objects
@@ -504,6 +528,25 @@ class Main(QtGui.QMainWindow):
             #           'type': s.shape}
             config['SHAPES'][str(s.label)] = section
 
+        # Masks
+        masklist = []
+        # rng = (self.gl_frame.width, self.gl_frame.height)
+        for r in self.spotter.tracker.bspots:
+            for s in r.masks:
+                if not s in masklist:
+                    masklist.append(s)
+        config['MASKS'] = {}
+        for m in masklist:
+            section = {'p1': m.points[0],
+                       'p2': m.points[1],
+                       'type': m.shape}
+            # if one would store the points normalized instead of absolute
+            # But that would require setting the flag in TEMPLATES section
+            # section = {'p1': geom.norm_points(s.points[0], rng),
+            #           'p2': geom.norm_points(s.points[1], rng),
+            #           'type': s.shape}
+            config['MASKS'][str(m.label)] = section
+
         # Regions
         config['REGIONS'] = {}
         for r in self.spotter.tracker.rois:
@@ -514,6 +557,13 @@ class Main(QtGui.QMainWindow):
                        'pin_pref': [o[1] for o in mo],
                        'color': r.active_color[0:3]}
             config['REGIONS'][str(r.label)] = section
+
+        #Blind Spots
+        # Regions
+        config['BLINDSPOTS'] = {}
+        for r in self.spotter.tracker.bspots:
+            section = {'masks': [s.label for s in r.masks]}
+            config['BLINDSPOTS'][str(r.label)] = section
 
         config['SERIAL'] = {}
         config['SERIAL']['auto'] = self.spotter.chatter.auto

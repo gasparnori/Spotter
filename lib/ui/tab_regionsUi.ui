@@ -69,36 +69,12 @@
            <property name="spacing">
             <number>0</number>
            </property>
-           <item row="5" column="0" rowspan="2" colspan="2">
-            <widget class="QTreeWidget" name="tree_region_shapes">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="showDropIndicator" stdset="0">
-              <bool>false</bool>
-             </property>
-             <property name="alternatingRowColors">
-              <bool>true</bool>
-             </property>
-             <property name="indentation">
-              <number>0</number>
-             </property>
-             <column>
-              <property name="text">
-               <string>Shapes</string>
-              </property>
-             </column>
-            </widget>
-           </item>
-           <item row="13" column="0" colspan="2">
+           <item row="15" column="0" colspan="2">
             <layout class="QGridLayout" name="gridLayout_10">
              <property name="spacing">
               <number>0</number>
              </property>
-             <item row="3" column="0">
+             <item row="6" column="0">
               <widget class="QTableWidget" name="table_slots">
                <property name="horizontalScrollBarPolicy">
                 <enum>Qt::ScrollBarAsNeeded</enum>
@@ -142,23 +118,47 @@
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QPushButton" name="btn_add_rect">
-               <property name="minimumSize">
-                <size>
-                 <width>30</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="statusTip">
-                <string>Drag: Rectangle. Shift+drag: Circle. Ctrl+drag: Line.</string>
-               </property>
-               <property name="text">
-                <string>&amp;Add shape (shift: circle, ctrl: line, default: rectangle)</string>
-               </property>
-               <property name="checkable">
-                <bool>true</bool>
-               </property>
-              </widget>
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <item>
+                <widget class="QPushButton" name="btn_add_rect">
+                 <property name="minimumSize">
+                  <size>
+                   <width>30</width>
+                   <height>0</height>
+                  </size>
+                 </property>
+                 <property name="statusTip">
+                  <string>Drag: Rectangle. Shift+drag: Circle. Ctrl+drag: Line.</string>
+                 </property>
+                 <property name="text">
+                  <string>Add rectangle</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn_add_circle">
+                 <property name="text">
+                  <string>Add circle</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="btn_add_line">
+                 <property name="text">
+                  <string>Add line</string>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </item>
              <item row="2" column="0">
               <widget class="QPushButton" name="btn_remove_shape">
@@ -286,6 +286,30 @@
               </widget>
              </item>
             </layout>
+           </item>
+           <item row="5" column="0" rowspan="2" colspan="2">
+            <widget class="QTreeWidget" name="tree_region_shapes">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="showDropIndicator" stdset="0">
+              <bool>false</bool>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="indentation">
+              <number>0</number>
+             </property>
+             <column>
+              <property name="text">
+               <string>Shapes</string>
+              </property>
+             </column>
+            </widget>
            </item>
           </layout>
          </item>
