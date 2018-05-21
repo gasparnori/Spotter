@@ -142,7 +142,7 @@ class Feature:
 class LED(Feature):
     """ Each instance is a spot defined by ranges in a color space. """
 
-    def __init__(self, label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi=None, max_x=639, max_y=379):
+    def __init__(self, label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi=None, max_x=639, max_y=379,  filter_dim=4, R=None, Q=None):
         Feature.__init__(self)
         self.label = label
         self.detection_active = True
@@ -164,7 +164,7 @@ class LED(Feature):
         #x,y coordinates before the kalman filter
         #self.last_measured=[]
 
-        self.kalmanfilter=kfilter.KFilter(max_x, max_y)
+        self.kalmanfilter=kfilter.KFilter(max_x, max_y, filter_dim, R, Q)
         #initializing the last state of the filter
         #self.filterstate=[1,1,1,1]
 

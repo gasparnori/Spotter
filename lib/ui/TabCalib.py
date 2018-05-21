@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Jan 18 21:13:54 2013
-@author: <Ronny Eichler> ronny.eichler@gmail.com
+Created on May 13 2018
+@author: <Nora Gaspar> nori.nagyonsok@gmail.com
 
 
 """

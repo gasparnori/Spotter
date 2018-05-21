@@ -22,6 +22,7 @@ import TabCalib
 #import TabSource
 #import TabRecord
 import TabSerial
+import numpy as np
 
 
 class SideBar(QtGui.QWidget, Ui_side_bar):
@@ -181,8 +182,19 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
             range_val = map(int, template['range_val'])
             range_area = map(int, template['range_area'])
             fixed_pos = template.as_bool('fixed_pos')
-            feature = self.spotter.tracker.add_led(label, range_hue, range_sat, range_val,
-                                                  range_area, fixed_pos)
+            filter_dim = template.as_int('filter_dimensions')
+            R=np.asmatrix(map(float, template['R'])).reshape(2,2)
+            Q=np.asmatrix(map(float, template['Q'])).reshape(filter_dim, filter_dim)
+
+            feature = self.spotter.tracker.add_led(label,
+                                                   range_hue,
+                                                   range_sat,
+                                                   range_val,
+                                                   range_area,
+                                                   fixed_pos,
+                                                   filter_dim=filter_dim,
+                                                   R=R,
+                                                   Q=Q)
         self.features_page.add_item(feature, focus_new)
 
     ###############################################################################

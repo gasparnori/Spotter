@@ -8,10 +8,11 @@ class KFilter:
     maxPredicitons=7    #if 10 consecutive signal is missing, it sends out None
     predictionCounter=0
 
-    def __init__(self, max_x, max_y, initpoint=None):
+    def __init__(self, max_x, max_y, filter_dim, R, Q, initpoint=None):
         # for the filter
         #self.measured_state = np.zeros(shape=(self.num_variables, 1))
         self.measured_state = np.zeros(shape=(2, 1))
+        self.num_variables=filter_dim
         # self.predicted_state = []
         # a FIFO
         self.updated_state = np.zeros(shape=(self.num_variables, 100))
@@ -21,36 +22,43 @@ class KFilter:
         self.measurement_hist = []  # should it save the entire trajectory?
         self.max_x=max_x
         self.max_y=max_y
+        self.initFilter(R, Q)
 
     #initialize Fk, Hk, Pk, Rk, Qk and Kgain
-    def initFilter(self):
+    def initFilter(self, R, Q):
         # Hk:observation matrix
         self.Hk = np.eye(2, self.num_variables)  # not going to change
         # Pk: transition covariance
         self.Pk = np.zeros(shape=(self.num_variables, self.num_variables))  # np.eye(num_variables, num_variables)
         # Rk: observation covariance
         # self.measurement_covariance = np.eye(4, 4)
-        self.Rk = np.eye(2, 2) * 20  # estimate of measurement variance, change to see effect
+        if R is None:
+            self.Rk = np.eye(2, 2) * 20  # estimate of measurement variance, change to see effect
+        else:
+            self.Rk=R
         # Q
-        if self.num_variables == 4:
-            self.Qk = np.matrix([[0.3, 0, 0, 0],
-                                 [0, 0.3, 0, 0],
-                                 [0, 0, 0.001, 0],
-                                 [0, 0, 0, 0.001]])
-        if self.num_variables == 6:
-            self.Qk = np.matrix([[0.3, 0, 0, 0, 0, 0],
-                                 [0, 0.3, 0, 0, 0, 0],
-                                 [0, 0, 0.001, 0, 0, 0],
-                                 [0, 0, 0, 0.001, 0, 0],
-                                 [0, 0, 0, 0, 0.001, 0],
-                                 [0, 0, 0, 0, 0, 0.001]])
+        if Q is None:
+            if self.num_variables == 4:
+                self.Qk = np.matrix([[0.3, 0, 0, 0],
+                                     [0, 0.3, 0, 0],
+                                     [0, 0, 0.001, 0],
+                                     [0, 0, 0, 0.001]])
+            if self.num_variables == 6:
+                self.Qk = np.matrix([[0.3, 0, 0, 0, 0, 0],
+                                     [0, 0.3, 0, 0, 0, 0],
+                                     [0, 0, 0.001, 0, 0, 0],
+                                     [0, 0, 0, 0.001, 0, 0],
+                                     [0, 0, 0, 0, 0.001, 0],
+                                     [0, 0, 0, 0, 0, 0.001]])
+        else:
+            self.Qk=Q
 
         self.Kgain = np.eye(self.num_variables, 2)
 
     def start_filter(self, initpoint=None):
        # print "start"
         #initializing the matrices
-        self.initFilter()
+        #self.initFilter()
         # for the filter
         self.measured_state = np.zeros(shape=(2, 1))
         # self.predicted_state = []
