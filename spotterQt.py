@@ -117,6 +117,8 @@ class Main(QtGui.QMainWindow):
         self.connect(self.ui.actionRecord, QtCore.SIGNAL('toggled(bool)'), self.record_video)
         #record data log
         self.connect(self.ui.actionLogger, QtCore.SIGNAL('toggled(bool)'), self.start_log)
+
+        self.connect(self.ui.actionGraph, QtCore.SIGNAL('toggled(bool)'), self.output_graph)
         #show action properties
         #self.connect(self.ui.actionSourceProperties, QtCore.SIGNAL('triggered()'),self.props)
         # Serial/Arduino Connection status indicator
@@ -164,10 +166,8 @@ class Main(QtGui.QMainWindow):
         #SPOTTER_REFRESH_INTERVAL=int(1000.0/self.spotter.grabber.capture.get(5))
         self.timer2.start(SPOTTER_REFRESH_INTERVAL)
 
-
-
-
         self.ui.actionSpeed_up.setChecked(True)
+
     @property
     def spotter(self):
         return self.__spotter_ref
@@ -260,6 +260,15 @@ class Main(QtGui.QMainWindow):
     #         if self.timer.interval() != GUI_REFRESH_INTERVAL:
     #             self.timer.setInterval(GUI_REFRESH_INTERVAL)
     #             self.log.debug("Changed main loop update rate to be fast. New: %d", self.timer.interval())
+
+    def output_graph(self, state):
+        if state:
+            if len(self.spotter.tracker.oois)>0:
+                for o in self.spotter.tracker.oois:
+                    print "output graph"
+                    n=100
+                    if len(o.pos_hist)>n:
+                        print o.pos_hist[(-1*n):], o.dir_hist[(-1*n):], o.spped_hist[(-1*n):]
 
     def start_log(self, state, filename=None):
         if state:

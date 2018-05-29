@@ -101,7 +101,7 @@
    <addaction name="actionCamera"/>
    <addaction name="actionFile"/>
    <addaction name="actionRecord"/>
-   <addaction name="actionLogger"/>
+   <addaction name="separator"/>
    <addaction name="actionGUI_on_off"/>
    <addaction name="actionFPS_test"/>
    <addaction name="actionSpeed_up"/>
@@ -110,8 +110,13 @@
    <addaction name="actionSaveConfig"/>
    <addaction name="actionRemoveTemplate"/>
    <addaction name="separator"/>
+   <addaction name="actionLogger"/>
+   <addaction name="actionGraph"/>
+   <addaction name="separator"/>
    <addaction name="actionOnTop"/>
    <addaction name="actionAbout"/>
+   <addaction name="separator"/>
+   <addaction name="spacer"/>
    <addaction name="separator"/>
    <addaction name="actionE_xit"/>
   </widget>
@@ -334,6 +339,26 @@
    </property>
    <property name="text">
     <string>Logger</string>
+   </property>
+  </action>
+  <action name="actionGraph">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/graph.png</normaloff>:/graph.png</iconset>
+   </property>
+   <property name="text">
+    <string>Graph view</string>
+   </property>
+   <property name="toolTip">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Output analog outputs in graph view&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </action>
+  <action name="spacer">
+   <property name="text">
+    <string> </string>
    </property>
   </action>
  </widget>

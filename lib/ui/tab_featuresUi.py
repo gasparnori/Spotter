@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'tab_featuresUi.ui'
 #
-# Created: Mon May 21 13:23:21 2018
+# Created: Tue May 29 17:35:26 2018
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!

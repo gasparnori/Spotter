@@ -11,7 +11,7 @@ import random
 import lib.utilities as utils
 import lib.geometry as geom
 from PyQt4 import QtCore
-import numpy
+import numpy as np
 import lib.kalmanfilter as kfilter
 
 SENSITIVITY = 0
@@ -161,6 +161,8 @@ class LED(Feature):
 
         #array of position history after the filter
         self.pos_hist = []
+        #lets save memory
+        #self.pos_hist = [None for x in range(1000)]
         #x,y coordinates before the kalman filter
         #self.last_measured=[]
 

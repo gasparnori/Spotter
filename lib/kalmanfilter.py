@@ -23,6 +23,7 @@ class KFilter:
         self.QCalib=[]
 
         self.measurement_hist = []  # should it save the entire trajectory?
+        self.updated_hist=[]
         self.max_x=max_x
         self.max_y=max_y
         self.initFilter(R, Q)

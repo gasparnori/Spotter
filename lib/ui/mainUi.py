@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainUi.ui'
 #
-# Created: Mon May 21 13:23:20 2018
+# Created: Tue May 29 17:35:26 2018
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -170,10 +170,18 @@ class Ui_MainWindow(object):
         icon14.addPixmap(QtGui.QPixmap(_fromUtf8(":/logger.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionLogger.setIcon(icon14)
         self.actionLogger.setObjectName(_fromUtf8("actionLogger"))
+        self.actionGraph = QtGui.QAction(MainWindow)
+        self.actionGraph.setCheckable(True)
+        icon15 = QtGui.QIcon()
+        icon15.addPixmap(QtGui.QPixmap(_fromUtf8(":/graph.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.actionGraph.setIcon(icon15)
+        self.actionGraph.setObjectName(_fromUtf8("actionGraph"))
+        self.spacer = QtGui.QAction(MainWindow)
+        self.spacer.setObjectName(_fromUtf8("spacer"))
         self.toolBar.addAction(self.actionCamera)
         self.toolBar.addAction(self.actionFile)
         self.toolBar.addAction(self.actionRecord)
-        self.toolBar.addAction(self.actionLogger)
+        self.toolBar.addSeparator()
         self.toolBar.addAction(self.actionGUI_on_off)
         self.toolBar.addAction(self.actionFPS_test)
         self.toolBar.addAction(self.actionSpeed_up)
@@ -182,8 +190,13 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.actionSaveConfig)
         self.toolBar.addAction(self.actionRemoveTemplate)
         self.toolBar.addSeparator()
+        self.toolBar.addAction(self.actionLogger)
+        self.toolBar.addAction(self.actionGraph)
+        self.toolBar.addSeparator()
         self.toolBar.addAction(self.actionOnTop)
         self.toolBar.addAction(self.actionAbout)
+        self.toolBar.addSeparator()
+        self.toolBar.addAction(self.spacer)
         self.toolBar.addSeparator()
         self.toolBar.addAction(self.actionE_xit)
 
@@ -218,5 +231,8 @@ class Ui_MainWindow(object):
         self.actionSpeed_up.setText(_translate("MainWindow", "Speed up!", None))
         self.actionSpeed_up.setToolTip(_translate("MainWindow", "Increase framerate (the framerate is less stable)", None))
         self.actionLogger.setText(_translate("MainWindow", "Logger", None))
+        self.actionGraph.setText(_translate("MainWindow", "Graph view", None))
+        self.actionGraph.setToolTip(_translate("MainWindow", "<html><head/><body><p>Output analog outputs in graph view</p></body></html>", None))
+        self.spacer.setText(_translate("MainWindow", " ", None))
 
 import icons_rc
