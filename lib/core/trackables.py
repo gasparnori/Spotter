@@ -188,8 +188,8 @@ class LED(Feature):
     @property
     def position(self):
         #first coordinate
-        if len(self.pos_hist)==1:
-            self.kalmanfilter.start_filter()
+        #if len(self.pos_hist)==1:
+            #self.kalmanfilter.start_filter()
         return self.pos_hist[-1] if len(self.pos_hist) else None
 
     #this function is the one that essentially calculates the coordinates. called from tracker
