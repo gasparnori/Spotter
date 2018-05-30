@@ -77,7 +77,8 @@ class GLFrame(QtOpenGL.QGLWidget):
                                   (1.0, 1.0, 1.0, 1.0), 7, True])
                 if o.traced:
                     points = []
-                    for n in xrange(min(len(o.pos_hist), 100)):
+                    #traces the last 100
+                    for n in xrange(min(len(o.pos_hist), 100000)):
                         if o.pos_hist[-n - 1] is not None:
                             points.append([o.pos_hist[-n - 1][0] * 1.0 / self.width,
                                            o.pos_hist[-n - 1][1] * 1.0 / self.height])

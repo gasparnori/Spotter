@@ -5,9 +5,9 @@ import geometry as geom
 
 class KFilter:
     Observation_CoeffVal = 15
-    num_variables = 6
+    num_variables = 4
     forget=0.3
-    maxPredictions=10    #if this amount of consecutive signal is missing, it sends out None
+    maxPredictions=50    #if this amount of consecutive signal is missing, it sends out None
     predictionCounter=0
     confidenceInterval=50 #we assume that there can't be more than this pixels difference between the measurements of two consecutive frame if the difference is bigger than this number, it sends out a None
 
@@ -73,7 +73,7 @@ class KFilter:
 
         #initializing the coordinates as a column matrix
         if initpoint is not None:
-            initial_state = np.array([[initpoint[0]], [initpoint[1]], [0.001], [0.001], [0.001], [0.001]])
+            initial_state = np.array([[initpoint[0]], [initpoint[1]], [14], [23], [0.001], [0.001]])
             self.measured_state[:, 0] = initial_state[0:2, 0]
             self.updated_state[:, -1] = initial_state[:, 0]
 
@@ -132,7 +132,7 @@ class KFilter:
     def iterate_filter(self, dt, coordinates,guessing_enabled=True, adaptive=False, calibrating=False):
         prevMissingPoint=self.missingPoint  #saves the previous missing point
         u = np.asmatrix(self.updated_state[:, -1]).transpose()
-
+       # print dt, coordinates
         if self.num_variables == 4:
             self.Fk = np.array([[1, 0, dt, 0], [0, 1, 0, dt], [0, 0, 1, 0], [0, 0, 0, 1]])
         else:
@@ -155,7 +155,7 @@ class KFilter:
             m=self.add_measurement(dt, coordinates)
             #if the measured point is an outlier and the previous measurement is not missing
             if geom.distance(m, pred[0:2]) > self.confidenceInterval and not self.missingPoint:
-                print "outliers!!!!!!!!!!!!!"
+                #print "outliers!!!!!!!!!!!!!"
                 self.missingPoint = True
             else:
                 self.predictionCounter =0   #resets the predictionCounter
@@ -177,7 +177,7 @@ class KFilter:
 
                     if xpred is not None and ypred is not None:
                         self.log.debug("predicting missing value")
-                        print 'Missing value nr. ', self.predictionCounter, '. Predicted: ', (pred[0,0],  pred[1,0]), 'updated: ', (xpred, ypred)
+                       # print 'Missing value nr. ', self.predictionCounter, '. Predicted: ', (pred[0,0],  pred[1,0]), 'updated: ', (xpred, ypred)
                         return (xpred, ypred)
                     else:
                         return None
