@@ -150,7 +150,10 @@ class Grabber:
                 self.fps_init = fps_default
 
             # size given, to compare with size of first frame
-            self.size_init = size_default #kwargs['size'] if 'size' in kwargs else size_default
+            try:
+                self.size_init = kwargs['size'] if 'size' in kwargs else size_default
+            except (ValueError, TypeError):
+                self.size_init = size_default
 
             # if source_type is 'device': Otherwise does nothing
             if self.source_type == 'device':
@@ -159,11 +162,11 @@ class Grabber:
 
                     self.capture.set(cv2.cv.CV_CAP_PROP_FPS, float(self.fps_init))
                 if self.size_init is not None:
-                    if self.capture.get(cv2.cv.CV_CAP_PROP_FRAME_WIDTH)>self.size_init[0]:
-                        self.log.debug("Setting frame size of capture: {0[0]}x{0[1]}".format(self.size_init))
-                    self.capture.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, float(self.size_init[0]))
-                    if self.capture.get(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT) > self.size_init[1]:
+                    if self.capture.get(cv2.cv.CV_CAP_PROP_FRAME_WIDTH)!= self.size_init[0]:
+                        self.capture.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, float(self.size_init[0]))
+                    if self.capture.get(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT) != self.size_init[1]:
                         self.capture.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, float(self.size_init[1]))
+                    self.log.debug("Setting frame size of capture: {0[0]}x{0[1]}".format(self.size_init))
 
     def grab(self):
 
