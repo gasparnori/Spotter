@@ -162,7 +162,7 @@ class Grabber:
 
                     self.capture.set(cv2.cv.CV_CAP_PROP_FPS, float(self.fps_init))
                 if self.size_init is not None:
-                    if self.capture.get(cv2.cv.CV_CAP_PROP_FRAME_WIDTH)!= self.size_init[0]:
+                    if self.capture.get(cv2.cv.CV_CAP_PROP_FRAME_WIDTH) != self.size_init[0]:
                         self.capture.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, float(self.size_init[0]))
                     if self.capture.get(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT) != self.size_init[1]:
                         self.capture.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, float(self.size_init[1]))

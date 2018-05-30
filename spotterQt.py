@@ -49,6 +49,8 @@ import platform
 import time
 import logging
 import multiprocessing
+import matplotlib.pyplot as plt
+
 
 from lib.docopt import docopt
 from lib.configobj import configobj, validate
@@ -266,9 +268,36 @@ class Main(QtGui.QMainWindow):
             if len(self.spotter.tracker.oois)>0:
                 for o in self.spotter.tracker.oois:
                     print "output graph"
-                    n=100
+                    n=1000
                     if len(o.pos_hist)>n:
-                        print o.pos_hist[(-1*n):], o.dir_hist[(-1*n):], o.spped_hist[(-1*n):]
+                        #print o.dir_hist[(-1*n):], o.speed_hist[(-1*n):]
+                        px = [p[0] if p is not None else 0 for p in o.pos_hist[(-1*n):]]
+                        py = [p[1] if p is not None else 0 for p in o.pos_hist[(-1*n):]]
+                        fig1 = plt.figure('figure')
+                        titletxt = "outputs"
+                        plt.title(titletxt)
+                        p1 = fig1.add_subplot(221)
+                        plt.title("coordinate X (pixel)")
+                        # plt.xlabel("time (ms)")
+                        plt.ylabel("coordinate X (pixel)")
+                        plt.ylim([0, 640])
+                        plt.plot(px)
+                        p2 = fig1.add_subplot(222)
+                        plt.title("coordinate Y")
+                        plt.ylabel("coordinate Y (pixel)")
+                        plt.ylim([0, 640])
+                        plt.plot(py)
+                        p3 = fig1.add_subplot(223)
+                        plt.title("speed (px/ms)")
+                       # plt.ylim([0, 640])
+                        plt.plot(o.speed_hist)
+                        p4 = fig1.add_subplot(224)
+                        plt.title("head direction (degrees)")
+                        plt.ylim([0, 360])
+                        plt.plot(o.dir_hist)
+                        plt.show()
+        else:
+            plt.close('all')
 
     def start_log(self, state, filename=None):
         if state:
