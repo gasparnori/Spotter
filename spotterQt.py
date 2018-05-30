@@ -266,36 +266,45 @@ class Main(QtGui.QMainWindow):
     def output_graph(self, state):
         if state:
             if len(self.spotter.tracker.oois)>0:
+                figures=[plt.figure('figure '+str(x)) for x in range (0,len( self.spotter.tracker.oois))]
+                k=0
+                n = 1000
                 for o in self.spotter.tracker.oois:
-                    print "output graph"
-                    n=1000
+                    plt.figure('figure '+str(k))
                     if len(o.pos_hist)>n:
-                        #print o.dir_hist[(-1*n):], o.speed_hist[(-1*n):]
+                        #figures[k] = plt.figure('figure')
                         px = [p[0] if p is not None else 0 for p in o.pos_hist[(-1*n):]]
                         py = [p[1] if p is not None else 0 for p in o.pos_hist[(-1*n):]]
-                        fig1 = plt.figure('figure')
-                        titletxt = "outputs"
-                        plt.title(titletxt)
-                        p1 = fig1.add_subplot(221)
-                        plt.title("coordinate X (pixel)")
-                        # plt.xlabel("time (ms)")
-                        plt.ylabel("coordinate X (pixel)")
-                        plt.ylim([0, 640])
-                        plt.plot(px)
-                        p2 = fig1.add_subplot(222)
-                        plt.title("coordinate Y")
-                        plt.ylabel("coordinate Y (pixel)")
-                        plt.ylim([0, 640])
-                        plt.plot(py)
-                        p3 = fig1.add_subplot(223)
-                        plt.title("speed (px/ms)")
-                       # plt.ylim([0, 640])
-                        plt.plot(o.speed_hist)
-                        p4 = fig1.add_subplot(224)
-                        plt.title("head direction (degrees)")
-                        plt.ylim([0, 360])
-                        plt.plot(o.dir_hist)
-                        plt.show()
+                        dir=o.dir_hist[(-1*n):]
+                        speed=o.speed_hist[(-1*n):]
+                    else:
+                        px = [p[0] if p is not None else 0 for p in o.pos_hist]
+                        py = [p[1] if p is not None else 0 for p in o.pos_hist]
+                        dir = o.dir_hist
+                        speed = o.speed_hist
+
+                    #plt.title( "Object "+str(k))
+                    figures[k].add_subplot(221)
+                    plt.title("coordinate X (pixel)")
+                    plt.ylim([0, 640])
+                    plt.plot(px)
+
+                    figures[k].add_subplot(222)
+                    plt.title("coordinate Y")
+                    plt.ylim([0, 640])
+                    plt.plot(py)
+
+                    figures[k].add_subplot(223)
+                    plt.title("speed (px/ms)")
+                    plt.plot(speed)
+
+                    figures[k].add_subplot(224)
+                    plt.title("head direction (degrees)")
+                    plt.ylim([0, 360])
+                    plt.plot(dir)
+
+                    k=k+1
+                plt.show()
         else:
             plt.close('all')
 
