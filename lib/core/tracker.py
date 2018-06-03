@@ -73,12 +73,12 @@ class Tracker:
         except ValueError:
             self.log.error("Blind spot to be removed not found")
 
-    def add_led(self, label, range_hue, range_sat, range_val, range_area, fixed_pos=False, linked_to=None, filter_dim=4, R=None, Q=None):
+    def add_led(self, label, range_hue, range_sat, range_val, range_area, fixed_pos=False, linked_to=None, filter_dim=4, R=None, Q=None, filtering_enabled=False, guessing_enabled = False):
         if self.adaptive_tracking:
             roi = trkbl.Shape('rectangle', None, None)
         else:
             roi = trkbl.Shape('rectangle', None, None)
-        led = trkbl.LED(label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi, self.max_x, self.max_y, filter_dim, R, Q)
+        led = trkbl.LED(label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi, self.max_x, self.max_y, filter_dim, R, Q, filtering_enabled, guessing_enabled)
         self.leds.append(led)
         self.log.debug("Added feature %s", led)
         return led

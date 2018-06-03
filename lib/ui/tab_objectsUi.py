@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'tab_objectsUi.ui'
 #
-# Created: Wed May 30 18:12:27 2018
+# Created: Sun Jun 03 12:12:17 2018
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -85,7 +85,7 @@ class Ui_tab_objects(object):
         self.tree_link_features.setObjectName(_fromUtf8("tree_link_features"))
         self.tree_link_features.header().setSortIndicatorShown(False)
         self.gridLayout_10.addWidget(self.tree_link_features, 0, 0, 1, 1)
-        self.gridLayout_5.addLayout(self.gridLayout_10, 4, 0, 1, 5)
+        self.gridLayout_5.addLayout(self.gridLayout_10, 3, 0, 1, 5)
         self.lbl_x = QtGui.QLabel(self.page_objects_tracking)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -146,9 +146,6 @@ class Ui_tab_objects(object):
         self.lbl_speed.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.lbl_speed.setObjectName(_fromUtf8("lbl_speed"))
         self.gridLayout_5.addWidget(self.lbl_speed, 2, 4, 1, 1)
-        self.ckb_guessing = QtGui.QCheckBox(self.page_objects_tracking)
-        self.ckb_guessing.setObjectName(_fromUtf8("ckb_guessing"))
-        self.gridLayout_5.addWidget(self.ckb_guessing, 3, 0, 1, 5)
         self.gridLayout_6.addLayout(self.gridLayout_5, 0, 0, 1, 1)
         self.toolBox.addItem(self.page_objects_tracking, _fromUtf8(""))
         self.page_objects_IO = QtGui.QWidget()
@@ -211,7 +208,6 @@ class Ui_tab_objects(object):
         self.ckb_analog_pos.setText(_translate("tab_objects", "Analog out", None))
         self.ckb_trace.setText(_translate("tab_objects", "Show Trace", None))
         self.lbl_speed.setText(_translate("tab_objects", "---", None))
-        self.ckb_guessing.setText(_translate("tab_objects", "Enable position guessing", None))
         self.toolBox.setItemText(self.toolBox.indexOf(self.page_objects_tracking), _translate("tab_objects", "Tracking", None))
         self.pushButton_8.setText(_translate("tab_objects", "Save", None))
         self.pushButton_5.setText(_translate("tab_objects", "Delete", None))

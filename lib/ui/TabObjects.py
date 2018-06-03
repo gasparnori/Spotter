@@ -41,6 +41,8 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
         self.connect(self.ckb_track, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
         self.connect(self.ckb_trace, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
         self.connect(self.ckb_analog_pos, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
+
+        #Since the Kalman filter is implemented on the Feature level, this function is unnecessary
        # self.connect(self.ckb_guessing, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
 
         #self.connect(self.btn_lock_table, QtCore.SIGNAL('toggled(bool)'), self.lock_slot_table)

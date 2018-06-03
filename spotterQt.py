@@ -92,9 +92,9 @@ class Main(QtGui.QMainWindow):
         self.ui.frame_parameters.addWidget(self.side_bar)
 
         # Exit Signals
-        self.ui.actionE_xit.setShortcut('Ctrl+Q')
-        self.ui.actionE_xit.setStatusTip('Exit Spotter')
-        self.connect(self.ui.actionE_xit, QtCore.SIGNAL('triggered()'), QtCore.SLOT('close()'))
+        #self.ui.actionE_xit.setShortcut('Ctrl+Q')
+        #self.ui.actionE_xit.setStatusTip('Exit Spotter')
+        #self.connect(self.ui.actionE_xit, QtCore.SIGNAL('triggered()'), QtCore.SLOT('close()'))
 
         # About window
         self.connect(self.ui.actionAbout, QtCore.SIGNAL('triggered()'), self.about)
@@ -119,7 +119,9 @@ class Main(QtGui.QMainWindow):
         self.connect(self.ui.actionRecord, QtCore.SIGNAL('toggled(bool)'), self.record_video)
         #record data log
         self.connect(self.ui.actionLogger, QtCore.SIGNAL('toggled(bool)'), self.start_log)
-
+        #outputs the results for each object to a separate figure
+        self.connect(self.ui.actionReset, QtCore.SIGNAL('triggered()'), self.reset_hist)
+        #clears output history, and resets filters
         self.connect(self.ui.actionGraph, QtCore.SIGNAL('toggled(bool)'), self.output_graph)
         #show action properties
         #self.connect(self.ui.actionSourceProperties, QtCore.SIGNAL('triggered()'),self.props)
@@ -175,9 +177,10 @@ class Main(QtGui.QMainWindow):
         return self.__spotter_ref
 
     ###############################################################################
-    ##  FRAME REFRESH
+    ##  FRAME RELATED
     ###############################################################################
     def trackFPS(self, state):
+        """Outputs a digital signal on D3 for the frame rate (each state change is a frame)"""
         if state:
             p = self.spotter.chatter.pins('digital')
             if p[-1].slot is not None:
@@ -212,6 +215,7 @@ class Main(QtGui.QMainWindow):
 
 
     def speedUp(self, state):
+        """the GUI refresh rate is different from the camera refresh rate (only outputs every 4-5 frames to the GUI)"""
         if state:
             self.async=True
             self.timerGL.start(GUI_REFRESH_INTERVAL)
@@ -224,6 +228,7 @@ class Main(QtGui.QMainWindow):
             self.log.debug("GUI turned to lower speed")
             self.timerGL.stop()
             self.timerSide.stop()
+
     def refresh(self):
         if not (self.gl_frame.width and self.gl_frame.height):
             return
@@ -263,7 +268,11 @@ class Main(QtGui.QMainWindow):
     #             self.timer.setInterval(GUI_REFRESH_INTERVAL)
     #             self.log.debug("Changed main loop update rate to be fast. New: %d", self.timer.interval())
 
+    ##############################################################################
+    ## Output options
+    ##############################################################################
     def output_graph(self):
+        """plots the four analog outputs (x, y, speed, head direction) for each object into separate figures"""
         self.ui.actionGraph.setChecked(False)
         if len(self.spotter.tracker.oois)>0:
             k=0
@@ -278,6 +287,7 @@ class Main(QtGui.QMainWindow):
             plt.show()
 
     def plotresults(self, px, py, speed, dir, title):
+        """plots the four analog outputs (x, y, speed, head direction) for an object into one figure"""
         fig=plt.figure(title)
         fig.add_subplot(221)
         plt.title("coordinate X (pixel)")
@@ -299,6 +309,7 @@ class Main(QtGui.QMainWindow):
         plt.plot(dir)
 
     def start_log(self, state, filename=None):
+        """ Writes a log file in txt with timestamps and locations"""
         if state:
             if filename is None:
                 filename = QtGui.QFileDialog.getSaveFileName(self, 'Open Folder', './recordings/')
@@ -386,12 +397,14 @@ class Main(QtGui.QMainWindow):
         #if not path:
         #    path = os.getenv('HOMEPATH')
         self.ui.actionCamera.setChecked(False)
+        self.ui.actionSpeed_up.setChecked(False)
         if state:
             self.status_bar.updateState('file')
             filename = QtGui.QFileDialog.getOpenFileName(self, 'Open Video', './recordings')  # path
             if len(filename):
                 self.log.debug('File dialog given %s', str(filename))
                 self.spotter.grabber.start(str(filename))
+                self.spotter.grabber.video_playing = True
         else:
             self.log.debug('Closing replay...')
             self.status_bar.updateState(None)
@@ -435,6 +448,17 @@ class Main(QtGui.QMainWindow):
             self.spotter.GUI_off = True
             self.ui.actionSpeed_up.setChecked(False)
             self.gl_frame.update_world(self.spotter)
+    ###############################################################################
+    ## Reset button
+    ##############################################################################
+    def reset_hist(self):
+        self.log.debug("Emptying memory, resetting filters.")
+        for led in self.spotter.tracker.leds:
+            led.reset()
+        for obj in self.spotter.tracker.oois:
+            obj.reset()
+
+
 
 
     ###############################################################################
@@ -530,7 +554,9 @@ class Main(QtGui.QMainWindow):
                        'fixed_pos': f.fixed_pos,
                        'R': R_list,
                        'Q': Q_list,
-                       'filter_dimensions':num_var}
+                       'filter_dimensions':num_var,
+                       'filter_enabled':f.filtering_enabled,
+                      'estimation_enabled':f.guessing_enabled}
             config['FEATURES'][str(f.label)] = section
 
         # Objects

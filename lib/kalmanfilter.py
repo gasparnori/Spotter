@@ -22,7 +22,7 @@ class KFilter:
         self.RCalib=np.zeros(shape=(2, 100))
         self.QCalib=[]
 
-        self.measurement_hist = []  # should it save the entire trajectory?
+        #self.measurement_hist = []  # should it save the entire trajectory?
         self.updated_hist=[]
         self.max_x=max_x
         self.max_y=max_y
@@ -215,6 +215,7 @@ class KFilter:
             return None
 
     def stop_filter(self):
+        self.log.debug("filter stopped")
         self.filter=None
         self.updated_state=None
 
@@ -222,3 +223,6 @@ class KFilter:
         # print "updated to: ", value
         self.Rk = np.eye(4, 4) * value
         self.filter.observation_covariance = self.Rk
+
+   # def resetFilter(self):
+   #     self.measurement_hist=[]

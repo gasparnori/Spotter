@@ -85,6 +85,12 @@ class Tab(QtGui.QWidget, Ui_tab_features):
         self.sensorProgress.setMaximum(self.CalibMax)
         self.measurementProgress.setVisible(False)
         self.measurementProgress.setMaximum(self.CalibMax)
+        #if the filter is enabled by default
+        if self.feature.filtering_enabled:
+            self.enable_filter.setChecked(True)
+        if self.feature.guessing_enabled:
+            self.ckb_prediction.setChecked(True)
+
         self.update()
 
 

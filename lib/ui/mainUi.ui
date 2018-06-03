@@ -113,23 +113,15 @@
    <addaction name="actionLogger"/>
    <addaction name="actionGraph"/>
    <addaction name="separator"/>
+   <addaction name="actionReset"/>
+   <addaction name="separator"/>
    <addaction name="actionOnTop"/>
    <addaction name="actionAbout"/>
    <addaction name="separator"/>
    <addaction name="spacer"/>
-   <addaction name="separator"/>
-   <addaction name="actionE_xit"/>
+   <addaction name="spacer_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionE_xit">
-   <property name="icon">
-    <iconset resource="icons.qrc">
-     <normaloff>:/exit.png</normaloff>:/exit.png</iconset>
-   </property>
-   <property name="text">
-    <string>E&amp;xit</string>
-   </property>
-  </action>
   <action name="actionCamera">
    <property name="checkable">
     <bool>true</bool>
@@ -358,7 +350,24 @@
   </action>
   <action name="spacer">
    <property name="text">
-    <string> </string>
+    <string/>
+   </property>
+  </action>
+  <action name="actionReset">
+   <property name="icon">
+    <iconset resource="icons.qrc">
+     <normaloff>:/reset.png</normaloff>:/reset.png</iconset>
+   </property>
+   <property name="text">
+    <string>Reset</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete position history, and reset filters</string>
+   </property>
+  </action>
+  <action name="spacer_2">
+   <property name="text">
+    <string/>
    </property>
   </action>
  </widget>

@@ -142,15 +142,15 @@ class Feature:
 class LED(Feature):
     """ Each instance is a spot defined by ranges in a color space. """
 
-    def __init__(self, label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi=None, max_x=639, max_y=379,  filter_dim=4, R=None, Q=None):
+    def __init__(self, label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi=None, max_x=639, max_y=379,  filter_dim=4, R=None, Q=None, filtering_enabled=False, guessing_enabled = False):
         Feature.__init__(self)
         self.label = label
         self.detection_active = True
         self.marker_visible = True
         #kalman filter related flags
-        self.guessing_enabled = False
+        self.guessing_enabled = guessing_enabled
         self.adaptiveKF=False
-        self.filtering_enabled=False
+        self.filtering_enabled=filtering_enabled
         # feature description ranges
         self.range_hue = range_hue
         self.range_sat = range_sat
@@ -167,6 +167,7 @@ class LED(Feature):
         #self.last_measured=[]
 
         self.kalmanfilter=kfilter.KFilter(max_x, max_y, filter_dim, R, Q)
+
         #initializing the last state of the filter
         #self.filterstate=[1,1,1,1]
 
@@ -207,6 +208,11 @@ class LED(Feature):
     # def recalibrateFilter(self):
     #     if len(self.pos_hist)>0:
     #         self.kalmanfilter.start_filter(self.pos_hist[-1])
+    def reset(self):
+        last_point=self.pos_hist[-1]
+        self.pos_hist=[]
+        self.kalmanfilter.stop_filter()
+        self.kalmanfilter.start_filter(last_point)
 
 class Slot:
     def __init__(self, label, slot_type, state=None, state_idx=None, ref=None):
@@ -241,7 +247,6 @@ class Slot:
 
     def __del__(self):
         print "Removing slot", self
-
 
 class ObjectOfInterest:
     EVENFRAME = False
@@ -356,6 +361,7 @@ class ObjectOfInterest:
          else:
              return None
 
+    #not used after the kalman filter was implemented
     @property
     def position_guessed(self):
         """Get position based on history. Could allow for fancy filtering etc."""
@@ -370,6 +376,7 @@ class ObjectOfInterest:
             self.linked_leds.remove(led)
         except ValueError:
             pass
+
     def getPositionX(self):
         """ Helper method to provide chatter with function reference for slot updates"""
         return None if self.position is None else self.position[0]
@@ -377,6 +384,7 @@ class ObjectOfInterest:
     def getPositionY(self):
         """ Helper method to provide chatter with function reference for slot updates"""
         return None if self.position is None else self.position[1]
+
     def getSpeed(self):
         """ Helper method to provide chatter with function reference for slot updates"""
         return self.sp   #only returns the value without recalculating it
@@ -399,8 +407,11 @@ class ObjectOfInterest:
             return self.sp
         except TypeError:
             return None
+
     def getDirection(self):
+        """ Helper method to provide chatter with function reference for slot updates"""
         return self.dir
+
     def direction(self):
         """
         Calculate direction of the object.
@@ -449,6 +460,13 @@ class ObjectOfInterest:
         #        slots_to_update.append(s)
         # return slots_to_update
         return [slot for slot in self.slots if slot.pin]
+
+    def reset(self):
+        #reset
+        self.pos_hist=[]
+        self.dir_hist=[]
+        self.speed_hist=[]
+
 
 #generates a square wave that can be used to measure the output frame rate-->always uses D3
 class fpsTestSignal:

@@ -69,7 +69,7 @@ class Spotter:
     GUI_off=False
     FPStest=False
     datalogging=False
-    active_shape_type='rectangle' # whichever shape was chosen to draw  on the screen (connects between TabRegions and GLFrame
+    active_shape_type='rectangle' # whichever shape was chosen to draw  on the screen (connects between TabRegions and GLFrame)
 
     #scale_resize = 0.5
     scale_tracking = 1.0
@@ -100,6 +100,7 @@ class Spotter:
         self.log.debug('Instantiating writer...')
         self.writer_queue = multiprocessing.Queue(16)
         self.writer_pipe, child_pipe = multiprocessing.Pipe()
+
         self.writer = multiprocessing.Process(target=writer.Writer,
                                               args=(self.grabber.fps, self.grabber.size,
                                                     self.writer_queue, child_pipe,))

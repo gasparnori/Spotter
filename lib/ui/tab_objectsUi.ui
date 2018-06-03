@@ -69,7 +69,7 @@
            <property name="spacing">
             <number>0</number>
            </property>
-           <item row="4" column="0" colspan="5">
+           <item row="3" column="0" colspan="5">
             <layout class="QGridLayout" name="gridLayout_10">
              <property name="spacing">
               <number>0</number>
@@ -297,13 +297,6 @@
              </property>
              <property name="alignment">
               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0" colspan="5">
-            <widget class="QCheckBox" name="ckb_guessing">
-             <property name="text">
-              <string>Enable position guessing</string>
              </property>
             </widget>
            </item>

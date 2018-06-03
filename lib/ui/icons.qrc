@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/">
+    <file>reset.png</file>
     <file>graph.png</file>
     <file>logger.png</file>
     <file>fps_test.png</file>

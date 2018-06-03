@@ -121,7 +121,7 @@ def AutoregPosition(pos_hist):
     else:
         return None
 
-
+#linear extrapolation--> not necessary any more after the Kalman filter
 def guessedPosition(pos_hist):
     if len(pos_hist) >= 3:
        # print pos_hist[-1], pos_hist[-2], pos_hist[-3]

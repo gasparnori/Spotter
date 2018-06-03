@@ -185,6 +185,8 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
             filter_dim = template.as_int('filter_dimensions')
             R=np.asmatrix(map(float, template['R'])).reshape(2,2)
             Q=np.asmatrix(map(float, template['Q'])).reshape(filter_dim, filter_dim)
+            fe = template.as_bool('filter_enabled')
+            ge = template.as_bool('estimation_enabled')
 
             feature = self.spotter.tracker.add_led(label,
                                                    range_hue,
@@ -194,7 +196,9 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
                                                    fixed_pos,
                                                    filter_dim=filter_dim,
                                                    R=R,
-                                                   Q=Q)
+                                                   Q=Q,
+                                                   filtering_enabled=fe,
+                                                   guessing_enabled=ge)
         self.features_page.add_item(feature, focus_new)
 
     ###############################################################################

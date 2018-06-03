@@ -77,6 +77,8 @@ class Grabber:
     source_type = None      # File, stream, device; changes behavior of GUI
     capture_type = None
 
+    video_playing=False     #boolean to indicate if it's a replay
+
 #    framebuffer = deque(maxlen=256)
 
     def __init__(self, *args, **kwargs):
@@ -159,8 +161,9 @@ class Grabber:
             if self.source_type == 'device':
                 if self.fps_init is not None:
                     self.log.debug("Setting fps of capture: {0}".format(float(self.fps_init)))
+                    ########################################     not really working!!!    #############################
+                    self.fps=self.capture.get(cv2.cv.CV_CAP_PROP_FPS)#, float(self.fps_init))
 
-                    self.capture.set(cv2.cv.CV_CAP_PROP_FPS, float(self.fps_init))
                 if self.size_init is not None:
                     if self.capture.get(cv2.cv.CV_CAP_PROP_FRAME_WIDTH) != self.size_init[0]:
                         self.capture.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, float(self.size_init[0]))
@@ -183,6 +186,8 @@ class Grabber:
         else:
             if  self.source_type == 'file':
                 self.log.info("Video ended")
+                self.video_playing = False
+
                 self.reset()
 
             self.log.error("Frame retrieval failed after %d" + (' tries' if n_tries-1 else ' try'), n_tries)
