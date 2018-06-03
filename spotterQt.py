@@ -49,6 +49,7 @@ import platform
 import time
 import logging
 import multiprocessing
+import cv2
 import matplotlib.pyplot as plt
 
 
@@ -355,11 +356,25 @@ class Main(QtGui.QMainWindow):
         """ About message box. Credits. Links. Jokes. """
         QtGui.QMessageBox.about(self, "About",
                                 """<b>Spotter</b> v%s
-                   <p>This new version was created by <a href=mailto:nori.nagyonsok@gmail.com>Nora Gaspar</a> &#169; Spotter v1.0 2017.
-                   <p>Original version was created by <a href=https://github.com/wonkoderverstaendige/Spotter>Ronny Eichler</a>&#169; Spotter v0.45 2013.
-                   <p>This application is under heavy development. Use at your own risk.
-                   <p>Python %s -  PyQt4 version %s - on %s""" % (__version__,
-                                                                  platform.python_version(), QtCore.QT_VERSION_STR,
+                   <div align="center">
+                   The current version was created by <a href=https://github.com/gasparnori>Nora Gaspar</a> &#169; Spotter v1.2 2018.
+                  Original version was created by <a href=https://github.com/wonkoderverstaendige/Spotter>Ronny Eichler</a>&#169; Spotter v0.45 2013. </div>
+                   
+                    <div align="left">
+                    <ul>
+                       <li> Python %s -  </li>
+                       <li> PyQt4 version %s </li>
+                       <li> OpenCV version %s - </li>
+                       <li> on %s  </li>
+                    </ul>
+                    </div>
+                   <p>
+                   <p>
+                   <div align="center">
+                   <p align="center"; padding: 7em 0 2em 0;border-width: 2px; >
+                   <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="lib/ui/license.png" width="60" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.
+                   </div>""" % (__version__,
+                                                                  platform.python_version(), QtCore.QT_VERSION_STR, cv2.__version__,
                                                                   platform.system()))
 
     def center_window(self):
