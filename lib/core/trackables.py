@@ -210,9 +210,9 @@ class LED(Feature):
     #         self.kalmanfilter.start_filter(self.pos_hist[-1])
     def reset(self):
         last_point=self.pos_hist[-1]
-        self.pos_hist=[]
+        self.pos_hist=self.pos_hist[-5:]
         self.kalmanfilter.stop_filter()
-        self.kalmanfilter.start_filter(last_point)
+        self.kalmanfilter.start_filter(self.pos_hist[-1])
 
 class Slot:
     def __init__(self, label, slot_type, state=None, state_idx=None, ref=None):
@@ -462,10 +462,10 @@ class ObjectOfInterest:
         return [slot for slot in self.slots if slot.pin]
 
     def reset(self):
-        #reset
-        self.pos_hist=[]
-        self.dir_hist=[]
-        self.speed_hist=[]
+        #reset deletes the memory, but keeps the last five coordinates
+        self.pos_hist=self.pos_hist[-5:]
+        self.dir_hist=self.dir_hist[-5:]
+        self.speed_hist=self.speed_hist[-5:]
 
 
 #generates a square wave that can be used to measure the output frame rate-->always uses D3

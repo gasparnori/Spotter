@@ -6,7 +6,7 @@ import geometry as geom
 class KFilter:
     Observation_CoeffVal = 15
     num_variables = 4
-    forget=0.3
+    forget=0.001
     maxPredictions=50    #if this amount of consecutive signal is missing, it sends out None
     predictionCounter=0
     confidenceInterval=50 #we assume that there can't be more than this pixels difference between the measurements of two consecutive frame if the difference is bigger than this number, it sends out a None
@@ -39,7 +39,7 @@ class KFilter:
         # Rk: observation covariance
         # self.measurement_covariance = np.eye(4, 4)
         if R is None:
-            self.Rk = np.eye(2, 2) * 20  # estimate of measurement variance, change to see effect
+            self.Rk = np.eye(2, 2) * 0.5 # estimate of measurement variance, change to see effect
         else:
             self.Rk=R
         # Q
@@ -70,6 +70,7 @@ class KFilter:
         # self.predicted_state = []
         # a FIFO
         self.updated_state = np.zeros(shape=(self.num_variables, 100))
+        self.predictionCounter=0
 
         #initializing the coordinates as a column matrix
         if initpoint is not None:
@@ -219,10 +220,10 @@ class KFilter:
         self.filter=None
         self.updated_state=None
 
-    def updateObservationCoeffVal(self, value):
+    #def updateObservationCoeffVal(self, value):
         # print "updated to: ", value
-        self.Rk = np.eye(4, 4) * value
-        self.filter.observation_covariance = self.Rk
+     #   self.Rk = np.eye(4, 4) * value
+     #   self.filter.observation_covariance = self.Rk
 
    # def resetFilter(self):
    #     self.measurement_hist=[]
