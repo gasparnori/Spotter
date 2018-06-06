@@ -7,11 +7,13 @@ class KFilter:
     Observation_CoeffVal = 15
     num_variables = 4
     forget=0.001
+    #QcalibIndex=0
+    calibrating=False
     maxPredictions=50    #if this amount of consecutive signal is missing, it sends out None
     predictionCounter=0
     confidenceInterval=50 #we assume that there can't be more than this pixels difference between the measurements of two consecutive frame if the difference is bigger than this number, it sends out a None
 
-    def __init__(self, max_x, max_y, filter_dim, R, Q, initpoint=None):
+    def __init__(self, max_x, max_y, filter_dim, R, Q, initpoint=None, fps=190):
         # for the filter
         #self.measured_state = np.zeros(shape=(self.num_variables, 1))
         self.measured_state = np.zeros(shape=(2, 1))
@@ -29,6 +31,7 @@ class KFilter:
         self.initFilter(R, Q)
         self.log=self.log = logging.getLogger(__name__)
         self.missingPoint=False
+        self.defaultT=1.0/fps
 
     #initialize Fk, Hk, Pk, Rk, Qk and Kgain
     def initFilter(self, R, Q):
@@ -74,7 +77,7 @@ class KFilter:
 
         #initializing the coordinates as a column matrix
         if initpoint is not None:
-            initial_state = np.array([[initpoint[0]], [initpoint[1]], [14], [23], [0.001], [0.001]])
+            initial_state = np.array([[initpoint[0]], [initpoint[1]], [0.0001], [0.0001], [0.0001], [0.0001]])
             self.measured_state[:, 0] = initial_state[0:2, 0]
             self.updated_state[:, -1] = initial_state[:, 0]
 
@@ -95,11 +98,15 @@ class KFilter:
         #     ay = (self.measured_state[5, 0])
         self.measured_state = np.array([[datax], [datay]])#, [vx], [vy], [ax], [ay]])
         return np.asmatrix(self.measured_state)
+
     def calibrateQ(self, x,y,t,index, max_index):
         if index<max_index:
-            self.iterate_filter(t,(x,y), False, False, True)
+            self.calibrating=True
+            #self.QcalibIndex=index
+            #self.iterate_filter(t,(x,y), False, False, True)
             #print index
         else:
+            self.calibrating=False
             self.Qk = np.mean(self.QCalib, axis=0)
             self.log.debug("observation calibration done")
     def calibrateSensor(self, x, y, t, index, max_index):
@@ -130,9 +137,11 @@ class KFilter:
             self.Rk = np.cov(self.RCalib[:, 0:])
             self.log.debug("sensor calibration done")
 
-    def iterate_filter(self, dt, coordinates,guessing_enabled=True, adaptive=False, calibrating=False):
+    def iterate_filter(self, dt, coordinates,guessing_enabled=True, adaptive=False):#, calibrating=False):
+
         prevMissingPoint=self.missingPoint  #saves the previous missing point
         u = np.asmatrix(self.updated_state[:, -1]).transpose()
+
        # print dt, coordinates
         if self.num_variables == 4:
             self.Fk = np.array([[1, 0, dt, 0], [0, 1, 0, dt], [0, 0, 1, 0], [0, 0, 0, 1]])
@@ -156,16 +165,20 @@ class KFilter:
             m=self.add_measurement(dt, coordinates)
             #if the measured point is an outlier and the previous measurement is not missing
             if geom.distance(m, pred[0:2]) > self.confidenceInterval and not self.missingPoint:
+                #print self.Fk
+                #print "coordinates:%s u: %s, pred:%s dt:", coordinates, u[0:2], pred[0:2], dt
                 #print "outliers!!!!!!!!!!!!!"
                 self.missingPoint = True
             else:
+                #print self.Fk
+                #print "coordinates:%s u: %s, pred:%s dt:", coordinates, u[0:2], pred[0:2], dt
                 self.predictionCounter =0   #resets the predictionCounter
                 self.missingPoint = False
 
         else:
             self.missingPoint=True
         if self.missingPoint:
-            if not calibrating:
+            if not self.calibrating:
                 #if position guessing is enabled and there were no 10 consecutive predictions
                 if guessing_enabled and self.predictionCounter<self.maxPredictions:
                     #update the list with the prediction
@@ -190,7 +203,8 @@ class KFilter:
         # before update
         diff = m - self.Hk * pred
 
-        if calibrating:
+        #print self.calibrating
+        if self.calibrating:
             self.QCalib.append(self.Kgain*diff*diff.T*self.Kgain.T)
         # update
         updateval = pred + self.Kgain * diff

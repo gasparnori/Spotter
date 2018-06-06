@@ -202,8 +202,7 @@ class Spotter:
             if self.check_writer():
                 if self.recording:
                     self.writer_pipe.send(['record'])
-                    item = (copy.deepcopy(self.newest_frame),
-                            copy.deepcopy(messages))
+                    item = (copy.deepcopy(self.newest_frame), copy.deepcopy(messages))
                     self.writer_queue.put(item)
 #               time.sleep(0.001)  # required, or may crash?
 

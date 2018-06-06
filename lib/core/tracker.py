@@ -42,6 +42,7 @@ class Tracker:
     contour=None
     max_x=639
     max_y=379
+    fps=190.0
 
     def __init__(self, adaptive_tracking=False):
 
@@ -78,7 +79,7 @@ class Tracker:
             roi = trkbl.Shape('rectangle', None, None)
         else:
             roi = trkbl.Shape('rectangle', None, None)
-        led = trkbl.LED(label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi, self.max_x, self.max_y, filter_dim, R, Q, filtering_enabled, guessing_enabled)
+        led = trkbl.LED(label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi, self.max_x, self.max_y, filter_dim, R, Q, filtering_enabled, guessing_enabled, self.fps)
         self.leds.append(led)
         self.log.debug("Added feature %s", led)
         return led
@@ -136,6 +137,7 @@ class Tracker:
                 if m.shape== 'circle' and m.active:
                     cv2.circle(frame.img, m.p1, m.radius, (0, 0, 0), -1)
         return frame
+
     def track_feature(self, frame, method='hsv_thresh', scale=1.0, elapsedtime=5):
         """
         Intermediate method selecting tracking method and separating those
@@ -144,6 +146,7 @@ class Tracker:
         :param:scale
             Resize frame before tracking, computation decreases scale^2.
         """
+        self.fps=frame.fps
 
         self.scale = scale*1.0  # float
         if self.scale > 1.0:

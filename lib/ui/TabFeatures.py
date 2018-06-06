@@ -98,7 +98,7 @@ class Tab(QtGui.QWidget, Ui_tab_features):
         if len(self.spotter.tracker.leds) > 0:
             popup = QMessageBox.information(self, "Sensor calibration",
                                             "Please keep the LED's in a fixed position. The calibration takes less than a minute.",
-                                            QMessageBox.Ok)
+                                            QMessageBox.Ok, QMessageBox.Cancel)
             self.timerR = QtCore.QTimer()
             self.connect(self.timerR, QtCore.SIGNAL('timeout()'), self.sensorProg)
             self.timerR.start(self.speed)
@@ -199,11 +199,11 @@ class Tab(QtGui.QWidget, Ui_tab_features):
     def enableKF(self, state):
         if state:
             print "enabling kalman filter"
-            initpoint = self.feature.pos_hist[-1] if len(self.feature.pos_hist)>0 else None
+            initpoint = self.feature.pos_hist[-1] if len(self.feature.pos_hist) > 0 else None
             self.feature.kalmanfilter.start_filter(initpoint)
-            print "Rk", self.feature.kalmanfilter.Rk
-            print "Qk", self.feature.kalmanfilter.Qk
-            self.feature.filtering_enabled=True
+            # print "Rk", self.feature.kalmanfilter.Rk
+            # print "Qk", self.feature.kalmanfilter.Qk
+            self.feature.filtering_enabled = True
             self.ckb_prediction.setEnabled(True)
             #self.recalibrateBtn.setEnabled(True)
             self.enable_adaptive.setEnabled(True)
@@ -211,11 +211,12 @@ class Tab(QtGui.QWidget, Ui_tab_features):
 
         else:
             self.feature.filtering_enabled = False
+            self.feature.kalmanfilter.stop_filter()
             self.ckb_prediction.setEnabled(False)
             #self.recalibrateBtn.setEnabled(False)
             self.enable_adaptive.setEnabled(False)
             self.CalibQBtn.setEnabled(False)
-            self.feature.kalmanfilter.stop_filter()
+
     def adaptiveKF(self, state):
         self.feature.adaptiveKF=state
 

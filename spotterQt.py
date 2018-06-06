@@ -51,6 +51,7 @@ import logging
 import multiprocessing
 import cv2
 import matplotlib.pyplot as plt
+from lib import plotGraph
 
 
 from lib.docopt import docopt
@@ -123,7 +124,7 @@ class Main(QtGui.QMainWindow):
         #outputs the results for each object to a separate figure
         self.connect(self.ui.actionReset, QtCore.SIGNAL('triggered()'), self.reset_hist)
         #clears output history, and resets filters
-        self.connect(self.ui.actionGraph, QtCore.SIGNAL('toggled(bool)'), self.output_graph)
+        self.connect(self.ui.actionGraph, QtCore.SIGNAL('triggered()'), self.output_graph)
         #show action properties
         #self.connect(self.ui.actionSourceProperties, QtCore.SIGNAL('triggered()'),self.props)
         # Serial/Arduino Connection status indicator
@@ -283,31 +284,9 @@ class Main(QtGui.QMainWindow):
                 py = [p[1] if p is not None else 0 for p in o.pos_hist[(-1*n):]]
                 dir=o.dir_hist[(-1*n):]
                 speed=o.speed_hist[(-1*n):]
-                self.plotresults(px,py, speed, dir, ('figure'+str(k)))
+                plotGraph. PlotAllInOne(px,py, speed, dir, ('figure'+str(k)))
                 k=k+1
             plt.show()
-
-    def plotresults(self, px, py, speed, dir, title):
-        """plots the four analog outputs (x, y, speed, head direction) for an object into one figure"""
-        fig=plt.figure(title)
-        fig.add_subplot(221)
-        plt.title("coordinate X (pixel)")
-        plt.ylim([0, 640])
-        plt.plot(px)
-
-        fig.add_subplot(222)
-        plt.title("coordinate Y")
-        plt.ylim([0, 640])
-        plt.plot(py)
-
-        fig.add_subplot(223)
-        plt.title("speed (px/ms)")
-        plt.plot(speed)
-
-        fig.add_subplot(224)
-        plt.title("head direction (degrees)")
-        plt.ylim([0, 360])
-        plt.plot(dir)
 
     def start_log(self, state, filename=None):
         """ Writes a log file in txt with timestamps and locations"""

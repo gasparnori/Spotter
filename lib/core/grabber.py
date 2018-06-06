@@ -48,11 +48,12 @@ class Frame:
     """Container class for frames. Holds additional metadata aside from the
     actual image information."""
 
-    def __init__(self, index, img, source_type, timestamp=None):
+    def __init__(self, index, img, source_type, timestamp=None, fps=None):
         self.index = index
         self.img = img
         self.img_totrack=img
         self.source_type = source_type
+        self.fps=fps
         if timestamp is None:
             self.timestamp = time.time()
             self.tickstamp = int((1000*cv2.getTickCount())/cv2.getTickFrequency())
@@ -162,7 +163,8 @@ class Grabber:
                 if self.fps_init is not None:
                     self.log.debug("Setting fps of capture: {0}".format(float(self.fps_init)))
                     ########################################     not really working!!!    #############################
-                    self.fps=self.capture.get(cv2.cv.CV_CAP_PROP_FPS)#, float(self.fps_init))
+                    self.fps=self.capture.set(cv2.cv.CV_CAP_PROP_FPS, float(self.fps_init))
+
 
                 if self.size_init is not None:
                     if self.capture.get(cv2.cv.CV_CAP_PROP_FRAME_WIDTH) != self.size_init[0]:
@@ -174,7 +176,7 @@ class Grabber:
     def grab(self):
 
         if self.capture is None:
-            return Frame(0, default_background, None)
+            return Frame(0, default_background, self.source_type, None, None)
         # Only really loops for first frame
         n_tries = 10 if self.frame_count < 1 else 1
         for trial in xrange(2, n_tries+2):
@@ -205,7 +207,7 @@ class Grabber:
         #self.log.debug('returning frame')
 
         img=cv2.resize(img, (int(size_default[0]*scale), int(size_default[1]*scale)))
-        return Frame(self.frame_count, img, self.source_type)
+        return Frame(self.frame_count, img, self.source_type, None, None)
 
     def close(self):
         """Close and release frame source."""

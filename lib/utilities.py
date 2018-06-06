@@ -32,7 +32,7 @@ else:
     raise EnvironmentError("Operating system not recognized!")
 
 def get_mice():
-    return 'lib/mouse-sleeping.jpg'
+    return 'lib/ui/mice_background.jpg'
 ###############################################################################
 # These two methods are directly taken from Eli Bendersky's example code:
 # http://eli.thegreenplace.net/2009/07/31/listing-all-serial-ports-on-windows-with-python
