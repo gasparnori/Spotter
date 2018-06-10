@@ -214,7 +214,7 @@ void initPins() {
   // sleep flag turn to false
   sleepstate = false;
   // initialize serial connection
-  Serial.begin(57600);
+  Serial.begin(115200);
   // power pin turns on
   digitalWrite(powerPin, digitalRead(sleepPin));
   
@@ -293,6 +293,7 @@ void setLEDs() {
     }
     else {
       digitalWrite(LEDS[i], LOW);
+      setDAC(i, 0);
     }
   }
 }
