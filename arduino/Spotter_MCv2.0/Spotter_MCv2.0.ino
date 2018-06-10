@@ -44,12 +44,17 @@
 #define pin_SCK 52 //clock signal
 #define pin_MOSI 51 //data from Arduino to the DAC's
 
+// digital output pins: Regions of interest
+#define DOUT_N 4
+byte DOUT_pins[DOUT_N] = {45, 46, 48, 47};
+
 // SPI clients
 #define SPI_N_DEVS 4 // number of SPI clients
-#define LED_TIMEOUT 100 //this is how long it waits after a command from Spotter before the indicator LED turns off
+#define LED_TIMEOUT 200 //this is how long it waits after a command from Spotter before the indicator LED turns off
 byte SPI_pins[SPI_N_DEVS] = {37, 38, 39, 40};
 byte LEDS[SPI_N_DEVS] = {29, 28, 30, 31}; //indicator LED's on the MC box front panel
 int LEDtimeouts[SPI_N_DEVS] = {LED_TIMEOUT, LED_TIMEOUT, LED_TIMEOUT, LED_TIMEOUT}; //separate counter for each LED
+int  Dtimeouts[DOUT_N]= {LED_TIMEOUT, LED_TIMEOUT, LED_TIMEOUT, LED_TIMEOUT}; //separate counter for each Digital output
 
 #define SCALE_FACTOR (4096/640) //the coordinates from Spotter need to be multiplied by a scale factor before sent out to the DAC
 int scaledData = 0; //the maximum received number is 639, the max output is 4095  -->scale by six
@@ -60,9 +65,6 @@ int scaledData = 0; //the maximum received number is 639, the max output is 4095
 bool sleepstate = true;
 
 
-// digital output pins: Regions of interest
-#define DOUT_N 4
-byte DOUT_pins[DOUT_N] = {45, 46, 47, 48};
 
 //these variables are kept from the original code. They are used for interpreting commands from Spotter
 #define CMDADDR 0x07 // bits 1-3
@@ -285,6 +287,16 @@ void serialEvent() {
     interpretCommand();
   }
 }
+void setDigitals() {
+  for (int i = 0; i < DOUT_N; i++) {
+    if (Dtimeouts[i] > 0) {
+      Dtimeouts[i]--;
+    }
+    else {
+      digitalWrite(DOUT_pins[i], LOW);
+    }
+  }
+}
 
 void setLEDs() {
   for (int i = 0; i < SPI_N_DEVS; i++) {
@@ -345,6 +357,7 @@ void loop() {
   else { 
     digitalWrite(powerPin, digitalRead(sleepPin));  //turns the power pin up
     setLEDs();    //indicator LED control
+    //setDigitals();
     delay(1);
   }
 

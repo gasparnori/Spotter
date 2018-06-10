@@ -108,7 +108,6 @@ class Shape:
             s=1
         return (s==self.slope and self.active and x_in_interval and y_in_interval)
 
-
 class Mask:
     """ Geometrical shape that comprise Blind spots. Blind spots can be made of several
     independent shapes like two rectangles on either end of the track etc. Almost the same as the Shapes"""
@@ -129,7 +128,6 @@ class Mask:
         """ Calculate the radius of the circle. """
         return int(geom.distance(self.points[0], self.points[1]))
 
-
 class Feature:
     """ General class holding a feature to be tracked with whatever tracking
     algorithm is appropriate.
@@ -137,7 +135,6 @@ class Feature:
 
     def __init__(self):
         pass
-
 
 class LED(Feature):
     """ Each instance is a spot defined by ranges in a color space. """
@@ -244,6 +241,8 @@ class Slot:
         self.pin.slot = self
 
     def detach_pin(self):
+        print "we need to detach the signal here"
+        #self.pin.slot.state=False
         self.pin.slot = None
         self.pin = None
 
