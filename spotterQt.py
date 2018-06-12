@@ -283,10 +283,10 @@ class Main(QtGui.QMainWindow):
                 px = [p[0] if p is not None else 0 for p in o.pos_hist[(-1*n):]]
                 py = [p[1] if p is not None else 0 for p in o.pos_hist[(-1*n):]]
                 dir=o.dir_hist[(-1*n):]
-                speed=o.speed_hist[(-1*n):]
+                speed=[p if p is not None else 0 for p in o.speed_hist[(-1*n):]]
                 plotGraph. PlotAllInOne(px,py, speed, dir, ('figure'+str(k)))
                 k=k+1
-            plt.show()
+
 
     def start_log(self, state, filename=None):
         """ Writes a log file in txt with timestamps and locations"""

@@ -371,6 +371,9 @@ class ObjectOfInterest:
     def getLinkedLEDs(self):
         return self.linked_leds
     def addLinkedLED(self, led):
+        self.pos_hist=[] #resets position history
+        self.dir_hist=[] #resets direction history
+        self.speed_hist=[] #resets speed history
         self.linked_leds.append(led)
     def removeLinkedLED(self, led):
         try:
@@ -396,7 +399,6 @@ class ObjectOfInterest:
                 ds=geom.distance(self.pos_hist[-1], self.pos_hist[-2])
                 dt= elapsedtime
                 #print "dt: ",dt, "ds: ", ds
-                self.speed_hist.append(self.sp)
                 self.sp=ds/dt
                 #print "v: ", self.sp
             elif len(self.speed_hist>0) and self.speed_hist[-1] is not None:
@@ -405,6 +407,7 @@ class ObjectOfInterest:
                 """Return movement speed in pixel/s."""
                 dt = self.stopwatch.restart()
                 self.sp=None
+            self.speed_hist.append(self.sp)
             return self.sp
         except TypeError:
             return None

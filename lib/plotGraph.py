@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns
+#import seaborn as sns
 
 
 def plotAllResults(px, py, speed, dir, title):
@@ -24,17 +24,22 @@ def plotAllResults(px, py, speed, dir, title):
     plt.title("head direction (degrees)")
     plt.ylim([0, 360])
     plt.plot(dir)
+    plt.show()
 
 def PlotAllInOne(px, py, speed, dir, title):
     fig = plt.figure(title)
+    fig.add_subplot(211)
     plt.ylim([0, 640])
     plt.plot(px, 'b')
     plt.plot(py, 'g')
     plt.plot(speed, 'r')
-    d = np.zeros(shape=(20, len(dir)))
-    d[:, :] = np.asmatrix(dir)
-    heatmap=plt.imshow(d, cmap='hsv')
-    plt.colorbar(heatmap)
+    if len(dir)>0:
+        fig.add_subplot(212)
+        d = np.zeros(shape=(20, len(dir)))
+        d[:, :] = np.asmatrix(dir)
+        heatmap=plt.imshow(d, cmap='hsv')
+        plt.colorbar(heatmap)
+    plt.show()
 
 def heatmap(dir):
     d=np.zeros(shape=(20, len(dir)))
