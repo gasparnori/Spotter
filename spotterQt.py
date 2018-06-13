@@ -279,12 +279,13 @@ class Main(QtGui.QMainWindow):
         if len(self.spotter.tracker.oois)>0:
             k=0
             for o in self.spotter.tracker.oois:
-                n = min(100000, len(o.pos_hist))
+                n = min(4000, len(o.pos_hist))
+                txt="Total number of frames: "+str(len(o.pos_hist[(-1*n):]))+ " Number of missed frames: "+str(o.pos_hist[(-1*n):].count(None))
                 px = [p[0] if p is not None else 0 for p in o.pos_hist[(-1*n):]]
                 py = [p[1] if p is not None else 0 for p in o.pos_hist[(-1*n):]]
                 dir=o.dir_hist[(-1*n):]
                 speed=[p if p is not None else 0 for p in o.speed_hist[(-1*n):]]
-                plotGraph. PlotAllInOne(px,py, speed, dir, ('figure'+str(k)))
+                plotGraph. PlotAllInOne(px,py, speed, dir, ('figure'+str(k)), txt)
                 k=k+1
 
 

@@ -394,22 +394,26 @@ class ObjectOfInterest:
         return self.sp   #only returns the value without recalculating it
 
     def speed(self, elapsedtime):
+        """Return movement speed in pixel/s."""
         try:
-            if len(self.pos_hist)>1 and self.pos_hist[-1] is not None and self.pos_hist[-2] is not None:
-                ds=geom.distance(self.pos_hist[-1], self.pos_hist[-2])
-                dt= elapsedtime
-                #print "dt: ",dt, "ds: ", ds
-                self.sp=ds/dt
-                #print "v: ", self.sp
-            elif len(self.speed_hist>0) and self.speed_hist[-1] is not None:
-                self.sp=self.speed_hist[0]
+            if len(self.pos_hist)>=2:
+                if self.pos_hist[-1] is not None and self.pos_hist[-2] is not None:
+                    #calculate speed
+                    ds=geom.distance(self.pos_hist[-1], self.pos_hist[-2])
+                    dt= elapsedtime
+                    self.sp=ds/dt
+                elif len(self.speed_hist>0):
+                    # if the previous one was a valid value, this one will be too, if not, it will be None too
+                    self.sp=self.speed_hist[-1]
+                else:
+                    self.sp=None
             else:
-                """Return movement speed in pixel/s."""
-                dt = self.stopwatch.restart()
-                self.sp=None
+                self.sp = None
             self.speed_hist.append(self.sp)
             return self.sp
         except TypeError:
+            self.sp=None
+            self.speed_hist.append(self.sp)
             return None
 
     def getDirection(self):
