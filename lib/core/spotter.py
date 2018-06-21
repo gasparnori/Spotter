@@ -155,17 +155,17 @@ class Spotter:
             #add an area to ignore
             self.newest_frame=self.tracker.mask_blindspots(self.newest_frame)
             # Find and update position of tracked object
-            self.tracker.track_feature(self.newest_frame, method='hsv_thresh',
+            self.tracker.track_marker(self.newest_frame, method='hsv_thresh',
                                        scale=self.scale_tracking, elapsedtime=self.spotterelapsed)
 
             messages = []
             # Update positions of all objects
             for o in self.tracker.oois:
-                #calculates feature position from LED's to object
+                #calculates marker position from LED's to object
                 #with the kalman filter: updates the coordinates of the object after smoothing, predicts missing coordinates
                 o.update_state(self.spotterelapsed)
 
-                #updates the velocity and head direction based on the coordinates
+                #updates the velocity and direction values on the coordinates and the frame to frame interval
                 o.update_values(self.spotterelapsed)
 
                 #updates the output values to the Arduino
@@ -178,7 +178,8 @@ class Spotter:
                                            str(o.position)]))
                 #print o.linked_slots
             logobjects.append([self.newest_frame.time_text,[(str(o.label), str(o.getPositionX()),
-                               str(o.getPositionY()), str(o.getSpeed()), str(o.getDirection()),
+                               str(o.getPositionY()), str(o.getSpeed()), str(o.getOrientation()),
+                               str(o.getPositionY()), str(o.getSpeed()), str(o.getOrientation()),
                                [(str(l.label), str(l.position)) for l in o.getLinkedLEDs()]) for o in self.tracker.oois]])
 
             for l in self.tracker.leds:

@@ -142,6 +142,13 @@ def distance(p1, p2):
     else:
         return None
 
+def angle(p1, p2):
+    if p1 is not None and p2 is not None:
+        dx = (p2[0]-p1[0]) * 1.0  # x2-x1
+        dy = (p2[1]-p1[1]) * 1.0
+        return int(math.fmod(math.degrees(math.atan2(dy, dx)) + 180, 360))
+    else:
+        return None
 
 def perp(a):
     """Line segment intersection using vectors. Modified and taken from:

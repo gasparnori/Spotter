@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>tab_features</class>
- <widget class="QWidget" name="tab_features">
+ <class>tab_markers</class>
+ <widget class="QWidget" name="tab_markers">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -33,13 +33,13 @@
        <property name="tabSpacing">
         <number>0</number>
        </property>
-       <widget class="QWidget" name="page_feature_detection">
+       <widget class="QWidget" name="page_marker_detection">
         <property name="geometry">
          <rect>
           <x>0</x>
           <y>0</y>
           <width>811</width>
-          <height>569</height>
+          <height>553</height>
          </rect>
         </property>
         <attribute name="label">
@@ -482,8 +482,6 @@
              <property name="title">
               <string>Filter Settings</string>
              </property>
-             <zorder>ckb_prediction</zorder>
-             <zorder>enable_adaptive</zorder>
             </widget>
            </item>
            <item>
@@ -557,8 +555,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>158</width>
-          <height>86</height>
+          <width>811</width>
+          <height>553</height>
          </rect>
         </property>
         <attribute name="label">

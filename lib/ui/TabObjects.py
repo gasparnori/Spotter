@@ -32,17 +32,17 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
             self.label = label
             self.object.label = label
 
-        self.all_features = self.spotter.tracker.leds
+        self.all_markers = self.spotter.tracker.leds
         self.all_regions = self.spotter.tracker.rois
 
-        self.populate_feature_list()
-        self.connect(self.tree_link_features, QtCore.SIGNAL('itemChanged(QTreeWidgetItem *, int)'), self.feature_item_changed)
+        self.populate_marker_list()
+        self.connect(self.tree_link_markers, QtCore.SIGNAL('itemChanged(QTreeWidgetItem *, int)'), self.marker_item_changed)
 
         self.connect(self.ckb_track, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
         self.connect(self.ckb_trace, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
         self.connect(self.ckb_analog_pos, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
 
-        #Since the Kalman filter is implemented on the Feature level, this function is unnecessary
+        #Since the Kalman filter is implemented on the marker level, this function is unnecessary
        # self.connect(self.ckb_guessing, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
 
         #self.connect(self.btn_lock_table, QtCore.SIGNAL('toggled(bool)'), self.lock_slot_table)
@@ -56,7 +56,7 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
             self.log.debug("Updating empty tab")
             return
 
-        self.refresh_feature_list()
+        self.refresh_marker_list()
         self.refresh_slot_table()
         #if not self.ckb_guessing.isChecked()==self.object.guessing_enabled:        #---not sure how is it supposed to work, but it doesn't
         #    self.ckb_guessing.setChecked(self.object.guessing_enabled)
@@ -70,13 +70,15 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
         if not self.ckb_analog_pos.isChecked() == self.object.analog_pos:
             self.ckb_analog_pos.setChecked(self.object.analog_pos)
 
-        self.lbl_x.setText('---' if self.object.getPositionX() is None else "%.0f px" % self.object.getPositionX())
-        self.lbl_y.setText('---' if self.object.getPositionY() is None else "%.0f px" % self.object.getPositionY())
+        self.lbl_x.setText('---   ' if self.object.getPositionX() is None else "%.0f px" % self.object.getPositionX())
+        self.lbl_y.setText('---   ' if self.object.getPositionY() is None else "%.0f px" % self.object.getPositionY())
 
-        self.lbl_speed.setText('---' if self.object.getSpeed() is None else "%.1f px/ms" % self.object.getSpeed())
-
-        self.dial_direction.setValue(self.dial_direction.value() if self.object.getDirection() is None
-                                     else self.object.getDirection())
+        self.lbl_speed.setText('---   ' if self.object.getSpeed() is None else "%.2f px/ms" % self.object.getSpeed())
+        self.lbl_angularv.setText('---   ' if self.object.getAngVel() is None else "%.2f deg/ms" % self.object.getAngVel())
+        self.lbl_head_orientation.setText('---   ' if self.object.getOrientation() is None else "%.0f deg" % self.object.getOrientation())
+        self.lbl_movement_dir.setText('---   ' if self.object.getMovementDir() is None else "%.0f deg" % self.object.getMovementDir())
+        # self.dial_direction.setValue(self.dial_direction.value() if self.object.getOrientation() is None
+        #                              else self.object.getOrientation())
 
     def update_object(self):
         if self.label is None:
@@ -91,77 +93,77 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
         pass
 
 ###############################################################################
-## FEATURE LIST
+## MARKER LIST
 ###############################################################################
-    def populate_feature_list(self):
-        """Initial population of feature list, without adding to linked_leds"""
+    def populate_marker_list(self):
+        """Initial population of marker list, without adding to linked_leds"""
         for f in self.object.linked_leds:
-            feature_item = QtGui.QTreeWidgetItem([f.label])
-            feature_item.feature = f
-            feature_item.setCheckState(0, QtCore.Qt.Checked)
-            self.tree_link_features.addTopLevelItem(feature_item)
-            feature_item.setFlags(feature_item.flags() | QtCore.Qt.ItemIsEditable)
+            marker_item = QtGui.QTreeWidgetItem([f.label])
+            marker_item.marker = f
+            marker_item.setCheckState(0, QtCore.Qt.Checked)
+            self.tree_link_markers.addTopLevelItem(marker_item)
+            marker_item.setFlags(marker_item.flags() | QtCore.Qt.ItemIsEditable)
 
-    def refresh_feature_list(self):
+    def refresh_marker_list(self):
         """
-        Compare the content of the list of all available features with the
-        current content of the feature tree/list widget. If anything is there
+        Compare the content of the list of all available markers with the
+        current content of the marker tree/list widget. If anything is there
         that shouldn't be, remove it, if something is missing, add it.
         """
         remove = []
         listed = []
-        for idx in xrange(self.tree_link_features.topLevelItemCount()):
-            list_item = self.tree_link_features.topLevelItem(idx)
-            if not list_item.feature in self.all_features:
+        for idx in xrange(self.tree_link_markers.topLevelItemCount()):
+            list_item = self.tree_link_markers.topLevelItem(idx)
+            if not list_item.marker in self.all_markers:
                 remove.append(idx)
-                self.unlink_feature(list_item.feature)
-                self.log.debug("Should remove feature %s", remove[-1])
+                self.unlink_marker(list_item.marker)
+                self.log.debug("Should remove marker %s", remove[-1])
             else:
-                listed.append(list_item.feature)
+                listed.append(list_item.marker)
 
-        [self.remove_feature(idx) for idx in remove]
-        [self.add_feature(f) for f in self.all_features if f not in listed]
+        [self.remove_marker(idx) for idx in remove]
+        [self.add_marker(f) for f in self.all_markers if f not in listed]
 
-    def feature_item_changed(self, item, column):
+    def marker_item_changed(self, item, column):
         """ Checks for differences in checkbox states and linked items.
         If any item in the tree widget is changed, which should only be
         the case if the user checks/unchecks a checkbox to link/unlink a
-        feature.
+        marker.
         """
         leds = self.object.getLinkedLEDs()
-        feature_is_linked = (item.feature in leds)
-        if not item.checkState(column) == feature_is_linked:
+        marker_is_linked = (item.marker in leds)
+        if not item.checkState(column) == marker_is_linked:
             if item.checkState(column):
-                self.link_feature(item.feature)
+                self.link_marker(item.marker)
             else:
-                self.unlink_feature(item.feature)
-        if not item.feature.label == item.text(0):
-            item.feature.label = item.text(0)
+                self.unlink_marker(item.marker)
+        if not item.marker.label == item.text(0):
+            item.marker.label = item.text(0)
 
-    def add_feature(self, f):
-        """ Add feature to feature list. """
+    def add_marker(self, f):
+        """ Add marker to marker list. """
         leds=self.object.getLinkedLEDs()
-        feature_item = QtGui.QTreeWidgetItem([f.label])
-        feature_item.feature = f
-        if feature_item.feature in leds:
-            feature_item.setCheckState(0, QtCore.Qt.Checked)
+        marker_item = QtGui.QTreeWidgetItem([f.label])
+        marker_item.marker = f
+        if marker_item.marker in leds:
+            marker_item.setCheckState(0, QtCore.Qt.Checked)
         else:
-            feature_item.setCheckState(0, QtCore.Qt.Unchecked)
-        self.tree_link_features.addTopLevelItem(feature_item)
-        feature_item.setFlags(feature_item.flags() | QtCore.Qt.ItemIsEditable)
+            marker_item.setCheckState(0, QtCore.Qt.Unchecked)
+        self.tree_link_markers.addTopLevelItem(marker_item)
+        marker_item.setFlags(marker_item.flags() | QtCore.Qt.ItemIsEditable)
 
-    def remove_feature(self, idx):
-        """ Remove feature from feature list. """
-        self.tree_link_features.takeTopLevelItem(idx)
+    def remove_marker(self, idx):
+        """ Remove marker from marker list. """
+        self.tree_link_markers.takeTopLevelItem(idx)
 
-    def link_feature(self, feature):
-        """ Link the object to the feature. """
-        self.object.addLinkedLED(feature)
+    def link_marker(self, marker):
+        """ Link the object to the marker. """
+        self.object.addLinkedLED(marker)
 
-    def unlink_feature(self, feature):
-        """ Remove a specific feature from the list. """
+    def unlink_marker(self, marker):
+        """ Remove a specific marker from the list. """
         try:
-            self.object.removeLinkedLED(feature)
+            self.object.removeLinkedLED(marker)
         except ValueError:
             pass
 

@@ -9,7 +9,7 @@ call pyuic4 tab_calibrationUi.ui -o tab_calibrationUi.py
 call pyuic4 tab_objectsUi.ui -o tab_objectsUi.py
 call pyuic4 tab_regionsUi.ui -o tab_regionsUi.py
 call pyuic4 tab_blindspotUi.ui -o tab_blindspotUi.py
-call pyuic4 tab_featuresUi.ui -o tab_featuresUi.py
+call pyuic4 tab_markersUi.ui -o tab_markersUi.py
 call pyuic4 CalibPopUp.ui -o CalibPopUp.py
 call pyuic4 main_tab_pageUi.ui -o main_tab_pageUi.py
 

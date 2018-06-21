@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
@@ -281,12 +282,20 @@ class Main(QtGui.QMainWindow):
             for o in self.spotter.tracker.oois:
                 n = min(4000, len(o.pos_hist))
                 txt="Total number of frames: "+str(len(o.pos_hist[(-1*n):]))+ " Number of missed frames: "+str(o.pos_hist[(-1*n):].count(None))
+                txt2 = "Total number of frames: " + str(len(o.pos_hist[(-1 * n):])) + " Number of missed head orientations: " + str(
+                    o.orientation_hist[(-1 * n):].count(None))
                 px = [p[0] if p is not None else 0 for p in o.pos_hist[(-1*n):]]
                 py = [p[1] if p is not None else 0 for p in o.pos_hist[(-1*n):]]
-                dir=o.dir_hist[(-1*n):]
+                orientation=o.orientation_hist[(-1*n):]
                 speed=[p if p is not None else 0 for p in o.speed_hist[(-1*n):]]
-                plotGraph. PlotAllInOne(px,py, speed, dir, ('figure'+str(k)), txt)
+                mov_dir=o.mov_dir_hist[(-1*n):]
+                ang_vel=[p if p is not None else 0 for p in o.ang_vel_hist[(-1*n):]]
+                #plotGraph.PlotFirstOrder(px, py, orientation, ('figure '+str(k)), txt)
+                #plotGraph.PlotSecondOrder(speed,  mov_dir, ang_vel, ('figure ' + str(k)), txt)
+                #plotGraph.PlotAll(px,py, speed, orientation, mov_dir, ang_vel, ('figure '+str(k)), txt)
+                plotGraph.PlotAllInOne(px,py, speed, orientation, mov_dir, ang_vel, ('figure '+str(k)), txt, txt2)
                 k=k+1
+            plt.show()
 
 
     def start_log(self, state, filename=None):
@@ -491,7 +500,7 @@ class Main(QtGui.QMainWindow):
             abs_pos = template['TEMPLATE']['absolute_positions']
 
             for f_key, f_val in template['FEATURES'].items():
-                self.side_bar.add_feature(f_val, f_key, focus_new=False)
+                self.side_bar.add_marker(f_val, f_key, focus_new=False)
 
             for o_key, o_val in template['OBJECTS'].items():
                 self.side_bar.add_object(o_val, o_key, focus_new=False)
