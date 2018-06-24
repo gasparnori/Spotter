@@ -81,13 +81,26 @@ Installation
 
 Download and extract the zip file
 
-**Compiling GUI on Windows**
+Hardware and Arduino
+--------------------
+
+If you are using an Arduino Mega for analog output, update the newest arduino file. Each time you use the system, make sure that the right port is connected, and that the Arduino software is up-to-date.
+	
+	/arduino/Spotter_MC_v2.0
+
+The custom PCB files and the schematics are available in the /arduino/hardware folders.
+
+
+Compiling GUI (for developer)
+-------------
+
+**Windows**
 
 _Run the following file:_
 
 	/lib/ui/build_windows.bat
 
-**Compiling GUI on Linux**
+**Linux**
 
 _Download and install PyQt4 development tools_
 
