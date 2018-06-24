@@ -73,6 +73,10 @@ Install required packages by downlaoding and innstalling following binaries
     python-numpy
     python-scipy
     python-qt4-gl
+    python-serial
+    python-opencv
+    python-matplotlib
+    python-opengl
 
 Installation
 ------------
@@ -85,6 +89,12 @@ Installation
 
 Download and extract the zip file
 
+
+**Compiling GUI on Linux**
+sudo apt-get install pyqt4-dev-tools qt4-designer
+chmod +x lib/ui/build_linux.sh
+cd lib/ui
+./build_linux.sh
 
 
 
