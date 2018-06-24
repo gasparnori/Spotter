@@ -61,8 +61,23 @@ Download and install XVID codec from [here](https://www.xvid.com/download/)
 
 **MaxOSX**
 
-*Stand by.*
-*Install XCode, install MacPorts. Install py27- packages.*
+*Install XCode*
+*install MacPorts.*
+	
+	sudo port -v selfupdate
+
+
+*Install py27- packages.*
+
+	sudo port install py27-opengl
+	sudo port install py27-numpy
+	sudo port install py27-scipy
+	sudo port install py27-matplotlib
+	sudo port install py27-serial
+	sudo port install opencv +python27
+	sudo port install py27-pyqt4
+
+
 
 **LINUX**
 
