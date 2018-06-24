@@ -28,14 +28,6 @@ Tested on Windows 7
 
 **Windows**
 
-The simplest, but not very lightweight method for installing all
-requirements is to download the [PythonXY](http://code.google.com/p/pythonxy/wiki/Downloads)
-distribution and perform a  "full" installation. Alternatively, a custom
-installation is enough if all required packages are selected.
-
-TODO: The opencv package distributed in python XY can not decode most videos. Install without,
-and grab from e.g. grohlke (see below).
-
 _Bare install:_
 Download and install Python 2.7 32bit
 
@@ -89,12 +81,18 @@ Installation
 
 Download and extract the zip file
 
+**Compiling GUI on Windows**
+	Run the following file:
+	/lib/ui/build_windows.bat
 
 **Compiling GUI on Linux**
-sudo apt-get install pyqt4-dev-tools qt4-designer
-chmod +x lib/ui/build_linux.sh
-cd lib/ui
-./build_linux.sh
+
+	Download and install PyQt4 development tools
+	sudo apt-get install pyqt4-dev-tools qt4-designer
+	Run the build_linux.sh file
+	chmod +x lib/ui/build_linux.sh
+	cd lib/ui
+	./build_linux.sh
 
 
 
