@@ -84,6 +84,7 @@ Download and extract the zip file
 **Compiling GUI on Windows**
 
 _Run the following file:_
+
 	/lib/ui/build_windows.bat
 
 **Compiling GUI on Linux**
