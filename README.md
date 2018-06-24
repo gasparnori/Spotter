@@ -28,14 +28,14 @@ Tested on Windows 7
 
 **Windows**
 
-_Bare install:_
-Download and install Python 2.7 32bit
+*Python installation:*
 
-Add python to the PATH variable by appending 
+Download and install Python 2.7 32bit
+Add python to the PATH variable by appending the lines below under MyComputer->Properties->Advanced->Env Variables->Path
 
     ;C:\Python27\;C:\Python27\Scripts
 
-under MyComputer->Properties->Advanced->Env Variables->Path
+*Installing packages:*
     
 Install required packages by downlaoding and innstalling following binaries
 (choose win32-py2.7 links) in order:
@@ -46,15 +46,21 @@ Install required packages by downlaoding and innstalling following binaries
     http://www.lfd.uci.edu/~gohlke/pythonlibs/#pyserial
 
 *OpenCV*
-	Install OpenCV 2.4+ with prebuilt libraries, and follow the relevant [installation steps](https://docs.opencv.org/2.4/doc/tutorials/introduction/windows_install/windows_install.html)
+
+Install OpenCV 2.4+ with prebuilt libraries, and follow the relevant [installation steps](https://docs.opencv.org/2.4/doc/tutorials/introduction/windows_install/windows_install.html)
 	Go to opencv/build/python/2.7/x86 folder.
 	Copy cv2.pyd to C:/Python27/lib/site-packages.
 
 *PyQt4*
-	Download prebuilt PyQt4 (PyQt4-4.10-gpl-Py2.7-Qt4.8.4-x32.exe) from [here](https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.10/)
 
+Download prebuilt PyQt4 (PyQt4-4.10-gpl-Py2.7-Qt4.8.4-x32.exe) from [here](https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.10/)
+
+*Video Codec*
+
+Download and install XVID codec from [here](https://www.xvid.com/download/)
 
 **MaxOSX**
+
 *Stand by.*
 *Install XCode, install MacPorts. Install py27- packages.*
 
@@ -91,7 +97,7 @@ If you are using an Arduino Mega for analog output, update the newest arduino fi
 The custom PCB files and the schematics are available in the /arduino/hardware folders.
 
 
-Compiling GUI (for developer)
+Compiling GUI (for developers)
 -------------
 
 **Windows**
