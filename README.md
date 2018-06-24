@@ -82,14 +82,18 @@ Installation
 Download and extract the zip file
 
 **Compiling GUI on Windows**
-	Run the following file:
+
+_Run the following file:_
 	/lib/ui/build_windows.bat
 
 **Compiling GUI on Linux**
 
-	Download and install PyQt4 development tools
+_Download and install PyQt4 development tools_
+
 	sudo apt-get install pyqt4-dev-tools qt4-designer
-	Run the build_linux.sh file
+	
+_Run the build_linux.sh file_
+
 	chmod +x lib/ui/build_linux.sh
 	cd lib/ui
 	./build_linux.sh
