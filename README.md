@@ -66,6 +66,10 @@ Download and install XVID codec from [here](https://www.xvid.com/download/)
 	
 	sudo port -v selfupdate
 
+cp /usr/local/opt/opencv@2/lib/python2.7/site-packages/cv2.so /usr/local/lib/python2.7/site-packages/
+
+https://stackoverflow.com/questions/34853220/cannot-import-cv2-in-python-in-osx
+
 
 *Install py27- packages.*
 
