@@ -190,7 +190,7 @@ class KFilter:
                     ypred=int(round(pred[1,0])) if round(pred[1,0])>0 and round(pred[1,0])<self.max_y else None
 
                     if xpred is not None and ypred is not None:
-                        self.log.debug("predicting missing value")
+                        #self.log.debug("predicting missing value")
                        # print 'Missing value nr. ', self.predictionCounter, '. Predicted: ', (pred[0,0],  pred[1,0]), 'updated: ', (xpred, ypred)
                         return (xpred, ypred)
                     else:

@@ -43,7 +43,6 @@ GUI_REFRESH_INTERVAL = 20
 SPOTTER_REFRESH_INTERVAL = 5
 POSITION_GUESSING_ENABLED=False
 
-
 import sys
 import os
 import platform
@@ -51,9 +50,7 @@ import time
 import logging
 import multiprocessing
 import cv2
-import matplotlib.pyplot as plt
 from lib import plotGraph
-
 
 from lib.docopt import docopt
 from lib.configobj import configobj, validate
@@ -277,25 +274,8 @@ class Main(QtGui.QMainWindow):
     def output_graph(self):
         """plots the four analog outputs (x, y, speed, head direction) for each object into separate figures"""
         self.ui.actionGraph.setChecked(False)
-        if len(self.spotter.tracker.oois)>0:
-            k=0
-            for o in self.spotter.tracker.oois:
-                n = min(4000, len(o.pos_hist))
-                txt="Total number of frames: "+str(len(o.pos_hist[(-1*n):]))+ " Number of missed frames: "+str(o.pos_hist[(-1*n):].count(None))
-                txt2 = "Total number of frames: " + str(len(o.pos_hist[(-1 * n):])) + " Number of missed head orientations: " + str(
-                    o.orientation_hist[(-1 * n):].count(None))
-                px = [p[0] if p is not None else 0 for p in o.pos_hist[(-1*n):]]
-                py = [p[1] if p is not None else 0 for p in o.pos_hist[(-1*n):]]
-                orientation=o.orientation_hist[(-1*n):]
-                speed=[p if p is not None else 0 for p in o.speed_hist[(-1*n):]]
-                mov_dir=o.mov_dir_hist[(-1*n):]
-                ang_vel=[p if p is not None else 0 for p in o.ang_vel_hist[(-1*n):]]
-                #plotGraph.PlotFirstOrder(px, py, orientation, ('figure '+str(k)), txt)
-                #plotGraph.PlotSecondOrder(speed,  mov_dir, ang_vel, ('figure ' + str(k)), txt)
-                #plotGraph.PlotAll(px,py, speed, orientation, mov_dir, ang_vel, ('figure '+str(k)), txt)
-                plotGraph.PlotAllInOne(px,py, speed, orientation, mov_dir, ang_vel, ('figure '+str(k)), txt, txt2)
-                k=k+1
-            plt.show()
+        plotGraph.Plot_All(self.spotter.tracker.oois)
+
 
 
     def start_log(self, state, filename=None):

@@ -15,7 +15,7 @@ import numpy as np
 import lib.kalmanfilter as kfilter
 
 SENSITIVITY = 0
-
+HIST_BUFFER=5000    #number of values to be saved in the history arrays
 
 
 class Shape:
@@ -274,6 +274,7 @@ class ObjectOfInterest:
         self.label = label
         self.traced = traced
         self.tracked = tracked
+
         #position history (x,y)
         self.pos_hist = []
         #head orientation history
@@ -284,12 +285,14 @@ class ObjectOfInterest:
         self.ang_vel_hist=[]
         #movement direction history
         self.mov_dir_hist=[]
+        #elapsed time history
+        self.time_hist=[]
 
         #self.orientation_coord_hist = []
         #self.guessing_enabled=False
         self.max_x=max_x
         self.max_y=max_y
-        self.headorientation=None
+        #self.headorientation=None
 
         # the slots for these properties/signals are greedy for pins
         if magnetic_signals is None:
@@ -353,7 +356,16 @@ class ObjectOfInterest:
             return
         marker_positions = [f.pos_hist[-1] for f in self.linked_leds if len(f.pos_hist)]
         temp_position=geom.middle_point(marker_positions)
+        #works as a FIFO
+        if len(self.pos_hist)>=HIST_BUFFER:
+            #pops the first element
+            self.pos_hist=self.pos_hist[1:]
         self.pos_hist.append(temp_position)
+
+        if len(self.time_hist)>=HIST_BUFFER:
+            self.time_hist=self.time_hist[1:]
+        self.time_hist.append(elapsedtime)
+
 
     @property
     def position(self):
@@ -365,7 +377,7 @@ class ObjectOfInterest:
          else:
              return None
 
-    #not used after the kalman filter was implemented
+    #This function is not in use
     @property
     def position_guessed(self):
         """Get position based on history. Could allow for fancy filtering etc."""
@@ -375,16 +387,13 @@ class ObjectOfInterest:
         return self.linked_leds
 
     def addLinkedLED(self, led):
-        self.pos_hist=[] #resets position history
-        self.orientation_hist=[] #resets direction history
-        self.speed_hist=[] #resets speed history
-        self.mov_dir_hist=[]
-        self.ang_vel_hist=[]
+        self.reset()
         self.linked_leds.append(led)
 
     def removeLinkedLED(self, led):
         try:
             self.linked_leds.remove(led)
+            self.reset()
         except ValueError:
             pass
 
@@ -398,7 +407,11 @@ class ObjectOfInterest:
 
     def getSpeed(self):
         """ Helper method to provide chatter with function reference for slot updates"""
-        return self.sp   #only returns the value without recalculating it
+        if len(self.speed_hist)>1:
+            return self.speed_hist[-1]
+        else:
+            return None
+        #return self.sp   #only returns the value without recalculating it
 
     def velocity(self, elapsedtime):
         """Return movement speed in pixel/s."""
@@ -419,14 +432,19 @@ class ObjectOfInterest:
             else:
                 self.sp = None
                 self.movdir=None
-            self.speed_hist.append(self.sp)
-            self.mov_dir_hist.append(self.movdir)
-            return self.sp
+
         except TypeError:
             self.sp=None
+            self.movdir=None
+        finally:
+            # works as a FIFO
+            if len(self.speed_hist) >= HIST_BUFFER:
+                self.speed_hist = self.speed_hist[1:]
             self.speed_hist.append(self.sp)
-            self.mov_dir_hist.append(None)
-            return None
+                # works as a FIFO
+            if len(self.mov_dir_hist) >= HIST_BUFFER:
+                self.mov_dir_hist = self.mov_dir_hist[1:]
+            self.mov_dir_hist.append(self.movdir)
 
     def angularVelocity(self, elapsedtime):
         angvel=None
@@ -434,6 +452,8 @@ class ObjectOfInterest:
             if self.orientation_hist[-1] is not None and self.orientation_hist[-2] is not None:
                 angvel=(self.orientation_hist[-1]-self.orientation_hist[-2])/elapsedtime
 
+        if len(self.ang_vel_hist) >= HIST_BUFFER:
+            self.ang_vel_hist = self.ang_vel_hist[1:]
         self.ang_vel_hist.append(angvel)
 
     def getAngVel(self):
@@ -457,17 +477,19 @@ class ObjectOfInterest:
 
     def orientation(self):
         """
-        Calculate direction of the object.
+        Calculate orientation of the object.
 
-        If one marker, direction is not None if speed > v_threshold in px/s
-        If two markers, calculate heading relative to normal of markers.
+        The function only calculate orientation for two markers.
+        If there is only one, or more than two, it doesn't return a result.
+        If there are exactly two markers, it calculates angle
+         relative to normal of markers.
 
         This assumes the alignment of markers is constant.
         """
-        # TODO: Direction based on movement if only one marker
         # TODO: Calculate angle when having multiple markers
+        headorientation = None
         try:
-            self.headorientation=None
+            #only calculating head orientation if there are at least two linked LED's
             if not self.tracked or self.linked_leds is None or len(self.linked_leds) != 2:
                 return None
 
@@ -480,19 +502,23 @@ class ObjectOfInterest:
 
                 dx = (marker_coords[1][0] - marker_coords[0][0]) * 1.0  # x2-x1
                 dy = (marker_coords[1][1] - marker_coords[0][1]) * 1.0  # y2-y1
-                self.headorientation = int(math.fmod(math.degrees(math.atan2(dx, dy)) + 180, 360))  # math.atan2(x2-x1, y2-y1)
+                headorientation = int(math.fmod(math.degrees(math.atan2(dx, dy)) + 180, 360))  # math.atan2(x2-x1, y2-y1)
 
             ####################################################################################################################################
            # elif len(self.orientation_hist) > 0 and self.orientation_hist[-1] is not None:
-           #     self.headorientation = self.orientation_hist[-1]
+           #     headorientation = self.orientation_hist[-1]
             #else:
                # print "one of the LED values are missing"
 
-            self.orientation_hist.append(self.headorientation)
+
         except TypeError:
-            self.headorientation = None
-            self.orientation_hist.append(None)
-        return self.headorientation
+            headorientation = None
+
+        finally:
+            if len(self.orientation_hist)>=HIST_BUFFER:
+                self.orientation_hist=self.orientation_hist[1:]
+            self.orientation_hist.append(headorientation)
+        return headorientation
 
     @property
     def linked_slots(self):
@@ -505,14 +531,13 @@ class ObjectOfInterest:
         return [slot for slot in self.slots if slot.pin]
 
     def reset(self):
-        #reset deletes the memory, but keeps the last five coordinates
+        #reset deletes the object's history
         self.pos_hist=[]
         self.orientation_hist=[]
         self.speed_hist=[]
         self.mov_dir_hist=[]
         self.ang_vel_hist=[]
-
-
+        self.time_hist=[]
 
 #generates a square wave that can be used to measure the output frame rate-->always uses D3
 class fpsTestSignal:
