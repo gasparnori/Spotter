@@ -15,7 +15,7 @@ import numpy as np
 import lib.kalmanfilter as kfilter
 
 SENSITIVITY = 0
-
+HIST_BUFFER=5000    #number of values to be saved in the history arrays
 
 
 class Shape:
@@ -128,19 +128,19 @@ class Mask:
         """ Calculate the radius of the circle. """
         return int(geom.distance(self.points[0], self.points[1]))
 
-class Feature:
-    """ General class holding a feature to be tracked with whatever tracking
+class Marker:
+    """ General class holding a marker to be tracked with whatever tracking
     algorithm is appropriate.
     """
 
     def __init__(self):
         pass
 
-class LED(Feature):
+class LED(Marker):
     """ Each instance is a spot defined by ranges in a color space. """
 
     def __init__(self, label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi=None, max_x=639, max_y=379,  filter_dim=4, R=None, Q=None, filtering_enabled=False, guessing_enabled = False, fps=190.0):
-        Feature.__init__(self)
+        Marker.__init__(self)
         self.label = label
         self.detection_active = True
         self.marker_visible = True
@@ -148,7 +148,7 @@ class LED(Feature):
         self.guessing_enabled = guessing_enabled
         self.adaptiveKF=False
         self.filtering_enabled=filtering_enabled
-        # feature description ranges
+        # marker description ranges
         self.range_hue = range_hue
         self.range_sat = range_sat
         self.range_val = range_val
@@ -173,7 +173,7 @@ class LED(Feature):
         # if so, where and which window?
         self.fixed_pos = fixed_pos
         self.search_roi = roi
-        # List of linked features, can be used for further constraints
+        # List of linked markers, can be used for further constraints
         self.linked_to = linked_to
 
     @property
@@ -252,10 +252,10 @@ class Slot:
 class ObjectOfInterest:
     EVENFRAME = False
     """
-    Object Of Interest. Collection of features to be tracked together and
+    Object Of Interest. Collection of markers to be tracked together and
     report state and behavior, or trigger events upon conditions.
     """
-    # TODO: Use general "features" rather than LEDs specifically
+    # TODO: Use general "markers" rather than LEDs specifically
 
     linked_leds = None
 
@@ -274,18 +274,25 @@ class ObjectOfInterest:
         self.label = label
         self.traced = traced
         self.tracked = tracked
+
+        #position history (x,y)
         self.pos_hist = []
-        self.dir_hist = []
+        #head orientation history
+        self.orientation_hist = []
+        #speed history
         self.speed_hist=[]
-        self.dir_coord_hist = []
+        #angular velocity history
+        self.ang_vel_hist=[]
+        #movement direction history
+        self.mov_dir_hist=[]
+        #elapsed time history
+        self.time_hist=[]
+
+        #self.orientation_coord_hist = []
         #self.guessing_enabled=False
         self.max_x=max_x
         self.max_y=max_y
-        #x, y, vx, vy for the kalman filter
-        #self.filterstate=[0,0,0,0]
-       # self.kalmanfilter=kfilter.KFilter()
-       # self.kalmanfilter.start_filter()
-
+        #self.headorientation=None
 
         # the slots for these properties/signals are greedy for pins
         if magnetic_signals is None:
@@ -296,11 +303,13 @@ class ObjectOfInterest:
         # listed order important. First come, first serve
         self.slots = [Slot('x position', 'dac', self.getPositionX),
                       Slot('y position', 'dac', self.getPositionY),
-                      Slot('direction', 'dac', self.getDirection),
-                      Slot('speed', 'dac', self.getSpeed)]
+                      Slot('head orientation ', 'dac', self.getOrientation),
+                      Slot('speed', 'dac', self.getSpeed),
+                      Slot('movement direction ', 'dac', self.getMovementDir),
+                      Slot('angular velocity', 'dac', self.getAngVel)]
 
     def update_state(self, elapsedtime):
-        """Update feature search windows!"""
+        """Update marker search windows!"""
         self.append_position(elapsedtime)
 
         # go back max. n frames to find last position
@@ -316,7 +325,7 @@ class ObjectOfInterest:
 
         for l in self.linked_leds:
             if l.fixed_pos:
-                # TODO: Movable feature ROIs
+                # TODO: Movable marker ROIs
                 l.search_roi.move_to([(0, 259), (100, 359)])
             else:
                 l.search_roi.move_to(roi)
@@ -337,20 +346,26 @@ class ObjectOfInterest:
                         slot.attach_pin(pin)
 
     def update_values(self,elapsedtime):
-        self.direction()
-        self.speed(elapsedtime) #frame to frame interval for speed calculation
+        self.orientation()
+        self.velocity(elapsedtime) #frame to frame interval for speed and direction calculation
+        self.angularVelocity(elapsedtime)
 
-    def append_position(self, elapsedtime):  ###############################################################edited to minimize jtter
-        """Calculate position from detected features linked to object."""
+    def append_position(self, elapsedtime):
+        """Calculate position from detected markers linked to object."""
         if not self.tracked:
             return
-        feature_positions = [f.pos_hist[-1] for f in self.linked_leds if len(f.pos_hist)]
-        temp_position=geom.middle_point(feature_positions)
-        #if temp_position is not None:
-         #   if (temp_position[0] is not None) and (temp_position[1] is not None):
-         #        temp_poisition= self.kalmanfilter.iterate_filter(elapsedtime, temp_position, guessing_enabled=self.guessing_enabled, adaptive=False)
-
+        marker_positions = [f.pos_hist[-1] for f in self.linked_leds if len(f.pos_hist)]
+        temp_position=geom.middle_point(marker_positions)
+        #works as a FIFO
+        if len(self.pos_hist)>=HIST_BUFFER:
+            #pops the first element
+            self.pos_hist=self.pos_hist[1:]
         self.pos_hist.append(temp_position)
+
+        if len(self.time_hist)>=HIST_BUFFER:
+            self.time_hist=self.time_hist[1:]
+        self.time_hist.append(elapsedtime)
+
 
     @property
     def position(self):
@@ -362,7 +377,7 @@ class ObjectOfInterest:
          else:
              return None
 
-    #not used after the kalman filter was implemented
+    #This function is not in use
     @property
     def position_guessed(self):
         """Get position based on history. Could allow for fancy filtering etc."""
@@ -370,14 +385,15 @@ class ObjectOfInterest:
 
     def getLinkedLEDs(self):
         return self.linked_leds
+
     def addLinkedLED(self, led):
-        self.pos_hist=[] #resets position history
-        self.dir_hist=[] #resets direction history
-        self.speed_hist=[] #resets speed history
+        self.reset()
         self.linked_leds.append(led)
+
     def removeLinkedLED(self, led):
         try:
             self.linked_leds.remove(led)
+            self.reset()
         except ValueError:
             pass
 
@@ -391,73 +407,118 @@ class ObjectOfInterest:
 
     def getSpeed(self):
         """ Helper method to provide chatter with function reference for slot updates"""
-        return self.sp   #only returns the value without recalculating it
+        if len(self.speed_hist)>1:
+            return self.speed_hist[-1]
+        else:
+            return None
+        #return self.sp   #only returns the value without recalculating it
 
-    def speed(self, elapsedtime):
+    def velocity(self, elapsedtime):
         """Return movement speed in pixel/s."""
         try:
             if len(self.pos_hist)>=2:
                 if self.pos_hist[-1] is not None and self.pos_hist[-2] is not None:
                     #calculate speed
                     ds=geom.distance(self.pos_hist[-1], self.pos_hist[-2])
+                    self.movdir=geom.angle(self.pos_hist[-2], self.pos_hist[-1])
                     dt= elapsedtime
                     self.sp=ds/dt
-                elif len(self.speed_hist>0):
+                #elif len(self.speed_hist>0):
                     # if the previous one was a valid value, this one will be too, if not, it will be None too
-                    self.sp=self.speed_hist[-1]
+                 #   self.sp=self.speed_hist[-1]
                 else:
                     self.sp=None
+                    self.movdir=None
             else:
                 self.sp = None
-            self.speed_hist.append(self.sp)
-            return self.sp
+                self.movdir=None
+
         except TypeError:
             self.sp=None
+            self.movdir=None
+        finally:
+            # works as a FIFO
+            if len(self.speed_hist) >= HIST_BUFFER:
+                self.speed_hist = self.speed_hist[1:]
             self.speed_hist.append(self.sp)
+                # works as a FIFO
+            if len(self.mov_dir_hist) >= HIST_BUFFER:
+                self.mov_dir_hist = self.mov_dir_hist[1:]
+            self.mov_dir_hist.append(self.movdir)
+
+    def angularVelocity(self, elapsedtime):
+        angvel=None
+        if len(self.orientation_hist)>2:
+            if self.orientation_hist[-1] is not None and self.orientation_hist[-2] is not None:
+                angvel=(self.orientation_hist[-1]-self.orientation_hist[-2])/elapsedtime
+
+        if len(self.ang_vel_hist) >= HIST_BUFFER:
+            self.ang_vel_hist = self.ang_vel_hist[1:]
+        self.ang_vel_hist.append(angvel)
+
+    def getAngVel(self):
+        if len(self.ang_vel_hist)>1:
+            return self.ang_vel_hist[-1]
+        else:
             return None
 
-    def getDirection(self):
+    def getOrientation(self):
         """ Helper method to provide chatter with function reference for slot updates"""
-        return self.dir
+        if len(self.orientation_hist) > 1:
+            return self.orientation_hist[-1]
+        else:
+            return None
+    
+    def getMovementDir(self):
+        if len(self.mov_dir_hist) > 1:
+            return self.mov_dir_hist[-1]
+        else:
+            return None
 
-    def direction(self):
+    def orientation(self):
         """
-        Calculate direction of the object.
+        Calculate orientation of the object.
 
-        If one feature, direction is not None if speed > v_threshold in px/s
-        If two features, calculate heading relative to normal of features.
+        The function only calculate orientation for two markers.
+        If there is only one, or more than two, it doesn't return a result.
+        If there are exactly two markers, it calculates angle
+         relative to normal of markers.
 
-        This assumes the alignment of features is constant.
+        This assumes the alignment of markers is constant.
         """
-        # TODO: Direction based on movement if only one feature
-        # TODO: Calculate angle when having multiple features
+        # TODO: Calculate angle when having multiple markers
+        headorientation = None
         try:
-            if not self.tracked or self.linked_leds is None or len(self.linked_leds) < 2:
+            #only calculating head orientation if there are at least two linked LED's
+            if not self.tracked or self.linked_leds is None or len(self.linked_leds) != 2:
                 return None
 
-            feature_coords = []
-            for feature in self.linked_leds:
-                if len(feature.pos_hist) > 0 and feature.pos_hist[-1] is not None:
-                    feature_coords.append(feature.pos_hist[-1])
+            marker_coords = []
+            for marker in self.linked_leds:
+                if len(marker.pos_hist) > 0 and marker.pos_hist[-1] is not None:
+                    marker_coords.append(marker.pos_hist[-1])
 
-            if len(feature_coords) == 2:
+            if len(marker_coords) == 2: #if both head direction values exist
 
-                dx = (feature_coords[1][0] - feature_coords[0][0]) * 1.0  # x2-x1
-                dy = (feature_coords[1][1] - feature_coords[0][1]) * 1.0  # y2-y1
-                theta = int(math.fmod(math.degrees(math.atan2(dx, dy)) + 180, 360))  # math.atan2(x2-x1, y2-y1)
+                dx = (marker_coords[1][0] - marker_coords[0][0]) * 1.0  # x2-x1
+                dy = (marker_coords[1][1] - marker_coords[0][1]) * 1.0  # y2-y1
+                headorientation = int(math.fmod(math.degrees(math.atan2(dx, dy)) + 180, 360))  # math.atan2(x2-x1, y2-y1)
 
-                self.dir_hist.append(theta)
-
-                self.dir=theta
             ####################################################################################################################################
-            elif len(self.dir_hist) > 0 and self.dir_hist[-1] is not None:
-                    self.dir = self.dir_hist[-1]
-            else:
-                self.dir = None
-        except TypeError:
-            self.dir = None
+           # elif len(self.orientation_hist) > 0 and self.orientation_hist[-1] is not None:
+           #     headorientation = self.orientation_hist[-1]
+            #else:
+               # print "one of the LED values are missing"
 
-        return self.dir
+
+        except TypeError:
+            headorientation = None
+
+        finally:
+            if len(self.orientation_hist)>=HIST_BUFFER:
+                self.orientation_hist=self.orientation_hist[1:]
+            self.orientation_hist.append(headorientation)
+        return headorientation
 
     @property
     def linked_slots(self):
@@ -470,11 +531,13 @@ class ObjectOfInterest:
         return [slot for slot in self.slots if slot.pin]
 
     def reset(self):
-        #reset deletes the memory, but keeps the last five coordinates
-        self.pos_hist=self.pos_hist[-5:]
-        self.dir_hist=self.dir_hist[-5:]
-        self.speed_hist=self.speed_hist[-5:]
-
+        #reset deletes the object's history
+        self.pos_hist=[]
+        self.orientation_hist=[]
+        self.speed_hist=[]
+        self.mov_dir_hist=[]
+        self.ang_vel_hist=[]
+        self.time_hist=[]
 
 #generates a square wave that can be used to measure the output frame rate-->always uses D3
 class fpsTestSignal:

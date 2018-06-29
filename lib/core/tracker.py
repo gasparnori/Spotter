@@ -3,6 +3,7 @@
 """
 Created on Wed Jul 11 09:28:37 2012
 @author: <Ronny Eichler> ronny.eichler@gmail.com
+edited: Nora Gaspar nori.nagyonsok@gmail.com
 
 Tracks colored spots in images or series of images
 
@@ -50,7 +51,7 @@ class Tracker:
 
         self.oois = [] #objects of interest
         self.rois = [] #regions of interest
-        self.leds = [] #features
+        self.leds = [] #markers
         self.bspots= [] #blind spots
         self.adaptive_tracking = adaptive_tracking
 
@@ -81,18 +82,18 @@ class Tracker:
             roi = trkbl.Shape('rectangle', None, None)
         led = trkbl.LED(label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi, self.max_x, self.max_y, filter_dim, R, Q, filtering_enabled, guessing_enabled, self.fps)
         self.leds.append(led)
-        self.log.debug("Added feature %s", led)
+        self.log.debug("Added marker %s", led)
         return led
 
     def remove_led(self, led):
         try:
-            self.log.debug("Removing feature %s", led)
+            self.log.debug("Removing marker %s", led)
             self.leds.remove(led)
             for o in self.oois:
                 if led in o.linked_leds:
                     o.linked_leds.remove(led)
         except ValueError:
-            self.log.error("Feature to be removed not found")
+            self.log.error("marker to be removed not found")
 
     def add_ooi(self, led_list, label, traced=False, tracked=True, magnetic_signals=None):
         ooi = trkbl.ObjectOfInterest(led_list, label, traced, tracked, magnetic_signals, self.max_x, self.max_y)
@@ -138,7 +139,7 @@ class Tracker:
                     cv2.circle(frame.img, m.p1, m.radius, (0, 0, 0), -1)
         return frame
 
-    def track_feature(self, frame, method='hsv_thresh', scale=1.0, elapsedtime=5):
+    def track_marker(self, frame, method='hsv_thresh', scale=1.0, elapsedtime=5):
         """
         Intermediate method selecting tracking method and separating those
         tracking methods from the frames stored in the instantiated Tracker

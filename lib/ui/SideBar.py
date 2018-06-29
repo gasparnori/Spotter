@@ -14,7 +14,7 @@ import lib.utilities as utils
 
 from MainTabPage import MainTabPage
 from side_barUi import Ui_side_bar
-import TabFeatures
+import TabMarkers
 import TabObjects
 import TabRegions
 import TabBlindSpot
@@ -37,12 +37,12 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         self.parent = parent
         self.spotter = self.parent.spotter
 
-        self.log.debug('Opening features main tab')
-        self.features_page = MainTabPage("Features", TabFeatures.Tab, spotter=self.spotter, *args, **kwargs)
-        self.tabs_main.insertTab(-1, self.features_page, self.features_page.label)
-        self.connect(self.features_page, QtCore.SIGNAL('currentChanged(int)'), self.tab_features_switch)
-        self.connect(self.features_page.btn_new_page, QtCore.SIGNAL('clicked()'), self.add_feature)
-        #self.features_page.tabs_sub.tabCloseRequested.connect(self.remove_page)
+        self.log.debug('Opening Markers main tab')
+        self.markers_page = MainTabPage("Markers", TabMarkers.Tab, spotter=self.spotter, *args, **kwargs)
+        self.tabs_main.insertTab(-1, self.markers_page, self.markers_page.label)
+        self.connect(self.markers_page, QtCore.SIGNAL('currentChanged(int)'), self.tab_markers_switch)
+        self.connect(self.markers_page.btn_new_page, QtCore.SIGNAL('clicked()'), self.add_marker)
+        #self.markers_page.tabs_sub.tabCloseRequested.connect(self.remove_page)
 
         self.log.debug('Opening objects main tab')
         self.objects_page = MainTabPage("Objects", TabObjects.Tab, spotter=self.spotter, *args, **kwargs)
@@ -108,8 +108,8 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
 
     def get_child_page(self):
         active_top_tab_label = self.tabs_main.tabText(self.tabs_main.currentIndex())
-        if active_top_tab_label == "Features" and (self.tabs_main.count() > 1):
-            return self.features_page.current_page_widget()
+        if active_top_tab_label == "Markers" and (self.tabs_main.count() > 1):
+            return self.markers_page.current_page_widget()
         elif active_top_tab_label == "Objects" and (self.tabs_main.count() > 1):
             return self.objects_page.current_page_widget()
         elif active_top_tab_label == "Regions" and (self.tabs_main.count() > 1):
@@ -143,35 +143,35 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         """
         self.log.debug('NOT updating all tabs')
         return
-        #for main_tab in [self.features_page, self.objects_page, self.regions_page]:
+        #for main_tab in [self.markers_page, self.objects_page, self.regions_page]:
         #    for tab in main_tab.tabs_sub:
         #        tab.update()
 
     def remove_all_tabs(self):
-        self.features_page.remove_all_pages()
+        self.markers_page.remove_all_pages()
         self.objects_page.remove_all_pages()
         self.regions_page.remove_all_pages()
         self.blindspot_page.remove_all_pages()
 
     ###############################################################################
-    ##  FEATURES Tab Updates
+    ##  Markers Tab Updates
     ###############################################################################
-    def tab_features_switch(self, idx_tab=0):
+    def tab_markers_switch(self, idx_tab=0):
         """
         Switch to the tab page with index idx_tab.
         """
-        self.features_page.tabs_sub.setCurrentIndex(idx_tab)
+        self.markers_page.tabs_sub.setCurrentIndex(idx_tab)
 
-    def add_feature(self, template=None, label=None, focus_new=True):
+    def add_marker(self, template=None, label=None, focus_new=True):
         """
-        Create a feature from trackables and add a corresponding tab to
-        the tab widget, which is linked to show and edit feature properties.
+        Create a marker from trackables and add a corresponding tab to
+        the tab widget, which is linked to show and edit marker properties.
         TODO: Create new templates when running out by fitting them into
         the color space somehow.
         """
         if not template:
-            key = self.parent.template_default['FEATURES'].iterkeys().next()
-            template = self.parent.template_default['FEATURES'][key]
+            key = self.parent.template_default['MARKERS'].iterkeys().next()
+            template = self.parent.template_default['MARKERS'][key]
             label = 'LED_' + str(len(self.spotter.tracker.leds))
 
         if not template['type'].lower() == 'led':
@@ -188,7 +188,7 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
             fe = template.as_bool('filter_enabled')
             ge = template.as_bool('estimation_enabled')
 
-            feature = self.spotter.tracker.add_led(label,
+            marker = self.spotter.tracker.add_led(label,
                                                    range_hue,
                                                    range_sat,
                                                    range_val,
@@ -199,7 +199,7 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
                                                    Q=Q,
                                                    filtering_enabled=fe,
                                                    guessing_enabled=ge)
-        self.features_page.add_item(feature, focus_new)
+        self.markers_page.add_item(marker, focus_new)
 
     ###############################################################################
     ##  OBJECTS Tab Updates
@@ -222,11 +222,11 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
             template = self.parent.template_default['OBJECTS'][key]
             label = 'Object_' + str(len(self.spotter.tracker.oois))
 
-        features = []
-        for n in xrange(min(len(self.spotter.tracker.leds), len(template['features']))):
+        markers = []
+        for n in xrange(min(len(self.spotter.tracker.leds), len(template['markers']))):
             for l in self.spotter.tracker.leds:
-                if template['features'][n] == l.label:
-                    features.append(l)
+                if template['markers'][n] == l.label:
+                    markers.append(l)
 
         analog_out = template['analog_out']
         if analog_out:
@@ -264,7 +264,7 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
 
         trace = template['trace']
         track = template['track']
-        object_ = self.spotter.tracker.add_ooi(features, label, trace, track, magnetic_signals)
+        object_ = self.spotter.tracker.add_ooi(markers, label, trace, track, magnetic_signals)
         self.objects_page.add_item(object_, focus_new)
 
         if analog_out:

@@ -10,44 +10,44 @@ import logging
 import cv2
 from PyQt4 import QtGui, QtCore
 from PyQt4.QtGui import QMessageBox
-from tab_featuresUi import Ui_tab_features
+from tab_markersUi import Ui_tab_markers
 import lib.utilities as utils
 import sip
 import math
 
 
-class Tab(QtGui.QWidget, Ui_tab_features):
+class Tab(QtGui.QWidget, Ui_tab_markers):
 
     accept_events = False
-    tab_type = "feature"
+    tab_type = "marker"
     current_range_hue = (None, None)
 
-    def __init__(self, feature_ref, label=None, *args, **kwargs):
+    def __init__(self, marker_ref, label=None, *args, **kwargs):
         #super(QtGui.QWidget, self).__init__(parent)
         QtGui.QWidget.__init__(self)
         self.log = logging.getLogger(__name__)
         self.setupUi(self)
-        self.feature = feature_ref
+        self.marker = marker_ref
 
         assert 'spotter' in kwargs
         self.spotter = kwargs['spotter']
 
         if label is None:
-            self.label = self.feature.label
+            self.label = self.marker.label
         else:
             self.label = label
 
         self.combo_label.setEditText(self.label)
 
-        # Set spin boxes to the starting value of the represented feature
-        self.spin_hue_min.setValue(self.feature.range_hue[0])
-        self.spin_hue_max.setValue(self.feature.range_hue[1])
-        self.spin_sat_min.setValue(self.feature.range_sat[0])
-        self.spin_sat_max.setValue(self.feature.range_sat[1])
-        self.spin_val_min.setValue(self.feature.range_val[0])
-        self.spin_val_max.setValue(self.feature.range_val[1])
-        self.spin_area_min.setValue(self.feature.range_area[0])
-        self.spin_area_max.setValue(self.feature.range_area[1])
+        # Set spin boxes to the starting value of the represented marker
+        self.spin_hue_min.setValue(self.marker.range_hue[0])
+        self.spin_hue_max.setValue(self.marker.range_hue[1])
+        self.spin_sat_min.setValue(self.marker.range_sat[0])
+        self.spin_sat_max.setValue(self.marker.range_sat[1])
+        self.spin_val_min.setValue(self.marker.range_val[0])
+        self.spin_val_max.setValue(self.marker.range_val[1])
+        self.spin_area_min.setValue(self.marker.range_area[0])
+        self.spin_area_max.setValue(self.marker.range_area[1])
 
         # Connect spin boxes
         self.connect(self.spin_hue_min, QtCore.SIGNAL('valueChanged(int)'), self.update_led)
@@ -60,15 +60,15 @@ class Tab(QtGui.QWidget, Ui_tab_features):
         self.connect(self.spin_area_max, QtCore.SIGNAL('valueChanged(int)'), self.update_led)
 
         # Connect checkboxes
-        self.ckb_track.setChecked(self.feature.detection_active)
+        self.ckb_track.setChecked(self.marker.detection_active)
         self.connect(self.ckb_track, QtCore.SIGNAL('stateChanged(int)'), self.update_led)
-        self.ckb_fixed_pos.setChecked(self.feature.fixed_pos)
+        self.ckb_fixed_pos.setChecked(self.marker.fixed_pos)
         self.connect(self.ckb_fixed_pos, QtCore.SIGNAL('stateChanged(int)'), self.update_led)
-        self.ckb_marker.setChecked(self.feature.marker_visible)
+        self.ckb_marker.setChecked(self.marker.marker_visible)
         self.connect(self.ckb_marker, QtCore.SIGNAL('stateChanged(int)'), self.update_led)
         self.connect(self.btn_pick_color, QtCore.SIGNAL('toggled(bool)'), self.pick_color)
-        #self.connect(self.filterSlider, QtCore.SIGNAL('valueChanged(int)'), self.feature.kalmanfilter.updateObservationCoeffVal)
-        #self.recalibrateBtn.clicked.connect(self.feature.recalibrateFilter)
+        #self.connect(self.filterSlider, QtCore.SIGNAL('valueChanged(int)'), self.marker.kalmanfilter.updateObservationCoeffVal)
+        #self.recalibrateBtn.clicked.connect(self.marker.recalibrateFilter)
         self.connect(self.ckb_prediction, QtCore.SIGNAL('stateChanged(int)'), self.enablePred)
         self.connect(self.enable_filter, QtCore.SIGNAL('stateChanged(int)'), self.enableKF)
         self.connect(self.enable_adaptive, QtCore.SIGNAL('stateChanged(int)'), self.adaptiveKF)
@@ -86,9 +86,9 @@ class Tab(QtGui.QWidget, Ui_tab_features):
         self.measurementProgress.setVisible(False)
         self.measurementProgress.setMaximum(self.CalibMax)
         #if the filter is enabled by default
-        if self.feature.filtering_enabled:
+        if self.marker.filtering_enabled:
             self.enable_filter.setChecked(True)
-        if self.feature.guessing_enabled:
+        if self.marker.guessing_enabled:
             self.ckb_prediction.setChecked(True)
 
         self.update()
@@ -106,7 +106,7 @@ class Tab(QtGui.QWidget, Ui_tab_features):
             self.sensorProgress.setValue(0)
         else:
             popup = QMessageBox.information(self, "Sensor calibration",
-                                            "In order to calibrate the sensor, you first need to define at least one Feature",
+                                            "In order to calibrate the sensor, you first need to define at least one marker",
                                             QMessageBox.Ok)
 
         # calib=CalibrationPopUp.CalibPopUp(self, 30)
@@ -125,7 +125,7 @@ class Tab(QtGui.QWidget, Ui_tab_features):
             self.measurementProgress.setValue(0)
         else:
             popup = QMessageBox.information(self, "Measurement calibration",
-                                            "In order to calibrate the sensor, you first need to define at least one Feature",
+                                            "In order to calibrate the sensor, you first need to define at least one marker",
                                             QMessageBox.Ok)
 
 
@@ -179,12 +179,12 @@ class Tab(QtGui.QWidget, Ui_tab_features):
             print "Empty tab! This should not have happened!"
             return
 
-        if not self.label == self.feature.label:
-            self.label = self.feature.label
+        if not self.label == self.marker.label:
+            self.label = self.marker.label
 
-        if self.feature.pos_hist and self.feature.pos_hist[-1]:
-            self.lbl_x.setText(str(int(self.feature.pos_hist[-1][0])))
-            self.lbl_y.setText(str(int(self.feature.pos_hist[-1][1])))
+        if self.marker.pos_hist and self.marker.pos_hist[-1]:
+            self.lbl_x.setText(str(int(self.marker.pos_hist[-1][0])))
+            self.lbl_y.setText(str(int(self.marker.pos_hist[-1][1])))
         else:
             self.lbl_x.setText('---')
             self.lbl_y.setText('---')
@@ -194,51 +194,51 @@ class Tab(QtGui.QWidget, Ui_tab_features):
 
 
     def enablePred(self):
-        self.feature.guessing_enabled=self.ckb_prediction.isChecked()
+        self.marker.guessing_enabled=self.ckb_prediction.isChecked()
 
     def enableKF(self, state):
         if state:
             print "enabling kalman filter"
-            initpoint = self.feature.pos_hist[-1] if len(self.feature.pos_hist) > 0 else None
-            self.feature.kalmanfilter.start_filter(initpoint)
-            # print "Rk", self.feature.kalmanfilter.Rk
-            # print "Qk", self.feature.kalmanfilter.Qk
-            self.feature.filtering_enabled = True
+            initpoint = self.marker.pos_hist[-1] if len(self.marker.pos_hist) > 0 else None
+            self.marker.kalmanfilter.start_filter(initpoint)
+            # print "Rk", self.marker.kalmanfilter.Rk
+            # print "Qk", self.marker.kalmanfilter.Qk
+            self.marker.filtering_enabled = True
             self.ckb_prediction.setEnabled(True)
             #self.recalibrateBtn.setEnabled(True)
             self.enable_adaptive.setEnabled(True)
             self.CalibQBtn.setEnabled(True)
 
         else:
-            self.feature.filtering_enabled = False
-            self.feature.kalmanfilter.stop_filter()
+            self.marker.filtering_enabled = False
+            self.marker.kalmanfilter.stop_filter()
             self.ckb_prediction.setEnabled(False)
             #self.recalibrateBtn.setEnabled(False)
             self.enable_adaptive.setEnabled(False)
             self.CalibQBtn.setEnabled(False)
 
     def adaptiveKF(self, state):
-        self.feature.adaptiveKF=state
+        self.marker.adaptiveKF=state
 
     def update_led(self):
-        self.feature.range_hue = (self.spin_hue_min.value(), self.spin_hue_max.value())
-        self.feature.range_sat = (self.spin_sat_min.value(), self.spin_sat_max.value())
-        self.feature.range_val = (self.spin_val_min.value(), self.spin_val_max.value())
-        self.feature.range_area = (self.spin_area_min.value(), self.spin_area_max.value())
-        self.feature.detection_active = self.ckb_track.isChecked()
-        self.feature.fixed_pos = self.ckb_fixed_pos.isChecked()
-        self.feature.marker_visible = self.ckb_marker.isChecked()
+        self.marker.range_hue = (self.spin_hue_min.value(), self.spin_hue_max.value())
+        self.marker.range_sat = (self.spin_sat_min.value(), self.spin_sat_max.value())
+        self.marker.range_val = (self.spin_val_min.value(), self.spin_val_max.value())
+        self.marker.range_area = (self.spin_area_min.value(), self.spin_area_max.value())
+        self.marker.detection_active = self.ckb_track.isChecked()
+        self.marker.fixed_pos = self.ckb_fixed_pos.isChecked()
+        self.marker.marker_visible = self.ckb_marker.isChecked()
 
     def update_color_space(self):
-        """ Update fancy color thingy if range_hue of feature has changed. """
-        if self.current_range_hue == self.feature.range_hue:
+        """ Update fancy color thingy if range_hue of marker has changed. """
+        if self.current_range_hue == self.marker.range_hue:
             return
         self.log.debug("Mowing unicorn meadows.")
 
         # base CSS string
         style_sheet = "background-color:qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0"
 
-        self.current_range_hue = self.feature.range_hue
+        self.current_range_hue = self.marker.range_hue
         min_h = int(self.current_range_hue[0]*2)
         max_h = int(self.current_range_hue[1]*2)
 
@@ -288,10 +288,10 @@ class Tab(QtGui.QWidget, Ui_tab_features):
         self.accept_events = state
 
     def update_zoom(self, size=24):
-        """ 'Zoom' is the little preview window of the detected feature. """
+        """ 'Zoom' is the little preview window of the detected marker. """
         size /= 2
-        if not None in [self.spotter.newest_frame, self.feature.position]:
-            x, y = map(int, self.feature.position)
+        if not None in [self.spotter.newest_frame, self.marker.position]:
+            x, y = map(int, self.marker.position)
             (ax, ay), (bx, by) = (x-size, y-size), (x+size, y+size)
             h, w = self.spotter.newest_frame.img.shape[0:2]
 
@@ -327,4 +327,4 @@ class Tab(QtGui.QWidget, Ui_tab_features):
             print "[X,Y][B G R](H, S, V):", [x, y], pixel, utils.BGRpix2HSV(pixel)
 
     def closeEvent(self, close_event):
-        self.spotter.tracker.remove_led(self.feature)
+        self.spotter.tracker.remove_led(self.marker)
