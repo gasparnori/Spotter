@@ -42,6 +42,7 @@ DEFAULT_TEMPLATE = 'defaults.ini'
 GUI_REFRESH_INTERVAL = 20
 SPOTTER_REFRESH_INTERVAL = 5
 POSITION_GUESSING_ENABLED=False
+from PyQt4.QtGui import QMessageBox
 
 import sys
 import os
@@ -274,7 +275,15 @@ class Main(QtGui.QMainWindow):
     def output_graph(self):
         """plots the four analog outputs (x, y, speed, head direction) for each object into separate figures"""
         self.ui.actionGraph.setChecked(False)
-        plotGraph.Plot_All(self.spotter.tracker.oois)
+        reply = QMessageBox.information(self, "Saving to a .dat file",
+                                        "Do you want to save these data to a .dat file?",
+                                        QMessageBox.Yes, QMessageBox.No)
+
+        if reply == QtGui.QMessageBox.Yes:
+            plotGraph.Plot_All(self.spotter.tracker.oois, True)
+        else:
+            plotGraph.Plot_All(self.spotter.tracker.oois, False)
+
 
 
 

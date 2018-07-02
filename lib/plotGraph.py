@@ -4,7 +4,7 @@ import time
 #import seaborn as sns
 import scipy.io
 
-SAVE_PLOT_VALS=True
+#SAVE_PLOT_VALS=True
 
 plot_val_path='./outputs/plot_graphs'
 
@@ -163,7 +163,7 @@ def PlotAll(px, py, speed, orientation, mov_dir, ang_vel, title, txt):
         plt.colorbar(heatmap, orientation='horizontal')
         plt.tight_layout()
 
-def Plot_All(objects):
+def Plot_All(objects, SAVE_PLOT_VALS):
 
     if SAVE_PLOT_VALS:
         save_dict = {}

@@ -52,6 +52,8 @@ class Shape:
                 self.slope=1.0
             else:
                 self.slope = ((dy*1.0) / (dx*1.0))
+            #measuring if crossed the 0 line
+            self.prev_slope=None
             self.collision_check = self.collision_check_line
 
     def move(self, dx, dy):
@@ -104,9 +106,20 @@ class Shape:
         dx=(math.fabs(point[0] - self.points[1][0])*1.0)
         if dx>0:
             s = ((math.fabs(point[1]- self.points[1][1]))*1.0 /dx)
+            ds=s-self.slope #slope difference
         else:
             s=1.0
-        return (s==self.slope and self.active and x_in_interval and y_in_interval)
+            ds=None
+        #checking if the line was crossed
+        # if they have a different sign, they will be negative, otherwise positive
+        if self.prev_slope is not None:
+            crossing=ds*self.prev_slope<0
+        else:
+            crossing=False
+        self.prev_slope=ds
+
+        #checking if sign of the slope difference changed
+        return (crossing and self.active and x_in_interval and y_in_interval)
 
 class Mask:
     """ Geometrical shape that comprise Blind spots. Blind spots can be made of several
