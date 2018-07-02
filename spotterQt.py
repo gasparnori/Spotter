@@ -488,7 +488,7 @@ class Main(QtGui.QMainWindow):
         if template is not None:
             abs_pos = template['TEMPLATE']['absolute_positions']
 
-            for f_key, f_val in template['FEATURES'].items():
+            for f_key, f_val in template['MARKERS'].items():
                 self.side_bar.add_marker(f_val, f_key, focus_new=False)
 
             for o_key, o_val in template['OBJECTS'].items():
@@ -524,8 +524,8 @@ class Main(QtGui.QMainWindow):
         config['TEMPLATE']['absolute_positions'] = True
         config['TEMPLATE']['resolution'] = self.spotter.grabber.size
 
-        # Features
-        config['FEATURES'] = {}
+        # Markers
+        config['MARKERS'] = {}
         for f in self.spotter.tracker.leds:
             num_var = f.kalmanfilter.num_variables
             R = f.kalmanfilter.Rk
@@ -550,14 +550,14 @@ class Main(QtGui.QMainWindow):
                        'filter_dimensions':num_var,
                        'filter_enabled':f.filtering_enabled,
                       'estimation_enabled':f.guessing_enabled}
-            config['FEATURES'][str(f.label)] = section
+            config['MARKERS'][str(f.label)] = section
 
         # Objects
         config['OBJECTS'] = {}
         for o in self.spotter.tracker.oois:
-            features = [f.label for f in o.linked_leds]
+            markers = [f.label for f in o.linked_leds]
             analog_out = len(o.magnetic_signals) > 0
-            section = {'features': features,
+            section = {'markers': markers,
                        'analog_out': analog_out}
             if analog_out:
                 section['analog_signal'] = [s[0] for s in o.magnetic_signals]

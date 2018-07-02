@@ -9,7 +9,7 @@ class KFilter:
     forget=0.001
     #QcalibIndex=0
     calibrating=False
-    maxPredictions=50    #if this amount of consecutive signal is missing, it sends out None
+    maxPredictions=100   #if this amount of consecutive signal is missing, it sends out None
     predictionCounter=0
     confidenceInterval=50 #we assume that there can't be more than this pixels difference between the measurements of two consecutive frame if the difference is bigger than this number, it sends out a None
 
@@ -164,7 +164,7 @@ class KFilter:
         if coordinates is not None:
             m=self.add_measurement(dt, coordinates)
             #if the measured point is an outlier and the previous measurement is not missing
-            if geom.distance(m, pred[0:2]) > self.confidenceInterval and not self.missingPoint:
+            if geom.distance(m, pred[0:2]) > self.confidenceInterval and not self.missingPoint: #this might be an error!!!!!!!!!!!!!!!!!!!!!!!!!!
                 #print self.Fk
                 #print "coordinates:%s u: %s, pred:%s dt:", coordinates, u[0:2], pred[0:2], dt
                 #print "outliers!!!!!!!!!!!!!"
@@ -173,6 +173,7 @@ class KFilter:
                 #print self.Fk
                 #print "coordinates:%s u: %s, pred:%s dt:", coordinates, u[0:2], pred[0:2], dt
                 self.predictionCounter =0   #resets the predictionCounter
+                #print "resetCounter"
                 self.missingPoint = False
 
         else:
@@ -196,6 +197,7 @@ class KFilter:
                     else:
                         return None
                 else:
+                    #print "too many guessing happened"
                     return None
             else:
                 return None
