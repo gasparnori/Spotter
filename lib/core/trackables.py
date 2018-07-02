@@ -49,9 +49,9 @@ class Shape:
             dx = math.fabs(self.points[0][0] - self.points[1][0])
             dy = math.fabs(self.points[0][1] - self.points[1][1])
             if dx==0:
-                self.slope=1
+                self.slope=1.0
             else:
-                self.slope = (dy / dx)
+                self.slope = ((dy*1.0) / (dx*1.0))
             self.collision_check = self.collision_check_line
 
     def move(self, dx, dy):
@@ -101,11 +101,11 @@ class Shape:
                         (point[1] < max(self.points[0][1], self.points[1][1]))
         #step2
         #check if the slope between one of the points and the new point is the same
-        dx=math.fabs(point[0] - self.points[1][0])
+        dx=(math.fabs(point[0] - self.points[1][0])*1.0)
         if dx>0:
-            s = (math.fabs(point[1]- self.points[1][1]) /dx)
+            s = ((math.fabs(point[1]- self.points[1][1]))*1.0 /dx)
         else:
-            s=1
+            s=1.0
         return (s==self.slope and self.active and x_in_interval and y_in_interval)
 
 class Mask:
