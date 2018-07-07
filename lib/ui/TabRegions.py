@@ -56,9 +56,9 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         # List of items in the table to compare when updated. Ugly solution.
         self.slots_items = []
 
-        self.connect(self.btn_add_rect, QtCore.SIGNAL('toggled(bool)'), self.rect_clicked)
-        self.connect(self.btn_add_line, QtCore.SIGNAL('toggled(bool)'), self.line_clicked)
-        self.connect(self.btn_add_circle, QtCore.SIGNAL('toggled(bool)'), self.circle_clicked)
+        self.connect(self.RectBtn, QtCore.SIGNAL('toggled(bool)'), self.rect_clicked)
+        self.connect(self.LineBtn, QtCore.SIGNAL('toggled(bool)'), self.line_clicked)
+        self.connect(self.CircleBtn, QtCore.SIGNAL('toggled(bool)'), self.circle_clicked)
 
         self.connect(self.btn_remove_shape, QtCore.SIGNAL('clicked()'), self.remove_shape)
         #self.connect(self.btn_lock_table, QtCore.SIGNAL('toggled(bool)'), self.lock_slot_table)
@@ -102,24 +102,14 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
     def rect_clicked(self, state):
         self.accept_selection(state)
         self.spotter.active_shape_type='rectangle'
-        self.btn_add_rect.setChecked(True)
-        self.btn_add_line.setChecked(False)
-        self.btn_add_circle.setChecked(False)
 
     def line_clicked(self, state):
         self.accept_selection(state)
         self.spotter.active_shape_type = 'line'
-        self.btn_add_line.setChecked(True)
-        self.btn_add_rect.setChecked(False)
-        self.btn_add_circle.setChecked(False)
 
     def circle_clicked(self, state):
         self.accept_selection(state)
         self.spotter.active_shape_type = 'circle'
-        self.btn_add_circle.setChecked(True)
-        self.btn_add_rect.setChecked(False)
-        self.btn_add_line.setChecked(False)
-
 
     def process_event(self, event_type, event):
         """ Handle mouse interactions, mainly to draw and move shapes """
@@ -202,7 +192,7 @@ class Tab(QtGui.QWidget, Ui_tab_regions):
         self.tree_region_shapes.addTopLevelItem(shape_item)
         self.tree_region_shapes.setCurrentItem(shape_item)
         shape_item.setFlags(shape_item.flags() | QtCore.Qt.ItemIsEditable)
-        self.btn_add_rect.setChecked(False)
+        self.RectBtn.setChecked(False)
 
     def remove_shape(self):
         """ Remove a shape from the list defining a ROI """

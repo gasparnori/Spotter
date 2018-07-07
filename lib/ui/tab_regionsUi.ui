@@ -25,7 +25,7 @@
      <property name="spacing">
       <number>1</number>
      </property>
-     <item row="0" column="0">
+     <item row="0" column="1">
       <widget class="QToolBox" name="toolBox">
        <property name="frameShape">
         <enum>QFrame::NoFrame</enum>
@@ -69,7 +69,7 @@
            <property name="spacing">
             <number>0</number>
            </property>
-           <item row="15" column="0" colspan="2">
+           <item row="28" column="0" colspan="2">
             <layout class="QGridLayout" name="gridLayout_10">
              <property name="spacing">
               <number>0</number>
@@ -102,6 +102,11 @@
                </attribute>
                <column>
                 <property name="text">
+                 <string>Enabled</string>
+                </property>
+               </column>
+               <column>
+                <property name="text">
                  <string>Collision</string>
                 </property>
                </column>
@@ -117,49 +122,6 @@
                </column>
               </widget>
              </item>
-             <item row="1" column="0">
-              <layout class="QHBoxLayout" name="horizontalLayout">
-               <item>
-                <widget class="QPushButton" name="btn_add_rect">
-                 <property name="minimumSize">
-                  <size>
-                   <width>30</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="statusTip">
-                  <string>Drag: Rectangle. Shift+drag: Circle. Ctrl+drag: Line.</string>
-                 </property>
-                 <property name="text">
-                  <string>Add rectangle</string>
-                 </property>
-                 <property name="checkable">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="btn_add_circle">
-                 <property name="text">
-                  <string>Add circle</string>
-                 </property>
-                 <property name="checkable">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="btn_add_line">
-                 <property name="text">
-                  <string>Add line</string>
-                 </property>
-                 <property name="checkable">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
              <item row="2" column="0">
               <widget class="QPushButton" name="btn_remove_shape">
                <property name="minimumSize">
@@ -172,6 +134,9 @@
                 <string>&amp;Remove</string>
                </property>
               </widget>
+             </item>
+             <item row="1" column="0">
+              <layout class="QHBoxLayout" name="horizontalLayout"/>
              </item>
             </layout>
            </item>
@@ -311,6 +276,27 @@
              </column>
             </widget>
            </item>
+           <item row="17" column="0">
+            <widget class="QRadioButton" name="LineBtn">
+             <property name="text">
+              <string>Line</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0">
+            <widget class="QRadioButton" name="RectBtn">
+             <property name="text">
+              <string>Rectangle</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1">
+            <widget class="QRadioButton" name="CircleBtn">
+             <property name="text">
+              <string>Circle</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
         </layout>
@@ -320,8 +306,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>445</width>
-          <height>388</height>
+          <width>235</width>
+          <height>133</height>
          </rect>
         </property>
         <attribute name="label">

@@ -582,7 +582,6 @@ class fpsTestSignal:
         self.even_frame = not self.even_frame
         return self.even_frame
 
-
 class RegionOfInterest:
     """ Region in image registered objects are tested against.
     If trackables are occupying or intersecting, trigger their specific
