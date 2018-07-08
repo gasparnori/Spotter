@@ -46,17 +46,18 @@ class Shape:
         elif shape == 'rectangle':
             self.collision_check = self.collision_check_rectangle
         elif shape == 'line':
+            self.line_vector=(self.points[0][0], self.points[0][1],self.points[1][0], self.points[1][1])
             #dx = math.fabs(self.points[0][0] - self.points[1][0])
             #dy = math.fabs(self.points[0][1] - self.points[1][1])
-            dx =(self.points[0][0] - self.points[1][0])*1.0
-            dy =(self.points[0][1] - self.points[1][1])*1.0
-            if dx==0:
-                self.vertical=True
-                self.slope=0
-            else:
-                self.slope = dy / dx
+            #dx =(self.points[0][0] - self.points[1][0])*1.0
+            #dy =(self.points[0][1] - self.points[1][1])*1.0
+            #if dx==0:
+            #    self.vertical=True
+            #    self.slope=0
+            #else:
+            #    self.slope = dy / dx
             #measuring if crossed the 0 line
-            self.prev_slope=None
+            self.prev_crossprod=None
             self.collision_check = self.collision_check_line
 
     def move(self, dx, dy):
@@ -97,44 +98,28 @@ class Shape:
         return self.active and x_in_interval and y_in_interval
 
     def collision_check_line(self, point):
-        #stupid way to check collision with a line segment
-        #step 1: check if the point falls within the rectangle
-       # x_in_interval = (point[0] > min(self.points[0][0], self.points[1][0])) and \
-       #                 (point[0] < max(self.points[0][0], self.points[1][0]))
+        #checking if they are colinear
+        a = self.points[0]
+        b = self.points[1]
+        crossprod = (point[1] - a[1]) * (b[0] - a[0]) - (point[0] - a[0]) * (b[1] - a[1])
+        #print crossprod
+        if self.prev_crossprod is not None:
+            if crossprod * self.prev_crossprod<=0:
+                crossing=True
+                #print "yeeeey"
+                self.prev_crossprod = crossprod
+                x_in_interval = (point[0] > min(self.points[0][0], self.points[1][0])) and \
+                                (point[0] < max(self.points[0][0], self.points[1][0]))
 
-       # y_in_interval = (point[1] > min(self.points[0][1], self.points[1][1])) and \
-       #                 (point[1] < max(self.points[0][1], self.points[1][1]))
-        #step2
-        #check if the slope between one of the points and the new point is the same
-        #dx=(math.fabs(point[0] - self.points[1][0])*1.0)
-        if self.vertical:
-            if point[0]==self.points[0][0]:
-                return self.active
-        dx=(point[0] - self.points[1][0])*1.0
-        dy=(point[1]- self.points[1][1])*1.0
-        if dx!=0:
-           # s = ((math.fabs(point[1]- self.points[1][1]))*1.0 /dx)
-            s=dy/dx
-            ds=s-self.slope #slope difference
-        else: ################################################################# not good at all ###########
-            self.prev_slope=0
-            #checking if it's a vertical line
-            if (point[1] > min(self.points[0][1], self.points[1][1])) and (point[1] < max(self.points[0][1], self.points[1][1])):
-              return self.active
-        #checking if the line was crossed
-        # if they have a different sign, they will be negative, otherwise positive
-        if self.prev_slope is not None and ds is not None:
-           # print dx, dy, s
-            print self.prev_slope, ds#, self.slope
-            crossing=(np.sign(ds)!=np.sign(self.prev_slope))
-            if crossing:
-                print "yeeeeeey"
+                y_in_interval = (point[1] > min(self.points[0][1], self.points[1][1])) and \
+                                (point[1] < max(self.points[0][1], self.points[1][1]))
+                return self.active and x_in_interval and y_in_interval and crossing
+            else:
+                self.prev_crossprod = crossprod
+                return False
         else:
-            crossing=False
-        self.prev_slope=ds
-
-        #checking if sign of the slope difference changed
-        return (crossing and self.active)# and x_in_interval and y_in_interval)
+            self.prev_crossprod=crossprod
+            return False
 
 class Mask:
     """ Geometrical shape that comprise Blind spots. Blind spots can be made of several
