@@ -44,20 +44,39 @@ class Shape:
             self.points = [points[0], (int(points[0][0]), points[0][1] + self.radius)]
             self.collision_check = self.collision_check_circle
         elif shape == 'rectangle':
+            if self.points is not None:
+                self.topleft_x = min(self.points[0][0], self.points[1][0])
+                self.topleft_y = min(self.points[0][1], self.points[1][1])
+                self.bottomright_y = max(self.points[0][1], self.points[1][1])
+                self.bottomright_x = max(self.points[0][0], self.points[1][0])
             self.collision_check = self.collision_check_rectangle
+
         elif shape == 'line':
-            self.line_vector=(self.points[0][0], self.points[0][1],self.points[1][0], self.points[1][1])
-            #dx = math.fabs(self.points[0][0] - self.points[1][0])
-            #dy = math.fabs(self.points[0][1] - self.points[1][1])
-            #dx =(self.points[0][0] - self.points[1][0])*1.0
-            #dy =(self.points[0][1] - self.points[1][1])*1.0
-            #if dx==0:
-            #    self.vertical=True
-            #    self.slope=0
-            #else:
-            #    self.slope = dy / dx
-            #measuring if crossed the 0 line
+            #self.line_vector=(self.points[0][0], self.points[0][1],self.points[1][0], self.points[1][1])
+
             self.prev_crossprod=None
+            #rectangle around the line segment
+            self.topleft_x = min(self.points[0][0], self.points[1][0])
+            self.topleft_y = min(self.points[0][1], self.points[1][1])
+            self.bottomright_y = max(self.points[0][1], self.points[1][1])
+            self.bottomright_x = max(self.points[0][0], self.points[1][0])
+
+            #in case of a vertical line
+            if abs(self.topleft_x-self.bottomright_x)<20:
+                if self.topleft_x>=10:
+                    self.topleft_x=self.topleft_x-10
+                else:
+                    self.topleft_x=0
+                self.bottomright_x = self.bottomright_x + 10
+
+            #in case of a horizontal line
+            if abs(self.topleft_y-self.bottomright_y)<10:
+                if self.topleft_y>=10:
+                    self.topleft_y=self.topleft_y-10
+                else:
+                    self.topleft_y=0
+                self.bottomright_y = self.bottomright_y + 10
+
             self.collision_check = self.collision_check_line
 
     def move(self, dx, dy):
@@ -86,18 +105,17 @@ class Shape:
             return False
 
     def collision_check_rectangle(self, point):
-        """ Circle points: center point, one point on the circle. Test for
-        collision by comparing distance between center and point of object with
-        radius.
+        """ Rectangle points
         """
-        x_in_interval = (point[0] > min(self.points[0][0], self.points[1][0])) and \
-                        (point[0] < max(self.points[0][0], self.points[1][0]))
-
-        y_in_interval = (point[1] > min(self.points[0][1], self.points[1][1])) and \
-                        (point[1] < max(self.points[0][1], self.points[1][1]))
+        x_in_interval = (point[0] > self.topleft_x) and (point[0] < self.bottomright_x)
+        y_in_interval = (point[1] > self.topleft_y) and (point[1] < self.bottomright_y)
         return self.active and x_in_interval and y_in_interval
 
     def collision_check_line(self, point):
+        """ Line segment collision checking:
+        Step 1: Calculating crossproduct of the vector from point (C) to start point (A), and the vector of the line segment (AB).
+        Step 2: Multiply the cross product with the previous frame's cross product: if the result is negative, the colinearity line was crossed
+        Step 3: Check if point C is within the rectangle around the line segment. """
         #checking if they are colinear
         a = self.points[0]
         b = self.points[1]
@@ -106,13 +124,12 @@ class Shape:
         if self.prev_crossprod is not None:
             if crossprod * self.prev_crossprod<=0:
                 crossing=True
-                #print "yeeeey"
+               # print "crossing"
                 self.prev_crossprod = crossprod
-                x_in_interval = (point[0] > min(self.points[0][0], self.points[1][0])) and \
-                                (point[0] < max(self.points[0][0], self.points[1][0]))
-
-                y_in_interval = (point[1] > min(self.points[0][1], self.points[1][1])) and \
-                                (point[1] < max(self.points[0][1], self.points[1][1]))
+                x_in_interval = (point[0] >self.topleft_x) and (point[0] < self.bottomright_x)
+                y_in_interval = (point[1] > self.topleft_y) and (point[1] < self.bottomright_y)
+               # ret=self.active and x_in_interval and y_in_interval and crossing
+                #print ret
                 return self.active and x_in_interval and y_in_interval and crossing
             else:
                 self.prev_crossprod = crossprod
