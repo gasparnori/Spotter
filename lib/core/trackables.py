@@ -52,15 +52,23 @@ class Shape:
             self.collision_check = self.collision_check_rectangle
 
         elif shape == 'line':
+<<<<<<< HEAD
             # self.line_vector=(self.points[0][0], self.points[0][1],self.points[1][0], self.points[1][1])
 
             self.prev_crossprod = None
             # rectangle around the line segment
+=======
+            #self.line_vector=(self.points[0][0], self.points[0][1],self.points[1][0], self.points[1][1])
+
+            self.prev_crossprod=None
+            #rectangle around the line segment
+>>>>>>> f91db120cc0b76232b3d96ff3d9bff301613e028
             self.topleft_x = min(self.points[0][0], self.points[1][0])
             self.topleft_y = min(self.points[0][1], self.points[1][1])
             self.bottomright_y = max(self.points[0][1], self.points[1][1])
             self.bottomright_x = max(self.points[0][0], self.points[1][0])
 
+<<<<<<< HEAD
             # in case of a vertical line
             if abs(self.topleft_x - self.bottomright_x) < 20:
                 if self.topleft_x >= 10:
@@ -75,6 +83,22 @@ class Shape:
                     self.topleft_y = self.topleft_y - 10
                 else:
                     self.topleft_y = 0
+=======
+            #in case of a vertical line
+            if abs(self.topleft_x-self.bottomright_x)<20:
+                if self.topleft_x>=10:
+                    self.topleft_x=self.topleft_x-10
+                else:
+                    self.topleft_x=0
+                self.bottomright_x = self.bottomright_x + 10
+
+            #in case of a horizontal line
+            if abs(self.topleft_y-self.bottomright_y)<10:
+                if self.topleft_y>=10:
+                    self.topleft_y=self.topleft_y-10
+                else:
+                    self.topleft_y=0
+>>>>>>> f91db120cc0b76232b3d96ff3d9bff301613e028
                 self.bottomright_y = self.bottomright_y + 10
 
             self.collision_check = self.collision_check_line
@@ -116,6 +140,7 @@ class Shape:
         Step 1: Calculating crossproduct of the vector from point (C) to start point (A), and the vector of the line segment (AB).
         Step 2: Multiply the cross product with the previous frame's cross product: if the result is negative, the colinearity line was crossed
         Step 3: Check if point C is within the rectangle around the line segment. """
+<<<<<<< HEAD
         # checking if they are colinear
         a = self.points[0]
         b = self.points[1]
@@ -130,14 +155,35 @@ class Shape:
                 y_in_interval = (point[1] > self.topleft_y) and (point[1] < self.bottomright_y)
                 # ret=self.active and x_in_interval and y_in_interval and crossing
                 # print ret
+=======
+        #checking if they are colinear
+        a = self.points[0]
+        b = self.points[1]
+        crossprod = (point[1] - a[1]) * (b[0] - a[0]) - (point[0] - a[0]) * (b[1] - a[1])
+        #print crossprod
+        if self.prev_crossprod is not None:
+            if crossprod * self.prev_crossprod<=0:
+                crossing=True
+               # print "crossing"
+                self.prev_crossprod = crossprod
+                x_in_interval = (point[0] >self.topleft_x) and (point[0] < self.bottomright_x)
+                y_in_interval = (point[1] > self.topleft_y) and (point[1] < self.bottomright_y)
+               # ret=self.active and x_in_interval and y_in_interval and crossing
+                #print ret
+>>>>>>> f91db120cc0b76232b3d96ff3d9bff301613e028
                 return self.active and x_in_interval and y_in_interval and crossing
             else:
                 self.prev_crossprod = crossprod
                 return False
         else:
+<<<<<<< HEAD
             self.prev_crossprod = crossprod
             return False
 
+=======
+            self.prev_crossprod=crossprod
+            return False
+>>>>>>> f91db120cc0b76232b3d96ff3d9bff301613e028
 
 class Mask:
     """ Geometrical shape that comprise Blind spots. Blind spots can be made of several
