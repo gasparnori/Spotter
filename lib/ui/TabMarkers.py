@@ -136,7 +136,6 @@ class Tab(QtGui.QWidget, Ui_tab_markers):
             if self.marker.position is not None:
                 self.marker.kalmanfilter.calibrateSensor(self.marker.position[0],
                                                      self.marker.position[1],
-                                                     self.speed,
                                                      self.counterR,
                                                      self.CalibMax)
                 # print self.counterR

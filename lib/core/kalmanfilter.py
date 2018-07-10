@@ -1,7 +1,7 @@
 import numpy as np
 import math
 import logging
-import geometry as geom
+import lib.geometry as geom
 
 class KFilter:
     Observation_CoeffVal = 15
@@ -11,8 +11,8 @@ class KFilter:
     calibrating=False
     maxPredictions=100   #if this amount of consecutive signal is missing, it sends out None
     predictionCounter=0
-    confidenceInterval=50 #we assume that there can't be more than this pixels difference between the measurements of two consecutive frame if the difference is bigger than this number, it sends out a None
-
+    confidenceInterval=20 #we assume that there can't be more than this pixels difference between the measurements of two consecutive frame if the difference is bigger than this number, it sends out a None
+    #confIntcoeff = 50
     def __init__(self, max_x, max_y, filter_dim, R, Q, initpoint=None, fps=190):
         # for the filter
         #self.measured_state = np.zeros(shape=(self.num_variables, 1))
@@ -99,7 +99,7 @@ class KFilter:
         self.measured_state = np.array([[datax], [datay]])#, [vx], [vy], [ax], [ay]])
         return np.asmatrix(self.measured_state)
 
-    def calibrateQ(self, x,y,t,index, max_index):
+    def calibrateQ(self, index, max_index):
         if index<max_index:
             self.calibrating=True
             #self.QcalibIndex=index
@@ -109,7 +109,8 @@ class KFilter:
             self.calibrating=False
             self.Qk = np.mean(self.QCalib, axis=0)
             self.log.debug("observation calibration done")
-    def calibrateSensor(self, x, y, t, index, max_index):
+
+    def calibrateSensor(self, x, y, index, max_index):
         # measurements in a fixed position: should determine the sensor error
         if index<max_index:
             # if index > 0:
@@ -136,6 +137,90 @@ class KFilter:
         else:
             self.Rk = np.cov(self.RCalib[:, 0:])
             self.log.debug("sensor calibration done")
+
+    def expWeight(self, x):
+        if abs(x) < self.confidenceInterval:
+            y = 1
+        else:
+            y = 0.5 * np.exp(1 - (abs(x) / self.confIntcoeff))
+        return (y)
+
+    def iterateRobustFilter(self, dt, coordinates,guessing_enabled=True, adaptive=False):
+        u = np.asmatrix(self.updated_state[:, -1]).transpose()         #state matrix (4x1) or (6x1)
+        if self.num_variables == 4:
+            self.Fk = np.array([[1, 0, dt, 0], [0, 1, 0, dt], [0, 0, 1, 0], [0, 0, 0, 1]])         # system dynamics (4x4 or 6x6)
+        else:
+            self.Fk = np.array([[1, 0, dt, 0, 0.5 * dt * dt, 0],
+                                [0, 1, 0, dt, 0, 0.5 * dt * dt],
+                                [0, 0, 1, 0, dt, 0],
+                                [0, 0, 0, 1, 0, dt],
+                                [0, 0, 0, 0, 1, 0],
+                                [0, 0, 0, 0, 0, 1]])
+        # #prediction step
+        pred = self.Fk * u         #A priori state matrix (4x1) or (6x1)
+        cov = self.Fk * self.Pk * self.Fk.transpose() + self.Qk         #A priori covariance matrix
+
+        retVal=None #default return value
+
+        #update step if there was a measurement
+        if coordinates is not None:
+            self.predictionCounter=0
+            m = self.add_measurement(dt, coordinates)
+
+            #our addition to the weight
+            dx = geom.distance(m, pred[0:2])
+            mWeight = self.expWeight(dx)
+
+            diff = (m - self.Hk * pred)  # difference between prediction and measurement * mWeight
+
+            # setting the matrices
+            S = np.linalg.inv(self.Hk * cov * self.Hk.T + self.Rk)
+            self.Kgain = cov * self.Hk.T * S# *mWeight # Kalman gain
+            self.Pk = (np.eye(self.num_variables) - (self.Kgain * self.Hk)) * cov  # A posteriori covariance matrix
+
+            # update
+            updateval = pred + self.Kgain * diff
+
+            # print self.calibrating
+            if self.calibrating:
+                self.QCalib.append(self.Kgain * diff * diff.T * self.Kgain.T)
+
+            # #adapting Rk and Qk
+            if adaptive:
+                self.log.debug("adaptive filtering...")
+                self.Qk = self.forget * self.Qk + \
+                          (1 - self.forget) * self.Kgain * diff * diff.transpose() * self.Kgain.transpose()
+                residual = m - (self.Hk * updateval)
+                self.Rk = self.forget * self.Rk + (1 - self.forget) * (
+                            residual * residual.T + (self.Hk * self.Pk * self.Hk.T))
+
+            self.updated_state[:, :-1] = self.updated_state[:, 1:]
+            self.updated_state[:, -1] = updateval.A1
+
+            xval = int(round(updateval[0, 0])) if round(updateval[0, 0]) > 0 and round(
+                updateval[0, 0]) < self.max_x else None
+            yval = int(round(updateval[1, 0])) if round(updateval[1, 0]) > 0 and round(
+                updateval[1, 0]) < self.max_y else None
+
+            if xval is not None and yval is not None:
+                # print 'Measured: ', (m[0,0], m[1,0]), 'Predicted: ', (pred[0,0],  pred[1,0]), 'updated: ', (xval, yval)
+                retVal=(xval, yval)
+        else:
+            if not self.calibrating:
+                if guessing_enabled and self.predictionCounter<self.maxPredictions:
+                    #update the list with the prediction
+                    self.updated_state[:, :-1] = self.updated_state[:, 1:]
+                    self.updated_state[:, -1] = pred.A1
+                    self.predictionCounter=self.predictionCounter+1
+
+                    xpred=int(round(pred[0,0])) if round(pred[0,0])>0 and round(pred[0,0])<self.max_x else None
+                    ypred=int(round(pred[1,0])) if round(pred[1,0])>0 and round(pred[1,0])<self.max_y else None
+
+                    if xpred is not None and ypred is not None:
+                        #self.log.debug("predicting missing value")
+                       # print 'Missing value nr. ', self.predictionCounter, '. Predicted: ', (pred[0,0],  pred[1,0]), 'updated: ', (xpred, ypred)
+                        retVal=(xpred, ypred)
+        return retVal
 
     def iterate_filter(self, dt, coordinates,guessing_enabled=True, adaptive=False):#, calibrating=False):
 

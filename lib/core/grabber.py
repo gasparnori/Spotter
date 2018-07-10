@@ -217,11 +217,11 @@ class Grabber:
             try:
                 self.capture.release()
                 self.size = self.fps = self.fourcc = None
-                self.frame_count = 0
+                self.frame_count = -1
                 self.log.debug("Capture released")
             except BaseException, error:
                 self.size = self.fps = self.fourcc = None
-                self.frame_count = 0
+                self.frame_count = -1
                 self.log.error("Capture release exception: [%s]", error)
 
         self.capture = None
