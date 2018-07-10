@@ -30,15 +30,15 @@ Tested on Windows 7
 
 *Python installation:*
 
-Download and install Python 2.7 32bit
+Download and install Python 2.7
 Add python to the PATH variable by appending the lines below under MyComputer->Properties->Advanced->Env Variables->Path
 
     ;C:\Python27\;C:\Python27\Scripts
 
 *Installing packages:*
     
-Install required packages by downlaoding and innstalling following binaries
-(choose win32-py2.7 links) in order:
+Install required packages by downlaoding and innstalling following binaries through pip or through the links below:
+numpy, scipy, matplotlib, pyopengl, pyserial
 
     http://www.lfd.uci.edu/~gohlke/pythonlibs/#pip
     http://www.lfd.uci.edu/~gohlke/pythonlibs/#numpy
@@ -48,12 +48,12 @@ Install required packages by downlaoding and innstalling following binaries
 *OpenCV*
 
 Install OpenCV 2.4+ with prebuilt libraries, and follow the relevant [installation steps](https://docs.opencv.org/2.4/doc/tutorials/introduction/windows_install/windows_install.html)
-	Go to opencv/build/python/2.7/x86 folder.
+	Go to opencv/build/python/2.7/x86 or x64 folder.
 	Copy cv2.pyd to C:/Python27/lib/site-packages.
 
 *PyQt4*
 
-Download prebuilt PyQt4 (PyQt4-4.10-gpl-Py2.7-Qt4.8.4-x32.exe) from [here](https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.10/)
+Download prebuilt PyQt4 (PyQt4-4.10-gpl-Py2.7-Qt4.8.4-x32.exe or x64 respectively) from [here](https://sourceforge.net/projects/pyqt/files/PyQt4/PyQt-4.10/)
 
 *Video Codec*
 
@@ -61,15 +61,14 @@ Download and install XVID codec from [here](https://www.xvid.com/download/)
 
 **MaxOSX**
 
+This was never tested...
+
 *Install XCode*
 *install MacPorts.*
 	
 	sudo port -v selfupdate
 
 cp /usr/local/opt/opencv@2/lib/python2.7/site-packages/cv2.so /usr/local/lib/python2.7/site-packages/
-
-https://stackoverflow.com/questions/34853220/cannot-import-cv2-in-python-in-osx
-
 
 *Install py27- packages.*
 
@@ -82,11 +81,10 @@ https://stackoverflow.com/questions/34853220/cannot-import-cv2-in-python-in-osx
 	sudo port install py27-pyqt4
 
 
-
 **LINUX**
 
     apt-get install the following packages:
-    (among others...)
+
     python-numpy
     python-scipy
     python-qt4-gl
@@ -105,6 +103,10 @@ Installation
 **Without git**
 
 Download and extract the zip file
+
+**Starting the program**
+
+On Windows run the Spotter.bat file. This will update the newest version, convert the UI and run the software itself.
 
 Hardware and Arduino
 --------------------
