@@ -471,6 +471,7 @@ class ObjectOfInterest:
         self.time_hist.append(dt)
 
         #print "speed: ", sp, "movdir: ", movdir
+        sp=sp*1000 if sp is not None else None #pixels/msec to pixels/sec conversion
         if len(self.speed_hist) >= HIST_BUFFER:
             self.speed_hist = self.speed_hist[1:]
         self.speed_hist.append(sp)
@@ -480,6 +481,7 @@ class ObjectOfInterest:
         self.mov_dir_hist.append(movdir)
 
         #print "theta: ", theta, "angvel: ", angvel
+        angvel=angvel*100 if angvel is not None else None  #pixels/msec to pixels/sec conversion
         if len(self.ang_vel_hist) >= HIST_BUFFER:
             self.ang_vel_hist = self.ang_vel_hist[1:]
         self.ang_vel_hist.append(angvel)
@@ -572,7 +574,19 @@ class ObjectOfInterest:
         angvel = None
         if len(self.orientation_hist) > 2:
             if self.orientation_hist[-1] is not None and self.orientation_hist[-2] is not None:
-                angvel = (self.orientation_hist[-1] - self.orientation_hist[-2])*1.0 / elapsedtime
+                diff=(self.orientation_hist[-1] - self.orientation_hist[-2])
+               # print self.orientation_hist[-1], self.orientation_hist[-2], diff
+                #the previous coordinate is shifted
+                if diff>180:
+                    angvel = (diff-360) * 1.0 / elapsedtime  # px/msec
+                if diff<-180:
+                    angvel = (diff +360) * 1.0 / elapsedtime  # px/msec
+                else:
+                    angvel = (diff) * 1.0 / elapsedtime
+
+
+        else:
+            print "missing"
 
         return angvel
 

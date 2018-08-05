@@ -45,11 +45,11 @@ def PlotSecondOrder(speed, mov_dir, ang_vel, times, title, txt):
         fig, pl = plt.subplots(3, 1, True, False, True)
         fig.suptitle(title, fontsize=fontS)
         pl[0].set_title("Speed", fontsize=fontS)
-        pl[0].set_ylabel("speed [px/ms]", fontsize=fontS)
+        pl[0].set_ylabel("speed [px/s]", fontsize=fontS)
         pl[0].plot(speed)
 
         pl[1].set_title("Angular Velocity of Head Movement", fontsize=fontS)
-        pl[1].set_ylabel("[degrees/ms]", fontsize=fontS)
+        pl[1].set_ylabel("[degrees/s]", fontsize=fontS)
         pl[1].plot(ang_vel)
 
         pl[2].set_title("Movement Direction (degrees)", fontsize=fontS)

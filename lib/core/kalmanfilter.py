@@ -326,6 +326,15 @@ class doubleFilter:
                 m[i, 0] = firstOrderParams[i]
                 mask[i,i]=1
                 mask[7+i, 7+i] = 1
+                #angular velocity calculation
+                if i==6:
+                    diff = (firstOrderParams[i] - self.updated_state[i, 0])
+                    if diff > 180:
+                        m[7 + i, 0] = (diff - 360) * 1.0 /dt # px/msec
+                    if diff < -180:
+                        m[7 + i, 0] = (diff + 360) * 1.0 /dt  # px/msec
+                    else:
+                        m[7 + i, 0] = (diff) * 1.0 /dt
         return m, mask
 
     def __init__(self, max_x, max_y, initpoint=None):

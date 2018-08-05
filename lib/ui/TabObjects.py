@@ -135,13 +135,13 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
         if not self.ckb_analog_pos.isChecked() == self.object.analog_pos:
             self.ckb_analog_pos.setChecked(self.object.analog_pos)
 
-        self.lbl_x.setText('---   ' if self.object.getPositionX() is None else "%.0f px" % self.object.getPositionX())
-        self.lbl_y.setText('---   ' if self.object.getPositionY() is None else "%.0f px" % self.object.getPositionY())
+        self.lbl_x.setText('---   ' if self.object.getPositionX() is None else " %.0f px   " % self.object.getPositionX())
+        self.lbl_y.setText('---   ' if self.object.getPositionY() is None else " %.0f px   " % self.object.getPositionY())
 
-        self.lbl_speed.setText('---   ' if self.object.getSpeed() is None else "%.2f px/ms" % self.object.getSpeed())
-        self.lbl_angularv.setText('---   ' if self.object.getAngVel() is None else "%.2f deg/ms" % self.object.getAngVel())
-        self.lbl_head_orientation.setText('---   ' if self.object.getOrientation() is None else "%.0f deg" % self.object.getOrientation())
-        self.lbl_movement_dir.setText('---   ' if self.object.getMovementDir() is None else "%.0f deg" % self.object.getMovementDir())
+        self.lbl_speed.setText('---   ' if self.object.getSpeed() is None else " %.0f px/s " % self.object.getSpeed())
+        self.lbl_angularv.setText('---   ' if self.object.getAngVel() is None else "%.0f deg/s" % self.object.getAngVel())
+        self.lbl_head_orientation.setText('---   ' if self.object.getOrientation() is None else "%.0f deg  " % self.object.getOrientation())
+        self.lbl_movement_dir.setText('---   ' if self.object.getMovementDir() is None else "%.0f deg  " % self.object.getMovementDir())
         # self.dial_direction.setValue(self.dial_direction.value() if self.object.getOrientation() is None
         #                              else self.object.getOrientation())
         self.ckb_FilterEnable.setEnabled(True if (len(self.object.getLinkedLEDs())==2) else False)
