@@ -163,9 +163,6 @@ class Spotter:
             for o in self.tracker.oois:
                 #calculates marker position from LED's to object
                 #with the kalman filter: updates the coordinates of the object after smoothing, predicts missing coordinates
-                o.update_state(self.spotterelapsed)
-
-                #updates the velocity and direction values on the coordinates and the frame to frame interval
                 o.update_values(self.spotterelapsed)
 
                 #updates the output values to the Arduino

@@ -183,8 +183,8 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
             range_area = map(int, template['range_area'])
             fixed_pos = template.as_bool('fixed_pos')
             filter_dim = template.as_int('filter_dimensions')
-            R=np.asmatrix(map(float, template['R'])).reshape(2,2)
-            Q=np.asmatrix(map(float, template['Q'])).reshape(filter_dim, filter_dim)
+            R = np.asmatrix(map(float, template['R'])).reshape(4,4)
+            Q = np.asmatrix(map(float, template['Q'])).reshape(filter_dim, filter_dim)
             fe = template.as_bool('filter_enabled')
             ge = template.as_bool('estimation_enabled')
 
@@ -228,6 +228,10 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
                 if template['markers'][n] == l.label:
                     markers.append(l)
 
+        #for linking LED
+        #fixedDist=template.get('fixed_distance') if template.get('fixed_distance') else False
+        #avgDist= template.get('average_distance') if template.get('average_distance') else 7
+
         analog_out = template['analog_out']
         if analog_out:
             # Magnetic objects from collision list
@@ -264,6 +268,7 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
 
         trace = template['trace']
         track = template['track']
+
         object_ = self.spotter.tracker.add_ooi(markers, label, trace, track, magnetic_signals)
         self.objects_page.add_item(object_, focus_new)
 
@@ -364,16 +369,16 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
         self.serial_page.add_item(serial_object, update_all_tabs=self.update_all_tabs())
 
     ###############################################################################
-    ##  Calibration Tab Updates
+    ##  Calibration Tab Updates -----------------not used
     ###############################################################################
-    def tab_calib_switch(self, idx_tab=0):
-        """
-        Switch to the tab page with index idx_tab.
-        """
-        self.calib_page.tabs_sub.setCurrentIndex(idx_tab)
-
-    def add_calib(self, calib_object, label=None):
-        self.calib_page.add_item(calib_object, update_all_tabs=self.update_all_tabs())
+    # def tab_calib_switch(self, idx_tab=0):
+    #     """
+    #     Switch to the tab page with index idx_tab.
+    #     """
+    #     self.calib_page.tabs_sub.setCurrentIndex(idx_tab)
+    #
+    # def add_calib(self, calib_object, label=None):
+    #     self.calib_page.add_item(calib_object, update_all_tabs=self.update_all_tabs())
 
     ###############################################################################
     ##  Blind Spot Tab Updates

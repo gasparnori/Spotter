@@ -42,6 +42,7 @@ DEFAULT_TEMPLATE = 'defaults.ini'
 GUI_REFRESH_INTERVAL = 20
 SPOTTER_REFRESH_INTERVAL = 5
 POSITION_GUESSING_ENABLED=False
+
 from PyQt4.QtGui import QMessageBox
 
 import sys
@@ -182,18 +183,19 @@ class Main(QtGui.QMainWindow):
     ###############################################################################
     def trackFPS(self, state):
         """Outputs a digital signal on D3 for the frame rate (each state change is a frame)"""
-        if state:
-            p = self.spotter.chatter.pins('digital')
-            if p[-1].slot is not None:
-                p[-1].slot.detach_pin()
-                self.log.debug("D3 pin detached from object.")
-            self.spotter.fpstest.attach_pin(p[-1])
-            self.spotter.FPStest = True
-            self.log.debug("FPS tracking started on D3 pin.")
-        else:
-            self.spotter.FPStest=False
-            self.spotter.fpstest.deattach_pin()
-            self.log.debug("FPS tracking stopped on D3 pin.")
+        p = self.spotter.chatter.pins('digital')
+        if len(p)>0:
+            if state:
+                if len(p)>0 and p[-1].slot is not None:
+                    p[-1].slot.detach_pin()
+                    self.log.debug("D3 pin detached from object.")
+                self.spotter.fpstest.attach_pin(p[-1])
+                self.spotter.FPStest = True
+                self.log.debug("FPS tracking started on D3 pin.")
+            else:
+                self.spotter.FPStest=False
+                self.spotter.fpstest.deattach_pin()
+                self.log.debug("FPS tracking stopped on D3 pin.")
         return
 
     def spotterUpdate(self):
@@ -482,7 +484,8 @@ class Main(QtGui.QMainWindow):
             filename = str(QtGui.QFileDialog.getOpenFileName(self, 'Open Template', directory))
         if not len(filename):
             return None
-
+        self.log.debug("Closing current configuration")
+        self.side_bar.remove_all_tabs()
         self.log.debug("Opening template %s", filename)
         template = self.parse_config(filename)
         if template is not None:
@@ -559,6 +562,8 @@ class Main(QtGui.QMainWindow):
             analog_out = len(o.magnetic_signals) > 0
             section = {'markers': markers,
                        'analog_out': analog_out}
+            #section['fixed_distance']=o.fixedDist
+            #section['average_distance']=o.avg_dist
             if analog_out:
                 section['analog_signal'] = [s[0] for s in o.magnetic_signals]
                 section['pin_pref'] = [s[1] for s in o.magnetic_signals]

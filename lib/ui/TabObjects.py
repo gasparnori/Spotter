@@ -7,7 +7,9 @@ Created on Sun Jan 13 14:19:24 2013
 """
 import logging
 from PyQt4 import QtGui, QtCore
+from PyQt4.QtGui import QMessageBox
 from tab_objectsUi import Ui_tab_objects
+import sip
 
 
 class Tab(QtGui.QWidget, Ui_tab_objects):
@@ -41,6 +43,17 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
         self.connect(self.ckb_track, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
         self.connect(self.ckb_trace, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
         self.connect(self.ckb_analog_pos, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
+       # self.connect(self.ckb_fixedDist, QtCore.SIGNAL('stateChanged(int)'), self.fixed_dist)
+        self.connect(self.ckb_FilterEnable, QtCore.SIGNAL('stateChanged(int)'), self.enable_filter)
+        self.connect(self.ckb_PosEst, QtCore.SIGNAL('stateChanged(int)'), self.enable_posestimation)
+        #self.connect(self.btn_measureDist, QtCore.SIGNAL('clicked()'), self.measureDistance)
+        #self.btn_measureDist.setEnabled(False)
+        self.ckb_PosEst.setEnabled(False)
+        self.ckb_FilterEnable.setEnabled(False)
+
+        #self.progressDist.setVisible(False)
+        #self.progressDist.setMaximum(100)
+
 
         #Since the Kalman filter is implemented on the marker level, this function is unnecessary
        # self.connect(self.ckb_guessing, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
@@ -50,6 +63,58 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
         # slot table is static for Object, lists object properties
         self.populate_slot_table()
         self.update()
+
+    def enable_posestimation(self, state):
+        if state:
+            self.object.posGuessing=True
+        else:
+            self.object.posGuessing = False
+
+    def enable_filter(self, state):
+        if state:
+            self.ckb_PosEst.setEnabled(True)
+            self.object.enable_filter()
+        else:
+            self.ckb_PosEst.setEnabled(False)
+            self.object.disable_filter()
+
+    # def fixed_dist(self, state):
+    #     if state:
+    #         self.btn_measureDist.setEnabled(True)
+    #         self.object.linked_leds[0].linkto(self.object)
+    #         self.object.linked_leds[1].linkto(self.object)
+    #         self.ckb_FilterEnable.setEnabled(True)
+    #
+    #     else:
+    #         self.object.disable_filter()
+    #         self.ckb_FilterEnable.setEnabled(False)
+    #         self.btn_measureDist.setEnabled(False)
+
+    # def measureDistance(self):
+    #     popup = QMessageBox.information(self, "Measuring distance between LEDs",
+    #                                     "You need to have exactly two visible markers for this function. Are all LED's visible?",
+    #                                     QMessageBox.Ok, QMessageBox.Cancel)
+    #     if popup == QMessageBox.Ok:
+    #         self.MaxProg = 100
+    #         self.ProgCounter=0
+    #         self.timerM = QtCore.QTimer()
+    #         self.connect(self.timerM, QtCore.SIGNAL('timeout()'), self.distance)
+    #         self.timerM.start(100)
+    #         self.progressDist.setVisible(True)
+    #         self.progressDist.setValue(0)
+
+    def distance(self):
+        if self.ProgCounter <= self.MaxProg:
+
+            ##only works with two LEDs
+            self.object.avgDist(self.ProgCounter)
+            self.ProgCounter=self.ProgCounter+1
+            self.progressDist.setValue(self.ProgCounter)
+        else:
+            self.progressDist.setValue(self.MaxProg)
+            self.log.debug("Measuring distance between LED's")
+            self.log.info("average distance is %f", self.object.avg_dist)
+            sip.delete(self.timerM)
 
     def update(self):
         if self.label is None:
@@ -79,6 +144,7 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
         self.lbl_movement_dir.setText('---   ' if self.object.getMovementDir() is None else "%.0f deg" % self.object.getMovementDir())
         # self.dial_direction.setValue(self.dial_direction.value() if self.object.getOrientation() is None
         #                              else self.object.getOrientation())
+        self.ckb_FilterEnable.setEnabled(True if (len(self.object.getLinkedLEDs())==2) else False)
 
     def update_object(self):
         if self.label is None:

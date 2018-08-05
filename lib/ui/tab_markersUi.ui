@@ -14,7 +14,16 @@
    <string>Form</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <property name="margin">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <property name="spacing">
@@ -39,14 +48,23 @@
           <x>0</x>
           <y>0</y>
           <width>811</width>
-          <height>553</height>
+          <height>569</height>
          </rect>
         </property>
         <attribute name="label">
          <string>Detection</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_6">
-         <property name="margin">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
           <number>0</number>
          </property>
          <property name="spacing">
@@ -526,14 +544,14 @@
              <item row="1" column="0">
               <widget class="QPushButton" name="CalibRBtn">
                <property name="text">
-                <string>Calibrate Sensor error</string>
+                <string>Calibrate Camera</string>
                </property>
               </widget>
              </item>
              <item row="2" column="0">
               <widget class="QPushButton" name="CalibQBtn">
                <property name="text">
-                <string>Calibrate Observation error</string>
+                <string>Calibrate Filter</string>
                </property>
               </widget>
              </item>
@@ -555,15 +573,24 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>811</width>
-          <height>553</height>
+          <width>158</width>
+          <height>86</height>
          </rect>
         </property>
         <attribute name="label">
          <string>In/Out</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_7">
-         <property name="margin">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
           <number>0</number>
          </property>
          <item row="0" column="0">

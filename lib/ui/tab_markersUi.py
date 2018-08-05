@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'tab_markersUi.ui'
 #
-# Created: Tue Jul 10 16:57:03 2018
+# Created: Sun Aug 05 14:44:02 2018
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -28,8 +28,8 @@ class Ui_tab_markers(object):
         tab_markers.setObjectName(_fromUtf8("tab_markers"))
         tab_markers.resize(813, 613)
         self.gridLayout = QtGui.QGridLayout(tab_markers)
-        self.gridLayout.setMargin(0)
         self.gridLayout.setSpacing(0)
+        self.gridLayout.setMargin(0)
         self.gridLayout.setObjectName(_fromUtf8("gridLayout"))
         self.gridLayout_2 = QtGui.QGridLayout()
         self.gridLayout_2.setSpacing(1)
@@ -37,11 +37,11 @@ class Ui_tab_markers(object):
         self.toolBox = QtGui.QToolBox(tab_markers)
         self.toolBox.setObjectName(_fromUtf8("toolBox"))
         self.page_marker_detection = QtGui.QWidget()
-        self.page_marker_detection.setGeometry(QtCore.QRect(0, 0, 811, 553))
+        self.page_marker_detection.setGeometry(QtCore.QRect(0, 0, 811, 569))
         self.page_marker_detection.setObjectName(_fromUtf8("page_marker_detection"))
         self.gridLayout_6 = QtGui.QGridLayout(self.page_marker_detection)
-        self.gridLayout_6.setMargin(0)
         self.gridLayout_6.setSpacing(0)
+        self.gridLayout_6.setMargin(0)
         self.gridLayout_6.setObjectName(_fromUtf8("gridLayout_6"))
         self.layout_feature_parameters = QtGui.QGridLayout()
         self.layout_feature_parameters.setSpacing(0)
@@ -261,7 +261,7 @@ class Ui_tab_markers(object):
         self.gridLayout_6.addLayout(self.verticalLayout_4, 10, 0, 1, 1)
         self.toolBox.addItem(self.page_marker_detection, _fromUtf8(""))
         self.page_feature_IO = QtGui.QWidget()
-        self.page_feature_IO.setGeometry(QtCore.QRect(0, 0, 811, 553))
+        self.page_feature_IO.setGeometry(QtCore.QRect(0, 0, 158, 86))
         self.page_feature_IO.setObjectName(_fromUtf8("page_feature_IO"))
         self.gridLayout_7 = QtGui.QGridLayout(self.page_feature_IO)
         self.gridLayout_7.setMargin(0)
@@ -336,8 +336,8 @@ class Ui_tab_markers(object):
         self.enable_filter.setText(_translate("tab_markers", "Enable Kalman Filter", None))
         self.enable_adaptive.setText(_translate("tab_markers", "Adaptive filtering", None))
         self.ckb_prediction.setText(_translate("tab_markers", "Estimating position", None))
-        self.CalibRBtn.setText(_translate("tab_markers", "Calibrate Sensor error", None))
-        self.CalibQBtn.setText(_translate("tab_markers", "Calibrate Observation error", None))
+        self.CalibRBtn.setText(_translate("tab_markers", "Calibrate Camera", None))
+        self.CalibQBtn.setText(_translate("tab_markers", "Calibrate Filter", None))
         self.toolBox.setItemText(self.toolBox.indexOf(self.page_marker_detection), _translate("tab_markers", "Detection", None))
         self.pushButton_12.setText(_translate("tab_markers", "Save", None))
         self.pushButton_13.setText(_translate("tab_markers", "Delete", None))

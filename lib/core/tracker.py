@@ -35,6 +35,24 @@ from lib.docopt import docopt
 
 DEBUG = False #True
 
+class tracked_blob:
+    def __init__(self, cnt, last_coord, offset_x, offset_y, range_area):
+        try:
+            self.cnt=cnt
+            self.area = cv2.contourArea(self.cnt.astype(int))
+            if self.area<range_area[0]:
+                self.cx=None
+                self.cy=None
+                self.dist=None
+                #print "empty area"
+            else:
+                moment = cv2.moments(cnt.astype(int))
+                self.cx = math.ceil(moment['m10'] / moment['m00']) + offset_x
+                self.cy = math.ceil(moment['m01'] / moment['m00']) + offset_y
+                self.dist = geom.distance(last_coord, (self.cx, self.cy)) if (last_coord is not None) else 0
+
+        except:
+            print "error", sys.exc_info()[0]
 
 class Tracker:
     """ Performs tracking and returns positions of found LEDs """
@@ -126,9 +144,11 @@ class Tracker:
         f=trkbl.fpsTestSignal(pin)
         return f
 
-    #this function draws black mask directly on the frame, overwriting the original values (for example hiding an object)
-    #further development: look them up from a lookup table instead of this solution
     def mask_blindspots(self, frame):
+        """
+        this function draws black mask directly on the frame, overwriting the original values (for example hiding an object)
+        further development: look them up from a lookup table instead of this solution
+        """
         for b in self.bspots:
             for m in b.masks:
                 if m.shape=='line' and m.active:
@@ -175,6 +195,7 @@ class Tracker:
             self.max_x=width
             self.max_y=height
 
+            #checks the location of all LED's chooses the best, and applies kalman filter on that
             for led in self.leds:
                 if led.detection_active:
                     self.track_thresholds(self.frame, led, elapsedtime)
@@ -196,23 +217,11 @@ class Tracker:
         if (l.adaptive_tracking and self.adaptive_tracking) \
            and l.search_roi is not None and l.search_roi.points is not None:
             (ax, ay), (bx, by) = l.search_roi.points
-            ax = int(ax * self.scale)
-            bx = int(bx * self.scale)
-            ay = int(ay * self.scale)
-            by = int(by * self.scale)
             h, w = hsv_frame.shape[0:2]
-
-            # check if box is too far left or right:
-            # Esther says to do it the stoopid way
-            if ax < 0:
-                ax = 0
-            if bx >= w-1:
-                bx = w-1
-
-            if ay < 0:
-                ay = 0
-            if by >= h-1:
-                by = h-1
+            ax = int(ax * self.scale) if ax >= 0 else 0
+            bx = int(bx * self.scale) if (bx <= w-1) else w-1
+            ay = int(ay * self.scale) if ay >= 0 else 0
+            by = int(by * self.scale) if by <= h-1 else h-1
 
             frame = hsv_frame[ay:by, ax:bx, :]
             frame_offset = True
@@ -244,44 +253,56 @@ class Tracker:
 
         # find largest contour that is >= than minimum area
         ranged_frame = cv2.dilate(ranged_frame, np.ones((3, 3), np.uint8))
-        contour_area, contour = self.find_contour(ranged_frame, r_area)
-        self.contour=contour
-        # find centroids of the contour returned
-        if contour is not None:
-            moments = cv2.moments(contour.astype(int))
-            cx = math.ceil(moments['m10']/moments['m00'])
-            cy = math.ceil(moments['m01']/moments['m00'])
-            if frame_offset:
-                cx += ax
-                cy += ay
-            #l.pos_hist.append((math.ceil(cx/self.scale), math.ceil(cy/self.scale)))
-            last_measured=(cx/self.scale, cy/self.scale)
-            l.filterPosition(elapsedtime, last_measured)
-
-
-        else:
-            # Couldn't find a good enough spot
-            l.filterPosition(elapsedtime, None)
-            #l.pos_hist.append(None)
+        #if l.linked_to() is not None
+        prev_location=l.last_stable
+        # if l.linked_to is None:
+        #     prev_location = l.last_stable
+        #     #prev_location= l.pos_hist[-1] if len(l.pos_hist)>0 else None
+        # else:
+        #     prev_location=l.linked_to.pos_hist[-1] if len(l.linked_to.pos_hist)>0 else None
+        offset_x= ax if frame_offset else 0
+        offset_y=ay if frame_offset else 0
+        l.before_filter, self.contour = self.find_best_coordinates(ranged_frame, r_area, prev_location, offset_x, offset_y, self.scale)
+        l.elapsedtime=elapsedtime
+        l.filterPosition()
 
     @staticmethod
-    def find_contour(frame, range_area):
+    def find_best_coordinates(frame, range_area, last_coord, offset_x, offset_y, scale):
         """
         Return contour with largest area. Returns None if no contour within
         admissible range_area is found.
         """
         contours, hierarchy = cv2.findContours(frame, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
-        largest_area = 0
+        largest_area = range_area[0]    # starts from the minimum area that we are looking for
+        max_area = range_area[1] if range_area[1] > 0 else 50000  #if the maximum is 0 --> max_area is bigger than the frame size
         best_cnt = None
-        min_area = range_area[0]
-        max_area = range_area[1]
-        for cnt in contours:
-            area = cv2.contourArea(cnt.astype(int))
-            if area > largest_area and area >= min_area:
-                if max_area == 0 or area < range_area[1]:
-                    largest_area = area
-                    best_cnt = cnt
-        return largest_area, best_cnt
+        last_measured = None
+        best_coord=None
+        best_distance=10000
+        #print "number of contours: ", len(contours)
+        blobs=[tracked_blob(cnt, last_coord, offset_x, offset_y, range_area) for cnt in contours]
+        if len(blobs)==0:
+            return None, None
+        elif len(blobs) == 1:
+           # best_coord=(blobs[0].cx, blobs[0].cy)
+            if blobs[0].cx is not None and blobs[0].cy is not None:
+                last_measured=(blobs[0].cx/scale, blobs[0].cy/scale)
+            best_cnt=blobs[0].cnt
+        else:
+            for b in blobs:
+                # if this blob is closer than the best contour with at lest 10 pixels, it chooses this one
+                if b.dist is not None and (b.dist < best_distance-10):
+                    largest_area = b.area
+                    best_cnt = b.cnt
+                    last_measured = (b.cx / scale, b.cy / scale)
+                    best_distance = b.dist
+                elif (b.area > largest_area and b.area < max_area): #b.area can't be None
+                    largest_area = b.area
+                    best_cnt = b.cnt
+                    last_measured = (b.cx / scale, b.cy / scale)
+                    best_distance=b.dist
+
+        return last_measured, best_cnt
 
     def close(self):
         """ Nothing to do here. """
