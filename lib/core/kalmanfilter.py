@@ -475,12 +475,10 @@ class doubleFilter:
                 sp = math.sqrt((updateval[11, 0]) ** 2 + (updateval[12, 0]) ** 2)
                 if updateval[11, 0]!= 0 and updateval[12, 0] != 0:
                     movdir = math.ceil(math.fmod(math.degrees(math.atan2(updateval[12, 0], updateval[11, 0])) + 180, 360))
-
+            #making sure that we are within 0 and 360
+            updateval[6, 0] = math.fmod(updateval[6,0] + 360, 360)
+           
             retVal = (self.checkWithinFrame(updateval[4, 0], updateval[5, 0]), updateval[6, 0], sp, movdir , updateval[13, 0])
-
-            # print self.calibrating
-            # if self.calibrating and not missingPoint:
-            #     self.QCalib.append(Kgain * diff * diff.T * Kgain.T)
 
             return retVal
 
