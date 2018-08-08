@@ -61,8 +61,6 @@ Download and install XVID codec from [here](https://www.xvid.com/download/)
 
 **MaxOSX**
 
-This was never tested...
-
 *Install XCode*
 *install MacPorts.*
 	
