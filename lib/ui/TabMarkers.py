@@ -67,104 +67,27 @@ class Tab(QtGui.QWidget, Ui_tab_markers):
         self.ckb_marker.setChecked(self.marker.marker_visible)
         self.connect(self.ckb_marker, QtCore.SIGNAL('stateChanged(int)'), self.update_led)
         self.connect(self.btn_pick_color, QtCore.SIGNAL('toggled(bool)'), self.pick_color)
-        #self.connect(self.filterSlider, QtCore.SIGNAL('valueChanged(int)'), self.marker.kalmanfilter.updateObservationCoeffVal)
-        #self.recalibrateBtn.clicked.connect(self.marker.recalibrateFilter)
-        self.connect(self.ckb_prediction, QtCore.SIGNAL('stateChanged(int)'), self.enablePred)
-        self.connect(self.enable_filter, QtCore.SIGNAL('stateChanged(int)'), self.enableKF)
-        self.connect(self.enable_adaptive, QtCore.SIGNAL('stateChanged(int)'), self.adaptiveKF)
 
         #filter related
-        self.counterR = 0
-        self.counterM = 0
-        self.CalibMax = 100
-        self.speed = 100
-        self.connect(self.CalibRBtn, QtCore.SIGNAL('clicked()'), self.sensorCalib)
-        self.connect(self.CalibQBtn, QtCore.SIGNAL('clicked()'), self.measurementCalib)
-        self.CalibQBtn.setEnabled(False)
-        self.sensorProgress.setVisible(False)
-        self.sensorProgress.setMaximum(self.CalibMax)
-        self.measurementProgress.setVisible(False)
-        self.measurementProgress.setMaximum(self.CalibMax)
+        #self.counterR = 0
+        #self.counterM = 0
+        #self.CalibMax = 100
+        #self.speed = 100
+        #self.connect(self.CalibRBtn, QtCore.SIGNAL('clicked()'), self.sensorCalib)
+        #self.connect(self.CalibQBtn, QtCore.SIGNAL('clicked()'), self.measurementCalib)
+        #self.CalibQBtn.setEnabled(False)
+        # self.sensorProgress.setVisible(False)
+        # self.sensorProgress.setMaximum(self.CalibMax)
+        # self.measurementProgress.setVisible(False)
+        # self.measurementProgress.setMaximum(self.CalibMax)
         #if the filter is enabled by default
-        if self.marker.filtering_enabled:
-            self.enable_filter.setChecked(True)
-        if self.marker.guessing_enabled:
-            self.ckb_prediction.setChecked(True)
+        # if self.marker.filtering_enabled:
+        #     self.enable_filter.setChecked(True)
+        # if self.marker.guessing_enabled:
+        #     self.ckb_prediction.setChecked(True)
 
         self.update()
 
-
-    def sensorCalib(self):
-        if len(self.spotter.tracker.leds) > 0:
-            popup = QMessageBox.information(self, "Sensor calibration",
-                                            "Please keep the LED's in a fixed position. The calibration takes less than a minute.",
-                                            QMessageBox.Ok, QMessageBox.Cancel)
-            if popup == QMessageBox.Ok:
-                self.timerR = QtCore.QTimer()
-                self.connect(self.timerR, QtCore.SIGNAL('timeout()'), self.sensorProg)
-                self.timerR.start(self.speed)
-                self.sensorProgress.setVisible(True)
-                self.sensorProgress.setValue(0)
-        else:
-            popup = QMessageBox.information(self, "Sensor calibration",
-                                            "In order to calibrate the sensor, you first need to define at least one marker",
-                                            QMessageBox.Ok)
-
-        # calib=CalibrationPopUp.CalibPopUp(self, 30)
-        # calib.show()
-
-
-    def measurementCalib(self):
-        if len(self.spotter.tracker.leds) > 0:
-            popup = QMessageBox.information(self, "Measurement calibration",
-                                            "Please move the LED's around . The calibration takes half a minute.",
-                                            QMessageBox.Ok, QMessageBox.Cancel)
-            if popup==QMessageBox.Ok:
-                self.timerM = QtCore.QTimer()
-                self.connect(self.timerM, QtCore.SIGNAL('timeout()'), self.measureProg)
-                self.timerM.start(self.speed)
-                self.measurementProgress.setVisible(True)
-                self.measurementProgress.setValue(0)
-        else:
-            popup = QMessageBox.information(self, "Measurement calibration",
-                                            "In order to calibrate the sensor, you first need to define at least one marker",
-                                            QMessageBox.Ok)
-
-
-    def sensorProg(self):
-        if self.counterR <= self.CalibMax:
-            if self.marker.position is not None:
-                self.marker.kalmanfilter.calibrateSensor(self.marker.position[0],
-                                                     self.marker.position[1],
-                                                     self.counterR,
-                                                     self.CalibMax)
-                # print self.counterR
-                self.counterR = self.counterR + 1;
-                self.sensorProgress.setValue(self.counterR)
-                self.CalibRBtn.setEnabled(False)
-        else:
-            self.sensorProgress.setValue(self.CalibMax)
-            print "calibration done"
-            self.CalibRBtn.setEnabled(True)
-            self.counterR = 0
-            sip.delete(self.timerR)
-        # self.update()
-
-
-    def measureProg(self):
-        if self.counterM <= self.CalibMax:
-            if self.counterM == 1:
-                self.CalibQBtn.setEnabled(False)
-            self.marker.kalmanfilter.calibrateQ(self.counterM, self.CalibMax)
-            # print self.counterM
-            self.counterM = self.counterM + 1;
-            self.measurementProgress.setValue(self.counterM)
-        else:
-            self.measurementProgress.setValue(self.CalibMax)
-            print "calibration done"
-            self.CalibQBtn.setEnabled(True)
-            self.counterM = 0
-            sip.delete(self.timerM)
 
     def update(self):
         if self.label is None:
@@ -187,30 +110,6 @@ class Tab(QtGui.QWidget, Ui_tab_markers):
 
     def enablePred(self):
         self.marker.guessing_enabled=self.ckb_prediction.isChecked()
-
-    def enableKF(self, state):
-        if state:
-            print "enabling kalman filter"
-            initpoint = self.marker.pos_hist[-1] if len(self.marker.pos_hist) > 0 else None
-            self.marker.kalmanfilter.start_filter(initpoint)
-            # print "Rk", self.marker.kalmanfilter.Rk
-            # print "Qk", self.marker.kalmanfilter.Qk
-            self.marker.filtering_enabled = True
-            self.ckb_prediction.setEnabled(True)
-            #self.recalibrateBtn.setEnabled(True)
-            self.enable_adaptive.setEnabled(True)
-            self.CalibQBtn.setEnabled(True)
-
-        else:
-            self.marker.filtering_enabled = False
-            self.marker.kalmanfilter.stop_filter()
-            self.ckb_prediction.setEnabled(False)
-            #self.recalibrateBtn.setEnabled(False)
-            self.enable_adaptive.setEnabled(False)
-            self.CalibQBtn.setEnabled(False)
-
-    def adaptiveKF(self, state):
-        self.marker.adaptiveKF=state
 
     def update_led(self):
         self.marker.range_hue = (self.spin_hue_min.value(), self.spin_hue_max.value())

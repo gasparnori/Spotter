@@ -477,7 +477,7 @@ class doubleFilter:
                     movdir = math.ceil(math.fmod(math.degrees(math.atan2(updateval[12, 0], updateval[11, 0])) + 180, 360))
             #making sure that we are within 0 and 360
             updateval[6, 0] = math.fmod(updateval[6,0] + 360, 360)
-           
+
             retVal = (self.checkWithinFrame(updateval[4, 0], updateval[5, 0]), updateval[6, 0], sp, movdir , updateval[13, 0])
 
             return retVal

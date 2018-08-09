@@ -93,12 +93,12 @@ class Tracker:
         except ValueError:
             self.log.error("Blind spot to be removed not found")
 
-    def add_led(self, label, range_hue, range_sat, range_val, range_area, fixed_pos=False, linked_to=None, filter_dim=4, R=None, Q=None, filtering_enabled=False, guessing_enabled = False):
+    def add_led(self, label, range_hue, range_sat, range_val, range_area, fixed_pos=False, linked_to=None):
         if self.adaptive_tracking:
             roi = trkbl.Shape('rectangle', None, None)
         else:
             roi = trkbl.Shape('rectangle', None, None)
-        led = trkbl.LED(label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi, self.max_x, self.max_y, filter_dim, R, Q, filtering_enabled, guessing_enabled, self.fps)
+        led = trkbl.LED(label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi, self.max_x, self.max_y)
         self.leds.append(led)
         self.log.debug("Added marker %s", led)
         return led
@@ -253,18 +253,10 @@ class Tracker:
 
         # find largest contour that is >= than minimum area
         ranged_frame = cv2.dilate(ranged_frame, np.ones((3, 3), np.uint8))
-        #if l.linked_to() is not None
-        prev_location=l.last_stable
-        # if l.linked_to is None:
-        #     prev_location = l.last_stable
-        #     #prev_location= l.pos_hist[-1] if len(l.pos_hist)>0 else None
-        # else:
-        #     prev_location=l.linked_to.pos_hist[-1] if len(l.linked_to.pos_hist)>0 else None
         offset_x= ax if frame_offset else 0
         offset_y=ay if frame_offset else 0
-        l.before_filter, self.contour = self.find_best_coordinates(ranged_frame, r_area, prev_location, offset_x, offset_y, self.scale)
-        l.elapsedtime=elapsedtime
-        l.filterPosition()
+        before_filter, self.contour = self.find_best_coordinates(ranged_frame, r_area, l.last_stable, offset_x, offset_y, self.scale)
+        l.appendPosition(before_filter)
 
     @staticmethod
     def find_best_coordinates(frame, range_area, last_coord, offset_x, offset_y, scale):

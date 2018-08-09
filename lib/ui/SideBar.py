@@ -182,23 +182,12 @@ class SideBar(QtGui.QWidget, Ui_side_bar):
             range_val = map(int, template['range_val'])
             range_area = map(int, template['range_area'])
             fixed_pos = template.as_bool('fixed_pos')
-            filter_dim = template.as_int('filter_dimensions')
-            R = np.asmatrix(map(float, template['R'])).reshape(4,4)
-            Q = np.asmatrix(map(float, template['Q'])).reshape(filter_dim, filter_dim)
-            fe = template.as_bool('filter_enabled')
-            ge = template.as_bool('estimation_enabled')
-
             marker = self.spotter.tracker.add_led(label,
                                                    range_hue,
                                                    range_sat,
                                                    range_val,
                                                    range_area,
-                                                   fixed_pos,
-                                                   filter_dim=filter_dim,
-                                                   R=R,
-                                                   Q=Q,
-                                                   filtering_enabled=fe,
-                                                   guessing_enabled=ge)
+                                                   fixed_pos)
         self.markers_page.add_item(marker, focus_new)
 
     ###############################################################################

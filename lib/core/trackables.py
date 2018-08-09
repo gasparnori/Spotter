@@ -2,7 +2,7 @@
 """
 Created on Tue Dec 04 21:41:19 2012
 @author: <Ronny Eichler> ronny.eichler@gmail.com
-
+Edited
 Classes related to tracking.
 """
 
@@ -168,15 +168,12 @@ class LED(Marker):
     """ Each instance is a spot defined by ranges in a color space. """
 
     def __init__(self, label, range_hue, range_sat, range_val, range_area, fixed_pos, linked_to, roi=None, max_x=639,
-                 max_y=379, filter_dim=4, R=None, Q=None, filtering_enabled=False, guessing_enabled=False, fps=190.0):
+                 max_y=379):
         Marker.__init__(self)
         self.label = label
         self.detection_active = True
         self.marker_visible = True
-        # kalman filter related flags
-        self.guessing_enabled = guessing_enabled
-        self.adaptiveKF = False
-        self.filtering_enabled = filtering_enabled
+
         # marker description ranges
         self.range_hue = range_hue
         self.range_sat = range_sat
@@ -187,16 +184,7 @@ class LED(Marker):
 
         # array of position history after the filter
         self.pos_hist = []
-        # lets save memory
-        # self.pos_hist = [None for x in range(1000)]
-        # x,y coordinates before the kalman filter
-        # self.last_measured=[]
-
-        self.kalmanfilter = kfilter.KFilter(max_x, max_y, filter_dim, R, Q, fps)
         self.last_stable=(0,0)
-
-        # initializing the last state of the filter
-        # self.filterstate=[1,1,1,1]
 
         # Restrict tracking to a search window?
         self.adaptive_tracking = (roi is not None)
@@ -207,87 +195,36 @@ class LED(Marker):
         # List of linked markers, can be used for further constraints
         self.linked_to = linked_to
 
-        self.before_filter=None
-        self.elapsedtime=30
-
-
     @property
     def mean_hue(self):
         return utils.mean_hue(self.range_hue)
 
     @property
     def lblcolor(self):
-        # mean color of range for labels/markers etc.
+        """mean color of range for labels/markers etc."""
         return utils.HSVpix2RGB((self.mean_hue, 255, 255))
 
     @property
     def position(self):
-        # first coordinate
-        # if len(self.pos_hist)==1:
-        # self.kalmanfilter.start_filter()
+        """returns last coordinate in the history buffer"""
         return self.pos_hist[-1] if len(self.pos_hist) else None
 
     def linkto(self, OBJ):
-        print "linked to an object with fixed distance: "
+        """sets the link between an object and the marker. Not really useful..."""
+        print "linked to an object: "
         self.linked_to=OBJ
 
+    def appendPosition(self, p):
+        """adds the new detected position to the top of the history buffer"""
+        if len(self.pos_hist) >= HIST_BUFFER:
+            self.pos_hist = self.pos_hist[1:]
+        self.pos_hist.append(p)
 
-    # this function is the one that essentially calculates the coordinates. called from tracker
-    def filterPosition(self):
-        # print last_measured
-        replaceWithLink=False
-
-        if self.filtering_enabled:
-            # if self.linked_to is not None and self.linked_to.fixedDist and self.guessing_enabled:
-            #      other=[l for l in self.linked_to.getLinkedLEDs() if l.label!=self.label][0]
-            #      objx = self.linked_to.getPositionX()
-            #      objy = self.linked_to.getPositionY()
-            #      if other.before_filter is not None and other.estimation is False and objx is not None and objy is not None: #if there is an available reference point
-            # #         # if the distance between the middle point and the LED is bigger than the 3x distance between the two LED's (4x of the obj-LED distance),
-            # #         # we declare it to be an outlier, if the point is missing, we need to replace it anyway
-            #         #simplified:
-            #             if self.before_filter is None:
-            #                 dx=objx
-            #                 dy=objy
-            #             elif geom.distance((objx, objy), self.before_filter) > self.linked_to.avg_dist * 3:
-            #                 dx=objx
-            #                 dy=objy
-            #
-            #
-            #          #replaceWithLink = geom.distance((objx, objy), self.before_filter)>self.linked_to.avg_dist*3 if (self.before_filter is not None) else True
-            #
-            # #
-            #          #if replaceWithLink:
-            # #        #     ##this needs to be improved!!!!
-            #          #    dx=self.linked_to.avg_dist * math.cos(45) if self.label>other.label else -1.0* self.linked_to.avg_dist * math.cos(45)
-            #          #    dy = self.linked_to.avg_dist * math.sin(45) if self.label > other.label else -1.0 * self.linked_to.avg_dist * math.sin(45)
-            # #
-            # #             self.before_filter=(other.before_filter[0] + dx, other.before_filter[1] + dy)
-            # # #estimation: flag to mark that this position was an estimation and not a stable measurement
-            self.estimation, fpos, self.last_stable = self.kalmanfilter.iterateTracks(self.elapsedtime, self.before_filter, guessing_enabled=self.guessing_enabled,
-                                                    adaptive=self.adaptiveKF)  # , calibrating=False)
-
-            # print fpos
-            if len(self.pos_hist) >= HIST_BUFFER:
-                self.pos_hist = self.pos_hist[1:]
-            self.pos_hist.append(fpos)
-        else:
-            if len(self.pos_hist) >= HIST_BUFFER:
-                self.pos_hist = self.pos_hist[1:]
-            self.pos_hist.append(self.before_filter)
-
-            if self.before_filter is not None:
-                self.last_stable=self.before_filter
+        self.last_stable=p if p is not None else self.last_stable
 
     def reset(self):
-        filterstate=self.filtering_enabled
-        self.filtering_enabled = False
-        self.kalmanfilter.stop_filter()
-        # last_point=self.pos_hist[-1]
-        self.pos_hist = self.pos_hist[-100:]
-        if filterstate:
-            self.kalmanfilter.start_filter(self.pos_hist[-1])
-            self.filtering_enabled = True
+        """resets the position history"""
+        self.pos_hist = []
 
 class Slot:
     def __init__(self, label, slot_type, state=None, state_idx=None, ref=None):
@@ -330,10 +267,10 @@ class ObjectOfInterest:
     Object Of Interest. Collection of markers to be tracked together and
     report state and behavior, or trigger events upon conditions.
     """
-
+    #this is used for the framerate signal
     EVENFRAME = False
 
-    # TODO: Use general "markers" rather than LEDs specifically
+
 
     linked_leds = None
     avg_dist=0  #average distance between linked LED's (only applies if there are two LED's)
@@ -508,20 +445,23 @@ class ObjectOfInterest:
         else:
             return None
 
-    # This function is not in use
-    @property
-    def position_guessed(self):
-        """Get position based on history. Could allow for fancy filtering etc."""
-        return geom.guessedPosition(self.pos_hist)
+    # # This function is not in use
+    # @property
+    # def position_guessed(self):
+    #     """Get position based on history. Could allow for fancy filtering etc."""
+    #     return geom.guessedPosition(self.pos_hist)
 
     def getLinkedLEDs(self):
+        """Returns the list of LEDs """
         return self.linked_leds
 
     def addLinkedLED(self, led):
+        """Resets the object, and adds an LED to the list """
         self.reset()
         self.linked_leds.append(led)
 
     def removeLinkedLED(self, led):
+        """Removes LED fromthe object, and resets the object """
         try:
             self.linked_leds.remove(led)
             self.reset()
@@ -529,15 +469,15 @@ class ObjectOfInterest:
             pass
 
     def getPositionX(self):
-        """ Helper method to provide chatter with function reference for slot updates"""
+        """Helper method to get the last element of the position history """
         return None if self.position is None else self.position[0]
 
     def getPositionY(self):
-        """ Helper method to provide chatter with function reference for slot updates"""
+        """Helper method to get the last element of the position history """
         return None if self.position is None else self.position[1]
 
     def getSpeed(self):
-        """ Helper method to provide chatter with function reference for slot updates"""
+        """Helper method to get the last element of the speed history """
         if len(self.speed_hist) > 1:
             return self.speed_hist[-1]
         else:
@@ -545,7 +485,7 @@ class ObjectOfInterest:
         # return sp   #only returns the value without recalculating it
 
     def velocity(self, elapsedtime):
-        """Return movement speed in pixel/s."""
+        """Return movement speed in pixel/ms """
         try:
             if len(self.pos_hist) >= 2:
                 if self.pos_hist[-1] is not None and self.pos_hist[-2] is not None:
@@ -554,9 +494,7 @@ class ObjectOfInterest:
                     movdir = geom.angle(self.pos_hist[-2], self.pos_hist[-1])
                     dt = elapsedtime
                     sp = ds / dt
-                # elif len(self.speed_hist>0):
-                # if the previous one was a valid value, this one will be too, if not, it will be None too
-                #   self.sp=self.speed_hist[-1]
+
                 else:
                     sp = None
                     movdir = None
@@ -571,6 +509,7 @@ class ObjectOfInterest:
             return sp, movdir
 
     def angularVelocity(self, elapsedtime):
+        """A method to calculate angular velocity in degrees/ms"""
         angvel = None
         if len(self.orientation_hist) > 2:
             if self.orientation_hist[-1] is not None and self.orientation_hist[-2] is not None:
@@ -583,27 +522,24 @@ class ObjectOfInterest:
                     angvel = (diff +360) * 1.0 / elapsedtime  # px/msec
                 else:
                     angvel = (diff) * 1.0 / elapsedtime
-
-
-        else:
-            print "missing"
-
         return angvel
 
     def getAngVel(self):
+        """Helper method to get the last element of the angular velocity history """
         if len(self.ang_vel_hist) > 1:
             return self.ang_vel_hist[-1]
         else:
             return None
 
     def getOrientation(self):
-        """ Helper method to provide chatter with function reference for slot updates"""
+        """Helper method to get the last element of the orientation history """
         if len(self.orientation_hist) > 1:
             return self.orientation_hist[-1]
         else:
             return None
 
     def getMovementDir(self):
+        """Helper method to get the last element of the movement direction history """
         if len(self.mov_dir_hist) > 1:
             return self.mov_dir_hist[-1]
         else:
@@ -639,12 +575,6 @@ class ObjectOfInterest:
                 headorientation = int(
                     math.fmod(math.degrees(math.atan2(dx, dy))+360, 360))  # math.atan2(x2-x1, y2-y1)
 
-            ####################################################################################################################################
-        # elif len(self.orientation_hist) > 0 and self.orientation_hist[-1] is not None:
-        #     headorientation = self.orientation_hist[-1]
-        # else:
-        # print "one of the LED values are missing"
-
         except TypeError:
             headorientation = None
         finally:
@@ -661,7 +591,7 @@ class ObjectOfInterest:
         return [slot for slot in self.slots if slot.pin]
 
     def reset(self):
-        # reset deletes the object's history
+        """deletes the object's history"""
         self.pos_hist = []
         self.orientation_hist = []
         self.speed_hist = []
@@ -669,15 +599,8 @@ class ObjectOfInterest:
         self.ang_vel_hist = []
         self.time_hist = []
 
-    def avgDist(self, index):
-        if (self.linked_leds[1].position is not None) and (self.linked_leds[0].position is not None):
-            self.avg_dist=((index)*self.avg_dist+geom.distance(self.linked_leds[0].position, self.linked_leds[1].position))/(index+1)
-            #print self.avg_dist
-        #else:
-           # print "missing coordinates"
-
-# generates a square wave that can be used to measure the output frame rate-->always uses D3
 class fpsTestSignal:
+    """generates a square wave that can be used to measure the output frame rate-->always uses D3"""
     def __init__(self, pin):
         self.even_frame = True
         self.slot = Slot('fpstest', 'digital', self.flipstate, self)

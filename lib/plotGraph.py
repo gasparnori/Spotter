@@ -23,7 +23,7 @@ def PlotFirstOrder(px, py, orientation, times,  title, txt):
         d = np.zeros(shape=(200, max(times)))
         d[:, 0:times[0]-1]=orientation[0]
         for i in range(1, len(times)):
-             d[:, times[i - 1]:times[i]-1] = orientation[i]
+             d[:, times[i - 1]:times[i]] = orientation[i]
         #d[:, 0:len(orientation)] = np.asmatrix(orientation)
         heatmap = pl[1].imshow(d, cmap='hsv', aspect='auto')
         heatmap.axes.get_xaxis().set_visible(False)
@@ -108,8 +108,9 @@ def Plot_All(objects, SAVE_PLOT_VALS):
                 times[i]=int(times[i]+times[i-1])
 
 
-            PlotFirstOrder(px, py, orientation, times, ('Object ' + str(k)), txt)
-            PlotSecondOrder(speed, mov_dir, ang_vel, times, ('Object ' + str(k)), txt)
+            #PlotFirstOrder(px, py, orientation, times, ('Object ' + str(k)), txt)
+            #PlotSecondOrder(speed, mov_dir, ang_vel, times, ('Object ' + str(k)), txt)
+            PlotAll(px, py, speed, ang_vel, orientation, mov_dir, times)
 
             if SAVE_PLOT_VALS:
                 orientation = [p if p is not None else 1000 for p in o.orientation_hist[(-1 * n):]]
@@ -122,3 +123,53 @@ def Plot_All(objects, SAVE_PLOT_VALS):
             scipy.io.savemat(plot_val_path + time.strftime('%Y%m%d_%H%M', time.localtime()) + '.dat', save_dict)
         plt.show()
 
+def PlotAll(x, y, sp, angvel,orientation, mov_dir, times):
+    fontS=18
+    if len(orientation) > 0:
+        fig, pl = plt.subplots(3,2, gridspec_kw = {'height_ratios':[6, 1, 1],'width_ratios':[7,1]})
+    else:
+        fig, pl = plt.subplots(2,2, gridspec_kw = {'height_ratios':[6, 1],'width_ratios':[7,1]})
+
+    pl[0][0].set_title("Object parameters", fontsize=fontS)
+    #pl.set_ylabel("[pixels]", fontsize=fontS)
+    pl[0][0].set_ylim([0, 640])
+    pl[0][0].set_xlim([0,50000])
+    speed, = pl[0][0].plot(times, sp, '#000000', label='Speed [px/s]')
+    px,= pl[0][0].plot(times, x, '#463fff', label='X position [px]')
+    py,=pl[0][0].plot(times, y, '#fe3152', label='Y position [px]')
+    if len(orientation) > 0:
+        av,=pl[0][0].plot(times, angvel, '#a1a1a1', label='Angular velocity [deg/s]')
+        pl[0][0].legend(handles=[px, py, speed, av])
+    else:
+        pl[0][0].legend(handles=[px, py, speed])
+
+    pl[1][0].set_title("Movement Direction", fontsize=14)
+    md = np.zeros(shape=(100, max(times)))
+    #pl[1][0].plot(times, sp, '#000000', label='Speed [px/s]')
+    md[:, 0:times[0]] = mov_dir[0]
+    for i in range(1, len(times)):
+        md[:, times[i - 1]:times[i]] = mov_dir[i]
+
+    heatmap = pl[1][0].imshow(md, cmap='hsv', aspect='auto', origin='lower')
+    #heatmap.axes.get_xaxis().set_visible(False)
+    #heatmap.axes.get_yaxis().set_visible(False)
+
+    if len(orientation) > 0:
+        pl[2][0].set_title("Head Orientation [degrees]", fontsize=14)
+        # plt.tight_layout()
+        d = np.zeros(shape=(200, max(times)))
+        d[:, 0:times[0] - 1] = orientation[0]
+        for i in range(1, len(times)):
+            d[:, times[i - 1]:times[i]] = orientation[i]
+        # d[:, 0:len(orientation)] = np.asmatrix(orientation)
+        #pl[2][0].plot(times, angvel, '#a1a1a1', label='Angular velocity [deg/s]')
+        heatmap = pl[2][0].imshow(d, cmap='hsv', aspect='auto', origin='lower')
+        #heatmap.axes.get_xaxis().set_visible(False)
+        heatmap.axes.get_yaxis().set_visible(False)
+
+    pl[0][1].set_visible(False)
+    pl[1][1].set_visible(False)
+    pl[2][1].set_visible(False)
+    cbaxes = fig.add_axes([0.9, 0.1, 0.03, 0.8])
+    cb = plt.colorbar(heatmap, cax=cbaxes)
+    plt.tight_layout()
