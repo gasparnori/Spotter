@@ -61,6 +61,8 @@ Download and install XVID codec from [here](https://www.xvid.com/download/)
 
 **MaxOSX**
 
+Currently OSX is not compatible with some of our libraries. Please after cloning the repository, use the MAC_compatible branch.
+
 *Install XCode*
 *install MacPorts.*
 	
@@ -73,7 +75,6 @@ cp /usr/local/opt/opencv@2/lib/python2.7/site-packages/cv2.so /usr/local/lib/pyt
 	sudo port install py27-opengl
 	sudo port install py27-numpy
 	sudo port install py27-scipy
-	sudo port install py27-matplotlib
 	sudo port install py27-serial
 	sudo port install opencv +python27
 	sudo port install py27-pyqt4
@@ -105,6 +106,12 @@ Download and extract the zip file
 **Starting the program**
 
 On Windows run the Spotter.bat file. This will update the newest version, convert the UI and run the software itself.
+
+**On MAC**
+Checkout the MAC_compatible branch in git
+
+	git checkout MAC_compatible
+	git pull origin MAC_compatible
 
 Hardware and Arduino
 --------------------
