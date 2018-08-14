@@ -73,7 +73,6 @@ cp /usr/local/opt/opencv@2/lib/python2.7/site-packages/cv2.so /usr/local/lib/pyt
 	sudo port install py27-opengl
 	sudo port install py27-numpy
 	sudo port install py27-scipy
-	sudo port install py27-matplotlib
 	sudo port install py27-serial
 	sudo port install opencv +python27
 	sudo port install py27-pyqt4
