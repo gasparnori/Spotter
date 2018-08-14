@@ -1,4 +1,4 @@
-__author__ = 'Ronny Eichler'
+__author__ = 'Nora Gaspar'
 from spotter import Spotter
 from grabber import Grabber
 from writer import Writer

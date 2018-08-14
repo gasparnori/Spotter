@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
 Created on Tue Dec 04 21:41:19 2012
+current version edited by <Nora Gaspar> nori.nagyonsok@gmail.com
 @author: <Ronny Eichler> ronny.eichler@gmail.com
-Edited
 Classes related to tracking.
 """
 
@@ -138,7 +138,8 @@ class Shape:
 
 class Mask:
     """ Geometrical shape that comprise Blind spots. Blind spots can be made of several
-    independent shapes like two rectangles on either end of the track etc. Almost the same as the Shapes"""
+    independent shapes like two rectangles on either end of the track etc. Almost the same as the Shapes
+    """
 
     def __init__(self, shape, points=None, label=None):
         self.active = True

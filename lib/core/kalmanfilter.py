@@ -4,6 +4,7 @@ import logging
 import lib.geometry as geom
 
 class KFilter:
+    """ A Kalman filter for a single LED. Not in use any more"""
     forget=0.3
     calibrating=False
     maxPredictions=1000   #if this amount of consecutive signal is missing, it sends out None
@@ -291,7 +292,11 @@ class KFilter:
         self.estimationP=None
 
 class doubleFilter:
-
+    """
+        Kalman filter for two linked LEDs and the corresponding object parameters
+        The filter contains a 14x1 state vector:
+        (x1,y1, x2, y2, xobj, yobj, theta, vx1, vy1, vx2, vy2, vobj1, vobj2, angvel)
+	"""
     forget=0.3
     #calibrating=False
     maxPredictions=1000   #if this amount of consecutive signal is missing, it sends out None

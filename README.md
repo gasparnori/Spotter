@@ -1,8 +1,8 @@
-Spotter v1.1 : LED based real-time video tracking software (and hardware) system for behavioural experiments developed by Nora Gaspar
+Spotter v2.0 : LED based real-time video tracking software (and hardware) system for behavioural experiments developed by Nora Gaspar
 
 ===============================
 
-[Spotter version 1.1](https://github.com/gasparnori/spotterupdated) can track LEDs in real-time video stream--either from a webcam, or a video file--and simultaneously write encoded video to disk, while outputs the tracked variables as analog and digital signals. It is based on the [OpenCV](http://opencv.org/) library and interfaces with Arduino Mega
+[Spotter version 2.0](https://github.com/gasparnori/spotterupdated) can track LEDs in real-time video stream--either from a webcam, or a video file--and simultaneously write encoded video to disk, while outputs the tracked variables as analog and digital signals. It is based on the [OpenCV](http://opencv.org/) library and interfaces with Arduino Mega
 
 
 Spotter v1.0 developed by Ronny Eichler is available [here](https://github.com/wonkoderverstaendige)

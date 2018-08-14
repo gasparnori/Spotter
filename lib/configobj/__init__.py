@@ -1,2 +1,2 @@
-__author__ = 'Ronny Eichler'
+__author__ = 'Nora Gaspar, Ronny Eichler'
 import configobj, validate

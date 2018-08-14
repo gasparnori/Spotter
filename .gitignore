@@ -2,6 +2,12 @@
 ## project specific
 #############
 
+doc_generator.bat
+make.bat
+Makefile
+source
+build
+
 test.avi
 /media/img/*.jpg
 *.log

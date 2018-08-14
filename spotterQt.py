@@ -52,7 +52,7 @@ import time
 import logging
 import multiprocessing
 import cv2
-from lib import plotGraph
+#from lib import plotGraph
 
 from lib.docopt import docopt
 from lib.configobj import configobj, validate
@@ -276,15 +276,15 @@ class Main(QtGui.QMainWindow):
     ##############################################################################
     def output_graph(self):
         """plots the four analog outputs (x, y, speed, head direction) for each object into separate figures"""
-        self.ui.actionGraph.setChecked(False)
-        reply = QMessageBox.information(self, "Saving to a .dat file",
-                                        "Do you want to save these data to a .dat file?",
-                                        QMessageBox.Yes, QMessageBox.No)
+        #self.ui.actionGraph.setChecked(False)
+        reply = QMessageBox.information(self, "Error",
+                                        "This function is currently not available for MAC OSX",
+                                        QMessageBox.Ok,)
 
-        if reply == QtGui.QMessageBox.Yes:
-            plotGraph.Plot_All(self.spotter.tracker.oois, True)
-        else:
-            plotGraph.Plot_All(self.spotter.tracker.oois, False)
+        # if reply == QtGui.QMessageBox.Yes:
+        #     plotGraph.Plot_All(self.spotter.tracker.oois, True)
+        # else:
+        #     plotGraph.Plot_All(self.spotter.tracker.oois, False)
 
 
 

@@ -41,9 +41,6 @@ default_background=cv2.resize(cv2.imread(utilities.get_mice()), (int(size_defaul
 capture_props=None
 
 
-#LifeCam=0
-
-
 class Frame:
     """Container class for frames. Holds additional metadata aside from the
     actual image information."""
