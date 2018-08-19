@@ -369,7 +369,7 @@ class ObjectOfInterest:
             else:
                 coords1= self.linked_leds[0].pos_hist[-1]
                 coords2= self.linked_leds[1].pos_hist[-1]
-                (coords, theta, sp, movdir, angvel) = self.filter.iterateTracks(coords1, coords2, elapsedtime, self.posGuessing)
+                (estimationMode, coords, theta, sp, movdir, angvel) = self.filter.iterateTracks(coords1, coords2, elapsedtime, self.posGuessing)
 
                 self.add_to_hist(coords, theta, sp, movdir, angvel, elapsedtime)
                 self.update_searchROI()
