@@ -310,9 +310,7 @@ class doubleFilter:
         y2 = coords2[1] if coords2 is not None else None
         middle_point = geom.middle_point([coords1, coords2]) if (coords1 is not None and coords2 is not None) else (None, None)
         if coords1 is not None and coords2 is not None:
-            dx = (x2 - x1) * 1.0  # x2-x1
-            dy = (y2 - y1) * 1.0  # y2-y1
-            theta = int(math.fmod(math.degrees(math.atan2(dx, dy)) + 360, 360))  # math.atan2(x2-x1, y2-y1)
+            theta = geom.norm_angle(coords1, coords2)
         else:
             theta=None
         return [x1, y1, x2, y2, middle_point[0], middle_point[1], theta]
@@ -330,12 +328,16 @@ class doubleFilter:
                 #angular velocity calculation
                 if i==6:
                     diff = (firstOrderParams[i] - self.updated_state[i, 0])
+
                     if diff > 180:
-                        m[7 + i, 0] = (diff - 360) * 1.0 /dt # px/msec
-                    if diff < -180:
-                        m[7 + i, 0] = (diff + 360) * 1.0 /dt  # px/msec
-                    else:
-                        m[7 + i, 0] = (diff) * 1.0 /dt
+                        diff=diff-360
+                    elif diff < -180:
+                        diff=diff + 360
+
+                    m[7 + i, 0] = (diff) * 1.0 /dt
+                    #if abs(m[7 + i, 0])>1:
+                        #print firstOrderParams[i], self.updated_state[i,0], diff, m[7 + i, 0]
+
         return m, mask
 
     def __init__(self, max_x, max_y, initpoint=None):
@@ -475,8 +477,9 @@ class doubleFilter:
 
             if updateval[11, 0] is not None and updateval[12, 0] is not None:
                 sp = math.sqrt((updateval[11, 0]) ** 2 + (updateval[12, 0]) ** 2)
+                #movement direction calculation
                 if updateval[11, 0]!= 0 and updateval[12, 0] != 0:
-                    movdir = math.ceil(math.fmod(math.degrees(math.atan2(updateval[12, 0], updateval[11, 0])) + 180, 360))
+                    movdir = geom.angle(updateval[11, 0], updateval[12,0])
             #making sure that we are within 0 and 360
             updateval[6, 0] = math.fmod(updateval[6,0] + 360, 360)
 

@@ -343,13 +343,17 @@ class ObjectOfInterest:
                 uidx = (p + 1) * self.def_window
                 # uidx = min_step
                 pos = map(int, self.pos_hist[-p - 1])
-                roi = [(pos[0] - uidx, pos[1] - uidx), (pos[0] + uidx, pos[1] + uidx)]
+                x=pos[0] - uidx if (pos[0] - uidx)>0 else 0
+                y=pos[1] - uidx if (pos[1] - uidx)>0 else 0
+                w=pos[0] + uidx if (pos[0] + uidx)< self.max_x else self.max_x
+                h=pos[1] + uidx if (pos[1] + uidx)< self.max_y else self.max_y
+                roi = [(x,y), (w,h)]
                 break
             else:  # search full frame
-                roi = [(0, 0), (2000, 2000)]
+                roi = [(0, 0), (self.max_x, self.max_y)]
 
         for l in self.linked_leds:
-            roi=[(0, 259), (100, 359)] if l.fixed_pos else roi
+            roi=[(0, 0), (self.max_x, self.max_y)] if l.fixed_pos else roi
             l.search_roi.move_to(roi)
 
     def enable_filter(self):
@@ -507,7 +511,8 @@ class ObjectOfInterest:
                 if self.pos_hist[-1] is not None and self.pos_hist[-2] is not None:
                     # calculate speed
                     ds = geom.distance(self.pos_hist[-1], self.pos_hist[-2])
-                    movdir = geom.angle(self.pos_hist[-2], self.pos_hist[-1])
+                    movdir = geom.angle(self.pos_hist[-1][0] - self.pos_hist[-2][0],
+                                        self.pos_hist[-1][1] - self.pos_hist[-2][1])  # dx, dy
                     dt = elapsedtime
                     sp = ds / dt
 
@@ -585,11 +590,7 @@ class ObjectOfInterest:
                     marker_coords.append(marker.pos_hist[-1])
 
             if len(marker_coords) == 2:  # if both head direction values exist
-
-                dx = (marker_coords[1][0] - marker_coords[0][0]) * 1.0  # x2-x1
-                dy = (marker_coords[1][1] - marker_coords[0][1]) * 1.0  # y2-y1
-                headorientation = int(
-                    math.fmod(math.degrees(math.atan2(dx, dy))+360, 360))  # math.atan2(x2-x1, y2-y1)
+                headorientation = geom.norm_angle(marker_coords[0], marker_coords[1])
 
         except TypeError:
             headorientation = None

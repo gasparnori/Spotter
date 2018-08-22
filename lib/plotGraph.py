@@ -82,6 +82,12 @@ def PlotSecondOrder(speed, mov_dir, ang_vel, times, title, txt):
         plt.tight_layout()
 
 def Plot_All(objects, SAVE_PLOT_VALS):
+    # Clear the current axes.
+    plt.cla()
+    # Clear the current figure.
+    plt.clf()
+    # Closes all the figure windows.
+    plt.close('all')
 
     if SAVE_PLOT_VALS:
         save_dict = {}
@@ -122,6 +128,7 @@ def Plot_All(objects, SAVE_PLOT_VALS):
             #print "saving data"
             scipy.io.savemat(plot_val_path + time.strftime('%Y%m%d_%H%M', time.localtime()) + '.dat', save_dict)
         plt.show()
+
 
 def PlotAll(x, y, sp, angvel,orientation, mov_dir, times):
     fontS=18

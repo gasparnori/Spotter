@@ -142,11 +142,22 @@ def distance(p1, p2):
     else:
         return None
 
-def angle(p1, p2):
+def angle(dx, dy):
+    """Used for movement direction calculation. Returns atan2(dy,dx) in degrees between 0 and 360"""
+
+    if dx is not None and dy is not None:
+        return int(math.fmod(math.degrees(math.atan2(dy, dx)) + 360, 360))
+    else:
+        return None
+def norm_angle(p1, p2):
+    """Used for orientation calculation. Returns the degree of the normal vector between the two points in degrees between 0 and 360"""
     if p1 is not None and p2 is not None:
-        dx = (p2[0]-p1[0]) * 1.0  # x2-x1
-        dy = (p2[1]-p1[1]) * 1.0
-        return int(math.fmod(math.degrees(math.atan2(dy, dx)) + 180, 360))
+        dx = (p2[0] - p1[0]) * 1.0  # x2-x1
+        dy = (p2[1] - p1[1]) * 1.0
+        #  important: dx and dy are changed up (atan2(dx,dy) instead of atan2(dy,dx)) to have a 90 degrees turn (because it's a normal vector)
+        #  +360 is added to avoid negative values
+        #  mod 360 is applied to have a result between 0 and 360
+        return int(math.fmod(math.degrees(math.atan2(dx, dy)) + 180, 360))
     else:
         return None
 
