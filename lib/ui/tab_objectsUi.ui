@@ -383,7 +383,7 @@
                <item row="1" column="1">
                 <widget class="QLabel" name="label">
                  <property name="text">
-                  <string>  For objects consisting of exactly 2 LED's:</string>
+                  <string>  For objects consisting of one or two LED's:</string>
                  </property>
                 </widget>
                </item>
@@ -497,8 +497,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>609</width>
-          <height>741</height>
+          <width>158</width>
+          <height>86</height>
          </rect>
         </property>
         <attribute name="label">

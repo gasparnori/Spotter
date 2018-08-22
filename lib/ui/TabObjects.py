@@ -144,7 +144,7 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
         self.lbl_movement_dir.setText('---   ' if self.object.getMovementDir() is None else "%.0f deg  " % self.object.getMovementDir())
         # self.dial_direction.setValue(self.dial_direction.value() if self.object.getOrientation() is None
         #                              else self.object.getOrientation())
-        self.ckb_FilterEnable.setEnabled(True if (len(self.object.getLinkedLEDs())==2) else False)
+        self.ckb_FilterEnable.setEnabled(True if (len(self.object.getLinkedLEDs())<=2) else False)
 
     def update_object(self):
         if self.label is None:

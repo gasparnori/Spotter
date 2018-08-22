@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'tab_objectsUi.ui'
 #
-# Created: Thu Aug 09 11:18:52 2018
+# Created: Wed Aug 22 12:47:03 2018
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!
@@ -232,7 +232,7 @@ class Ui_tab_objects(object):
         self.gridLayout_6.addLayout(self.gridLayout_5, 0, 0, 1, 1)
         self.toolBox.addItem(self.page_objects_tracking, _fromUtf8(""))
         self.page_objects_IO = QtGui.QWidget()
-        self.page_objects_IO.setGeometry(QtCore.QRect(0, 0, 609, 741))
+        self.page_objects_IO.setGeometry(QtCore.QRect(0, 0, 158, 86))
         self.page_objects_IO.setObjectName(_fromUtf8("page_objects_IO"))
         self.gridLayout_7 = QtGui.QGridLayout(self.page_objects_IO)
         self.gridLayout_7.setSpacing(0)
@@ -294,7 +294,7 @@ class Ui_tab_objects(object):
         item.setText(_translate("tab_objects", "Logic", None))
         self.ckb_FilterEnable.setText(_translate("tab_objects", "Enable Kalman filter", None))
         self.ckb_PosEst.setText(_translate("tab_objects", "Enable position estimation", None))
-        self.label.setText(_translate("tab_objects", "  For objects consisting of exactly 2 LED\'s:", None))
+        self.label.setText(_translate("tab_objects", "  For objects consisting of one or two LED\'s:", None))
         self.ckb_trace.setText(_translate("tab_objects", "Show Trace", None))
         self.lbl_angularv_lbl.setText(_translate("tab_objects", "angular velocity:   ", None))
         self.lbl_head_orientation_lbl.setText(_translate("tab_objects", "Head Orientation:   ", None))

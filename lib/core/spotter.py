@@ -75,6 +75,7 @@ class Spotter:
     scale_tracking = 1.0
 
 
+
     def __init__(self, serial=None, *args, **kwargs):
         """
 

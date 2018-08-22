@@ -293,7 +293,7 @@ import lib.geometry as geom
 
 class doubleFilter:
 
-    forget=0.3
+    forget=0.01
     #calibrating=False
     maxPredictions=1000   #if this amount of consecutive signal is missing, it sends out None
     predictionCounter=0
@@ -389,7 +389,7 @@ class doubleFilter:
         yval = int(y) if round(y) > 0 and round(y) < self.max_y else None
         return (xval, yval) if (xval is not None and yval is not None) else None
 
-    def iterateTracks(self, coords1, coords2, dt, guessing_enabled=True, adaptive=False):
+    def iterateTracks(self, coords1, coords2, dt, guessing_enabled=True, adaptive=True):
             #print "estimation mode before: ", self.estimationMode, "u before: ", self.updated_state[0:2, -1]
             #print "Qk:", self.Qk
             #print "Rk:", self.Rk
@@ -459,10 +459,11 @@ class doubleFilter:
                 # estimation_state is updated in every iteration, while the updated one is not
 
                 if adaptive and (coords1 is not None) and (coords2 is not None):
-                    self.log.debug("adaptive filtering...")
-                    self.Qk = self.forget * self.Qk + (1 - self.forget) * Kgain * diff * diff.T * Kgain.T
-                    res = m - (Hk * updateval)
-                    self.Rk = self.forget * self.Rk + (1 - self.forget) * (res * res.T + (Hk * self.Pk * Hk.T))
+                   # self.log.debug("adaptive filtering...")
+                    self.Qk = (1-self.forget) * self.Qk + self.forget * Kgain * diff * diff.T * Kgain.T
+                    #res = m - (Hk * updateval)
+                   # print res
+                    #self.Rk = (1-self.forget) * self.Rk + self.forget * (res * res.T + (Hk * self.Pk * Hk.T))
 
             self.estimation_state[:, -1] = updateval.A1.copy()
             self.estimationP = self.Pk.copy()

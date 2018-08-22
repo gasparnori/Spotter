@@ -280,13 +280,33 @@ class Main(QtGui.QMainWindow):
         reply = QMessageBox.information(self, "Saving to a .dat file",
                                         "Do you want to save these data to a .dat file?",
                                         QMessageBox.Yes, QMessageBox.No)
-
+        #self.stats(self.spotter.tracker.oois)
         if reply == QtGui.QMessageBox.Yes:
             plotGraph.Plot_All(self.spotter.tracker.oois, True)
         else:
             plotGraph.Plot_All(self.spotter.tracker.oois, False)
 
 
+    def stats(self, objects):
+        def count_missing(samples):
+            p1=[]
+            for p in samples:
+                if p is not None:
+                    if p[0] or [1] is not None:
+                        p1.append(p)
+            return len(samples)-len(p1)
+
+        for o in objects:
+            #gets missing sample statistics for every LED
+            for led in o.getLinkedLEDs():
+                samples= led.pos_hist
+                missing= count_missing(samples)
+                print led.label, len(samples), "missed samples: ", missing
+
+            #gets missing sample statistics for the object itself
+            samples = o.pos_hist
+            missing = count_missing(samples)
+            print o.label, len(samples), "missed samples: ", missing
 
 
     def start_log(self, state, filename=None):

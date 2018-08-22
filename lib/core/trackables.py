@@ -313,6 +313,7 @@ class ObjectOfInterest:
         self.filterEnabled=False
         self.filterStarted=False
         self.posGuessing=False
+        self.def_window = 25 #minimum window size for the adaptive window
 
         # the slots for these properties/signals are greedy for pins
         if magnetic_signals is None:
@@ -329,24 +330,27 @@ class ObjectOfInterest:
                       Slot('angular velocity', 'dac', self.getAngVel)]
 
     def update_searchROI(self):
-        # go back max. n frames to find last position
-        min_step = 25
+        #kalman filter
+        roi=[]
+        def setCrit(p):
+            crit=False
+            for l in self.getLinkedLEDs():
+                crit=crit or (l.pos_hist[-p-1] is not None)
+            return crit
+
         for p in range(0, min(len(self.pos_hist), 10)):
-            if self.pos_hist[-p - 1] is not None:
-                uidx = (p + 1) * min_step
-                #uidx = min_step
+            if setCrit(p):
+                uidx = (p + 1) * self.def_window
+                # uidx = min_step
                 pos = map(int, self.pos_hist[-p - 1])
                 roi = [(pos[0] - uidx, pos[1] - uidx), (pos[0] + uidx, pos[1] + uidx)]
                 break
-        else:  # search full frame
-            roi = [(0, 0), (2000, 2000)]
+            else:  # search full frame
+                roi = [(0, 0), (2000, 2000)]
 
         for l in self.linked_leds:
-            if l.fixed_pos:
-                # TODO: Movable marker ROIs
-                l.search_roi.move_to([(0, 259), (100, 359)])
-            else:
-                l.search_roi.move_to(roi)
+            roi=[(0, 259), (100, 359)] if l.fixed_pos else roi
+            l.search_roi.move_to(roi)
 
     def enable_filter(self):
         self.filterEnabled = True
@@ -362,13 +366,25 @@ class ObjectOfInterest:
             #print "updating object"
             #only starts with two valid measurements
             if not self.filterStarted:
-                if self.linked_leds[0].pos_hist[-1] is not None and self.linked_leds[1].pos_hist[-1] is not None:
-                    self.filter.start_filter(self.linked_leds[0].pos_hist[-1], self.linked_leds[1].pos_hist[-1])
+                crit=True
+                for l in self.linked_leds:
+                    crit=crit and (l.pos_hist[-1] is not None)
+                if crit:
+                    if len(self.linked_leds)==2:
+                        self.filter.start_filter(self.linked_leds[0].pos_hist[-1], self.linked_leds[1].pos_hist[-1])
+                    elif len(self.linked_leds)==1:
+                        self.filter.start_filter(self.linked_leds[0].pos_hist[-1], self.linked_leds[0].pos_hist[-1])
                     self.log.debug("start filter")
                     self.filterStarted=True
             else:
                 coords1= self.linked_leds[0].pos_hist[-1]
-                coords2= self.linked_leds[1].pos_hist[-1]
+                #if there are two LEDs
+                if len(self.linked_leds) == 2:
+                    coords2= self.linked_leds[1].pos_hist[-1]
+                #simplest stupid hack: if there is only one LED, it duplicates it for the filter
+                elif len(self.linked_leds) == 1:
+                    coords2 = self.linked_leds[0].pos_hist[-1]
+
                 (estimationMode, coords, theta, sp, movdir, angvel) = self.filter.iterateTracks(coords1, coords2, elapsedtime, self.posGuessing)
 
                 self.add_to_hist(coords, theta, sp, movdir, angvel, elapsedtime)
