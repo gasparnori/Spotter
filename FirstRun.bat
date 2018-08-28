@@ -1,3 +1,4 @@
+echo on
 cd %~dp0/lib/ui/
 call build_windows.bat
 
