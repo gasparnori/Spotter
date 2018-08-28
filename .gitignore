@@ -1,7 +1,8 @@
 #############
 ## project specific
 #############
-
+Makefile
+/docs/old
 test.avi
 /media/img/*.jpg
 *.log

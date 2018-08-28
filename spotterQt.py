@@ -173,6 +173,7 @@ class Main(QtGui.QMainWindow):
         self.timer2.start(SPOTTER_REFRESH_INTERVAL)
 
         self.ui.actionSpeed_up.setChecked(True)
+		self.ui.actionFPS_test.setChecked(True)
 
     @property
     def spotter(self):
