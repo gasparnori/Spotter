@@ -6,6 +6,7 @@ test.avi
 /media/img/*.jpg
 *.log
 *.p
+*.avi
 
 #############
 ## Python
