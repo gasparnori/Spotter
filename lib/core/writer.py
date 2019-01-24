@@ -46,7 +46,7 @@ class Logger:
     def __init__(self, *args, **kwargs):
         logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         self.log = logging.getLogger(__name__)
-        self.log.info('Starting loop with size %s', str(size))
+        #self.log.info('Starting loop with size %s', str(size))
 
     def start(self, parameters):  # dst=None, size=None
         if len(parameters) >= 1:
@@ -98,7 +98,8 @@ class Writer:
         self.log.info('Starting loop with size %s', str(size))
         self.loop()
 
-    def start(self, parameters):  # dst=None, size=None
+    def start(self, parameters):
+        print ("start: doesn't even enter here??")# dst=None, size=None
         if len(parameters) >= 1:
             size = parameters[1]
             if size is None:
@@ -140,6 +141,7 @@ class Writer:
         self.recording = True
 
     def stop(self):
+        print ("stop: doesn't even enter here??")
         self.destination = None
         if self.video_logger is not None:
             for handle in self.video_logger.handlers:
@@ -231,6 +233,7 @@ class Writer:
     def close(self):
         self.log.debug('Closing writer')
         if self.writer is not None:
+            #self.queue.empty()
             del self.writer
             self.writer = None
 

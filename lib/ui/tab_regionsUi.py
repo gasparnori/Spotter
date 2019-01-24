@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'tab_regionsUi.ui'
 #
-# Created: Tue Aug 28 10:36:50 2018
+# Created: Thu Jan 24 13:08:13 2019
 #      by: PyQt4 UI code generator 4.10
 #
 # WARNING! All changes made in this file will be lost!

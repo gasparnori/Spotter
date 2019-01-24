@@ -42,7 +42,7 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
 
         self.connect(self.ckb_track, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
         self.connect(self.ckb_trace, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
-        self.connect(self.ckb_analog_pos, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
+        #self.connect(self.ckb_analog_pos, QtCore.SIGNAL('stateChanged(int)'), self.update_object)
        # self.connect(self.ckb_fixedDist, QtCore.SIGNAL('stateChanged(int)'), self.fixed_dist)
         self.connect(self.ckb_FilterEnable, QtCore.SIGNAL('stateChanged(int)'), self.enable_filter)
         self.connect(self.ckb_PosEst, QtCore.SIGNAL('stateChanged(int)'), self.enable_posestimation)
@@ -50,6 +50,7 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
         #self.btn_measureDist.setEnabled(False)
         self.ckb_PosEst.setEnabled(False)
         self.ckb_FilterEnable.setEnabled(False)
+        self.ckb_analog_pos.setVisible(False)
 
         #self.progressDist.setVisible(False)
         #self.progressDist.setMaximum(100)
@@ -132,8 +133,8 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
         if not self.ckb_track.isChecked() == self.object.tracked:
             self.ckb_track.setChecked(self.object.tracked)
 
-        if not self.ckb_analog_pos.isChecked() == self.object.analog_pos:
-            self.ckb_analog_pos.setChecked(self.object.analog_pos)
+        #if not self.ckb_analog_pos.isChecked() == self.object.analog_pos:
+        #    self.ckb_analog_pos.setChecked(self.object.analog_pos)
 
         self.lbl_x.setText('---   ' if self.object.getPositionX() is None else " %.0f px   " % self.object.getPositionX())
         self.lbl_y.setText('---   ' if self.object.getPositionY() is None else " %.0f px   " % self.object.getPositionY())
@@ -153,7 +154,7 @@ class Tab(QtGui.QWidget, Ui_tab_objects):
         #self.object.guessing_enabled = self.ckb_guessing.isChecked()
         self.object.tracked = self.ckb_track.isChecked()
         self.object.traced = self.ckb_trace.isChecked()
-        self.object.analog_pos = self.ckb_analog_pos.isChecked()
+        #self.object.analog_pos = self.ckb_analog_pos.isChecked()
 
     def process_event(self, event):
         pass
