@@ -43,7 +43,7 @@ from PyQt4 import QtCore
 import datalog
 
 timings_filename = 'tracking_3LEDs.p'
-
+DATALOG_TIMEOUT= 20 ###change this to increase/reduce data log frequency
 
 class Spotter:
 
@@ -68,7 +68,10 @@ class Spotter:
     recording = False
     GUI_off=False
     FPStest=False
-    datalogging=False
+
+    datalogging=False   #boolean that is True when there is a data logger file written
+    datalog_counter=DATALOG_TIMEOUT #this should be used to reduce the frequency of the outputs
+
     active_shape_type='rectangle' # whichever shape was chosen to draw  on the screen (connects between TabRegions and GLFrame)
 
     #scale_resize = 0.5
@@ -175,17 +178,12 @@ class Spotter:
                                            str(o.label),
                                            str(o.position)]))
                 #print o.linked_slots
-            logobjects.append([self.newest_frame.time_text,[(str(o.label), str(o.getPositionX()),
-                               str(o.getPositionY()), str(o.getSpeed()), str(o.getOrientation()),
-                               str(o.getPositionY()), str(o.getSpeed()), str(o.getOrientation()),
-                               [(str(l.label), str(l.position)) for l in o.getLinkedLEDs()]) for o in self.tracker.oois]])
-
             for l in self.tracker.leds:
                 messages.append('\t'.join([self.newest_frame.time_text,
                                            #str(self.newest_frame.tickstamp),
                                            str(l.label),
                                            str(l.position)]))
-            #print logobjects
+
             # Check Object-Region collisions
             for r in self.tracker.rois:
                 r.update_slots(self.chatter)
@@ -195,7 +193,19 @@ class Spotter:
 
             #if logging enabled, it adds a line in the log
             if self.datalogging==True:
-                self.dlogger.update(slots, logobjects)
+                if self.datalog_counter == 0:
+                    self.datalog_counter = DATALOG_TIMEOUT
+                    logobjects.append([self.newest_frame.time_text, [(str(o.label), str(o.getPositionX()),
+                                                      str(o.getPositionY()), str(o.getSpeed()),
+                                                      str(o.getOrientation()),
+                                                      str(o.getPositionY()), str(o.getSpeed()),
+                                                      str(o.getOrientation()),
+                                                      [(str(l.label), str(l.position)) for l in
+                                                       o.getLinkedLEDs()]) for o in self.tracker.oois]])
+                    self.dlogger.update(slots, logobjects)
+                    print ('logging')
+                else:
+                    self.datalog_counter=self.datalog_counter-1
 
             # Check on writer process to prevent data loss and preserve reference
             if self.check_writer():
@@ -206,7 +216,7 @@ class Spotter:
 #               time.sleep(0.001)  # required, or may crash?
 
         # FIXME: Blocks if buffer runs full when writer crashes/closes
-        #self.writer_pipe.send(['alive'])
+        self.writer_pipe.send(['alive'])
         return self.newest_frame
 
     @property

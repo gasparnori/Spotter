@@ -36,6 +36,7 @@ from lib.docopt import docopt
 
 OVERWRITE = False
 #seconds till writer process times out after having received last alive packet
+
 STILL_ALIVE_TIMEOUT = 10
 
 class Logger:
@@ -185,6 +186,7 @@ class Writer:
             # Process should terminate if not being talked to for a while
             #self.log.debug("Alive signal timeout: %s", str(time.clock() - self.ts_last))
             if time.clock() - self.ts_last > STILL_ALIVE_TIMEOUT:
+                print "wtfffffffffffffffffff"
                 self.log.error("Alive signal timed out")
                 self.close()
                 sys.exit(0)
@@ -232,6 +234,7 @@ class Writer:
 
     def close(self):
         self.log.debug('Closing writer')
+        print ("closing works?")
         if self.writer is not None:
             #self.queue.empty()
             del self.writer
