@@ -1,4 +1,5 @@
 Spotter v1.1 : LED based real-time video tracking software (and hardware) system for behavioural experiments developed by Nora Gaspar
+DOI: 10.5281/zenodo.10410729
 
 ===============================
 
